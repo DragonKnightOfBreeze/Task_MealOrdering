@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--c3p0的数据库配置文件-->
+<c3p0-config>
+    <default-config>
+        <property name="user">Windea</property>
+        <property name="password">BreezesLanding</property>
+        <property name="driverClass">com.mysql.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/mealordering</property>
+    </default-config>
+</c3p0-config>

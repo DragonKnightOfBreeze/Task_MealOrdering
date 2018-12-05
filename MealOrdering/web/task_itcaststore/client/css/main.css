@@ -1,0 +1,375 @@
+.main {
+	margin: 0 0 30px 0;
+	padding: 0 0 0 0;
+	background: #FFFFFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 150%;
+	color: #000000; /*#666666*/
+	text-align: center;
+	vertical-align: top;
+}
+a {
+	font-size: 12px;
+	color: #0066FF; /*#1E33F7*/
+}
+a:link {
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #0066FF;
+}
+a:hover {
+	text-decoration: none;
+	color: #990099; /*颜色变换*/
+}
+a:active {
+	text-decoration: none;
+	color: #0066FF;
+}
+td {
+	vertical-align: top;
+	text-align: left;
+	font-size: 12px;
+}
+hr {
+	color: #CCCCCC;
+	height: 1px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 0;
+	overflow: hidden;
+}
+h1 {
+	font-size: 14px;
+	color: #000000;
+	text-align: left;
+	margin-bottom: 5px;
+	font-weight: bold;
+	display: inline;
+}
+.book-name {
+	font-size: 16px;
+	color: #194105;
+	text-align: left;
+	margin-bottom: 5px;
+	display: inline;
+}
+#div-head {
+	width: 100%;
+}
+.head-table {
+	width: 100%;
+}
+.head-table td {
+	padding: 10px 50px 25px 135px;
+}
+#div-menu {
+	width: 100%;
+	border-top: 4px solid #b4d76d;
+	background-color: #000000;
+	text-align: center;
+	padding: 10px 0 10px 0;
+	font-size: 14px;
+}
+#div-menu a {
+	font-size: 14px;
+	color: #FFFFFF; /*#1E33F7*/
+	font-weight: bold;
+	padding: 10px 10px 10px 10px;
+}
+#div-menu a:link {
+	text-decoration: none;
+	font-weight: bold;
+}
+#div-menu a:visited {
+	text-decoration: none;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+#div-menu a:hover {
+	text-decoration: none;
+	color: #999999; /*颜色变换*/
+	font-weight: bold;
+}
+#div-menu a:active {
+	text-decoration: none;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+#div-search {
+	width: 100%;
+	background-color: #f59f1d;
+	text-align: center;
+	padding: 5px 0 5px 0;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+#div_ad {
+	width: 900px;
+	MARGIN-RIGHT: auto;
+	MARGIN-LEFT: auto;
+}
+#div-content {
+	width: 900px;
+	background-color: #FCFDEF;
+	border: 1px solid #EEEDDB;
+	MARGIN-RIGHT: auto;
+	MARGIN-LEFT: auto;
+}
+#div-page-content {
+	width: 900px;
+	margin-top: 10px;
+	MARGIN-RIGHT: auto;
+	MARGIN-LEFT: auto;
+}
+.list-title {
+	padding: 5px 0 5px 5px;
+	border-bottom: 2px solid #CCCCCC;
+	font-size: 14px;
+	font-weight: bold;
+	color: #1C3F09;
+}
+.list-td {
+	padding: 5px 0 5px 30px;
+	border-bottom: 1px solid #CCCCCC;
+}
+.list-content {
+	background-color: #FCFDEF;
+	border: 1px solid #CCCCCC;
+	margin-left: 5px;
+	width: 99%;
+}
+.list-content td {
+	padding: 20px;
+}
+.info-content {
+	border-collapse: collapse;
+	background-color: #FCFDEF;
+	border: 1px solid #CCCCCC;
+	margin-left: 5px;
+	width: 99%;
+}
+.info-content td {
+	padding: 5px;
+}
+.book-list {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+.book-list td {
+	/* text-align: center; */
+	width: 25%;
+	margin: 0;
+	padding: 10px 0 10px 40px;
+}
+.div-book-pic {
+	width: 131px;
+	height: 145px;
+	border: 1px solid #CCCCCC;
+	background-color: #FFFFFF;
+	margin-bottom: 8px;
+	overflow: hidden;
+	display: table-cell;
+	position: relative;
+	text-align: center;
+	vertical-align: middle;
+}
+.div-book-pic img {
+	top: 5%;
+}
+.div-bookcover {
+	width: 300px;
+	height: 300px;
+	border: 3px solid #F3F2DE;
+	background-color: #FFFFFF;
+	margin: 8px;
+	overflow: hidden;
+	position: relative;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+.div-bookcover img {
+	position: relative;
+	top: 5%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.div-list-title {
+	line-height: 120%;
+	text-align: left;
+}
+#div-foot {
+	width: 100%;
+	clear: both;
+	background-color: #efefef;
+	margin-top: 15px;
+}
+.ctl {
+	width: 490px;
+	margin-top: 2px;
+	margin-left: 2px;
+	table-layout: fixed;
+}
+.ctl td {
+	text-align: left;
+	/* 	text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap; */
+	padding: 3px;
+}
+.input-table {
+	width: 130px;
+	height: 18px;
+	border: 1px solid #999999;
+}
+.input-button {
+	color: #000000;
+	background-color: #FFFFFF;
+	padding: 1px;
+	border: 1px solid #999999;
+}
+/*分页*/
+.pagination {
+	padding: 5px;
+	width: 790px;
+	margin: 5px auto;
+	text-align: center;
+}
+.pagination ul {
+	width: 270px;
+	margin: 5px auto;
+	padding: 5px;
+	font-size: 12px;
+}
+.pagination li {
+	list-style-type: none;
+	float: left;
+	padding: 1px;
+	margin: 1px;
+}
+.pagination a, .pagination a:visited {
+	padding: 5px;
+	border: 1px solid #9aafe5;
+	text-decoration: none;
+	color: #2e6ab1;
+}
+.pagination li.current-page {
+	font-weight: bold;
+	padding: 5px;
+	border: 1px solid navy;
+	background-color: #2e6ab1;
+	color: #FFF;
+}
+.disable-page_a {
+	display: block;
+	width: 75px;
+	height: 15px;
+}
+.disable-page_a:link, .disable-page_a:visited {
+!important;
+	padding: 0;
+	border: 0;
+}
+.disable-page_a:hover {
+!important;
+	padding: 0;
+	border: 0;
+	background: none;
+}
+.pagination li.disable-page_p {
+	width: 75px;
+	height: 15px;
+	padding: 5px;
+	color: #929292;
+	background: url(../images/previous_page.png) no-repeat center center;
+}
+.pagination li.disable-page_p2 {
+	width: 75px;
+	height: 15px;
+	padding: 5px;
+	color: #929292;
+	background: url(../images/previous_page2.png) no-repeat center center;
+}
+.pagination li.disable-page_n {
+	width: 75px;
+	height: 15px;
+	padding: 5px;
+	color: #929292;
+	background: url(../images/next_page.png) no-repeat center center;
+}
+.pagination li.disable-page_n2 {
+	width: 75px;
+	height: 15px;
+	padding: 5px;
+	color: #929292;
+	background: url(../images/next_page2.png) no-repeat center center;
+}
+.pagination li.next-page {
+	font-weight: bold;
+	padding: 5px;
+}
+/*分页*/
+.upline {
+	border-bottom: 1px dashed #B0BEC7;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin: 20px;
+}
+.textInput {
+	margin-left: 10px;
+	font-size: 12px;
+	width: 150px;
+	height: 18px;
+	border: 1px solid #A4B5BD;
+}
+.textarea {
+	margin-left: 10px;
+	font-size: 12px;
+	width: 350px;
+	height: 75px;
+	border: 1px solid #A4B5BD;
+}
+#login-div {
+	width: 305px;
+	height: 361px;
+	background: url(../images/loginbg.gif) no-repeat;
+	margin: 20px;
+}
+.cart-table {
+	border: 1px solid #CCCCCC;
+	width: 100%;
+	background-color: #E1FFE1;
+	border-spacing: 1px;
+}
+.table-open {
+	text-align: center;
+}
+.table-open-td01 {
+	text-align: center;
+	border: 1px solid #FFFFFF;
++ padding: 3 px;
+	color: #FFFFFF;
+}
+.table-open-td02 {
+	text-align: center;
+	padding: 3px;
+	border: 1px none #C5E0E2;
+	border-right-style: solid;
+	border-bottom-style: solid;
+}
+.table-open-td03 {
+	text-align: center;
+	padding: 3px;
+	border: 1px none #C5E0E2;
+	border-bottom-style: solid;
+}
+.search-table {
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	border: 1px solid #CCCCCC;
+}

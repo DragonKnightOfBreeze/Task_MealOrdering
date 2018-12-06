@@ -3,7 +3,6 @@ package mealordering.dao;
 import mealordering.domain.Meal;
 import mealordering.domain.Order;
 import mealordering.domain.OrderItem;
-import mealordering.domain.annotations.Permission;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.jetbrains.annotations.NotNull;
@@ -16,11 +15,12 @@ import java.util.List;
  * 订单物品的Dao类
  */
 public class OrderItemDao {
+	OrderItemDao() {
+	}
 
 	/**
 	 * 添加订单物品。
 	 */
-	@Permission(Permission.P.Client)
 	public void doAdd(@NotNull Order order) throws SQLException {
 		String sql = "insert into OrderItem(order_id,meal_id,buyCount)" +
 				" value(?,?,?)";
@@ -36,11 +36,10 @@ public class OrderItemDao {
 	}
 
 	/**
-	 * 删除订单物品。
+	 * 根据Id删除订单物品。
 	 */
-	@Permission(Permission.P.Client)
-	public void doDelete(@NotNull String id) throws SQLException {
-		String sql = "delete from OrderItem where order_id=?";
+	public void doDeleteById(@NotNull String id) throws SQLException {
+		String sql = "doDeleteById from OrderItem where order_id=?";
 		QueryRunner runner = new QueryRunner();
 		runner.update(DataSourceUtils.getConnection(), sql, id);
 	}
@@ -48,7 +47,6 @@ public class OrderItemDao {
 	/**
 	 * 根据订单查询订单物品，包括对应的餐品。
 	 */
-	@Permission(Permission.P.Client)
 	public List<OrderItem> findByOrder(@NotNull final Order order) throws SQLException {
 		String sql = "select * from OrderItem,Meal" +
 				" where Meal.id=OrderItem.product_id and OrderItem.order_id=?";

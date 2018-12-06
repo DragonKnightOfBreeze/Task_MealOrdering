@@ -1,9 +1,12 @@
 package mealordering.domain;
 
+import java.io.Serializable;
+
 /**
  * 订单物品的实体类
  */
-public class OrderItem {
+public class OrderItem implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	/** 所属订单 */
 	private Order order;

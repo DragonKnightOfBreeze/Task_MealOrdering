@@ -1,7 +1,8 @@
 package mealordering.dao;
 
+import dk_breeze.utils.ext.StringExt;
 import mealordering.domain.Meal;
-import mealordering.domain.annotations.Permission;
+import mealordering.domain.OrderItem;
 import mealordering.domain.enums.EMeal_Category;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
@@ -11,21 +12,25 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import task_itcaststore.utils.ext.StringExt;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.IntFunction;
 
 /**
  * 餐品的Dao类
  */
 public class MealDao {
+
+	MealDao() {
+	}
+
 	/**
 	 * 添加餐品。
+	 * @param meal 餐品信息
 	 */
-	@Permission(Permission.P.Admin)
 	public void doAdd(@NotNull Meal meal) throws SQLException {
 		String sql = "insert into Meal(id,name,price,category,imgUrl,description,count,soldCount)" +
 				" value(?,?,?,?,?,?,?,?)";
@@ -34,16 +39,16 @@ public class MealDao {
 	}
 
 	/**
-	 * 编辑商品信息，区分有无图片的情况。
+	 * 编辑餐品信息，区分有无图片的情况。
+	 * @param meal 餐品信息
 	 */
-	@Permission(Permission.P.Admin)
 	public void doEdit(@NotNull Meal meal) throws SQLException {
 		String sql = "update Meal set name=?,price=?,category=?,count=?,description=? ";
 		List<Object> params = new ArrayList<>();
 		Collections.addAll(params,
 				meal.getName(), meal.getPrice(), meal.getCategory(), meal.getCount(), meal.getDescription()
 		);
-		if (!StringExt.isSpace(meal.getImgUrl())) {
+		if(!StringExt.isSpace(meal.getImgUrl())) {
 			sql += ",imgUrl=?";
 			params.add(meal.getImgUrl());
 		}
@@ -54,10 +59,11 @@ public class MealDao {
 	}
 
 	/**
-	 * 根据Id删除商品。
+	 * 根据Id删除餐品。
+	 * @param id 餐品Id
 	 */
-	public void doDelete(@NotNull String id) throws SQLException {
-		String sql = "delete from Meal where id=?";
+	public void doDeleteById(@NotNull String id) throws SQLException {
+		String sql = "doDeleteById from Meal where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(sql, id);
 	}
@@ -65,8 +71,8 @@ public class MealDao {
 
 	/**
 	 * 根据Id查询餐品。
+	 * @param id 餐品Id
 	 */
-	@Permission(Permission.P.All)
 	public Meal findById(@NotNull String id) throws SQLException {
 		String sql = "select * from Meal where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
@@ -76,24 +82,23 @@ public class MealDao {
 	/**
 	 * 多条件查询餐品。
 	 */
-	@Permission(Permission.P.All)
 	public List<Meal> findByConditions(@Nullable String id, @Nullable String name, @Nullable String category, @Nullable String minPrice, @Nullable String maxPrice) throws SQLException {
 		String sql = "select * from Meal where 1=1";
 		List<Object> params = new ArrayList<>();
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		if (!StringExt.isSpace(id)) {
+		if(!StringExt.isSpace(id)) {
 			sql += " and id=? ";
 			params.add(id);
 		}
-		if (!StringExt.isSpace(name)) {
+		if(!StringExt.isSpace(name)) {
 			sql += " and name=? ";
 			params.add(name);
 		}
-		if (!StringExt.isSpace(category)) {
+		if(!StringExt.isSpace(category)) {
 			sql += " and category=? ";
 			params.add(category);
 		}
-		if (!StringExt.isSpace(minPrice) && !StringExt.isSpace(maxPrice)) {
+		if(!StringExt.isSpace(minPrice) && !StringExt.isSpace(maxPrice)) {
 			sql += " and price between ? and ? ";
 			params.add(minPrice);
 			params.add(maxPrice);
@@ -102,51 +107,34 @@ public class MealDao {
 	}
 
 	/**
-	 * 查询所有餐品，可选分类。
+	 * 根据分类查询餐品，分页显示。
+	 * @param category 餐品分类
 	 */
-	@Permission(Permission.P.All)
-	public List<Meal> findAllWithCategory(@Nullable String category) throws SQLException {
+	public List<Meal> findByCategoryInPage(@Nullable String category, int pageIndex, int count) throws SQLException {
 		String sql = "select * from Meal where 1=1";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		if (StringExt.isSpace(category) || StringExt.equalsE(category, EMeal_Category.Default)) {
-			return runner.query(sql, new BeanListHandler<>(Meal.class));
+		if(StringExt.isSpace(category) || StringExt.equalsE(category, EMeal_Category.Default)) {
+			sql += " limit ?,?";
+			return runner.query(sql, new BeanListHandler<>(Meal.class), (pageIndex - 1) * count, count);
 		} else {
-			sql += " and category=?";
-			return runner.query(sql, new BeanListHandler<>(Meal.class), category);
+			sql += " and category=? limit ?,?";
+			return runner.query(sql, new BeanListHandler<>(Meal.class), category, (pageIndex - 1) * count, count);
 		}
 	}
 
-//	/**
-//	 * 查询所有餐品，分页显示，可选分类。
-//	 */
-//	@Permission(Permission.P.All)
-//	public List<Meal> findAllInPage(int pageIndex, int count, @NotNull String category) throws SQLException {
-//		String sql = "select * from Meal where 1=1";
-//		Object[] params;
-//		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-//		if (StringExt.equalsE(category, EMeal_Category.Default)) {
-//			sql += "limit ?,?";
-//			params = new Object[]{(pageIndex - 1) * count, count};
-//		} else {
-//			sql += " and category=? limit ?,?";
-//			params = new Object[]{category, (pageIndex - 1) * count, count};
-//		}
-//		return runner.query(sql, new BeanListHandler<>(Meal.class), params);
-//	}
-
 
 	/**
-	 * 得到餐品总数，可选分类。
+	 * 得到根据分类查询所查询到的餐品数量。
+	 * @param category 餐品分类
 	 */
-	@Permission(Permission.P.Basic)
-	public int getTotalCountWithCategory(@Nullable String category) throws SQLException {
-		String sql = "select count(*) from Meal";
+	public int findByCategoryGetCount(@Nullable String category) throws SQLException {
+		String sql = "select count(*) from Meal where 1=1";
 		Long count;
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		if (StringExt.isSpace(category) || StringExt.equalsE(category, EMeal_Category.Default)) {
+		if(StringExt.isSpace(category) || StringExt.equalsE(category, EMeal_Category.Default)) {
 			count = runner.query(sql, new ScalarHandler<>());
 		} else {
-			sql += " where category=?";
+			sql += " and category=?";
 			count = runner.query(sql, new ScalarHandler<>(), category);
 		}
 		return count.intValue();
@@ -155,8 +143,9 @@ public class MealDao {
 
 	/**
 	 * 得到销售榜单。
+	 * @param year 年
+	 * @param month 月
 	 */
-	@Permission(Permission.P.View)
 	public List<Object[]> getSalesList(@NotNull String year, @NotNull String month) throws SQLException {
 		String sql = "select Meal.name,sum(OrderItem.buyCount) salesCount" +
 				" from Order,Meal,OrderItem" +
@@ -170,9 +159,8 @@ public class MealDao {
 
 	/**
 	 * 得到指定数量的本周热销商品。
-	 * @param count 得到的数量
+	 * @param count 要得到的数量
 	 */
-	@Permission(Permission.P.View)
 	public List<Object[]> getWeekHotProducts(int count) throws SQLException {
 		String sql = "select Meal.id,Meal.name,Meal.imgUrl,sum(OrderItem.buyCount) salesCount" +
 				" from OrderItem,Order,Meal" +
@@ -186,25 +174,38 @@ public class MealDao {
 	}
 
 	/**
-	 * 根据餐品名字进行模糊查询。
+	 * 根据餐品名字进行模糊查询，分页显示。
+	 * @param pageIndex 页面索引
+	 * @param count 每页条数
+	 * @param searchField 搜索域
 	 */
-	@Permission(Permission.P.View)
-	public List<Meal> searchByName(@NotNull String searchField) throws SQLException {
-		String sql = "select * from Meal where name like '%" + searchField + "%'";
-
+	public List<Meal> searchByNameInPage(@NotNull String searchField, int pageIndex, int count) throws SQLException {
+		String sql = "select * from Meal where name like '%" + searchField + "%' limit ?,?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		return runner.query(sql, new BeanListHandler<>(Meal.class));
+		return runner.query(sql, new BeanListHandler<>(Meal.class), (pageIndex - 1) * count, count);
 	}
 
+	/**
+	 * 得到模糊查询所查询到的餐品数量。
+	 */
+	public int searchByNameGetCount(@NotNull String searchField) throws SQLException {
+		var sql = "select count(*) from Meal where name like '%" + searchField + "%'";
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		return runner.query(sql, new ScalarHandler<>());
+	}
 
 	/**
-	 * 根据餐品名字进行模糊查询，分页显示。
+	 * 更新餐品库存数量。
+	 * @param count 计算库存数量的Lambda
 	 */
-	@Permission(Permission.P.View)
-	public List<Meal> searchByNameInPage(int pageIndex, int count, @NotNull String searchField) throws SQLException {
-		String sql = "select * from Meal where name like '%" + searchField + "%' limit ?,?";
-
-		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		return runner.query(sql, new BeanListHandler<>(Meal.class), pageIndex - 1, count);
+	public void updateMealCount(@NotNull List<OrderItem> itemList, IntFunction<Integer> count) throws SQLException {
+		String sql = "update Meal set count=count+? where id=?";
+		QueryRunner runner = new QueryRunner();
+		Object[][] params = new Object[itemList.size()][2];
+		for(int i = 0; i < params.length; i++) {
+			params[i][0] = itemList.get(i).getBuyCount();
+			params[i][1] = itemList.get(i).getMeal().getId();
+		}
+		runner.batch(DataSourceUtils.getConnection(), sql, params);
 	}
 }

@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * 删除订单
  */
-@WebServlet(name = "DelOrderByIdServlet", urlPatterns = {"/doCancel"})
+@WebServlet(name = "DelOrderByIdServlet", urlPatterns = {"/doDeleteById"})
 public class DelOrderByIdServlet extends HttpServlet {
 	private static final long serialVersionUID = -742965707205621644L;
 

@@ -2,10 +2,10 @@ package mealordering.dao;
 
 import dk_breeze.exception.ToDoException;
 import mealordering.domain.User;
-import mealordering.domain.annotations.Permission;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
@@ -16,10 +16,13 @@ import java.util.List;
  * 用户的Dao类
  */
 public class UserDao {
+
+	UserDao() {
+	}
+
 	/**
 	 * 注册用户。
 	 */
-	@Permission(Permission.P.All)
 	public void doRegister(@NotNull User user) throws SQLException {
 		String sql = "insert into User(userName,password,gender,email,phoneNum,introduce,activeCode)" +
 				" value(?,?,?,?,?,?,?)";
@@ -35,7 +38,6 @@ public class UserDao {
 	/**
 	 * 激活用户。
 	 */
-	@Permission(Permission.P.All)
 	public void doActive(@NotNull String activeCode) throws SQLException {
 		String sql = "update User set activeState=? where activeCode=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
@@ -48,7 +50,6 @@ public class UserDao {
 	/**
 	 * 编辑用户信息。
 	 */
-	@Permission(Permission.P.All)
 	public void doEdit(@NotNull User user) throws SQLException {
 		String sql = "update User set userName=?,password=?,gender=?,email=?,phoneNum=?,introduce=? where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
@@ -62,11 +63,10 @@ public class UserDao {
 	}
 
 	/**
-	 * 根据用户Id删除用户信息。
+	 * 根据删除用户。
 	 */
-	@Permission(Permission.P.Admin)
-	public void doDelete(int id) throws SQLException {
-		String sql = "delete from User where id=?";
+	public void doDeleteById(int id) throws SQLException {
+		String sql = "doDeleteById from User where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		int row = runner.update(sql, id);
 		if (row == 0)
@@ -77,7 +77,6 @@ public class UserDao {
 	/**
 	 * 根据用户名和密码登录用户。
 	 */
-	@Permission(Permission.P.All)
 	public User loginByUserNameAndPassword(@NotNull String userName, @NotNull String password) throws SQLException {
 		String sql = "select * from User where userName=? and password=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
@@ -87,7 +86,6 @@ public class UserDao {
 	/**
 	 * 根据用户邮箱和密码登录用户。
 	 */
-	@Permission(Permission.P.All)
 	public User loginByEmailAndPassword(@NotNull String email, @NotNull String password) throws SQLException {
 		String sql = "select * from User where email=? and password=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
@@ -97,7 +95,6 @@ public class UserDao {
 	/**
 	 * TODO 根据用户手机号码和验证码登录用户。
 	 */
-	@Permission(Permission.P.All)
 	public User loginByPhoneNumAndCheckCode(int phoneNum) {
 		throw new ToDoException();
 	}
@@ -105,7 +102,6 @@ public class UserDao {
 	/**
 	 * 根据用户Id查询用户。
 	 */
-	@Permission(Permission.P.Basic)
 	public User findById(int id) throws SQLException {
 		String sql = "select * from User where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
@@ -115,7 +111,6 @@ public class UserDao {
 	/**
 	 * 根据用户名称查询用户。
 	 */
-	@Permission(Permission.P.All)
 	public User findByUserName(@NotNull String userName) throws SQLException {
 		String sql = "select * from User where userName=?";
 
@@ -126,7 +121,6 @@ public class UserDao {
 	/**
 	 * 根据激活码查询用户。
 	 */
-	@Permission(Permission.P.Basic)
 	public User findByActiveCode(@NotNull String activeCode) throws SQLException {
 		String sql = "select * from User where activeCode=?";
 
@@ -137,7 +131,6 @@ public class UserDao {
 	/**
 	 * 查询所有用户。
 	 */
-	@Permission(Permission.P.Admin)
 	public List<User> findAll() throws SQLException {
 		String sql = "select id,userName,gender,email,phoneNum,type,activeState,registerTime from User";
 
@@ -158,6 +151,18 @@ public class UserDao {
 			}
 			return userList;
 		});
+	}
+
+
+	/**
+	 * 根据用户名进行模糊查询。
+	 * @param searchField 搜索域
+	 */
+	public List<User> searchByUserName(@NotNull String searchField) throws SQLException {
+		String sql = "select * from User where userName like '%" + searchField + "%'";
+
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		return runner.query(sql, new BeanListHandler<>(User.class), searchField);
 	}
 
 

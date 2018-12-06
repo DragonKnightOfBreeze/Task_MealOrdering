@@ -1,5 +1,5 @@
 * src
-	* .dao：						与数据库进行交互的类
+	* .orderDao：						与数据库进行交互的类
 		* DaoFactory.java：			Dao的工厂类
 	* .domain：					实体类
 	* .exceptions：				自定义异常

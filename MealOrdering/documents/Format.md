@@ -1,5 +1,5 @@
 * JavaBean：src/.domain/Xxx.java
-* Dao：src/.dao/XxxDao.java
+* Dao：src/.orderDao/XxxDao.java
 * Service：src/.service/XxxService.java
 * Servlet：src/.web/servlet/xxx/XxxServlet.java
 * Filter：src/.web/filter/XxxFilter.java

@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Permission {
 	enum P {
-		Client, Admin, All, Basic, View
+		Client, Admin, All, System, View
 	}
 
 	P value() default P.Client;

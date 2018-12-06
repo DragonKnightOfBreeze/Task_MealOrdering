@@ -37,7 +37,7 @@ public class FindProductByIdServlet extends HttpServlet {
 			if (StringExt.equalsE(type, EUserType.Admin)) {
 				//如果是超级用户，则调用service层方法，根据id查找商品
 				request.setAttribute("product", product);
-				request.getRequestDispatcher("/admin/products/edit.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin/products/doEdit.jsp").forward(request, response);
 			} else {
 				//如果是普通用户，则直接跳转到info.jsp页面
 				request.getRequestDispatcher("/client/info.jsp").forward(request, response);

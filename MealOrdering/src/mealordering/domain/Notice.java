@@ -1,9 +1,13 @@
 package mealordering.domain;
 
+import java.io.Serializable;
+
 /**
  * 通知的实体类
  */
-public class Notice {
+public class Notice implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	/** 通知编号 */
 	private int id;
 	/** 通知标题 */

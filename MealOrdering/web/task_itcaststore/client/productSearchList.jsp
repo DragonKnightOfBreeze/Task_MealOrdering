@@ -33,7 +33,7 @@
 
                             <table cellspacing="0" class="book-list">
                                 <tr>
-                                    <c:forEach var="product" items="${pageBean.productList}" varStatus="vs">
+                                    <c:forEach var="product" items="${pageBean.beanList}" varStatus="vs">
                                         <td>
                                             <div class="div-book-pic">
                                                 <p>

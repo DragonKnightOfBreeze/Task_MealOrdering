@@ -17,7 +17,7 @@ alter table Meal comment = '餐品表';
 
 create table Notice
 (
-	id int not null comment '通知编号',
+	id int not null comment '通知编号' PRIMARY KEY ,
 	title varchar(32) default '未命名' null comment '通知标题',
 	details varchar(255) null comment '通知内容',
 	time datetime null comment '通知时间'
@@ -26,7 +26,7 @@ alter table Notice comment '通知表';
 
 create table `Order`
 (
-    id varchar(100) NOT NULL comment '订单编号',
+    id varchar(100) NOT NULL comment '订单编号' PRIMARY KEY ,
     money double COMMENT '订单价格',
     receiverAddress varchar(255) COMMENT '收货地址',
     receiverName varchar(20) COMMENT '收货人姓名',

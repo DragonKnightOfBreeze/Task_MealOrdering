@@ -131,7 +131,7 @@ ALTER TABLE notice COMMENT = '公告栏信息';
 
 * task_itcaststore.web/servlet/client/LoginServlet.java
 * task_itcaststore.service/UserService.java
-* task_itcaststore.dao/UserDao.java
+* task_itcaststore.orderDao/UserDao.java
 &emsp;
 * client/login.jsp
 
@@ -160,6 +160,6 @@ ALTER TABLE notice COMMENT = '公告栏信息';
 ### 公告板和本周热卖功能
 
 * task_itcaststore.web/servlet/client/ShowIndexServlet.java
-* task_itcaststore.dao/???Dao.java
+* task_itcaststore.orderDao/???Dao.java
 &emsp;
 * index.jsp

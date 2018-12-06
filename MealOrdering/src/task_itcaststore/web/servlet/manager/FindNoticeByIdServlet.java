@@ -28,6 +28,6 @@ public class FindNoticeByIdServlet extends HttpServlet {
 		Notice notice = service.findNoticeById(n_id);
 		request.setAttribute("notice", notice);
 
-		request.getRequestDispatcher("/admin/notices/edit.jsp").forward(request, response);
+		request.getRequestDispatcher("/admin/notices/doEdit.jsp").forward(request, response);
 	}
 }

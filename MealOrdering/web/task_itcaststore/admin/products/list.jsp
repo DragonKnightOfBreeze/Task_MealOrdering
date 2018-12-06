@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="product" scope="request" type="task_itcaststore.domain.Product"/>
-<jsp:useBean id="productList" scope="request" type="java.util.List<task_itcaststore.domain.Product>"/>
+<jsp:useBean id="beanList" scope="request" type="java.util.List<task_itcaststore.domain.Product>"/>
 
 <html>
 <head>
@@ -118,7 +118,7 @@
                         <td width="8%" align="center">删除</td>
                     </tr>
                     <!--  循环输出所有商品 -->
-                    <c:forEach var="p" items="${productList}">
+                    <c:forEach var="p" items="${beanList}">
                         <tr onmouseover="this.style.backgroundColor = 'white'"
                             onmouseout="this.style.backgroundColor = '#F5FAFE';">
                             <td style="CURSOR: hand; HEIGHT: 22px" align="center" width="200">${product.id }</td>

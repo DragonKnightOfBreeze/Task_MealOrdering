@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="notice" scope="request" type="task_itcaststore.domain.Notice"/>
-<jsp:useBean id="productList" scope="request" type="java.util.List<task_itcaststore.domain.Notice>"/>
+<jsp:useBean id="beanList" scope="request" type="java.util.List<task_itcaststore.domain.Notice>"/>
 
 <html>
 <head>
@@ -63,7 +63,7 @@
                 </table>
                 <table style="width:100%;border-collapse:collapse">
                     <tr>
-                        <c:forEach var="product" items="${productList}">
+                        <c:forEach var="product" items="${beanList}">
                             <td style="width:80px; text-align:center">
                                 <a href="${pageContext.request.contextPath}/findProductById?id=${product[0]}">
                                     <img src="${pageContext.request.contextPath}${product[2]}" width="102"

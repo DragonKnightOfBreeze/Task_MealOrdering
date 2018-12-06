@@ -1,5 +1,6 @@
 package mealordering.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,7 +8,9 @@ import java.util.List;
 /**
  * 订单的实体类
  */
-public class Order {
+public class Order implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	/** 订单编号 */
 	private String id;
 	/** 订单总价 */

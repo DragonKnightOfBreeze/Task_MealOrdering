@@ -31,13 +31,13 @@
                             <h1>${pageBean.category}</h1>&emsp;共${pageBean.totalCount}种商品
                             <hr/>
                             <div style="margin-top:20px; margin-bottom:5px">
-                                <img src="${pageContext.request.contextPath}/client/images/productList.gif"
+                                <img src="${pageContext.request.contextPath}/client/images/beanList.gif"
                                      width="100%" height="38"/>
                             </div>
 
                             <table cellspacing="0" class="book-list">
                                 <tr>
-                                    <c:forEach var="product" items="${pageBean.productList}" varStatus="vs">
+                                    <c:forEach var="product" items="${pageBean.beanList}" varStatus="vs">
                                         <td>
                                             <div class="div-book-pic">
                                                 <p>

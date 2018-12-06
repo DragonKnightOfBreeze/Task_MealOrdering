@@ -4,8 +4,8 @@ import mealordering.dao.DaoFactory;
 import mealordering.dao.MealDao;
 import mealordering.domain.BeanPage;
 import mealordering.domain.Meal;
+import mealordering.domain.annotations.Permission;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -19,6 +19,7 @@ public class MealService {
 	 * 添加餐品。
 	 * @param meal 餐品信息
 	 */
+	@Permission(Permission.P.Admin)
 	public void doAdd(@NotNull Meal meal) {
 		try {
 			dao.doAdd(meal);
@@ -31,6 +32,7 @@ public class MealService {
 	 * 编辑餐品信息，区分有无图片的情况。
 	 * @param meal 餐品信息
 	 */
+	@Permission(Permission.P.Admin)
 	public void doEdit(@NotNull Meal meal) {
 		try {
 			dao.doEdit(meal);
@@ -43,6 +45,7 @@ public class MealService {
 	 * 根据Id删除餐品。
 	 * @param id 餐品Id
 	 */
+	@Permission(Permission.P.Admin)
 	public void doDeleteById(@NotNull String id) {
 		try {
 			dao.doDeleteById(id);
@@ -56,6 +59,7 @@ public class MealService {
 	 * 根据Id查询餐品。
 	 * @param id 餐品Id
 	 */
+	@Permission(Permission.P.All)
 	public Meal findById(@NotNull String id) {
 		Meal meal = null;
 		try {
@@ -67,16 +71,18 @@ public class MealService {
 	}
 
 	/**
-	 * 多条件查询餐品。
+	 * 多条件查询餐品，分页显示。
 	 */
-	public List<Meal> findByConditions(@Nullable String id, @Nullable String name, @Nullable String category, @Nullable String minPrice, @Nullable String maxPrice) {
-		List<Meal> mealList = null;
+	@Permission(Permission.P.All)
+	public BeanPage<Meal> findByConditionsInPage(@NotNull String id, @NotNull String name, @NotNull String category, @NotNull String minPrice, @NotNull String maxPrice, int pageIndex, int count) {
+		BeanPage<Meal> mealPage = null;
 		try {
-			mealList = dao.findByConditions(id, name, category, minPrice, maxPrice);
+			List<Meal> mealList = dao.findByConditions(id, name, category, minPrice, maxPrice);
+			mealPage = new BeanPage<>(pageIndex, count, mealList);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return mealList;
+		return mealPage;
 	}
 
 
@@ -84,19 +90,12 @@ public class MealService {
 	 * 根据分类查询餐品，分页显示。
 	 * @param category 餐品分类
 	 */
-	public BeanPage<Meal> findByCategoryInPage(@Nullable String category, int pageIndex, int count) {
-		BeanPage<Meal> mealPage = new BeanPage<>(pageIndex, count);
-		mealPage.setCategory(category);
+	@Permission(Permission.P.All)
+	public BeanPage<Meal> findByCategoryInPage(@NotNull String category, int pageIndex, int count) {
+		BeanPage<Meal> mealPage = null;
 		try {
-			//得到总条数
-			int searchedCount = dao.findByCategoryGetCount(category);
-			mealPage.setTotalCount(searchedCount);
-			//得到总页数
-			int pageCount = (int) Math.ceil(searchedCount * 1.0 / count);
-			mealPage.setPageCount(pageCount);
-			//得到满足条件的餐品
-			List<Meal> mealList = dao.findByCategoryInPage(category, pageIndex, count);
-			mealPage.setBeanList(mealList);
+			List<Meal> mealList = dao.findByCategory(category);
+			mealPage = new BeanPage<>(pageIndex, count, mealList);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -104,10 +103,30 @@ public class MealService {
 	}
 
 	/**
+	 * 根据餐品名字进行模糊查询，分页显示。
+	 * @param pageIndex 页面索引
+	 * @param count 每页条数
+	 * @param searchField 搜索域
+	 */
+	@Permission(Permission.P.All)
+	public BeanPage<Meal> searchByNameInPage(@NotNull String searchField, int pageIndex, int count) {
+		BeanPage<Meal> mealPage = null;
+		try {
+			List<Meal> mealList = dao.searchByName(searchField);
+			mealPage = new BeanPage<>(pageIndex, count, mealList);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return  mealPage;
+	}
+
+
+	/**
 	 * 得到销售榜单。
 	 * @param year 年
 	 * @param month 月
 	 */
+	@Permission(Permission.P.Admin)
 	public List<Object[]> getSalesList(@NotNull String year, @NotNull String month) {
 		List<Object[]> list = null;
 		try {
@@ -123,6 +142,7 @@ public class MealService {
 	 * 得到指定数量的本周热销商品。
 	 * @param count 要得到的数量
 	 */
+	@Permission(Permission.P.All)
 	public List<Object[]> getWeekHotMeals(int count) {
 		List<Object[]> list = null;
 		try {
@@ -132,32 +152,4 @@ public class MealService {
 		}
 		return list;
 	}
-
-
-	/**
-	 * 根据餐品名字进行模糊查询，分页显示。
-	 * @param pageIndex 页面索引
-	 * @param count 每页条数
-	 * @param searchField 搜索域
-	 */
-	public BeanPage<Meal> searchByNameInPage(@NotNull String searchField, int pageIndex, int count) {
-		BeanPage<Meal> mealPage = new BeanPage<>(pageIndex, count);
-		mealPage.setSearchField(searchField);
-		try {
-			//得到总条数
-			int searchedCount = dao.searchByNameGetCount(searchField);
-			mealPage.setTotalCount(searchedCount);
-			//得到总页数
-			int pageCount = (int) Math.ceil(searchedCount * 1.0 / count);
-			mealPage.setPageCount(pageCount);
-			//得到满足条件的餐品
-			List<Meal> mealList = dao.searchByNameInPage(searchField, pageIndex, count);
-			mealPage.setBeanList(mealList);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return mealPage;
-	}
-
-
 }

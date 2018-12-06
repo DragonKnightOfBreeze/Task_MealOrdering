@@ -2,6 +2,7 @@ package mealordering.service;
 
 import mealordering.dao.DaoFactory;
 import mealordering.dao.NoticeDao;
+import mealordering.domain.BeanPage;
 import mealordering.domain.Notice;
 import mealordering.domain.annotations.Permission;
 import org.jetbrains.annotations.NotNull;
@@ -69,13 +70,28 @@ public class NoticeService {
 	}
 
 	/**
-	 * 查询所有公告，按照时间降序排列。
+	 * 查询所有公告，按照时间降序排列，分页显示。
 	 */
 	@Permission(Permission.P.All)
-	public List<Notice> findAll(int pageIndex, int count) {
-		List<Notice> notice = null;
+	public BeanPage<Notice> findAllInPage(int pageIndex, int count) {
+		BeanPage<Notice> noticePage = null;
 		try {
-			notice = dao.findAll();
+			List<Notice> noticeList = dao.findAll();
+			noticePage = new BeanPage<>(pageIndex, count, noticeList);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return noticePage;
+	}
+
+	/**
+	 * 查询指定数量的最近添加或修改的公告。
+	 */
+	@Permission(Permission.P.All)
+	public Notice findRecent(int count) {
+		Notice notice = null;
+		try {
+			notice = dao.findRecent(count);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

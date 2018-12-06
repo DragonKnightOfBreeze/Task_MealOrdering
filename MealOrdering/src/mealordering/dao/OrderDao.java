@@ -22,7 +22,7 @@ public class OrderDao {
 	/**
 	 * 生成订单。
 	 */
-	public void doGenerate(@NotNull Order order) throws SQLException {
+	public void doCreate(@NotNull Order order) throws SQLException {
 		String sql = "insert into Order(id,money,receiverAddress,receiverName,receiverPhone,payState,orderTime,user_id)" +
 				" value(?,?,?,?,?,0,null,?)";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
@@ -36,7 +36,7 @@ public class OrderDao {
 	 * 根据Id取消订单。
 	 */
 	public void doDeleteById(@NotNull String id) throws SQLException {
-		String sql = "doDeleteById from orders where id=?";
+		String sql = "delete from orders where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(DataSourceUtils.getConnection(), sql, id);
 	}
@@ -103,7 +103,7 @@ public class OrderDao {
 	/**
 	 * 根据用户查询指定数量的最近生成的订单。
 	 */
-	public List<Order> findByUserRecent(@NotNull final User user, int count) throws SQLException {
+	public List<Order> findByUserRecent(@NotNull final User user, int findCount) throws SQLException {
 		String sql = "select * from orders where user_id=? order by orderTime limit 0,?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
@@ -122,7 +122,7 @@ public class OrderDao {
 				orderList.add(order);
 			}
 			return orderList;
-		}, user.getId(), count);
+		}, user.getId(), findCount);
 	}
 
 

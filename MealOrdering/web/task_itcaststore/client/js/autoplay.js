@@ -1,8 +1,8 @@
-//获取ID
+//得到ID
 var $ = function (id) {
     return typeof id === "string" ? document.getElementById(id) : id;
 };
-//获取tagName
+//得到tagName
 var $$ = function (tagName, oParent) {
     return (oParent || document).getElementsByTagName(tagName);
 };

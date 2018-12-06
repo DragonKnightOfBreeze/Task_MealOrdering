@@ -9,9 +9,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ArrayListHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -48,7 +46,7 @@ public class MealDao {
 		Collections.addAll(params,
 				meal.getName(), meal.getPrice(), meal.getCategory(), meal.getCount(), meal.getDescription()
 		);
-		if(!StringExt.isSpace(meal.getImgUrl())) {
+		if(!meal.getImgUrl().isEmpty()) {
 			sql += ",imgUrl=?";
 			params.add(meal.getImgUrl());
 		}
@@ -63,7 +61,7 @@ public class MealDao {
 	 * @param id 餐品Id
 	 */
 	public void doDeleteById(@NotNull String id) throws SQLException {
-		String sql = "doDeleteById from Meal where id=?";
+		String sql = "delete from Meal where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(sql, id);
 	}
@@ -82,23 +80,23 @@ public class MealDao {
 	/**
 	 * 多条件查询餐品。
 	 */
-	public List<Meal> findByConditions(@Nullable String id, @Nullable String name, @Nullable String category, @Nullable String minPrice, @Nullable String maxPrice) throws SQLException {
+	public List<Meal> findByConditions(@NotNull String id, @NotNull String name, @NotNull String category, @NotNull String minPrice, @NotNull String maxPrice) throws SQLException {
 		String sql = "select * from Meal where 1=1";
 		List<Object> params = new ArrayList<>();
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		if(!StringExt.isSpace(id)) {
+		if(!id.isEmpty()) {
 			sql += " and id=? ";
 			params.add(id);
 		}
-		if(!StringExt.isSpace(name)) {
+		if(!name.isEmpty()) {
 			sql += " and name=? ";
 			params.add(name);
 		}
-		if(!StringExt.isSpace(category)) {
+		if(!category.isEmpty()) {
 			sql += " and category=? ";
 			params.add(category);
 		}
-		if(!StringExt.isSpace(minPrice) && !StringExt.isSpace(maxPrice)) {
+		if(!minPrice.isEmpty() && !maxPrice.isEmpty()) {
 			sql += " and price between ? and ? ";
 			params.add(minPrice);
 			params.add(maxPrice);
@@ -107,38 +105,37 @@ public class MealDao {
 	}
 
 	/**
-	 * 根据分类查询餐品，分页显示。
+	 * 根据分类查询餐品。
 	 * @param category 餐品分类
 	 */
-	public List<Meal> findByCategoryInPage(@Nullable String category, int pageIndex, int count) throws SQLException {
+	public List<Meal> findByCategory(@NotNull String category) throws SQLException {
 		String sql = "select * from Meal where 1=1";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		if(StringExt.isSpace(category) || StringExt.equalsE(category, EMeal_Category.Default)) {
-			sql += " limit ?,?";
-			return runner.query(sql, new BeanListHandler<>(Meal.class), (pageIndex - 1) * count, count);
-		} else {
-			sql += " and category=? limit ?,?";
-			return runner.query(sql, new BeanListHandler<>(Meal.class), category, (pageIndex - 1) * count, count);
-		}
-	}
-
-
-	/**
-	 * 得到根据分类查询所查询到的餐品数量。
-	 * @param category 餐品分类
-	 */
-	public int findByCategoryGetCount(@Nullable String category) throws SQLException {
-		String sql = "select count(*) from Meal where 1=1";
-		Long count;
-		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		if(StringExt.isSpace(category) || StringExt.equalsE(category, EMeal_Category.Default)) {
-			count = runner.query(sql, new ScalarHandler<>());
+		if(category.isEmpty() || StringExt.equalsE(category, EMeal_Category.Default)) {
+			return runner.query(sql, new BeanListHandler<>(Meal.class));
 		} else {
 			sql += " and category=?";
-			count = runner.query(sql, new ScalarHandler<>(), category);
+			return runner.query(sql, new BeanListHandler<>(Meal.class), category);
 		}
-		return count.intValue();
 	}
+
+
+//	/**
+//	 * 得到根据分类查询所查询到的餐品数量。
+//	 * @param category 餐品分类
+//	 */
+//	public int findByCategoryGetCount(@NotNull String category) throws SQLException {
+//		String sql = "select count(*) from Meal where 1=1";
+//		Long count;
+//		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+//		if(category.isEmpty() || StringExt.equalsE(category, EMeal_Category.Default)) {
+//			count = runner.query(sql, new ScalarHandler<>());
+//		} else {
+//			sql += " and category=?";
+//			count = runner.query(sql, new ScalarHandler<>(), category);
+//		}
+//		return count.intValue();
+//	}
 
 
 	/**
@@ -175,35 +172,33 @@ public class MealDao {
 
 	/**
 	 * 根据餐品名字进行模糊查询，分页显示。
-	 * @param pageIndex 页面索引
-	 * @param count 每页条数
 	 * @param searchField 搜索域
 	 */
-	public List<Meal> searchByNameInPage(@NotNull String searchField, int pageIndex, int count) throws SQLException {
+	public List<Meal> searchByName(@NotNull String searchField) throws SQLException {
 		String sql = "select * from Meal where name like '%" + searchField + "%' limit ?,?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		return runner.query(sql, new BeanListHandler<>(Meal.class), (pageIndex - 1) * count, count);
+		return runner.query(sql, new BeanListHandler<>(Meal.class));
 	}
 
-	/**
-	 * 得到模糊查询所查询到的餐品数量。
-	 */
-	public int searchByNameGetCount(@NotNull String searchField) throws SQLException {
-		var sql = "select count(*) from Meal where name like '%" + searchField + "%'";
-		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		return runner.query(sql, new ScalarHandler<>());
-	}
+//	/**
+//	 * 得到模糊查询所查询到的餐品数量。
+//	 */
+//	public int searchByNameGetCount(@NotNull String searchField) throws SQLException {
+//		var sql = "select count(*) from Meal where name like '%" + searchField + "%'";
+//		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+//		return runner.query(sql, new ScalarHandler<>());
+//	}
 
 	/**
 	 * 更新餐品库存数量。
-	 * @param count 计算库存数量的Lambda
+	 * @param count 计算库存数量的Lambda int->int
 	 */
 	public void updateMealCount(@NotNull List<OrderItem> itemList, IntFunction<Integer> count) throws SQLException {
-		String sql = "update Meal set count=count+? where id=?";
+		String sql = "update Meal set count=? where id=?";
 		QueryRunner runner = new QueryRunner();
 		Object[][] params = new Object[itemList.size()][2];
 		for(int i = 0; i < params.length; i++) {
-			params[i][0] = itemList.get(i).getBuyCount();
+			params[i][0] = count.apply(itemList.get(i).getBuyCount());
 			params[i][1] = itemList.get(i).getMeal().getId();
 		}
 		runner.batch(DataSourceUtils.getConnection(), sql, params);

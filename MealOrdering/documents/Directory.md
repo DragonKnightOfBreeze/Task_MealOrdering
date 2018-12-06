@@ -11,7 +11,7 @@
 		* servlet：					项目的Servlet类
 			* admin：					管理员相关
 			* store：					店铺相关
-			* customer：					顾客相关
+			* client：					顾客相关
 		* listener：
 	* tags：						自定义的标签类
 	* c3p0-config.xml：			数据库连接配置文件

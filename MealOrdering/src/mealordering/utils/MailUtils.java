@@ -26,14 +26,14 @@ public class MailUtils {
 		//设置邮件传输协议为SMTP
 		props.setProperty("mail.transport.protocol", "SMTP");
 		//设置SMTP服务器地址
-		props.setProperty("mail.host", "smtp.sohu.com");
+		props.setProperty("mail.host", "smtp.qq.com");
 		//设置SMTP服务器是否需要用户验证，需要验证设置为true
 		props.setProperty("mail.smtp.auth", "true");
 
 		//创建验证器
 		Authenticator auth = new Authenticator() {
 			public PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("itcast_duhong", "1234567890");
+				return new PasswordAuthentication("dk_breeze.qq.com", "******");
 			}
 		};
 

@@ -4,6 +4,7 @@ import mealordering.dao.DaoFactory;
 import mealordering.dao.MealDao;
 import mealordering.dao.OrderDao;
 import mealordering.dao.OrderItemDao;
+import mealordering.domain.BeanPage;
 import mealordering.domain.Order;
 import mealordering.domain.OrderItem;
 import mealordering.domain.User;
@@ -24,12 +25,12 @@ public class OrderService {
 	 * @param order 订单信息
 	 */
 	@Permission(Permission.P.Client)
-	public void doGenerate(@NotNull Order order) {
+	public void doCreate(@NotNull Order order) {
 		try {
 			DataSourceUtils.startTransaction();
 
 			//向Order表中添加数据
-			orderDao.doGenerate(order);
+			orderDao.doCreate(order);
 			//向OrderItem表中添加数据
 			orderItemDao.doAdd(order);
 			//修改Meal表中的餐品数量
@@ -146,35 +147,41 @@ public class OrderService {
 	}
 
 	/**
-	 * 根据用户查询指定数量的最近生成的订单。
+	 * 根据用户查询指定数量的最近生成的订单，分页显示。
 	 */
 	@Permission(Permission.P.Client)
-	public List<Order> findByUserRecent(@NotNull User user, int count) {
-		List<Order> orderList = null;
+	public BeanPage<Order> findByUserRecentInPage(@NotNull User user, int findCount, int pageIndex, int count) {
+		BeanPage<Order> orderPage = null;
 		try {
-			orderList = orderDao.findByUserRecent(user, count);
+			List<Order> orderList = orderDao.findByUserRecent(user, findCount);
 			for(Order order : orderList) {
 				List<OrderItem> itemList = orderItemDao.findByOrder(order);
 				order.setOrderItems(itemList);
 			}
+			orderPage = new BeanPage<>(pageIndex, count, orderList);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return orderList;
+		return orderPage;
 	}
 
 	/**
-	 * 查询所有订单
+	 * 查询所有订单，分页显示。
 	 */
 	@Permission(Permission.P.Admin)
-	public List<Order> findAll() {
-		List<Order> orderList = null;
+	public BeanPage<Order> findAllInPage(int pageIndex, int count) {
+		BeanPage<Order> orderPage = null;
 		try {
-			orderList = orderDao.findAll();
+			List<Order> orderList = orderDao.findAll();
+			for(Order order : orderList) {
+				List<OrderItem> itemList = orderItemDao.findByOrder(order);
+				order.setOrderItems(itemList);
+			}
+			orderPage = new BeanPage<>(pageIndex, count, orderList);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return orderList;
+		return orderPage;
 	}
 
 

@@ -18,7 +18,7 @@ public class BeanPage<T extends Serializable> implements Serializable {
 	/** 总页数 */
 	private int pageCount;
 
-	/** 对应的Bean条目列表 */
+	/** 指定页面索引的Bean条目列表 */
 	private List<T> beanList;
 
 	/** 搜索域，用于模糊搜索 */
@@ -26,11 +26,17 @@ public class BeanPage<T extends Serializable> implements Serializable {
 	/** 分类 */
 	private String category;
 
+	public BeanPage() {
+	}
 
-	public BeanPage(int pageIndex, int count) {
+	public BeanPage(int pageIndex, int count, List<T> beanList) {
 		this.pageIndex = pageIndex;
 		this.count = count;
+		this.totalCount = beanList.size();
+		this.pageCount = (int) Math.ceil(totalCount * 1.0 / count);
+		this.beanList = beanList.subList((pageIndex - 1) * count, count);
 	}
+
 
 	public int getPageIndex() {
 		return pageIndex;

@@ -7,7 +7,7 @@ import java.util.UUID;
  * @noinspection unused, WeakerAccess
  */
 public class ActiveCodeUtils {
-	public static String createActiveCode() {
+	public static String generateActiveCode() {
 		return UUID.randomUUID().toString();
 	}
 }

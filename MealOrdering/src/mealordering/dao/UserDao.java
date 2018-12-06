@@ -66,7 +66,7 @@ public class UserDao {
 	 * 根据删除用户。
 	 */
 	public void doDeleteById(int id) throws SQLException {
-		String sql = "doDeleteById from User where id=?";
+		String sql = "delete from User where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		int row = runner.update(sql, id);
 		if (row == 0)
@@ -129,6 +129,17 @@ public class UserDao {
 	}
 
 	/**
+	 * 根据用户名进行模糊查询。
+	 * @param searchField 搜索域
+	 */
+	public List<User> searchByUserName(@NotNull String searchField) throws SQLException {
+		String sql = "select * from User where userName like '%" + searchField + "%'";
+
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		return runner.query(sql, new BeanListHandler<>(User.class), searchField);
+	}
+
+	/**
 	 * 查询所有用户。
 	 */
 	public List<User> findAll() throws SQLException {
@@ -152,19 +163,5 @@ public class UserDao {
 			return userList;
 		});
 	}
-
-
-	/**
-	 * 根据用户名进行模糊查询。
-	 * @param searchField 搜索域
-	 */
-	public List<User> searchByUserName(@NotNull String searchField) throws SQLException {
-		String sql = "select * from User where userName like '%" + searchField + "%'";
-
-		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		return runner.query(sql, new BeanListHandler<>(User.class), searchField);
-	}
-
-
 }
 

@@ -20,7 +20,7 @@ create table Notice
 	id int not null comment '通知编号' PRIMARY KEY ,
 	title varchar(32) default '未命名' null comment '通知标题',
 	details varchar(255) null comment '通知内容',
-	time datetime null comment '通知时间'
+	time varchar(16) null comment '通知时间'
 );
 alter table Notice comment '通知表';
 

@@ -1,6 +1,5 @@
 package dk_breeze.utils.ext;
 
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -11,7 +10,6 @@ public class StringExt {
 	/**
 	 * 判断字符串是否为Null。
 	 */
-	@Contract(value = "null -> true; !null -> false", pure = true)
 	public static boolean isNull(String str) {
 		return str == null;
 	}
@@ -19,17 +17,15 @@ public class StringExt {
 	/**
 	 * 判断字符串是否为Null、为空。
 	 */
-	@Contract(value = "null -> true", pure = true)
-	public static boolean isEmpty(String str) {
-		return str == null || "".equals(str);
+	public static boolean orEmpty(String str) {
+		return str == null || str.isEmpty();
 	}
 
 	/**
-	 * 判断字符串是否为Null、为空、为空格。
+	 * 判断字符串是否为Null、为空、为空格（制表符、换行符）。
 	 */
-	@Contract("null -> true")
-	public static boolean isSpace(String str) {
-		return str == null || "".equals(str.trim());
+	public static boolean orBlank(String str) {
+		return str == null || str.isBlank();
 	}
 
 
@@ -78,6 +74,7 @@ public class StringExt {
 	public static boolean equalsE(String str, Enum e) {
 		return e.toString().equals(str);
 	}
+
 
 	/**
 	 * 将指定的字符串转化为数字（忽略空格）。如果失败，则转化为默认值。

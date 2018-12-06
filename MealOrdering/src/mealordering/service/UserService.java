@@ -3,6 +3,7 @@ package mealordering.service;
 import dk_breeze.exception.ToDoException;
 import mealordering.dao.DaoFactory;
 import mealordering.dao.UserDao;
+import mealordering.domain.BeanPage;
 import mealordering.domain.User;
 import mealordering.domain.annotations.Permission;
 import mealordering.exceptions.ActiveException;
@@ -187,32 +188,34 @@ public class UserService {
 	}
 
 	/**
-	 * 查询所有用户。
-	 */
-	@Permission(Permission.P.Admin)
-	public List<User> findAll() {
-		List<User> userList = null;
-		try {
-			userList = dao.findAll();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return userList;
-	}
-
-
-	/**
 	 * 根据用户名进行模糊查询。
 	 * @param searchField 搜索域
 	 */
 	@Permission(Permission.P.Admin)
-	public List<User> searchByUserName(@NotNull String searchField) {
-		List<User> userList = null;
+	public BeanPage<User> searchByUserNameInPage(@NotNull String searchField, int pageIndex, int count) {
+		BeanPage<User> userPage = null;
 		try {
-			userList = dao.searchByUserName(searchField);
+			List<User> userList = dao.searchByUserName(searchField);
+			userPage = new BeanPage<>(pageIndex, count, userList);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return userList;
+		return userPage;
+	}
+
+
+	/**
+	 * 查询所有用户。
+	 */
+	@Permission(Permission.P.Admin)
+	public BeanPage<User> findAllInPage(int pageIndex, int count) {
+		BeanPage<User> userPage = null;
+		try {
+			List<User> userList = dao.findAll();
+			userPage = new BeanPage<>(pageIndex, count, userList);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return userPage;
 	}
 }

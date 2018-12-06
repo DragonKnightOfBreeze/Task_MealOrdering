@@ -39,7 +39,7 @@ public class OrderItemDao {
 	 * 根据Id删除订单物品。
 	 */
 	public void doDeleteById(@NotNull String id) throws SQLException {
-		String sql = "doDeleteById from OrderItem where order_id=?";
+		String sql = "delete from OrderItem where order_id=?";
 		QueryRunner runner = new QueryRunner();
 		runner.update(DataSourceUtils.getConnection(), sql, id);
 	}

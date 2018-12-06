@@ -15,11 +15,11 @@ function changeSecond() {
             second.text(sValue - 1);
         } else {
             window.clearInterval(interval);
-            //获取目录地址名，例如：/client
+            //得到目录地址名，例如：/client
             var pathName = window.location.pathname.substring(1);
-            //获取目录名，例如：client
+            //得到目录名，例如：client
             var webName = pathName === '' ? '' : pathName.split('/', 1)[0];
-            //获取完整的用于访问的url，例如：http://localhost:8080/bookstore/index.jsp
+            //得到完整的用于访问的url，例如：http://localhost:8080/bookstore/index.jsp
             location.href = window.location.protocol + '//' + window.location.host + '/' + webName + '/index.jsp';
         }
     }, 1000);

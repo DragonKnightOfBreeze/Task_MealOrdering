@@ -45,11 +45,7 @@ public class CheckImageServlet extends HttpServlet {
 		//绘制缓存验证码图片
 		BufferedImage bufferedImage = drawBufferedCheckImage(request, wordList, new Font("宋体", Font.BOLD, 18));
 		//将上面图片输出到浏览器 ImageIO
-		ImageIO.write(bufferedImage, "jpg", response.getOutputStream());
-	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		ImageIO.write(bufferedImage, "checkImg", response.getOutputStream());
 	}
 
 

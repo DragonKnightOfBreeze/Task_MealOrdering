@@ -47,7 +47,7 @@ public class CallbackServlet extends HttpServlet {
 		//哈希信息验证码
 		String hmac = request.getParameter("hmac");
 		//商户密钥
-		String keyValue = ResourceBundle.getBundle("merchantInfo").getString("keyValue");
+		String keyValue = ResourceBundle.getBundle("props/merchantInfo").getString("keyValue");
 
 		//自己对上面数据进行加密，比较支付公司发过来hmac
 		boolean isValid = PaymentUtils.verifyHmac(hmac, p1_MerId, r0_Cmd, r1_Code, r2_TrxId, r3_Amt, r4_Cur, r5_Pid, r6_Order, r7_Uid, r8_MP, r9_BType, keyValue);

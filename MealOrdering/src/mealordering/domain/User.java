@@ -15,6 +15,9 @@ public class User implements Serializable {
 	private String userName;
 	/** 用户密码 */
 	private String password;
+	/** 用户类型 */
+	private String type;
+
 	/** 用户性别 */
 	private String gender;
 	/** 用户邮箱地址 */
@@ -24,8 +27,6 @@ public class User implements Serializable {
 	/** 用户介绍 */
 	private String introduce;
 
-	/** 用户类型 */
-	private String type;
 	/** 注册激活码 */
 	private String activeCode;
 	/** 用户激活状态 */

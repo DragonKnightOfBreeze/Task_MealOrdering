@@ -76,6 +76,15 @@ public class OrderDao {
 	}
 
 	/**
+	 * 查询指定数量的最近生成的订单。
+	 */
+	public Order findRecent(int count) throws SQLException {
+		String sql = "select * from Order order by orderTime desc limit 0,?";
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		return runner.query(sql, new BeanHandler<>(Order.class), count);
+	}
+
+	/**
 	 * 根据用户查询订单。
 	 */
 	public List<Order> findByUser(@NotNull final User user) throws SQLException {
@@ -103,7 +112,7 @@ public class OrderDao {
 	/**
 	 * 根据用户查询指定数量的最近生成的订单。
 	 */
-	public List<Order> findByUserRecent(@NotNull final User user, int findCount) throws SQLException {
+	public List<Order> findByUser(@NotNull final User user, int findCount) throws SQLException {
 		String sql = "select * from orders where user_id=? order by orderTime limit 0,?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
@@ -161,16 +170,6 @@ public class OrderDao {
 			}
 			return orderList;
 		});
-	}
-
-
-	/**
-	 * 查询指定数量的最近生成的订单。
-	 */
-	public Order findRecent(int count) throws SQLException {
-		String sql = "select * from Order order by orderTime desc limit 0,?";
-		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		return runner.query(sql, new BeanHandler<>(Order.class), count);
 	}
 
 	/**

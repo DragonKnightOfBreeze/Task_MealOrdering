@@ -1,11 +1,10 @@
 package mealordering.service;
 
-import dk_breeze.exception.ToDoException;
+import dk_breeze.exception.NotImplementedException;
 import mealordering.dao.DaoFactory;
 import mealordering.dao.UserDao;
 import mealordering.domain.BeanPage;
 import mealordering.domain.User;
-import mealordering.domain.annotations.Permission;
 import mealordering.exceptions.ActiveException;
 import mealordering.exceptions.LoginException;
 import mealordering.exceptions.RegisterException;
@@ -25,7 +24,6 @@ public class UserService {
 	 * 注册用户。
 	 * @param user 用户信息
 	 */
-	@Permission(Permission.P.All)
 	public void doRegister(@NotNull User user) throws RegisterException {
 		try {
 			dao.doRegister(user);
@@ -53,7 +51,6 @@ public class UserService {
 	 * @param activeCode 激活码
 	 * @param validHours 有效时间（小时）
 	 */
-	@Permission(Permission.P.System)
 	public void doActive(@NotNull String activeCode, int validHours) throws ActiveException {
 		try {
 			//根据激活码查询用户
@@ -78,7 +75,6 @@ public class UserService {
 	 * 编辑用户信息。
 	 * @param user 用户信息
 	 */
-	@Permission(Permission.P.All)
 	public void doEdit(@NotNull User user) {
 		try {
 			dao.doEdit(user);
@@ -91,7 +87,6 @@ public class UserService {
 	 * 删除用户信息。
 	 * @param id 用户Id
 	 */
-	@Permission(Permission.P.Admin)
 	public void doDelete(int id) {
 		try {
 			dao.doDeleteById(id);
@@ -106,7 +101,6 @@ public class UserService {
 	 * @param userName 用户名
 	 * @param password 密码
 	 */
-	@Permission(Permission.P.All)
 	public User loginByUserNameAndPassword(String userName, String password) throws LoginException {
 		try {
 			//根据输入的用户名和密码查询用户
@@ -129,7 +123,6 @@ public class UserService {
 	 * @param email 用户邮箱地址
 	 * @param password 密码
 	 */
-	@Permission(Permission.P.All)
 	public User loginByEmailAndPassword(String email, String password) throws LoginException {
 		try {
 			//根据输入的邮箱地址和密码查询用户
@@ -151,9 +144,8 @@ public class UserService {
 	 * TODO 根据用户手机号码和验证码登录用户。
 	 * @param phoneNum 用户手机号码
 	 */
-	@Permission(Permission.P.All)
 	public User loginByPhoneNumAndCheckCode(int phoneNum) {
-		throw new ToDoException();
+		throw new NotImplementedException();
 	}
 
 
@@ -161,7 +153,6 @@ public class UserService {
 	 * 根据用户Id查询用户。
 	 * @param id 用户Id
 	 */
-	@Permission(Permission.P.Admin)
 	public User findById(int id) {
 		User user = null;
 		try {
@@ -176,7 +167,6 @@ public class UserService {
 	 * 根据用户名查询用户。
 	 * @param userName 用户名
 	 */
-	@Permission(Permission.P.Admin)
 	public User findByUserName(@NotNull String userName) {
 		User user = null;
 		try {
@@ -188,14 +178,12 @@ public class UserService {
 	}
 
 	/**
-	 * 根据用户名进行模糊查询。
-	 * @param searchField 搜索域
+	 * 查询所有用户。
 	 */
-	@Permission(Permission.P.Admin)
-	public BeanPage<User> searchByUserNameInPage(@NotNull String searchField, int pageIndex, int count) {
+	public BeanPage<User> findAllInPage(int pageIndex, int count) {
 		BeanPage<User> userPage = null;
 		try {
-			List<User> userList = dao.searchByUserName(searchField);
+			List<User> userList = dao.findAll();
 			userPage = new BeanPage<>(pageIndex, count, userList);
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -203,15 +191,14 @@ public class UserService {
 		return userPage;
 	}
 
-
 	/**
-	 * 查询所有用户。
+	 * 根据用户名进行模糊查询。
+	 * @param searchField 搜索域
 	 */
-	@Permission(Permission.P.Admin)
-	public BeanPage<User> findAllInPage(int pageIndex, int count) {
+	public BeanPage<User> searchByUserNameInPage(@NotNull String searchField, int pageIndex, int count) {
 		BeanPage<User> userPage = null;
 		try {
-			List<User> userList = dao.findAll();
+			List<User> userList = dao.searchByUserName(searchField);
 			userPage = new BeanPage<>(pageIndex, count, userList);
 		} catch(Exception e) {
 			e.printStackTrace();

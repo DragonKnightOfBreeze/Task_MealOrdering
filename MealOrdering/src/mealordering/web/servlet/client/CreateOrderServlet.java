@@ -51,7 +51,7 @@ public class CreateOrderServlet extends HttpServlet {
 			item.setOrder(order);
 			item.setBuyCount(cart.get(meal));
 			item.setMeal(meal);
-			order.getOrderItems().add(item);
+			order.getOrderItemList().add(item);
 		}
 		response.getWriter().println("信息：订单创建成功！");
 		response.getWriter().println("订单详情：<br/>" + order);

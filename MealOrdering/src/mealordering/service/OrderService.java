@@ -8,7 +8,6 @@ import mealordering.domain.BeanPage;
 import mealordering.domain.Order;
 import mealordering.domain.OrderItem;
 import mealordering.domain.User;
-import mealordering.domain.annotations.Permission;
 import mealordering.utils.DataSourceUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,7 +23,6 @@ public class OrderService {
 	 * 生成订单。
 	 * @param order 订单信息
 	 */
-	@Permission(Permission.P.Client)
 	public void doCreate(@NotNull Order order) {
 		try {
 			DataSourceUtils.startTransaction();
@@ -34,7 +32,7 @@ public class OrderService {
 			//向OrderItem表中添加数据
 			orderItemDao.doAdd(order);
 			//修改Meal表中的餐品数量
-			mealDao.updateMealCount(order.getOrderItems(), n -> n + 1);
+			mealDao.updateMealCount(order.getOrderItemList(), n -> n + 1);
 		} catch(SQLException e) {
 			e.printStackTrace();
 			try {
@@ -54,7 +52,6 @@ public class OrderService {
 	/**
 	 * 根据Id取消订单（对于普通用户）。
 	 */
-	@Permission(Permission.P.Client)
 	public void doCancelById(@NotNull String id) {
 		try {
 			DataSourceUtils.startTransaction();
@@ -88,7 +85,6 @@ public class OrderService {
 	/**
 	 * 根据Id删除订单（对于管理员）。
 	 */
-	@Permission(Permission.P.Admin)
 	public void doDeleteById(String id) {
 		try {
 			DataSourceUtils.startTransaction();
@@ -116,7 +112,6 @@ public class OrderService {
 	 * 根据Id查询订单。
 	 * @param id 订单Id
 	 */
-	@Permission(Permission.P.Admin)
 	public Order findById(@NotNull String id) {
 		Order order = null;
 		try {
@@ -131,14 +126,13 @@ public class OrderService {
 	 * 根据用户查询订单。
 	 * @param user 用户
 	 */
-	@Permission(Permission.P.Admin)
 	public List<Order> findByUser(@NotNull User user) {
 		List<Order> orderList = null;
 		try {
 			orderList = orderDao.findByUser(user);
 			for(Order order : orderList) {
 				List<OrderItem> itemList = orderItemDao.findByOrder(order);
-				order.setOrderItems(itemList);
+				order.setOrderItemList(itemList);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -149,14 +143,13 @@ public class OrderService {
 	/**
 	 * 根据用户查询指定数量的最近生成的订单，分页显示。
 	 */
-	@Permission(Permission.P.Client)
 	public BeanPage<Order> findByUserRecentInPage(@NotNull User user, int findCount, int pageIndex, int count) {
 		BeanPage<Order> orderPage = null;
 		try {
-			List<Order> orderList = orderDao.findByUserRecent(user, findCount);
+			List<Order> orderList = orderDao.findByUser(user, findCount);
 			for(Order order : orderList) {
 				List<OrderItem> itemList = orderItemDao.findByOrder(order);
-				order.setOrderItems(itemList);
+				order.setOrderItemList(itemList);
 			}
 			orderPage = new BeanPage<>(pageIndex, count, orderList);
 		} catch(Exception e) {
@@ -168,14 +161,13 @@ public class OrderService {
 	/**
 	 * 查询所有订单，分页显示。
 	 */
-	@Permission(Permission.P.Admin)
 	public BeanPage<Order> findAllInPage(int pageIndex, int count) {
 		BeanPage<Order> orderPage = null;
 		try {
 			List<Order> orderList = orderDao.findAll();
 			for(Order order : orderList) {
 				List<OrderItem> itemList = orderItemDao.findByOrder(order);
-				order.setOrderItems(itemList);
+				order.setOrderItemList(itemList);
 			}
 			orderPage = new BeanPage<>(pageIndex, count, orderList);
 		} catch(Exception e) {
@@ -184,12 +176,10 @@ public class OrderService {
 		return orderPage;
 	}
 
-
 	/**
 	 * 更新订单支付状态。
 	 * @param id 订单Id
 	 */
-	@Permission(Permission.P.System)
 	public void updatePayState(@NotNull String id) {
 		try {
 			orderDao.updatePayState(id);

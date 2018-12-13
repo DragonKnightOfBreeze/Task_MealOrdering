@@ -1,8 +1,9 @@
 package dk_breeze.utils.ext;
 
+import dk_breeze.exception.NotImplementedException;
+
 /**
- * 数学的拓展类
- * @noinspection WeakerAccess
+ * Math类的拓展类
  */
 public class MathExt {
 
@@ -53,9 +54,8 @@ public class MathExt {
 
 	/**
 	 * 插值方法。
-	 * TODO
 	 */
 	public static float lerp(float num, float target, float speed) {
-		return num;
+		throw new NotImplementedException();
 	}
 }

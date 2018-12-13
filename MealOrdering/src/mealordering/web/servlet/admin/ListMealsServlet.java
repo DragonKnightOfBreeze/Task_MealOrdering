@@ -24,7 +24,7 @@ public class ListMealsServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MealService service = new MealService();
 		//默认设置：默认分类，第1页，每页20条
-		BeanPage<Meal> mealPage = service.findByCategoryInPage(EMeal_Category.Default.toString(), 1, 20);
+		BeanPage<Meal> mealPage = service.searchByCategoryInPage(EMeal_Category.Default.toString(), 1, 20);
 
 		request.setAttribute("mealPage", mealPage);
 		request.getRequestDispatcher("/admin/meal/list.jsp").forward(request, response);

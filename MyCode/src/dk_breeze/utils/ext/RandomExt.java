@@ -3,7 +3,7 @@ package dk_breeze.utils.ext;
 import java.util.Random;
 
 /**
- * 随机类的拓展类
+ * Random类的拓展类
  */
 public class RandomExt {
 

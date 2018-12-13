@@ -1,5 +1,6 @@
 package mealordering.dao;
 
+import dk_breeze.exception.NotImplementedException;
 import mealordering.domain.Notice;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
@@ -60,6 +61,15 @@ public class NoticeDao {
 	}
 
 	/**
+	 * 查询指定数量的最近添加或修改的公告。
+	 */
+	public List<Notice> findRecent(int findCount) throws SQLException {
+		String sql = "select * from Notice order by time desc limit 0,?";
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		return runner.query(sql, new BeanListHandler<>(Notice.class), findCount);
+	}
+
+	/**
 	 * 查询所有公告，按照时间降序排列。
 	 */
 	public List<Notice> findAll() throws SQLException {
@@ -69,11 +79,10 @@ public class NoticeDao {
 	}
 
 	/**
-	 * 查询指定数量的最近添加或修改的公告。
+	 * TODO
 	 */
-	public Notice findRecent(int count) throws SQLException {
-		String sql = "select * from Notice order by time desc limit 0,?";
-		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		return runner.query(sql, new BeanHandler<>(Notice.class), count);
+	public List<Notice> searchByTitle(String title, int pageIndex, int count) {
+		throw new NotImplementedException();
 	}
+
 }

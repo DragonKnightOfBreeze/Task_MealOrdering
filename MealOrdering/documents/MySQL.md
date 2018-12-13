@@ -7,7 +7,7 @@ create table Meal(
 	id varchar(8) primary key not null comment '餐品编号',
 	name varchar(16) default '未命名' comment '餐品名称',
 	price double(11,2) default 0.00 comment '餐品价格',
-	category varchar(12) default '未知' comment '餐品分类',
+	category varchar(12) default '未分类' comment '餐品分类',
 	imgUrl varchar(50) comment '餐品图片路径',
 	description varchar(255) comment '餐品描述',
 	count int(9) default 0 comment '餐品数量',
@@ -26,7 +26,7 @@ alter table Notice comment '通知表';
 
 create table `Order`
 (
-    id varchar(100) NOT NULL comment '订单编号' PRIMARY KEY ,
+    id varchar(50) NOT NULL comment '订单编号' PRIMARY KEY ,
     money double COMMENT '订单价格',
     receiverAddress varchar(255) COMMENT '收货地址',
     receiverName varchar(20) COMMENT '收货人姓名',
@@ -39,7 +39,7 @@ ALTER TABLE `Order` COMMENT = '订单表';
 
 create TABLE OrderItem
 (
-    order_id varchar(100) NOT NULL COMMENT '订单的ID',
+    order_id varchar(50) NOT NULL COMMENT '订单的ID',
     meal_id varchar(100) PRIMARY KEY NOT NULL COMMENT '餐品的ID',
     buyCount int(11) COMMENT '购买数量'
 );
@@ -55,11 +55,12 @@ create TABLE User
     email varchar(50) COMMENT '用户邮箱地址',
     phoneNum varchar(20) COMMENT '用户电话号码',
     introduce varchar(100) COMMENT '用户介绍',
-    
+
     type varchar(4) DEFAULT '普通用户' COMMENT '用户类型',
     activeCode varchar(50) COMMENT '注册激活码',
     activeState int(11) DEFAULT 0 COMMENT '用户激活状态 0：未激活，1：已激活',
     registerTime datetime NOT NULL COMMENT '注册时间'
 );
 ALTER TABLE User COMMENT = '用户表';
+
 ```

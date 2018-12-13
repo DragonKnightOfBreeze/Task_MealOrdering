@@ -19,7 +19,6 @@ import java.util.List;
  * <li>展示本周热销商品。</li>
  * </ol>
  */
-
 @WebServlet(name = "ShowIndexServlet", urlPatterns = {"/showIndex"})
 public class ShowIndexServlet extends HttpServlet {
 
@@ -30,7 +29,7 @@ public class ShowIndexServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//查询最近的一条公告
 		NoticeService noticeService = new NoticeService();
-		Notice notice = noticeService.findRecent(1);
+		Notice notice = noticeService.findLatest();
 		//查询本周热销的两条商品
 		MealService mealService = new MealService();
 		List<Object[]> weekHotMeals = mealService.getWeekHotMeals(2);

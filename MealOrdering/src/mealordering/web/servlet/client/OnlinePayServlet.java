@@ -32,7 +32,7 @@ public class OnlinePayServlet extends HttpServlet {
 		String p5_PId = ""; //商品名称
 		String p6_PCat = ""; //商品种类
 		String p7_PDesc = ""; //商品描述
-		String p8_Url = ResourceBundle.getBundle("merchantInfo").getString("responseURL"); //商户接收支付成功数据的地址
+		String p8_Url = ResourceBundle.getBundle("props/merchantInfo").getString("responseURL"); //商户接收支付成功数据的地址
 		String p9_SAF = ""; //送货地址
 		String pa_MP = ""; //商户拓展信息
 		String pr_NeedResponse = "1"; //应答机制

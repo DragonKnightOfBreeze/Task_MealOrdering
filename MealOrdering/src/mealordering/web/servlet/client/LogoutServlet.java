@@ -25,6 +25,7 @@ public class LogoutServlet extends HttpServlet {
 		//销毁session
 		HttpSession session = request.getSession();
 		session.invalidate();
+
 		//如果标识不为空，则重定向到首页
 		if(!flag.isEmpty()) {
 			response.sendRedirect(request.getContextPath() + "/index.jsp");

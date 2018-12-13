@@ -78,33 +78,6 @@ public class MealDao {
 	}
 
 	/**
-	 * 多条件查询餐品。
-	 */
-	public List<Meal> findByConditions(@NotNull String id, @NotNull String name, @NotNull String category, @NotNull String minPrice, @NotNull String maxPrice) throws SQLException {
-		String sql = "select * from Meal where 1=1";
-		List<Object> params = new ArrayList<>();
-		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		if(!id.isEmpty()) {
-			sql += " and id=? ";
-			params.add(id);
-		}
-		if(!name.isEmpty()) {
-			sql += " and name=? ";
-			params.add(name);
-		}
-		if(!category.isEmpty()) {
-			sql += " and category=? ";
-			params.add(category);
-		}
-		if(!minPrice.isEmpty() && !maxPrice.isEmpty()) {
-			sql += " and price between ? and ? ";
-			params.add(minPrice);
-			params.add(maxPrice);
-		}
-		return runner.query(sql, new BeanListHandler<>(Meal.class), params.toArray());
-	}
-
-	/**
 	 * 根据分类查询餐品。
 	 * @param category 餐品分类
 	 */
@@ -178,6 +151,33 @@ public class MealDao {
 		String sql = "select * from Meal where name like '%" + searchField + "%' limit ?,?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanListHandler<>(Meal.class));
+	}
+
+	/**
+	 * 多条件查询餐品。
+	 */
+	public List<Meal> searchByConditions(@NotNull String id, @NotNull String name, @NotNull String category, @NotNull String minPrice, @NotNull String maxPrice) throws SQLException {
+		String sql = "select * from Meal where 1=1";
+		List<Object> params = new ArrayList<>();
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		if(!id.isEmpty()) {
+			sql += " and id=? ";
+			params.add(id);
+		}
+		if(!name.isEmpty()) {
+			sql += " and name=? ";
+			params.add(name);
+		}
+		if(!category.isEmpty()) {
+			sql += " and category=? ";
+			params.add(category);
+		}
+		if(!minPrice.isEmpty() && !maxPrice.isEmpty()) {
+			sql += " and price between ? and ? ";
+			params.add(minPrice);
+			params.add(maxPrice);
+		}
+		return runner.query(sql, new BeanListHandler<>(Meal.class), params.toArray());
 	}
 
 //	/**

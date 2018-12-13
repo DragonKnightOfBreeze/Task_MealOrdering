@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+
+<!--注册登录弹出窗口-->
+<div class="cd-user-modal is-visible">
+	<div class="cd-user-modal-container">
+		<ul class="cd-switcher">
+			<li><a href="javascript:" class="">用户登录</a></li>
+			<li><a href="javascript:" class="selected">注册新用户</a></li>
+		</ul>
+
+		<div id="cd-login" class=""> <!-- 登录表单 -->
+			<div class="cd-form">
+				<p class="fieldset">
+					<label class="image-replace cd-username" for="signin-username">用户名</label>
+					<input class="full-width has-padding has-border" id="signin-username" name="username" type="text"
+						   placeholder="输入用户名">
+				</p>
+
+				<p class="fieldset">
+					<label class="image-replace cd-password" for="signin-password">密码</label>
+					<input class="full-width has-padding has-border" id="signin-password" name="password"
+						   type="password" placeholder="输入密码">
+				</p>
+
+				<p class="fieldset">
+					<input type="checkbox" id="remember-me" checked="">
+					<label for="remember-me">记住登录状态</label>
+					<a href="//www.runoob.com/reset-password" style="float: right;padding-right: 20px;"
+					   target="_blank">忘记密码？</a>
+				</p>
+				<input type="hidden" name="action" value="signin">
+				<p class="fieldset">
+					<input class="full-width2" type="submit" value="登 录">
+				</p>
+				<div class="err-msg"></div>
+			</div>
+		</div>
+
+		<div id="cd-signup" class="is-selected"> <!-- 注册表单 -->
+			<div class="cd-form">
+				<p class="fieldset">
+					<label class="image-replace cd-password" for="verifycode">邀请码</label>
+					<input class="full-width has-padding has-border" id="signup-verifycode" name="verifycode"
+						   type="text" placeholder="输入邀请码">
+				</p>
+				<p class="fieldset">
+					<label class="image-replace cd-username" for="signup-username">用户名</label>
+					<input class="full-width has-padding has-border" id="signup-username" name="name" type="text"
+						   placeholder="输入用户名">
+				</p>
+
+				<p class="fieldset">
+					<label class="image-replace cd-email" for="signup-email">邮箱</label>
+					<input class="full-width has-padding has-border" name="email" id="signup-email" type="email"
+						   placeholder="输入mail">
+				</p>
+
+				<p class="fieldset">
+					<label class="image-replace cd-password" for="signup-password">密码</label>
+					<input class="full-width has-padding has-border" id="signup-password" name="password"
+						   type="password" placeholder="输入密码">
+				</p>
+				<p class="fieldset">
+					<label class="image-replace cd-password" for="signup-password2">重复输入密码</label>
+					<input class="full-width has-padding has-border" id="signup-password2" name="password2"
+						   type="password" placeholder="重复输入密码">
+				</p>
+
+				<!--
+				<p class="fieldset">
+					<input type="checkbox" id="accept-terms">
+					<label for="accept-terms">我已阅读并同意 <a href="javascript:;">用户协议</a></label>
+				</p>
+				 -->
+
+				<input type="hidden" name="action" value="signup">
+				<p class="fieldset">
+					<input class="full-width2" type="submit" value="注册新用户">
+				</p>
+				<p class="fieldset">
+					<a href="//www.runoob.com/w3cnote/runoob-user-test-intro.html#invite" target="_blank">如何获取邀请码？</a>
+				</p>
+				<div class="err-msg"></div>
+			</div>
+
+		</div>
+
+		<a href="javascript:" class="cd-close-form">关闭</a>
+	</div>
+</div>
+</body>
+</html>

@@ -21,8 +21,9 @@ import static mealordering.utils.FileUtils.*;
 
 /**
  * 文件上传的工具类
- * @noinspection unused, WeakerAccess, SuspiciousGetterSetter
+ * @noinspection unused, WeakerAccess
  */
+@Deprecated
 public class FileUploadUtils {
 	/** HttpServletRequest对象 */
 	private HttpServletRequest request;

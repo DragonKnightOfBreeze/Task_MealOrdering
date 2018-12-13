@@ -33,7 +33,7 @@ public class ListMealsServlet extends HttpServlet {
 
 		MealService service = new MealService();
 		//默认设置：默认分类，第1页，每页10条
-		BeanPage<Meal> mealPage = service.findByCategoryInPage(category, pageIndex, count);
+		BeanPage<Meal> mealPage = service.searchByCategoryInPage(category, pageIndex, count);
 
 		request.setAttribute("mealPage", mealPage);
 		request.getRequestDispatcher("/client/mealList.jsp").forward(request, response);

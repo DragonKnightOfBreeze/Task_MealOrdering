@@ -28,7 +28,7 @@ public class Order implements Serializable {
 	/** 订单所属用户 */
 	private User user;
 	/** 订单物品列表 */
-	private List<OrderItem> orderItems = new ArrayList<>();
+	private List<OrderItem> orderItemList = new ArrayList<>();
 
 
 	public String getId() {
@@ -71,12 +71,12 @@ public class Order implements Serializable {
 		this.receiverPhone = receiverPhone;
 	}
 
-	public List<OrderItem> getOrderItems() {
-		return orderItems;
+	public List<OrderItem> getOrderItemList() {
+		return orderItemList;
 	}
 
-	public void setOrderItems(List<OrderItem> orderItems) {
-		this.orderItems = orderItems;
+	public void setOrderItemList(List<OrderItem> orderItemList) {
+		this.orderItemList = orderItemList;
 	}
 
 
@@ -106,7 +106,7 @@ public class Order implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("Order [id=%s, totalPrice=%s, receiverAddress=%s, receiverName=%s, receiverPhone=%s, payState=%d, orderTime=%s, user=%s, orderItems=%s]", id, totalPrice, receiverAddress, receiverName, receiverPhone, payState, orderTime, user, orderItems);
+		return String.format("Order [id=%s, totalPrice=%s, receiverAddress=%s, receiverName=%s, receiverPhone=%s, payState=%d, orderTime=%s, user=%s, orderItems=%s]", id, totalPrice, receiverAddress, receiverName, receiverPhone, payState, orderTime, user, orderItemList);
 	}
 
 }

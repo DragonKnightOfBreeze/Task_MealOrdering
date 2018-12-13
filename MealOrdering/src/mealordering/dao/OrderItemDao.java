@@ -25,7 +25,7 @@ public class OrderItemDao {
 		String sql = "insert into OrderItem(order_id,meal_id,buyCount)" +
 				" value(?,?,?)";
 		QueryRunner runner = new QueryRunner();
-		List<OrderItem> orderItemList = order.getOrderItems();
+		List<OrderItem> orderItemList = order.getOrderItemList();
 		Object[][] params = new Object[orderItemList.size()][3];
 		for (int i = 0; i < params.length; i++) {
 			params[i][0] = orderItemList.get(i).getOrder().getId();

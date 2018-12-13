@@ -4,7 +4,6 @@ import mealordering.dao.DaoFactory;
 import mealordering.dao.NoticeDao;
 import mealordering.domain.BeanPage;
 import mealordering.domain.Notice;
-import mealordering.domain.annotations.Permission;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -19,7 +18,6 @@ public class NoticeService {
 	 * 添加公告。
 	 * @param notice 公告信息
 	 */
-	@Permission(Permission.P.Admin)
 	public void doAdd(@NotNull Notice notice) {
 		try {
 			dao.doAdd(notice);
@@ -32,7 +30,6 @@ public class NoticeService {
 	 * 编辑通知信息。
 	 * @param notice 公告信息
 	 */
-	@Permission(Permission.P.Admin)
 	public void doEdit(@NotNull Notice notice) {
 		try {
 			dao.doEdit(notice);
@@ -45,7 +42,6 @@ public class NoticeService {
 	 * 根据Id删除公告。
 	 * @param id 公告Id
 	 */
-	@Permission(Permission.P.Admin)
 	public void doDeleteById(int id) {
 		try {
 			dao.doDeleteById(id);
@@ -58,7 +54,6 @@ public class NoticeService {
 	 * 根据Id查询公告。
 	 * @param id 公告Id
 	 */
-	@Permission(Permission.P.Admin)
 	public Notice findById(int id) {
 		Notice notice = null;
 		try {
@@ -70,9 +65,35 @@ public class NoticeService {
 	}
 
 	/**
+	 * 查询最近添加或修改的一条公告。
+	 */
+	public Notice findLatest() {
+		Notice notice = null;
+		try {
+			notice = dao.findRecent(1).get(0);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return notice;
+	}
+
+	/**
+	 * 查询指定数量的最近添加或修改的公告。
+	 */
+	public BeanPage<Notice> findInPage(int findCount, int pageIndex, int count) {
+		BeanPage<Notice> noticePage = null;
+		try {
+			List<Notice> noticeList = dao.findRecent(findCount);
+			noticePage = new BeanPage<>(pageIndex, count, noticeList);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return noticePage;
+	}
+
+	/**
 	 * 查询所有公告，按照时间降序排列，分页显示。
 	 */
-	@Permission(Permission.P.All)
 	public BeanPage<Notice> findAllInPage(int pageIndex, int count) {
 		BeanPage<Notice> noticePage = null;
 		try {
@@ -85,30 +106,18 @@ public class NoticeService {
 	}
 
 	/**
-	 * 查询指定数量的最近添加或修改的公告。
+	 * TODO
 	 */
-	@Permission(Permission.P.All)
-	public Notice findRecent(int count) {
-		Notice notice = null;
+	public BeanPage<Notice> searchByTitleInPage(@NotNull String title, int pageIndex, int count) {
+		BeanPage<Notice> noticePage = null;
 		try {
-			notice = dao.findRecent(count);
+			List<Notice> noticeList = dao.searchByTitle(title, pageIndex, count);
+			noticePage = new BeanPage<>(pageIndex, count, noticeList);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return notice;
+		return noticePage;
 	}
 
-	/**
-	 * 查询最近添加或修改的一条公告。
-	 */
-	@Permission(Permission.P.All)
-	public Notice findLatest() {
-		Notice notice = null;
-		try {
-			notice = dao.findRecent(1);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return notice;
-	}
+
 }

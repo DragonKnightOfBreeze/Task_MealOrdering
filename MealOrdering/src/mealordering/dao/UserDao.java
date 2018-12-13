@@ -1,6 +1,6 @@
 package mealordering.dao;
 
-import dk_breeze.exception.ToDoException;
+import dk_breeze.exception.NotImplementedException;
 import mealordering.domain.User;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
@@ -96,7 +96,7 @@ public class UserDao {
 	 * TODO 根据用户手机号码和验证码登录用户。
 	 */
 	public User loginByPhoneNumAndCheckCode(int phoneNum) {
-		throw new ToDoException();
+		throw new NotImplementedException();
 	}
 
 	/**

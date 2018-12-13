@@ -3,7 +3,7 @@ package dk_breeze.utils.ext;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * String拓展类
+ * String类的拓展类
  */
 public class StringExt {
 
@@ -15,10 +15,24 @@ public class StringExt {
 	}
 
 	/**
+	 * 判断字符串是否为空。
+	 */
+	public static boolean isEmpty(String str) {
+		return str.isEmpty();
+	}
+
+	/**
 	 * 判断字符串是否为Null、为空。
 	 */
 	public static boolean orEmpty(String str) {
 		return str == null || str.isEmpty();
+	}
+
+	/**
+	 * 判断字符串是否为空、为空格（制表符、换行符）。
+	 */
+	public static boolean isBlank(String str) {
+		return str.isBlank();
 	}
 
 	/**

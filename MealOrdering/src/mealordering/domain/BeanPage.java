@@ -13,18 +13,19 @@ public class BeanPage<T extends Serializable> implements Serializable {
 	private int pageIndex;
 	/** 每页条数 */
 	private int count;
-	/** 总条数 */
-	private int totalCount;
 	/** 总页数 */
 	private int pageCount;
+	/** 总条数 */
+	private int totalCount;
 
 	/** 指定页面索引的Bean条目列表 */
 	private List<T> beanList;
 
 	/** 搜索域，用于模糊搜索 */
 	private String searchField;
-	/** 分类 */
+	/** 分类，用于分类查询 */
 	private String category;
+
 
 	public BeanPage() {
 	}
@@ -42,17 +43,8 @@ public class BeanPage<T extends Serializable> implements Serializable {
 		return pageIndex;
 	}
 
-
 	public void setPageIndex(int pageIndex) {
 		this.pageIndex = pageIndex;
-	}
-
-	public int getPageCount() {
-		return pageCount;
-	}
-
-	public void setPageCount(int pageCount) {
-		this.pageCount = pageCount;
 	}
 
 	public int getCount() {
@@ -61,6 +53,14 @@ public class BeanPage<T extends Serializable> implements Serializable {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public int getPageCount() {
+		return pageCount;
+	}
+
+	public void setPageCount(int pageCount) {
+		this.pageCount = pageCount;
 	}
 
 	public int getTotalCount() {

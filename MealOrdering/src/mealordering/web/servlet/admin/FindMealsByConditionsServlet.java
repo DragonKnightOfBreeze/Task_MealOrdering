@@ -30,7 +30,7 @@ public class FindMealsByConditionsServlet extends HttpServlet {
 
 		MealService service = new MealService();
 		//默认设置：第1页，每页20条
-		BeanPage<Meal> mealPage = service.findByConditionsInPage(id, name,
+		BeanPage<Meal> mealPage = service.searchByConditionsInPage(id, name,
 				category, minPrice, maxPrice, 1, 10);
 
 		request.setAttribute("mealPage", mealPage);

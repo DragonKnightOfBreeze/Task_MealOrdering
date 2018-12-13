@@ -1,9 +1,12 @@
 package mealordering.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
+import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -20,22 +23,43 @@ public class MailUtils {
 	 * @param subject 邮件主题
 	 * @param content 邮件内容
 	 */
-	public static void sendMail(String emailFrom, String emailTo, String subject, String content) throws MessagingException {
-		//创建一个属性对象
+	public static void sendMail(@NotNull String emailFrom, @NotNull String emailTo, @NotNull String subject, @NotNull String content) throws MessagingException, IOException {
+		//得到一个属性对象
 		Properties props = new Properties();
-		//设置邮件传输协议为SMTP
-		props.setProperty("mail.transport.protocol", "SMTP");
-		//设置SMTP服务器地址
-		props.setProperty("mail.host", "smtp.qq.com");
-		//设置SMTP服务器是否需要用户验证，需要验证设置为true
-		props.setProperty("mail.smtp.auth", "true");
-
+		props.load(MailUtils.class.getResourceAsStream("/props/mailProps.properties"));
 		//创建验证器
 		Authenticator auth = new Authenticator() {
 			public PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication("dk_breeze.qq.com", "******");
 			}
 		};
+		sendMail(props, auth, emailFrom, emailTo, subject, content);
+	}
+
+	/**
+	 * 发送邮件。
+	 * TODO 提取参数prop,auth
+	 * @param emailFrom 发送者的邮箱地址
+	 * @param emailTo 接受者的邮箱地址
+	 * @param subject 邮件主题
+	 * @param content 邮件内容
+	 */
+	public static void sendMail(Properties props, Authenticator auth, @NotNull String emailFrom, @NotNull String emailTo, @NotNull String subject, @NotNull String content) throws MessagingException {
+//		//创建一个属性对象
+//		Properties props = new Properties();
+//		//设置邮件传输协议为SMTP
+//		props.setProperty("mail.transport.protocol", "SMTP");
+//		//设置SMTP服务器地址
+//		props.setProperty("mail.host", "smtp.qq.com");
+//		//设置SMTP服务器是否需要用户验证，需要验证设置为true
+//		props.setProperty("mail.smtp.auth", "true");
+//
+//		//创建验证器
+//		Authenticator auth = new Authenticator() {
+//			public PasswordAuthentication getPasswordAuthentication() {
+//				return new PasswordAuthentication("dk_breeze.qq.com", "******");
+//			}
+//		};
 
 		//1.创建一个程序与邮件服务器的会话对象
 		Session session = Session.getInstance(props, auth);
@@ -51,4 +75,6 @@ public class MailUtils {
 		//3.创建 Transport用于将邮件发送
 		Transport.send(message);
 	}
+
+
 }

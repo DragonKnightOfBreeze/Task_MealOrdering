@@ -9,7 +9,7 @@ public enum EMeal_Category {
 			case "Vegetarian":
 				return "素食";
 			case "Carnivorous":
-				return "素食";
+				return "荤食";
 			case "RawMeat":
 				return "生肉";
 			case "Drink":
@@ -19,7 +19,7 @@ public enum EMeal_Category {
 			case "DarkCooking":
 				return "黑暗料理";
 			default:
-				return "默认";
+				return "未分类";
 		}
 	}
 }

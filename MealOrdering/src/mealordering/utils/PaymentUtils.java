@@ -10,7 +10,6 @@ import java.util.Arrays;
 /**
  * 支付的工具类
  * TODO 充分理解
- * TODO 正确的对接
  * @noinspection unused, WeakerAccess
  */
 public class PaymentUtils {

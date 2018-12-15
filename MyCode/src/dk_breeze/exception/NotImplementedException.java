@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2018.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
+ */
 package dk_breeze.exception;
 
 /**

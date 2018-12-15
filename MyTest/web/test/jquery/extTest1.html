@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>额外的JQuery测试</title>
+<script src="../../jquery/jquery 3.3.1.js"></script>
+</head>
+
+<body>
+<script>
+    /*
+    jQuery.extend( [deep ], target, object1 [, objectN ] )
+
+    合并 defaults 和 options 对象，并且不修改 defaults 对象。这是常用的插件开发模式。
+    如果第一个可选参数deep=true，则采用递归合并（深层复制）
+    如果参数target是一个空对象，则不会产生覆盖现象。
+     */
+
+    var defaults = {validate: false, limit: 5, name: "foo"};
+    var options = {validate: true, name: "bar"};
+
+    // Merge defaults and options, without modifying defaults
+    var settings = $.extend({}, defaults, options);
+
+    // Assuming JSON.stringify - not available in IE<8
+    $("#log").append("<div><b>defaults -- </b>" + JSON.stringify(defaults) + "</div>");
+    $("#log").append("<div><b>options -- </b>" + JSON.stringify(options) + "</div>");
+    $("#log").append("<div><b>settings -- </b>" + JSON.stringify(settings) + "</div>");
+</script>
+<div id="log"></div>
+
+
+<script>
+    /*
+	jQuery.fn.extend( object )
+
+	将一个对象的内容合并到jQuery的原型，以提供新的jQuery实例方法。
+	也即给jQuery添加自定义方法，使用$("???").func()调用。
+	 */
+    jQuery.fn.extend({
+        check: function() {
+            return this.each(function() {
+                this.checked = true;
+            });
+        },
+        uncheck: function() {
+            return this.each(function() {
+                this.checked = false;
+            });
+        }
+    });
+</script>
+<label><input type="checkbox" name="foo"> Foo</label>
+<label><input type="checkbox" name="bar"> Bar</label>
+
+
+<script>
+    /*
+	jQuery.holdReady( hold )
+
+	暂停或恢复.ready() 事件的执行。
+	 */
+
+    //延迟就绪事件，直到已加载的插件。
+    $.holdReady(true);
+    $.getScript("myplugin.js", function() {
+        $.holdReady(false);
+    });
+
+</script>
+
+</body>
+</html>

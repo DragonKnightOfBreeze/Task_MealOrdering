@@ -13,11 +13,11 @@ import java.util.Properties;
  * 发送邮件的工具类
  * @noinspection unused, WeakerAccess
  */
+@Deprecated
 public class MailUtils {
 
 	/**
 	 * 发送邮件。
-	 * TODO 提取参数prop,auth
 	 * @param emailFrom 发送者的邮箱地址
 	 * @param emailTo 接受者的邮箱地址
 	 * @param subject 邮件主题

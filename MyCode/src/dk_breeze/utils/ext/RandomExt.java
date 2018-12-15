@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2018.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
+ */
 package dk_breeze.utils.ext;
 
 import java.util.Random;
@@ -8,6 +11,10 @@ import java.util.Random;
 public class RandomExt {
 
 	public static Random random = new Random();
+
+	public static float range01() {
+		return random.nextFloat();
+	}
 
 
 	public static int range(int min, int max) {
@@ -29,7 +36,6 @@ public class RandomExt {
 		return range((int) (min * bitValue), (int) (max * bitValue)) / bitValue;
 	}
 
-
 	public static float range(float max, int bit) {
 		float bitValue = (float) Math.pow((double) 10, (double) bit);
 		return range((int) (max * bitValue)) / bitValue;
@@ -44,7 +50,6 @@ public class RandomExt {
 	public static int delta(int num, int delta) {
 		return delta(num, delta, delta);
 	}
-
 
 	public static float delta(float num, float sub, float add, int bit) {
 		if (bit < 0 || bit > 20)

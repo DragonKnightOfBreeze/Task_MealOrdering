@@ -1,5 +1,9 @@
+/*
+ * Copyright (c) 2018.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
+ */
 package dk_breeze.utils.ext;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -10,6 +14,7 @@ public class StringExt {
 	/**
 	 * 判断字符串是否为Null。
 	 */
+	@Contract(value = "null -> true; !null -> false", pure = true)
 	public static boolean isNull(String str) {
 		return str == null;
 	}
@@ -17,6 +22,7 @@ public class StringExt {
 	/**
 	 * 判断字符串是否为空。
 	 */
+	@Contract(value = "null -> true; !null -> false", pure = true)
 	public static boolean isEmpty(String str) {
 		return str.isEmpty();
 	}
@@ -24,6 +30,7 @@ public class StringExt {
 	/**
 	 * 判断字符串是否为Null、为空。
 	 */
+	@Contract(value = "null -> true; !null -> false", pure = true)
 	public static boolean orEmpty(String str) {
 		return str == null || str.isEmpty();
 	}
@@ -31,6 +38,7 @@ public class StringExt {
 	/**
 	 * 判断字符串是否为空、为空格（制表符、换行符）。
 	 */
+	@Contract(value = "null -> true; !null -> false", pure = true)
 	public static boolean isBlank(String str) {
 		return str.isBlank();
 	}
@@ -38,6 +46,7 @@ public class StringExt {
 	/**
 	 * 判断字符串是否为Null、为空、为空格（制表符、换行符）。
 	 */
+	@Contract(value = "null -> true; !null -> false", pure = true)
 	public static boolean orBlank(String str) {
 		return str == null || str.isBlank();
 	}
@@ -50,11 +59,11 @@ public class StringExt {
 	public static boolean equals(String str, @NotNull String secStr, boolean ignoreSpace, boolean ignoreCase) {
 		String str1 = str;
 		String secStr1 = secStr;
-		if (ignoreSpace) {
+		if(ignoreSpace) {
 			str1 = str1.trim();
 			secStr1 = secStr1.trim();
 		}
-		if (ignoreCase) {
+		if(ignoreCase) {
 			str1 = str1.toLowerCase();
 			secStr1 = str1.toLowerCase();
 		}
@@ -99,7 +108,7 @@ public class StringExt {
 		int result;
 		try {
 			result = Integer.parseInt(str.trim());
-		} catch (Exception e) {
+		} catch(Exception e) {
 			result = defaultNum;
 		}
 		return result;

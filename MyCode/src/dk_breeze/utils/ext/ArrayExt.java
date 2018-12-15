@@ -1,4 +1,10 @@
+/*
+ * Copyright (c) 2018.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
+ */
 package dk_breeze.utils.ext;
+
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -8,12 +14,6 @@ import java.util.List;
  * 数组的拓展类
  */
 public class ArrayExt {
-//	public static void main(String[] args) {
-//		System.out.println(Arrays.toString(range(10)));
-//		System.out.println(Arrays.toString(range(10,0)));
-//		System.out.println(Arrays.toString(range(0,10,2)));
-//		System.out.println(Arrays.toString(range(50,-20,8)));
-//	}
 
 	/**
 	 * 根据指定的开始点、结束点和间隔，生成一个int数组。左闭右开。
@@ -22,6 +22,7 @@ public class ArrayExt {
 	 * @param sep 间隔，默认为1，只能为正数
 	 * @return 生成的int数组
 	 */
+	@NotNull
 	public static Integer[] range(int begin, int end, int sep) {
 		boolean isAsc = true;    //是否升序
 		if(begin == end || sep <= 0)
@@ -42,12 +43,32 @@ public class ArrayExt {
 		return list.toArray(new Integer[0]);
 	}
 
+	@NotNull
 	public static Integer[] range(int begin, int end) {
 		return range(begin, end, 1);
 	}
 
+	@NotNull
 	public static Integer[] range(int end) {
 		return range(0, end, 1);
+
+	}
+
+	/**
+	 * 判断数组是否为null、为空。
+	 */
+	@Contract(value = "null -> true; !null -> false", pure = true)
+	public static <T> boolean orEmpty(T[] array) {
+		return array == null || array.length == 0;
+	}
+
+	/**
+	 * 判断数组是否为null、小于等于指定长度。
+	 */
+	@Contract(value = "null, _ -> true; !null, _ -> false", pure = true)
+	public static <T> boolean orLessE(T[] array, int length) {
+		length = Math.max(length, 1);
+		return array == null || array.length <= length;
 	}
 
 }

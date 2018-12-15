@@ -8,6 +8,7 @@ import java.util.UUID;
  * 文件的工具类
  * @noinspection unused, WeakerAccess
  */
+@Deprecated
 public class FileUtils {
 
 	/**

@@ -25,6 +25,7 @@ import java.util.Random;
  * 前台页面，生成验证码的工具类
  * @noinspection SameParameterValue
  */
+@Deprecated
 @WebServlet(name = "CheckImageServlet", urlPatterns = {"checkImage"})
 public class CheckImageServlet extends HttpServlet {
 	//字符的来源列表

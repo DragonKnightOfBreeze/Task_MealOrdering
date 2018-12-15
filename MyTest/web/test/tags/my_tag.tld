@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>my_tag</short-name>
+    <uri>utils</uri>
+
+    <!--显示格式化后的当前时间的标签-->
+    <tag>
+        <name>dateFormat</name>
+        <tag-class>dk_breeze.test.jtl.SimpleDateTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>format</name>
+            <required>true</required>   <!--是否是必须的-->
+            <rtexprvalue>true</rtexprvalue>     <!--是否可以是表达式-->
+        </attribute>
+    </tag>
+
+
+    <!--遍历列表元素的标签-->
+    <tag>
+        <name>forEach</name>
+        <tag-class>dk_breeze.test.jtl.SimpleForEachTag</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>id</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>scope</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+
+    <!--多参数加法的标签-->
+    <tag>
+        <name>dynamicAdd</name>
+        <tag-class>dk_breeze.test.jtl.DynamicAddTag</tag-class>
+        <body-content>empty</body-content>
+        <dynamic-attributes>true</dynamic-attributes>
+    </tag>
+
+
+</taglib>

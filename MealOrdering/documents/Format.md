@@ -7,7 +7,7 @@
 * Tag：XxxTag.java
 * Ext：src/.utils/ext/XxxExt.java
 * Utils：src/.utils/XxxUtils.java
-* Exception：src/.exceptions/XxxException.java
+* Exception：src/.exception/XxxException.java
 &emsp;
 * Java
 	* 所有参数、变量、方法：xxxXxxXxx

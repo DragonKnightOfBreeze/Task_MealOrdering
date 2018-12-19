@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * 更改购物车内容的Servlet
  */
-@WebServlet(name = "ChangeCartServlet", urlPatterns = {"/changeCart"})
+@WebServlet(name = "ChangeCartServlet", urlPatterns = {"/mealordering/changeCart"})
 public class ChangeCartServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

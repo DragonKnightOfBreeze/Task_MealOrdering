@@ -1,7 +1,7 @@
 package mealordering.web.servlet.client;
 
 import mealordering.domain.User;
-import mealordering.exceptions.RegisterException;
+import mealordering.exception.RegisterException;
 import mealordering.service.UserService;
 
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * 注册的Servlet
  */
-@WebServlet(name = "registerServlet", urlPatterns = {"/register"})
+@WebServlet(name = "registerServlet", urlPatterns = {"/mealordering/register"})
 public class RegisterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

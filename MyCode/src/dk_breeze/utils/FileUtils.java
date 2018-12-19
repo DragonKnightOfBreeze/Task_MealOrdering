@@ -5,6 +5,7 @@ package dk_breeze.utils;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.util.UUID;
 
 /**
@@ -12,6 +13,10 @@ import java.util.UUID;
  * @noinspection unused, WeakerAccess
  */
 public class FileUtils {
+
+	public static String join(@NotNull String... path) {
+		return (String.join(File.separator, path));
+	}
 
 	/**
 	 * 得到文件名（只有名字，没有路径）。

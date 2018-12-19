@@ -3,7 +3,7 @@ package mealordering.web.servlet.client;
 import dk_breeze.utils.ext.StringExt;
 import mealordering.domain.User;
 import mealordering.domain.enums.EUser_Type;
-import mealordering.exceptions.LoginException;
+import mealordering.exception.LoginException;
 import mealordering.service.UserService;
 
 import javax.servlet.ServletException;
@@ -17,7 +17,7 @@ import java.io.IOException;
  * 登录的Servlet
  * TODO 完整的登录注册系统
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/mealordering/login"})
 public class LoginServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

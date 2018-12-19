@@ -1,6 +1,5 @@
 package mealordering.dao;
 
-import dk_breeze.utils.ext.StringExt;
 import mealordering.domain.Meal;
 import mealordering.domain.OrderItem;
 import mealordering.domain.enums.EMeal_Category;
@@ -17,13 +16,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.IntFunction;
 
+import static dk_breeze.utils.ext.StringExt.equalsE;
+import static dk_breeze.utils.ext.StringExt.f;
+
 /**
  * 餐品的Dao类
  */
 public class MealDao {
 
-	MealDao() {
-	}
+	MealDao() { }
 
 	/**
 	 * 添加餐品。
@@ -84,7 +85,7 @@ public class MealDao {
 	public List<Meal> findByCategory(@NotNull String category) throws SQLException {
 		String sql = "select * from Meal where 1=1";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		if(category.isEmpty() || StringExt.equalsE(category, EMeal_Category.Default)) {
+		if(category.isEmpty() || equalsE(category, EMeal_Category.Default)) {
 			return runner.query(sql, new BeanListHandler<>(Meal.class));
 		} else {
 			sql += " and category=?";
@@ -92,24 +93,14 @@ public class MealDao {
 		}
 	}
 
-
-//	/**
-//	 * 得到根据分类查询所查询到的餐品数量。
-//	 * @param category 餐品分类
-//	 */
-//	public int findByCategoryGetCount(@NotNull String category) throws SQLException {
-//		String sql = "select count(*) from Meal where 1=1";
-//		Long count;
-//		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-//		if(category.isEmpty() || StringExt.equalsE(category, EMeal_Category.Default)) {
-//			count = runner.query(sql, new ScalarHandler<>());
-//		} else {
-//			sql += " and category=?";
-//			count = runner.query(sql, new ScalarHandler<>(), category);
-//		}
-//		return count.intValue();
-//	}
-
+	/**
+	 * 查询所有餐品。
+	 */
+	public List<Meal> findAll() throws SQLException {
+		String sql = "select * from Meal";
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		return runner.query(sql, new BeanListHandler<>(Meal.class));
+	}
 
 	/**
 	 * 得到销售榜单。
@@ -131,8 +122,8 @@ public class MealDao {
 	 * 得到指定数量的本周热销商品。
 	 * @param count 要得到的数量
 	 */
-	public List<Object[]> getWeekHotProducts(int count) throws SQLException {
-		String sql = "select Meal.id,Meal.name,Meal.imgUrl,sum(OrderItem.buyCount) salesCount" +
+	public List<Object[]> getWeekHotMeals(int count) throws SQLException {
+		String sql = "select Meal.id,Meal.name,Meal.imgUrl,Meal.description,sum(OrderItem.buyCount) salesCount" +
 				" from OrderItem,Order,Meal" +
 				" where OrderItem.order_id = Order.id and Meal.id = OrderItem.meal_id" +
 				" and Order.payState=1 and Order.orderTime > DATE_SUB(NOW(), INTERVAL 7 DAY)" +
@@ -144,17 +135,17 @@ public class MealDao {
 	}
 
 	/**
-	 * 根据餐品名字进行模糊查询，分页显示。
-	 * @param searchField 搜索域
+	 * 根据餐品名字进行模糊搜索。
+	 * @param name 餐品名字
 	 */
-	public List<Meal> searchByName(@NotNull String searchField) throws SQLException {
-		String sql = "select * from Meal where name like '%" + searchField + "%' limit ?,?";
+	public List<Meal> searchByName(@NotNull String name) throws SQLException {
+		String sql = f("select * from Meal where name like '%{0}%' limit ?,?", name);
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanListHandler<>(Meal.class));
 	}
 
 	/**
-	 * 多条件查询餐品。
+	 * 多条件搜索餐品。
 	 */
 	public List<Meal> searchByConditions(@NotNull String id, @NotNull String name, @NotNull String category, @NotNull String minPrice, @NotNull String maxPrice) throws SQLException {
 		String sql = "select * from Meal where 1=1";
@@ -165,8 +156,7 @@ public class MealDao {
 			params.add(id);
 		}
 		if(!name.isEmpty()) {
-			sql += " and name=? ";
-			params.add(name);
+			sql += f(" and name like '%{0}%'",name);
 		}
 		if(!category.isEmpty()) {
 			sql += " and category=? ";
@@ -179,15 +169,6 @@ public class MealDao {
 		}
 		return runner.query(sql, new BeanListHandler<>(Meal.class), params.toArray());
 	}
-
-//	/**
-//	 * 得到模糊查询所查询到的餐品数量。
-//	 */
-//	public int searchByNameGetCount(@NotNull String searchField) throws SQLException {
-//		var sql = "select count(*) from Meal where name like '%" + searchField + "%'";
-//		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-//		return runner.query(sql, new ScalarHandler<>());
-//	}
 
 	/**
 	 * 更新餐品库存数量。

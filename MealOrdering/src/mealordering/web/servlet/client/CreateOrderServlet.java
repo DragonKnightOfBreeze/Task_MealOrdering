@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * 生成订单的Servlet
  */
-@WebServlet(name = "CreateOrderServlet", urlPatterns = {"/createOrder"})
+@WebServlet(name = "CreateOrderServlet", urlPatterns = {"/mealordering/createOrder"})
 public class CreateOrderServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

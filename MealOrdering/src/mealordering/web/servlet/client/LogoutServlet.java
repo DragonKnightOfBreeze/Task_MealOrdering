@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * 登出的Servlet
  */
-@WebServlet(name = "LogoutServlet", urlPatterns = {"/logout"})
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/mealordering/logout"})
 public class LogoutServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

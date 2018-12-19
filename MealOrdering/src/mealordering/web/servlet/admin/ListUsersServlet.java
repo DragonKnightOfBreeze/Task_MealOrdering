@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * 后台查询所有用户的Servlet
  */
-@WebServlet(name = "ListUsersServlet", urlPatterns = {"/admin/listUsers"})
+@WebServlet(name = "ListUsersServlet", urlPatterns = {"/mealordering/admin/listUsers"})
 public class ListUsersServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

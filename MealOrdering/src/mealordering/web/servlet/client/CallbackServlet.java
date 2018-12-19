@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
  * TODO 正确的对接
  * TODO 重定向连接
  */
-@WebServlet(name = "CallbackServlet", urlPatterns = {"/callback"})
+@WebServlet(name = "CallbackServlet", urlPatterns = {"/mealordering/callback"})
 public class CallbackServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

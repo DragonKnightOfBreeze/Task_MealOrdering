@@ -15,8 +15,7 @@ import java.util.List;
  * 订单物品的Dao类
  */
 public class OrderItemDao {
-	OrderItemDao() {
-	}
+	OrderItemDao() {}
 
 	/**
 	 * 添加订单物品。

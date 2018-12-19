@@ -19,7 +19,7 @@ public enum EMeal_Category {
 			case "DarkCooking":
 				return "黑暗料理";
 			default:
-				return "未分类";
+				return "所有餐品";
 		}
 	}
 }

@@ -19,7 +19,7 @@ import java.util.Map;
  * 后台用于编辑商品信息的Servlet
  * @noinspection ResultOfMethodCallIgnored
  */
-@WebServlet(name = "EditMealServlet", urlPatterns = {"/admin/editMeal"})
+@WebServlet(name = "EditMealServlet", urlPatterns = {"/mealordering/admin/editMeal"})
 public class EditMealServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

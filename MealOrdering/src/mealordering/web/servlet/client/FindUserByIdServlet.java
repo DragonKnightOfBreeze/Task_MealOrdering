@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * 根据Id查询订单的Servlet
  */
-@WebServlet(name = "FindUserByIdServlet", urlPatterns = {"/findUserById"})
+@WebServlet(name = "FindUserByIdServlet", urlPatterns = {"/mealordering/findUserById"})
 public class FindUserByIdServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

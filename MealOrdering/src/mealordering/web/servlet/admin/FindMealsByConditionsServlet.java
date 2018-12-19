@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * 多条件查询产品的Servlet
  */
-@WebServlet(name = "FindMealsByConditionsServlet", urlPatterns = {"/client/findMealsByConditions"})
+@WebServlet(name = "FindMealsByConditionsServlet", urlPatterns = {"/mealordering/client/findMealsByConditions"})
 public class FindMealsByConditionsServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

@@ -5,9 +5,9 @@ import mealordering.dao.DaoFactory;
 import mealordering.dao.UserDao;
 import mealordering.domain.BeanPage;
 import mealordering.domain.User;
-import mealordering.exceptions.ActiveException;
-import mealordering.exceptions.LoginException;
-import mealordering.exceptions.RegisterException;
+import mealordering.exception.ActiveException;
+import mealordering.exception.LoginException;
+import mealordering.exception.RegisterException;
 import mealordering.utils.MailUtils;
 import org.jetbrains.annotations.NotNull;
 

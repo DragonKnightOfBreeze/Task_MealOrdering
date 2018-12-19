@@ -16,7 +16,7 @@ import java.util.Date;
 /**
  * 添加公告的Servlet
  */
-@WebServlet(name = "AddNoticeServlet", urlPatterns = {"/admin/addNotice"})
+@WebServlet(name = "AddNoticeServlet", urlPatterns = {"/mealordering/admin/addNotice"})
 public class AddNoticeServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

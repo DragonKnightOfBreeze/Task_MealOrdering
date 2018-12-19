@@ -1,6 +1,5 @@
 package mealordering.service;
 
-import dk_breeze.exception.NotImplementedException;
 import mealordering.dao.DaoFactory;
 import mealordering.dao.MealDao;
 import mealordering.domain.BeanPage;
@@ -67,22 +66,31 @@ public class MealService {
 	}
 
 	/**
-	 * TODO
+	 * 查询所有餐品，分页显示。
+	 * @param pageIndex 页面索引
+	 * @param count 每页条数
 	 */
-	public BeanPage<Meal> findAllInPage() {
-		throw new NotImplementedException();
+	public BeanPage<Meal> findAllInPage(int pageIndex, int count) {
+		BeanPage<Meal> mealPage = null;
+		try {
+			List<Meal> mealList = dao.findAll();
+			mealPage = new BeanPage<>(pageIndex, count, mealList);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mealPage;
 	}
 
 	/**
 	 * 根据餐品名字进行模糊查询，分页显示。
 	 * @param pageIndex 页面索引
 	 * @param count 每页条数
-	 * @param searchField 搜索域
+	 * @param name 餐品名
 	 */
-	public BeanPage<Meal> searchByNameInPage(@NotNull String searchField, int pageIndex, int count) {
+	public BeanPage<Meal> searchByNameInPage(@NotNull String name, int pageIndex, int count) {
 		BeanPage<Meal> mealPage = null;
 		try {
-			List<Meal> mealList = dao.searchByName(searchField);
+			List<Meal> mealList = dao.searchByName(name);
 			mealPage = new BeanPage<>(pageIndex, count, mealList);
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -143,7 +151,7 @@ public class MealService {
 	public List<Object[]> getWeekHotMeals(int count) {
 		List<Object[]> list = null;
 		try {
-			list = dao.getWeekHotProducts(count);
+			list = dao.getWeekHotMeals(count);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

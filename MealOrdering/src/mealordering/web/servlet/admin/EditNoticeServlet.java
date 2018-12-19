@@ -15,7 +15,7 @@ import java.util.Date;
 /**
  * 编辑公告信息的Servlet
  */
-@WebServlet(name = "EditNoticeServlet", urlPatterns = {"/admin/editNotice"})
+@WebServlet(name = "EditNoticeServlet", urlPatterns = {"/mealordering/admin/editNotice"})
 public class EditNoticeServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

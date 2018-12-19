@@ -11,7 +11,7 @@ import java.io.IOException;
  * 模拟支付的Servlet
  */
 
-@WebServlet(name = "PayServlet", urlPatterns = {"/pay"})
+@WebServlet(name = "PayServlet", urlPatterns = {"/mealordering/pay"})
 public class PayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

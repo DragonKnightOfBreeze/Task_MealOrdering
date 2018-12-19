@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static dk_breeze.utils.ext.StringExt.f;
+
 /**
  * 用户的Dao类
  */
@@ -113,7 +115,6 @@ public class UserDao {
 	 */
 	public User findByUserName(@NotNull String userName) throws SQLException {
 		String sql = "select * from User where userName=?";
-
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanHandler<>(User.class), userName);
 	}
@@ -123,20 +124,8 @@ public class UserDao {
 	 */
 	public User findByActiveCode(@NotNull String activeCode) throws SQLException {
 		String sql = "select * from User where activeCode=?";
-
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanHandler<>(User.class), activeCode);
-	}
-
-	/**
-	 * 根据用户名进行模糊查询。
-	 * @param searchField 搜索域
-	 */
-	public List<User> searchByUserName(@NotNull String searchField) throws SQLException {
-		String sql = "select * from User where userName like '%" + searchField + "%'";
-
-		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		return runner.query(sql, new BeanListHandler<>(User.class), searchField);
 	}
 
 	/**
@@ -144,7 +133,6 @@ public class UserDao {
 	 */
 	public List<User> findAll() throws SQLException {
 		String sql = "select id,userName,gender,email,phoneNum,type,activeState,registerTime from User";
-
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
 			List<User> userList = new ArrayList<>();
@@ -162,6 +150,16 @@ public class UserDao {
 			}
 			return userList;
 		});
+	}
+
+	/**
+	 * 根据用户名进行模糊搜索。
+	 * @param userName 用户名
+	 */
+	public List<User> searchByUserName(@NotNull String userName) throws SQLException {
+		String sql = f("select * from User where userName like '%{0}%'", userName);
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		return runner.query(sql, new BeanListHandler<>(User.class));
 	}
 }
 

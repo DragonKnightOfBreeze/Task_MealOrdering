@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "FindOrderByUserServlet", urlPatterns = {"/findOrderByUser"})
+@WebServlet(name = "FindOrderByUserServlet", urlPatterns = {"/mealordering/findOrderByUser"})
 public class FindOrderByUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

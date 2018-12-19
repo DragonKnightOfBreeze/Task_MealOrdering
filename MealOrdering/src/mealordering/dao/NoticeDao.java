@@ -1,6 +1,5 @@
 package mealordering.dao;
 
-import dk_breeze.exception.NotImplementedException;
 import mealordering.domain.Notice;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
@@ -11,12 +10,13 @@ import org.jetbrains.annotations.NotNull;
 import java.sql.SQLException;
 import java.util.List;
 
+import static dk_breeze.utils.ext.StringExt.f;
+
 /**
  * 公告的Dao类
  */
 public class NoticeDao {
-	NoticeDao() {
-	}
+	NoticeDao() {}
 
 
 	/**
@@ -79,10 +79,11 @@ public class NoticeDao {
 	}
 
 	/**
-	 * TODO
+	 * 根据公告标题进行模糊搜索。
 	 */
-	public List<Notice> searchByTitle(String title, int pageIndex, int count) {
-		throw new NotImplementedException();
+	public List<Notice> searchByTitle(String title, int pageIndex, int count) throws SQLException {
+		String sql = f("select * from Notice where title like '%{0}%'", title);
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		return runner.query(sql, new BeanListHandler<>(Notice.class));
 	}
-
 }

@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * 查询所有餐品的Servlet
  */
-@WebServlet(name = "ListMealsServlet", urlPatterns = {"/admin/listMeals"})
+@WebServlet(name = "ListMealsServlet", urlPatterns = {"/mealordering/admin/listMeals"})
 public class ListMealsServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

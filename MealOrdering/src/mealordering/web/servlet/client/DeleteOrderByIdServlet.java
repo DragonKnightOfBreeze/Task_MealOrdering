@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * 删除订单
  */
-@WebServlet(name = "DeleteOrderByIdServlet", urlPatterns = {"/deleteOrderById"})
+@WebServlet(name = "DeleteOrderByIdServlet", urlPatterns = {"/mealordering/deleteOrderById"})
 public class DeleteOrderByIdServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

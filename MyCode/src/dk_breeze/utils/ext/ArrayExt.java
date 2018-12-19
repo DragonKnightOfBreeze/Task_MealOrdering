@@ -24,6 +24,7 @@ public class ArrayExt {
 	 */
 	@NotNull
 	public static Integer[] range(int begin, int end, int sep) {
+
 		boolean isAsc = true;    //是否升序
 		if(begin == end || sep <= 0)
 			throw new IllegalArgumentException();

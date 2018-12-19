@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * 根据Id查询订单的Servlet
  */
-@WebServlet(name = "FindOrderByIdServlet", urlPatterns = {"/findOrderById"})
+@WebServlet(name = "FindOrderByIdServlet", urlPatterns = {"/mealordering/findOrderById"})
 public class FindOrderByIdServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

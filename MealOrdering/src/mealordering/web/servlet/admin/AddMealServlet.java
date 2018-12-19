@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * 添加餐品的Servlet
  */
-@WebServlet(name = "AddMealServlet", urlPatterns = {"/admin/addMeal"})
+@WebServlet(name = "AddMealServlet", urlPatterns = {"/mealordering/admin/addMeal"})
 public class AddMealServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

@@ -1,6 +1,6 @@
 package mealordering.web.servlet.client;
 
-import mealordering.exceptions.ActiveException;
+import mealordering.exception.ActiveException;
 import mealordering.service.UserService;
 
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * 用户激活的Servlet
  */
-@WebServlet(name = "ActiveServlet", urlPatterns = {"/active"})
+@WebServlet(name = "ActiveServlet", urlPatterns = {"/mealordering/active"})
 public class ActiveServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
  * 在线支付的Servlet
  * TODO 正确的对接
  */
-@WebServlet(name = "OnlinePayServlet", urlPatterns = {"/onlinePlay"})
+@WebServlet(name = "OnlinePayServlet", urlPatterns = {"/mealordering/onlinePlay"})
 public class OnlinePayServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

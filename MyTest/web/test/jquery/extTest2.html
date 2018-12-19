@@ -1,0 +1,73 @@
+<!--
+  ~ Copyright (c) 2018.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
+  -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <!--<script>-->
+  <!--var obj = {-->
+  <!--"flammable": "inflammable",-->
+  <!--"duh": "no duh"-->
+  <!--};-->
+  <!--$.each(obj, function(key, value) {-->
+  <!--alert(key + ": " + value);-->
+  <!--});-->
+
+  <!--</script>-->
+
+
+  <!--&lt;!&ndash;用ajax传递一个表单并把结果在一个div中&ndash;&gt;-->
+  <!--<form action="/" id="searchForm">-->
+  <!--<input type="text" name="s" placeholder="Search..."/>-->
+  <!--<input type="submit" value="Search"/>-->
+  <!--</form>-->
+  <!--&lt;!&ndash; the result of the search will be rendered inside this div &ndash;&gt;-->
+  <!--<div id="result"></div>-->
+
+  <!--<script>-->
+  <!--/* attach a submit handler to the form */-->
+  <!--$("#searchForm").submit(function(event) {-->
+  <!--/* stop form from submitting normally */-->
+  <!--event.preventDefault();-->
+
+  <!--/* get some values from elements on the page: */-->
+  <!--let $form = $(this);-->
+  <!--let term = $form.find('input[name="s"]').val();-->
+  <!--let url = $form.attr('action');-->
+
+  <!--/* Send the data using post and put the results in a div */-->
+  <!--$.post(url,-->
+  <!--{s: term},-->
+  <!--function(data) {-->
+  <!--let content = $(data).find('#content');-->
+  <!--$("#result").empty().append(content);-->
+  <!--}-->
+  <!--);-->
+  <!--});-->
+  <!--</script>-->
+
+  <script>
+      class Example {
+          @logMethod(1)
+          @logMethod(2)
+          sum(a, b) {
+              return a + b;
+          }
+      }
+
+      function logMethod(id) {
+          console.log('evaluated logMethod' + id);
+          return (target, name, descriptor) => alert('excuted logMethod ' + id);
+      }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <title>Title</title>
+  <!--自定义格式-->
+  <link rel="stylesheet" href="_css/index.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" media="all">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+
+  <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script>
+      $(function() {
+          //DONE 得到最近公告和本周热卖
+          $.get("/mealordering/index",
+              /**
+               * @param data.weekHotMeals
+               * @param data.notice
+               */
+              function(data) {
+                  let $notice = $("#_art-latest-notice");
+                  $notice.find("h4").text(data.notice.title);
+                  $notice.find("p").text(data.notice.detail);
+
+                  let $weekHot = $("._media-week-hot");
+                  $weekHot.each(function(index) {
+                      $(this).find("img").prop("src", data.weekHotMeals[index][2]);
+                      $(this).find("h4").text(data.weekHotMeals[index][1]);
+                      $(this).find("p").text(data.weekHotMeals[index][3]);
+                      $(this).find("h4 small span").text(data.weekHotMeals[index][4]);
+                  })
+              }
+          );
+          //根据是否有用户登录，显示不同的用户菜单
+          $.get("/mealordering/getUser",
+              /**
+               * @param data.user
+               */
+              function(data) {
+                  if(data.user != null) {
+                      $("#_visitor-menu").hide();
+                      $("#_user-menu").show();
+                  }
+              }
+          )
+      });
+      //DONE 限制最低价格总是小于最高价格
+      $("#_min-num,#_max-num").on("change", function() {
+          let $min = $("#_min-num");
+          let $max = $("#_max-num");
+          if($min.val() > $max.val()) {
+              $min.val($max.val());
+          }
+      });
+      //TODO 动态添加下拉列表，按照餐品分类枚举
+
+
+      //DONE 到点击注册时切换到注册表单
+      $("#_btn-register").on("click", function() {
+          $("#_page-login").removeClass("active");
+          $("#_page-register").addClass("active");
+      })
+  </script>
+</head>
+<body>
+
+
+  <!--INFO 头部，导航栏：网站图标，导航文本，导航栏菜单，登录注册导航表单-->
+  <!--固定在页面顶部-->
+  <!-- 小屏幕上水平导航栏会切换为垂直的 -->
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark" id="_head">
+    <div class="container">
+      <!--INFO 导航栏头部-->
+      <div class="navbar-header">
+        <!--INFO 导航栏网站LOGO-->
+        <a class="navbar-brand" href="#">
+          <img src="/mealordering/_image/logo/logo.jpg"/>
+        </a>
+      </div>
+      <!--INFO 导航栏文本-->
+      <span class="navbar-text">Text goes here.</span>
+      &emsp;&emsp;&emsp;
+      <!--INFO 导航栏下拉菜单-->
+      <!--只在小屏幕上显示-->
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#_navbar-menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!--INFO 可折叠式导航栏-->
+      <div class="collapse navbar-collapse" id="_navbar-menu">
+        <!--INFO 导航条菜单-->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">主页</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="meal/mealList.jsp">菜单</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="notice/noticeList.jsp">公告</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin/welcome.jsp" data-toggle="modal">管理</a>
+          </li>
+        </ul>
+      </div>
+
+      <!--INFO 导航栏菜单：注册和登录，右对齐-->
+      <ul id="_visitor-menu" class="navbar-nav navbar-right">
+        <li class="nav-item active">
+          <a id="_btn-login" class="nav-link" href="#_modal-login-reg" data-toggle="modal">
+            <span class="glyphicon glyphicon-log-in"></span> 登录
+          </a>
+        </li>
+        <li class="nav-item">
+          <a id="_btn-register" class="nav-link" href="#_modal-login-reg" data-toggle="modal">
+            <span class="glyphicon glyphicon-registration-mark"></span> 注册
+          </a>
+        </li>
+      </ul>
+      <!--INFO 导航栏菜单：我的账户和登出，右对齐-->
+      <ul id="_user-menu" class="navbar-nav navbar-right" style="display:none">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-user"></span> 我的账户
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/mealordering/account/index.jsp">
+              我的资料
+            </a>
+            <a class="dropdown-item" href="/mealordering/account/_myCart.jsp">
+              我的购物车
+            </a>
+            <a class="dropdown-item" href="/mealordering/account/_myOrders.jsp">
+              我的订单
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/mealordering/settings/information.jsp">
+              修改资料
+            </a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a id="_btn-logout" class="nav-link" href="/mealordering/logout">
+            <span class="glyphicon glyphicon-log-out"></span> 注销
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!--INFO 页面背景条：图片背景，内有一段引用文本-->
+  <!--固定在页面顶部-->
+  <div class="container-fluid" id="_backgroundBar">
+    <div class="container">
+      <div class="col-md-4 offset-md-8">
+        <blockquote class="blockquote">
+          Lorem ipsumdolor sit amet
+        </blockquote>
+        <footer class="blockquote-footer">Lorem</footer>
+      </div>
+    </div>
+  </div>
+
+
+  <!--INFO 页面主体：分页导航条，轮播图，最近的公告，本周推荐-->
+  <div id="_body" class="container">
+    <!--INFO 搜索表单-->
+    <div class="col-md-5 offset-7">
+      <form class="form-inline" action="/mealordering/searchMeal" method="post">
+        <div class="form-group">
+          <label class="sr-only" for="name">名称</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="请输入餐品名称">
+        </div>
+        <button type="submit" class="btn btn-default">
+          <span class="fa fa-search"></span>
+        </button>
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="_modal-advance-search">
+          <span class="fa fa-star"></span>高级搜索
+        </button>
+      </form>
+    </div>
+    <!--INFO 页面导航：首页，按照分类-->
+    <!--TODO-->
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="#_home" data-toggle="tab">首页</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#_cat-vegetarian" data-toggle="tab">素食</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#_cat-carnivorous" data-toggle="tab">荤食</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#_cat-dessert" data-toggle="tab">甜点</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#_dark-cooking" data-toggle="tab">黑暗料理</a>
+      </li>
+    </ul>
+
+
+    <!--INFO 分页页面-->
+    <div class="tab-content">
+      <!--INFO 分页：首页-->
+      <div class="tab-pane fade in active" id="_home">
+
+        <!--INFO 轮播图：广告，具有切换效果-->
+        <div class="carousel slide" data-ride="carousel" id="_carousel">
+          <!--INFO 指示符-->
+          <ol class="carousel-indicators">
+            <li data-target="#_carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#_carousel" data-slide-to="1"></li>
+            <li data-target="#_carousel" data-slide-to="2"></li>
+          </ol>
+          <!--INFO 轮播图片-->
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <img src="/mealordering/_image/meal_img/food10.jpg"/>
+              <div class="carousel-caption">
+                <p>Lorem ipsumdolor sit amet</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="/mealordering/_image/meal_img/food11.jpg">
+              <div class="carousel-caption">
+                <p>Lorem ipsumdolor sit amet</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="/mealordering/_image/meal_img/food12.jpg">
+              <div class="carousel-caption">
+                <p>Lorem ipsumdolor sit amet</p>
+              </div>
+            </div>
+          </div>
+          <!--INFO 左右切换按钮-->
+          <a class="carousel-control-prev" href="#_carousel" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#_carousel" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </a>
+        </div>
+
+        <div class="row">
+          <!--INFO 最近公告-->
+          <div class="border col-md-6">
+            <h3>最近公告
+              <a class="float-right" href="notice/noticeList.jsp">
+                <span class="glyphicon glyphicon-plus"></span>
+              </a>
+            </h3>
+            <hr>
+            <article id="_art-latest-notice">
+              <h4>公告标题</h4>
+              <p>公告内容。</p>
+            </article>
+          </div>
+
+          <!--INFO 本周推荐-->
+          <div class="border col-md-6">
+            <h3>本周推荐
+              <a class="float-right" href="meal/mealList.jsp">
+                <span class="glyphicon glyphicon-plus"></span>
+              </a>
+            </h3>
+            <hr>
+            <div class="media border col-md-3 p-3 _media-week-hot">
+              <img src="/mealordering/_image/meal_img/food04.jpg" class="mr-3 mt-3 img-thumbnail" style="width:60px;">
+              <div class="media-body">
+                <h4>餐品名称
+                  <small>销售总量：<span></span></small>
+                </h4>
+                <p>餐品描述</p>
+              </div>
+            </div>
+            <div class="media border col-md-3 p-3 _media-week-hot">
+              <img src="/mealordering/_image/meal_img/food05.jpg" class="mr-3 mt-3 img-thumbnail" style="width:60px;">
+              <div class="media-body">
+                <h4>餐品名称
+                  <small>销售总量：<span></span></small>
+                </h4>
+                <p>餐品描述</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--INFO 分页：分类 素食-->
+    <div class="tab-pane fade in" id="_cat-vegetarian">
+      <!--TODO 这里显示的是查询得到的餐品的媒体列表，下面还有分页条-->
+      <!--TODO 这是根据传入的选项参数动态添加的，在js中使用for of-->
+    </div>
+
+    <div class="tab-pane fade in" id="_cat-carnivorous">
+
+    </div>
+
+    <div class="tab-pane fade in" id="_cat-dessert">
+
+    </div>
+
+    <div class="tab-pane fade in" id="_dark-cooking">
+
+    </div>
+  </div>
+
+  <!--INFO 管理员登录模态框 -->
+  <!--被模态框标题引用，默认隐藏-->
+  <div class="modal fade in" id="_modal-login-admin" aria-labelledby="_mt-login-admin" aria-hidden="true"
+       style="display: none">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="_mt-login-admin">管理员登录</h4>
+          <!--这是模态框的关闭按钮-->
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <!--INFO 管理员登录表单-->
+          <!--TODO 在提交前先检查是否存在这样的管理员，且密码是否正确（ajax），且去空格-->
+          <form role="form" action="/mealordering/login" method="post" id="_form-login-admin">
+            <div class="form-row">
+              <label class="col-sm-3" for="_user-name-admin">用户名</label>
+              <div class="col-sm-9">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">@</span>
+                </div>
+                <input type="text" class="form-control" id="_user-name-admin" name="userName"
+                       placeholder="请输入名字" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <label class="col-sm-3" for="_password-admin">密码</label>
+              <div class="col-sm-9">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">#</span>
+                </div>
+                <input type="password" class="form-control" id="_password-admin" name="password"
+                       placeholder="请输入密码" required>
+              </div>
+            </div>
+            <input type="hidden" name="identity" value="管理员"/>
+            <div class="form-row">
+              <button type="submit" class="btn btn-primary mx-auto">登录</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--INFO 登录与注册模态框 -->
+  <!--被模态框标题引用，默认隐藏-->
+  <div class="modal fade in" id="_modal-login-reg" aria-labelledby="_mt-login-reg" aria-hidden="true"
+       style="display: none">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="_mt-login-reg">登录 & 注册</h4>
+          <!--这是模态框的关闭按钮-->
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <!--INFO 登录与注册页面-->
+          <ul class="nav nav-pills nav-fill">
+            <li><a href="#_page-login" data-toggle="tab">登录</a></li>
+            <li><a href="#_page-register" data-toggle="tab">注册</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="_page-login">
+              <!--INFO 登录表单-->
+              <!--TODO 在提交前先检查是否存在这样的用户，且密码使用正确（ajax），且去空格-->
+              <form role="form" action="/mealordering/login" method="post" id="_form-login">
+                <div class="form-row">
+                  <!--WARN 用户名应该是唯一的-->
+                  <label class="col-sm-3" for="_user-name">用户名</label>
+                  <div class="col-sm-9">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">@</span>
+                    </div>
+                    <input type="text" class="form-control" id="_user-name" name="userName"
+                           placeholder="请输入用户名" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <label class="col-sm-3" for="_password">密码</label>
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">#</span>
+                  </div>
+                  <div class="col-sm-9">
+                    <input type="password" class="form-control" id="_password" name="password"
+                           placeholder="请输入密码" required>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <label class="form-check-label col-sm-6">
+                    <input class="form-check-input" type="checkbox" name="rememberLogin">记住登录状态
+                  </label>
+                  <div class="col-sm-6">
+                    <button class="btn btn-link float-right" id="_btn_forgot-psw">我忘记了密码</button>
+                  </div>
+                </div>
+                <input type="hidden" name="identity" value="管理员"/>
+                <div class="form-row">
+                  <button type="submit" class="btn btn-primary mx-auto">登录</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="tab-pane active" id="_page-register">
+              <!--INFO 注册表单-->
+              <!--TODO 在提交前先检查密码格式是否正确，两次密码输入是否正确，手机号码是否是11位，且去空格-->
+              <!--TODO 可以上传用户头像，使用smartUpload接受-->
+              <form role="form" action="/mealordering/register" method="post" id="_form-register"
+                    enctype="multipart/form-data">
+                <div class="form-row">
+                  <label class="col-sm-3" for="_user-name-reg">用户名</label>
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">@</span>
+                  </div>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="_user-name-reg" name="userName"
+                           placeholder="请输入用户名" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <label class="col-sm-3" for="_password-reg">密码</label>
+                  <div class="col-sm-9">
+                    <input type="password" class="form-control" id="_password-reg" name="password"
+                           placeholder="请输入密码" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <label class="col-sm-3" for="_re-password-reg">确认密码</label>
+                  <div class="col-sm-9">
+                    <input type="password" class="form-control" id="_re-password-reg" name="rePassword"
+                           placeholder="请再次确认密码" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <label class="col-sm-3" for="_img-url">选择头像</label>
+                  <div class="col-sm-9">
+                    <input type="file" class="float-right" id="_img-url" name="imgUrl"
+                           placeholder="请选择你的头像" required>
+                  </div>
+                </div>
+                <div class="form-check-inline">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="gender" checked>男性
+                  </label>
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="gender">女性
+                  </label>
+                </div>
+                <div class="form-row">
+                  <label class="col-sm-3" for="_email-reg">邮箱地址</label>
+                  <div class="col-sm-9">
+                    <input type="email" class="form-control" id="_email-reg" name="email"
+                           placeholder="请输入你的邮箱地址" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <label class="col-sm-3" for="_phone-num-reg">手机号码</label>
+                  <div class="col-sm-9">
+                    <input type="number" class="form-control" id="_phone-num-reg" name="phoneNum"
+                           placeholder="请输入你的手机号码" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <label class="col-sm-3" for="_introduce-reg">个人介绍</label>
+                  <div class="col-sm-9">
+                    <textarea class="form-control" id="_introduce-reg" name="introduce" cols="4">
+                      这个人很懒，什么也没留下...
+                    </textarea>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <label class="form-check-label col-sm-6">
+                    <input class="form-check-input" type="checkbox" name="agreeRule">我已阅读并同意XXX
+                  </label>
+                </div>
+                <div class="form-row">
+                  <button type="submit" class="btn btn-primary mx-auto">注册</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--INFO 高级搜索模态框 -->
+  <!--被模态框标题引用，默认隐藏-->
+  <div class="modal fade in" id="_modal-advance-search" aria-labelledby="_mt-advance-search" aria-hidden="true"
+       style="display: none">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="_mt-advance-search">高级搜索</h4>
+          <!--这是模态框的关闭按钮-->
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <!--INFO 高级搜索表单-->
+          <form action="/mealordering/client/findMealsByConditions" method="post" id="_form-advance-search">
+            <div class="form-row">
+              <label class="col-md-3" for="_name2">餐品名称</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" id="_name2" name="name"
+                       placeholder="请输入餐品名称...">
+              </div>
+            </div>
+            <div class="form-row">
+              <label class="col-md-3" for="_min-num">最低价格</label>
+              <div class="col-md-3">
+                <input type="number" class="form-control" id="_min-num" name="minNums"
+                       min="0" max="10000">
+              </div>
+              <label class="col-md-3" for="_max-num">最高价格</label>
+              <div class="col-md-3">
+                <input type="number" class="form-control" id="_max-num" name="maxNum"
+                       min="0" max="10000">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label class="col-md-4" for="_category">餐品分类</label>
+              <div class="col-md-8">
+                <select class="form-control" id="_category">
+                  <option selected>所有餐品</option>
+                  <option>素食</option>
+                  <option>荤食</option>
+                  <option>甜点</option>
+                  <option>黑暗料理</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <button type="submit" class="btn btn-primary mx-auto">搜索！！</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--INFO 页面尾部：站点信息，版权信息和作者信息-->
+  <div class="container" id="_foot">
+    <div class="text-center">
+      <span class="font-weight-bold">站点信息</span> |
+      <a href="#">关于我们</a> |
+      <a href="#">联系我们</a> |
+      <a href="#">意见反馈</a> |
+      <a href="#">免责声明</a>
+    </div>
+    <div class="text-center">copyright &copy; 学期项目</div>
+  </div>
+
+</body>
+</html>

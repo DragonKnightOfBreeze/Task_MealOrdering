@@ -1,22 +1,14 @@
 package mealordering.domain;
 
-import java.io.Serializable;
 import java.util.Date;
+
+import static dk_breeze.utils.ext.StringExt.f;
 
 /**
  * 用户的实体类
  */
-public class User implements Serializable {
+public class User extends Person {
 	private static final long serialVersionUID = 1L;
-
-	/** 用户编号 */
-	private int id;
-	/** 用户名称 */
-	private String userName;
-	/** 用户密码 */
-	private String password;
-	/** 用户类型 */
-	private String type;
 
 	/** 用户性别 */
 	private String gender;
@@ -34,30 +26,6 @@ public class User implements Serializable {
 	/** 注册时间 */
 	private Date registerTime;
 
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public String getGender() {
 		return gender;
@@ -99,14 +67,6 @@ public class User implements Serializable {
 		this.activeCode = activeCode;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public int getActiveState() {
 		return activeState;
 	}
@@ -126,6 +86,6 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("User [id=%d, userName=%s, gender=%s, email=%s, telephone=%s, introduce=%s, type=%s]", getId(), getUserName(), getGender(), getEmail(), getPhoneNum(), getIntroduce(), getType());
+		return f("User [id={0}, userName={1}, type={2}, gender={3}, email={4}, phoneNum={5}, introduce={6}]", getId(), getUserName(), getType(), gender, email, phoneNum, introduce);
 	}
 }

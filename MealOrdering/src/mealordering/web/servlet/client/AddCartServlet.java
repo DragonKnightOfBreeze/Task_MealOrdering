@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * 向购物车中添加商品的Servlet
  */
-@WebServlet(name = "AddCartServlet", urlPatterns = {"/client/addCart"})
+@WebServlet(name = "AddCartServlet", urlPatterns = {"/mealordering/addCart"})
 public class AddCartServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

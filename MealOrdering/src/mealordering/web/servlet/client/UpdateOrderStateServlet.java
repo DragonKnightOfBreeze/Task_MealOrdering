@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * 更新订单状态的Servlet
  */
-@WebServlet(name = "UpdateOrderStateServlet", urlPatterns = {"/client/updateOrderState"})
+@WebServlet(name = "UpdateOrderStateServlet", urlPatterns = {"/mealordering/updateOrderState"})
 public class UpdateOrderStateServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

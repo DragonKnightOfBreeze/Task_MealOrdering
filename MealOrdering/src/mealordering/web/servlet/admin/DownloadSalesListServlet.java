@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 下载销售榜单的Servlet
  */
-@WebServlet(name = "DownloadSalesListServlet", urlPatterns = {"/admin/downloadSalesList"})
+@WebServlet(name = "DownloadSalesListServlet", urlPatterns = {"/mealordering/admin/downloadSalesList"})
 public class DownloadSalesListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

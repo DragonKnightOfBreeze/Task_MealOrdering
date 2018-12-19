@@ -23,6 +23,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Tomcat" level="application_server_libraries" />
     <orderEntry type="module" module-name="MyCode" />
     <orderEntry type="library" name="lib" level="project" />
-    <orderEntry type="library" name="org.json:json:20180813" level="application" />
+    <orderEntry type="library" name="popper" level="application" />
   </component>
 </module>

@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * 分页显示餐品信息的Servlet
  */
-@WebServlet(name = "ListMealsServlet", urlPatterns = {"/client/listMeals"})
+@WebServlet(name = "ListMealsServlet", urlPatterns = {"/mealordering/client/listMeals"})
 public class ListMealsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -29,7 +29,7 @@ public class RandomExt {
 	}
 
 	public static float range(float min, float max, int bit) {
-		if (bit < 0 || bit > 20)
+		if(bit < 0 || bit > 10)
 			throw new IllegalArgumentException();
 
 		float bitValue = (float) Math.pow((double) 10, (double) bit);
@@ -52,7 +52,7 @@ public class RandomExt {
 	}
 
 	public static float delta(float num, float sub, float add, int bit) {
-		if (bit < 0 || bit > 20)
+		if(bit < 0 || bit > 10)
 			throw new IllegalArgumentException();
 
 		float bitValue = (float) Math.pow((double) 10, (double) bit);

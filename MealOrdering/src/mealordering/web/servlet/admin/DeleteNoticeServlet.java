@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * 删除公告的Servlet
  */
-@WebServlet(name = "DeleteNoticeServlet", urlPatterns = {"/admin/deleteNotice"})
+@WebServlet(name = "DeleteNoticeServlet", urlPatterns = {"/mealordering/admin/deleteNotice"})
 public class DeleteNoticeServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

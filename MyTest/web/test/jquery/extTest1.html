@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>额外的JQuery测试</title>
-<script src="../../jquery/jquery 3.3.1.js"></script>
+  <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -68,6 +68,16 @@
     });
 
 </script>
+
+  <script>
+      //使返回的原始数据中带有\r
+      $.valHooks.textarea = {
+          get: function(elem) {
+              return elem.value.replace(/\r?\n/g, "\r\n");
+          }
+      };
+  </script>
+
 
 </body>
 </html>

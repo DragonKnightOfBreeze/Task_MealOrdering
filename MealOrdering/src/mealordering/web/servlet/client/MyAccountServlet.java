@@ -22,7 +22,7 @@ import java.io.IOException;
  * </ol></li>
  * </ol>
  */
-@WebServlet(name = "MyAccountServlet", urlPatterns = {"/myAccount"})
+@WebServlet(name = "MyAccountServlet", urlPatterns = {"/mealordering/myAccount"})
 public class MyAccountServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

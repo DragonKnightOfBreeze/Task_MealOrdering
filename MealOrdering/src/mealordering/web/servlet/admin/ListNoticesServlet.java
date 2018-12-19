@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * 后台查询所有公告的Servlet
  */
-@WebServlet(name = "ListNoticesServlet", urlPatterns = {"/admin/listNotices"})
+@WebServlet(name = "ListNoticesServlet", urlPatterns = {"/mealordering/admin/listNotices"})
 public class ListNoticesServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

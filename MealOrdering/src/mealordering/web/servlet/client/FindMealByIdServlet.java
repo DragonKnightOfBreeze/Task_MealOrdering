@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * 根据商品id查找指定商品信息的servlet
  */
-@WebServlet(name = "FindMealByIdServlet", urlPatterns = {"/findMealById"})
+@WebServlet(name = "FindMealByIdServlet", urlPatterns = {"/mealordering/findMealById"})
 public class FindMealByIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

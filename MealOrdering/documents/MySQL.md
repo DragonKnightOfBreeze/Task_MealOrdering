@@ -17,7 +17,7 @@ alter table Meal comment = '餐品表';
 
 create table Notice
 (
-	id int not null comment '通知编号' PRIMARY KEY ,
+	id int not null comment '通知编号' PRIMARY KEY auto_increment,
 	title varchar(32) default '未命名' null comment '通知标题',
 	details varchar(255) null comment '通知内容',
 	time varchar(16) null comment '通知时间'
@@ -51,6 +51,7 @@ create TABLE User
     id int(8) PRIMARY KEY NOT NULL COMMENT '用户编号（系统自动编号）' AUTO_INCREMENT,
     userName varchar(20) NOT NULL COMMENT '用户姓名',
     password varchar(20) NOT NULL COMMENT '用户密码',
+   	imgUrl varchar(50) comment '用户头像路径',
     gender varchar(2) DEFAULT '男' COMMENT '用户性别',
     email varchar(50) COMMENT '用户邮箱地址',
     phoneNum varchar(20) COMMENT '用户电话号码',
@@ -62,5 +63,4 @@ create TABLE User
     registerTime datetime NOT NULL COMMENT '注册时间'
 );
 ALTER TABLE User COMMENT = '用户表';
-
 ```

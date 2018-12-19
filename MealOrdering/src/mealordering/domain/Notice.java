@@ -1,6 +1,7 @@
 package mealordering.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 通知的实体类
@@ -15,13 +16,21 @@ public class Notice implements Serializable {
 	/** 通知内容 */
 	private String details;
 	/** 通知时间 */
-	private String time;
+	private Date time;
 
-	public String getTime() {
+	public Notice() {}
+
+	public Notice(String title, String details) {
+		this.title = title;
+		this.details = details;
+		this.time = new Date();
+	}
+
+	public Date getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 

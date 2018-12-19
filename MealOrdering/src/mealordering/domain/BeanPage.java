@@ -18,13 +18,8 @@ public class BeanPage<T extends Serializable> implements Serializable {
 	/** 总条数 */
 	private int totalCount;
 
-	/** 指定页面索引的Bean条目列表 */
+	/** 每页的Bean条目列表 */
 	private List<T> beanList;
-
-	/** 搜索域，用于模糊搜索 */
-	private String searchField;
-	/** 分类，用于分类查询 */
-	private String category;
 
 
 	public BeanPage() {
@@ -77,21 +72,5 @@ public class BeanPage<T extends Serializable> implements Serializable {
 
 	public void setBeanList(List<T> beanList) {
 		this.beanList = beanList;
-	}
-
-	public String getSearchField() {
-		return searchField;
-	}
-
-	public void setSearchField(String searchField) {
-		this.searchField = searchField;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
 	}
 }

@@ -13,7 +13,9 @@ import java.util.UUID;
  * @noinspection unused, WeakerAccess
  */
 public class FileUtils {
-
+	/**
+	 * 组成完整路径。
+	 */
 	public static String join(@NotNull String... path) {
 		return (String.join(File.separator, path));
 	}
@@ -49,7 +51,7 @@ public class FileUtils {
 	}
 
 	/**
-	 * 生成随机的文件名。
+	 * 生成随机的文件名（保留拓展名）。
 	 */
 	public static String getRandomFileName(@NotNull String fileName) {
 		String uuid = UUID.randomUUID().toString();

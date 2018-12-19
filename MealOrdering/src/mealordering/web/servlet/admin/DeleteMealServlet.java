@@ -15,18 +15,18 @@ import java.io.IOException;
 @WebServlet(name = "DeleteMealServlet", urlPatterns = {"/mealordering/admin/deleteMeal"})
 public class DeleteMealServlet extends HttpServlet {
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//得到表单参数
-		String id = request.getParameter("id").trim();
+		String id = req.getParameter("id").trim();
 
 		MealService service = new MealService();
 		service.doDeleteById(id);
 
-		response.sendRedirect(request.getContextPath() + "/listMeals");
+		resp.sendRedirect(req.getContextPath() + "/mealordering/admin/mealList.jsp");
 	}
 
 }

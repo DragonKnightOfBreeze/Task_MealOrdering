@@ -6,5 +6,5 @@ package mealordering.domain;
 /**
  * 管理员的实体类
  */
-public class Admin extends Person {
+public class Admin extends User {
 }

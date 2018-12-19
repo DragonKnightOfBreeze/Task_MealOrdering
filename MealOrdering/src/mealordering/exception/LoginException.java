@@ -3,7 +3,7 @@ package mealordering.exception;
 /**
  * 登录时的异常
  */
-public class LoginException extends Exception {
+public class LoginException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	public LoginException() {

@@ -3,7 +3,7 @@ package mealordering.exception;
 /**
  * 激活用户时的异常
  */
-public class ActiveException extends Exception {
+public class ActiveException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	public ActiveException() {

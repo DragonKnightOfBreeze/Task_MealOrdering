@@ -1,7 +1,7 @@
 package mealordering.dao;
 
+import mealordering.domain.NormalUser;
 import mealordering.domain.Order;
-import mealordering.domain.User;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -46,21 +46,21 @@ public class OrderDao {
 	 * 根据Id查询订单。
 	 */
 	public Order findById(@NotNull String id) throws SQLException {
-		String sql = "select * from Order,User where Order.user_id=User.id and Order.id=? order by Order.id";
+		String sql = "select * from Order,NormalUser where Order.user_id=NormalUser.id and Order.id=? order by Order.id";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
 			Order order = new Order();
 			if (rs.next()) {
-				User user = new User();
-				user.setId(rs.getInt("User.id"));
-				user.setUserName(rs.getString("User.userName"));
-				user.setGender(rs.getString("User.gender"));
-				user.setEmail(rs.getString("User.email"));
-				user.setPhoneNum(rs.getString("User.phoneNum"));
-				user.setIntroduce(rs.getString("User.introduce"));
-				user.setType(rs.getString("User.type"));
-				user.setActiveState(rs.getInt("User.activeState"));
-				user.setRegisterTime(rs.getDate("User.registerTime"));
+				NormalUser user = new NormalUser();
+				user.setId(rs.getInt("NormalUser.id"));
+				user.setUserName(rs.getString("NormalUser.userName"));
+				user.setGender(rs.getString("NormalUser.gender"));
+				user.setEmail(rs.getString("NormalUser.email"));
+				user.setPhoneNum(rs.getString("NormalUser.phoneNum"));
+				user.setIntroduce(rs.getString("NormalUser.introduce"));
+				user.setType(rs.getString("NormalUser.type"));
+				user.setActiveState(rs.getInt("NormalUser.activeState"));
+				user.setRegisterTime(rs.getDate("NormalUser.registerTime"));
 
 				order.setId(rs.getString("Order.id"));
 				order.setTotalPrice(rs.getDouble("Order.money"));
@@ -87,7 +87,7 @@ public class OrderDao {
 	/**
 	 * 根据用户查询订单。
 	 */
-	public List<Order> findByUser(@NotNull final User user) throws SQLException {
+	public List<Order> findByUser(@NotNull final NormalUser user) throws SQLException {
 		String sql = "select * from orders where user_id=? order by orderTime";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
@@ -112,7 +112,7 @@ public class OrderDao {
 	/**
 	 * 根据用户查询指定数量的最近生成的订单。
 	 */
-	public List<Order> findByUser(@NotNull final User user, int findCount) throws SQLException {
+	public List<Order> findByUser(@NotNull final NormalUser user, int findCount) throws SQLException {
 		String sql = "select * from orders where user_id=? order by orderTime limit 0,?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
@@ -139,22 +139,22 @@ public class OrderDao {
 	 * 查询所有订单，按照用户Id进行排列。
 	 */
 	public List<Order> findAll() throws SQLException {
-		String sql = "select Order.*,User.* from Order,User where User.id=Order.user_id" +
+		String sql = "select Order.*,NormalUser.* from Order,NormalUser where NormalUser.id=Order.user_id" +
 				" order by Order.user_id asc,Order.orderTime desc";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
 			List<Order> orderList = new ArrayList<>();
 			while (rs.next()) {
-				User user = new User();
-				user.setId(rs.getInt("User.id"));
-				user.setUserName(rs.getString("User.userName"));
-				user.setGender(rs.getString("User.gender"));
-				user.setEmail(rs.getString("User.email"));
-				user.setPhoneNum(rs.getString("User.phoneNum"));
-				user.setIntroduce(rs.getString("User.introduce"));
-				user.setType(rs.getString("User.type"));
-				user.setActiveState(rs.getInt("User.activeState"));
-				user.setRegisterTime(rs.getDate("User.registerTime"));
+				NormalUser user = new NormalUser();
+				user.setId(rs.getInt("NormalUser.id"));
+				user.setUserName(rs.getString("NormalUser.userName"));
+				user.setGender(rs.getString("NormalUser.gender"));
+				user.setEmail(rs.getString("NormalUser.email"));
+				user.setPhoneNum(rs.getString("NormalUser.phoneNum"));
+				user.setIntroduce(rs.getString("NormalUser.introduce"));
+				user.setType(rs.getString("NormalUser.type"));
+				user.setActiveState(rs.getInt("NormalUser.activeState"));
+				user.setRegisterTime(rs.getDate("NormalUser.registerTime"));
 
 				Order order = new Order();
 				order.setId(rs.getString("Order.id"));

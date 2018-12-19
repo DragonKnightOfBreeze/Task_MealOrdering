@@ -16,16 +16,16 @@ import java.io.IOException;
  */
 @WebServlet(name = "ListNoticesServlet", urlPatterns = {"/mealordering/admin/listNotices"})
 public class ListNoticesServlet extends HttpServlet {
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		NoticeService service = new NoticeService();
 		//默认设置：第1页，每页20条
 		BeanPage<Notice> noticePage = service.findAllInPage(1, 20);
 
-		request.setAttribute("noticePage", noticePage);
-		request.getRequestDispatcher("/admin/notice/list.jsp").forward(request, response);
+		req.setAttribute("noticePage", noticePage);
+		req.getRequestDispatcher("/admin/notice/list.jsp").forward(req, resp);
 	}
 }

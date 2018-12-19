@@ -9,7 +9,6 @@
         <webroots>
           <root url="file://$MODULE_DIR$/../Test" relative="/test" />
         </webroots>
-        <sourceRoots />
       </configuration>
     </facet>
   </component>
@@ -23,6 +22,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Tomcat" level="application_server_libraries" />
     <orderEntry type="module" module-name="MyCode" />
     <orderEntry type="library" name="lib" level="project" />
-    <orderEntry type="library" name="popper" level="application" />
+    <orderEntry type="module" module-name="MealOrdering" />
   </component>
 </module>

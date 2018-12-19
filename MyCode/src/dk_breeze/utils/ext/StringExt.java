@@ -124,6 +124,20 @@ public class StringExt {
 		return toInt(str, 0);
 	}
 
+	public static double toDouble(String str) {
+		return toDouble(str, 0.0);
+	}
+
+	public static double toDouble(String str, double defaultNum) {
+		double result;
+		try {
+			result = Integer.parseInt(str.trim());
+		} catch(Exception e) {
+			result = defaultNum;
+		}
+		return result;
+	}
+
 	/**
 	 * 格式化字符串（自动转义单引号）。
 	 * <ul>

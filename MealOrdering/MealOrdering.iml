@@ -22,6 +22,6 @@
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="tomcat" level="application" />
     <orderEntry type="module" module-name="MyCode" />
-    <orderEntry type="library" name="popper" level="application" />
+    <orderEntry type="library" name="jspSmartUpload" level="project" />
   </component>
 </module>

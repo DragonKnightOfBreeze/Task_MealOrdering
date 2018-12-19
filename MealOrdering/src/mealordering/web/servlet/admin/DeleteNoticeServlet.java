@@ -15,17 +15,17 @@ import java.io.IOException;
 @WebServlet(name = "DeleteNoticeServlet", urlPatterns = {"/mealordering/admin/deleteNotice"})
 public class DeleteNoticeServlet extends HttpServlet {
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		this.doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//得到表单参数
-		int id = Integer.parseInt(request.getParameter("id").trim());
+		int id = Integer.parseInt(req.getParameter("id").trim());
 
 		NoticeService service = new NoticeService();
 		service.doDeleteById(id);
 
-		response.sendRedirect(request.getContextPath() + "/admin/listNotices");
+		resp.sendRedirect(req.getContextPath() + "/admin/listNotices");
 	}
 }

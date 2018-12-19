@@ -26,7 +26,7 @@ public class Order implements Serializable {
 	/** 订单生成时间 */
 	private Date orderTime;
 	/** 订单所属用户 */
-	private User user;
+	private NormalUser user;
 	/** 订单物品列表 */
 	private List<OrderItem> orderItemList = new ArrayList<>();
 
@@ -96,11 +96,11 @@ public class Order implements Serializable {
 		this.orderTime = orderTime;
 	}
 
-	public User getUser() {
+	public NormalUser getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(NormalUser user) {
 		this.user = user;
 	}
 

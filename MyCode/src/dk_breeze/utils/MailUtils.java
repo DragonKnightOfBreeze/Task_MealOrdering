@@ -11,7 +11,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.io.File;
 import java.util.Properties;
 
 /**
@@ -107,7 +106,7 @@ public class MailUtils {
 	 * @param authInfo 验证信息，[userName,password]，默认为null
 	 * @param attachInfo 附件信息，[filePath...,fileName]，默认为null
 	 */
-	public static void send(@NotNull String host, @NotNull String fromEmail, @NotNull String toEmail, @NotNull String subject, @NotNull String content, ContentType contentType, @Nullable String[] authInfo, @Nullable String[] attachInfo) {
+	public static void send(@NotNull String host, @NotNull String fromEmail, @NotNull String toEmail, @NotNull String subject, @NotNull String content, ContentType contentType, String[] authInfo, String[] attachInfo) {
 		// 获取系统属性
 		Properties properties = System.getProperties();
 		//设置邮件传输协议为SMTP
@@ -155,7 +154,7 @@ public class MailUtils {
 			// 设置附件内容
 			if(!ArrayExt.orEmpty(attachInfo)) {
 				BodyPart bodyPart2 = new MimeBodyPart();
-				String fileName = String.join(File.separator, attachInfo);
+				String fileName = FileUtils.join(attachInfo);
 				bodyPart2.setDataHandler(new DataHandler(new FileDataSource(fileName)));
 				bodyPart2.setFileName(fileName);
 				multipart.addBodyPart(bodyPart2);

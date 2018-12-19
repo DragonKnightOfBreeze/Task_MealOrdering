@@ -22,11 +22,11 @@ import java.util.Map;
 @WebServlet(name = "EditMealServlet", urlPatterns = {"/mealordering/admin/editMeal"})
 public class EditMealServlet extends HttpServlet {
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//获取表单参数
 		Map<String, String> map = new HashMap<>();
 
@@ -34,13 +34,13 @@ public class EditMealServlet extends HttpServlet {
 		//解析请求表单，得到参数图表和文件地址
 		FileUploadUtils fuUtils;
 		try {
-			fuUtils = new FileUploadUtils(request);
+			fuUtils = new FileUploadUtils(req);
 			map.putAll(fuUtils.getParamMapByOne());
 			String imgUrl = fuUtils.saveAll("/image/mealImage", true).get(0);
 			map.put("imgUrl", imgUrl);
 		} catch(Exception e) {
 			e.printStackTrace();
-			response.getWriter().println("警告：编辑餐品信息失败！");
+			resp.getWriter().println("警告：编辑餐品信息失败！");
 		}
 
 		//将数据封装到产品对象中
@@ -49,12 +49,12 @@ public class EditMealServlet extends HttpServlet {
 			BeanUtils.populate(meal, map);
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
-			response.getWriter().println("警告：编辑商品信息失败！");
+			resp.getWriter().println("警告：编辑商品信息失败！");
 		}
 		MealService service = new MealService();
 		service.doEdit(meal);
 
-		response.sendRedirect(request.getContextPath() + "/listMeals");
+		resp.sendRedirect(req.getContextPath() + "/listMeals");
 	}
 
 }

@@ -23,7 +23,6 @@ import static mealordering.utils.FileUtils.*;
  * 文件上传的工具类
  * @noinspection unused, WeakerAccess
  */
-@Deprecated
 public class FileUploadUtils {
 	/** HttpServletRequest对象 */
 	private HttpServletRequest request;
@@ -51,7 +50,7 @@ public class FileUploadUtils {
 	 * @param maxSize 上传文件大小限制
 	 */
 	public FileUploadUtils(HttpServletRequest request, int maxSize) throws Exception {
-		this(request, maxSize, request.getServletContext().getRealPath("/temp") + "");
+		this(request, maxSize, request.getServletContext().getRealPath("/mealordering/temp") + "");
 	}
 
 	/**

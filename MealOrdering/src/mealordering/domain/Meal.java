@@ -21,10 +21,21 @@ public class Meal implements Serializable {
 	/** 餐品描述 */
 	private String description;
 	/** 餐品数量 */
-	private int count;
+	private int count = 0;
 	/** 餐品售出数量 */
-	private int soldCount;
+	private int soldCount = 0;
 
+	public Meal() {}
+
+	public Meal(String id, String name, double price, String category, String imgUrl, String description, int count) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.category = category;
+		this.imgUrl = imgUrl;
+		this.description = description;
+		this.count = count;
+	}
 
 	public String getId() {
 		return id;

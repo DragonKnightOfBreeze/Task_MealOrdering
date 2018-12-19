@@ -16,17 +16,17 @@ import java.io.IOException;
  */
 @WebServlet(name = "ListOrdersServlet", urlPatterns = {"/mealordering/admin/listOrders"})
 public class ListOrdersServlet extends HttpServlet {
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		OrderService service = new OrderService();
 		//默认设置：第1页，每页20条
 		BeanPage<Order> orderPage = service.findAllInPage(1, 20);
 
-		request.setAttribute("orderPage", orderPage);
-		request.getRequestDispatcher("/admin/order/list.jsp").forward(request, response);
+		req.setAttribute("orderPage", orderPage);
+		req.getRequestDispatcher("/admin/order/list.jsp").forward(req, resp);
 	}
 }
 

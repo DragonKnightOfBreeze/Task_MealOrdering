@@ -20,12 +20,12 @@ public class EncodingFilter implements Filter {
 	public void init(FilterConfig config) {
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
 		//处理请求乱码
-		HttpServletRequest myRequest = new MyRequest((HttpServletRequest) request);
+		HttpServletRequest myRequest = new MyRequest((HttpServletRequest) req);
 		//处理响应乱码
-		response.setContentType("text/html;charset=utf-8");
-		chain.doFilter(myRequest, response);
+		resp.setContentType("text/html;charset=utf-8");
+		chain.doFilter(myRequest, resp);
 	}
 
 	public void destroy() {
@@ -39,10 +39,10 @@ class MyRequest extends HttpServletRequestWrapper {
 	private HttpServletRequest request;
 	private boolean hasEncoding;
 
-	MyRequest(HttpServletRequest request) {
+	MyRequest(HttpServletRequest req) {
 		//必须写
-		super(request);
-		this.request = request;
+		super(req);
+		this.request = req;
 	}
 
 	@Override

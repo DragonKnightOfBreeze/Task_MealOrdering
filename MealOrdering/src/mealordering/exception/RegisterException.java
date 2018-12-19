@@ -3,7 +3,7 @@ package mealordering.exception;
 /**
  * 注册时的异常
  */
-public class RegisterException extends Exception {
+public class RegisterException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 

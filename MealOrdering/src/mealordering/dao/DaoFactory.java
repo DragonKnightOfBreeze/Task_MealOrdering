@@ -20,8 +20,12 @@ public class DaoFactory {
 		return new OrderItemDao();
 	}
 
-	public static UserDao getUserDao() {
-		return new UserDao();
+	public static NormalUserDao getNormalUserDao() {
+		return new NormalUserDao();
+	}
+
+	public static AdminDao getAdminDao() {
+		return new AdminDao();
 	}
 
 

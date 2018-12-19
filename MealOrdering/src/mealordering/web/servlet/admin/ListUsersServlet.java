@@ -1,8 +1,8 @@
 package mealordering.web.servlet.admin;
 
 import mealordering.domain.BeanPage;
-import mealordering.domain.User;
-import mealordering.service.UserService;
+import mealordering.domain.NormalUser;
+import mealordering.service.NormalUserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,16 +16,17 @@ import java.io.IOException;
  */
 @WebServlet(name = "ListUsersServlet", urlPatterns = {"/mealordering/admin/listUsers"})
 public class ListUsersServlet extends HttpServlet {
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserService service = new UserService();
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		NormalUserService service = new NormalUserService();
 		//默认设置：第1页，每页20条
-		BeanPage<User> userPage = service.findAllInPage(1, 20);
+		BeanPage<NormalUser> userPage = service.findAllInPage(1, 20);
 
-		request.setAttribute("userPage", userPage);
-		request.getRequestDispatcher("/admin/user/list.jsp").forward(request, response);
+		req.setAttribute("userPage", userPage);
+		req.getRequestDispatcher("/admin/user/list.jsp").forward(req, resp);
 	}
+
 }

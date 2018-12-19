@@ -5,9 +5,9 @@ import mealordering.dao.MealDao;
 import mealordering.dao.OrderDao;
 import mealordering.dao.OrderItemDao;
 import mealordering.domain.BeanPage;
+import mealordering.domain.NormalUser;
 import mealordering.domain.Order;
 import mealordering.domain.OrderItem;
-import mealordering.domain.User;
 import mealordering.utils.DataSourceUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -126,7 +126,7 @@ public class OrderService {
 	 * 根据用户查询订单。
 	 * @param user 用户
 	 */
-	public List<Order> findByUser(@NotNull User user) {
+	public List<Order> findByUser(@NotNull NormalUser user) {
 		List<Order> orderList = null;
 		try {
 			orderList = orderDao.findByUser(user);
@@ -143,7 +143,7 @@ public class OrderService {
 	/**
 	 * 根据用户查询指定数量的最近生成的订单，分页显示。
 	 */
-	public BeanPage<Order> findByUserRecentInPage(@NotNull User user, int findCount, int pageIndex, int count) {
+	public BeanPage<Order> findByUserRecentInPage(@NotNull NormalUser user, int findCount, int pageIndex, int count) {
 		BeanPage<Order> orderPage = null;
 		try {
 			List<Order> orderList = orderDao.findByUser(user, findCount);

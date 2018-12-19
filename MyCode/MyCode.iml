@@ -22,18 +22,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="tomcat" level="application" />
-    <orderEntry type="module-library">
-      <library type="repository">
-        <properties maven-id="org.json:json:20180813" />
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/json-20180813.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/lib/json-20180813-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="popper" level="application" />
   </component>
 </module>

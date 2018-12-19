@@ -1,91 +1,49 @@
+/*
+ * Copyright (c) 2018.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
+ */
 package mealordering.domain;
 
-import java.util.Date;
+import java.io.Serializable;
 
-import static dk_breeze.utils.ext.StringExt.f;
+public class User implements Serializable {
+	/** 用户编号 */
+	private int id;
+	/** 用户名称 */
+	private String userName;
+	/** 用户密码 */
+	private String password;
+	/** 用户类型 */
+	private String type;
 
-/**
- * 用户的实体类
- */
-public class User extends Person {
-	private static final long serialVersionUID = 1L;
-
-	/** 用户性别 */
-	private String gender;
-	/** 用户邮箱地址 */
-	private String email;
-	/** 用户手机号码 */
-	private String phoneNum;
-	/** 用户介绍 */
-	private String introduce;
-
-	/** 注册激活码 */
-	private String activeCode;
-	/** 用户激活状态 */
-	private int activeState;
-	/** 注册时间 */
-	private Date registerTime;
-
-
-	public String getGender() {
-		return gender;
+	public int getId() {
+		return id;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getPhoneNum() {
-		return phoneNum;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getIntroduce() {
-		return introduce;
+	public String getType() {
+		return type;
 	}
 
-	public void setIntroduce(String introduce) {
-		this.introduce = introduce;
-	}
-
-	public String getActiveCode() {
-		return activeCode;
-	}
-
-	public void setActiveCode(String activeCode) {
-		this.activeCode = activeCode;
-	}
-
-	public int getActiveState() {
-		return activeState;
-	}
-
-	public void setActiveState(int activeState) {
-		this.activeState = activeState;
-	}
-
-	public Date getRegisterTime() {
-		return registerTime;
-	}
-
-	public void setRegisterTime(Date registerTime) {
-		this.registerTime = registerTime;
-	}
-
-
-	@Override
-	public String toString() {
-		return f("User [id={0}, userName={1}, type={2}, gender={3}, email={4}, phoneNum={5}, introduce={6}]", getId(), getUserName(), getType(), gender, email, phoneNum, introduce);
+	public void setType(String type) {
+		this.type = type;
 	}
 }

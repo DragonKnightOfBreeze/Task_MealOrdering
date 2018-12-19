@@ -3,130 +3,147 @@
  */
 
 /**
- * 验证某个jQuery对象对应的参数（验证是否为空/空格）。
+ * 验证表单参数是否为null、空。
  * @param elem
- * @param elemMsg
- * @param nullMsg {string} 参数为空时的提示
- * @param trueStyle {JSON} 参数正确时的Css格式
- * @param falseStyle {JSON} 参数错误时的Css格式
+ * @param msgElem
+ * @param msg {string} 警告信息
  * @returns {boolean}
  */
-function checkByNull(elem, elemMsg, nullMsg, trueStyle, falseStyle) {
-    nullMsg = nullMsg || "参数不能为空！";
-    trueStyle = trueStyle || {"color": "black"};
-    falseStyle = falseStyle || {"color": "red"};
-
-
-    let elemValue = elem.val().trim();
-    let msg = "";
-    //验证
-    if(!elemValue) {
-        msg = nullMsg;
+function checkEmpty(elem, msgElem, msg = "参数不能为空！") {
+    if(!elem.val()) {
+        msgElem.text(msg);
+        return false;
     }
-    //将提示消息放入span
-    elemMsg.text(msg);
-    //根据消息结果改变tr的颜色，并返回验证结果
-    elemMsg.parent().parent().css(msg === "" ? trueStyle : falseStyle);
-    return msg === "";
+    return true;
 }
 
 /**
- * 根据正则验证某个jQuery对象对应的参数。
+ * 验证表单参数是否包含空格。
  * @param elem
- * @param elemMsg
+ * @param msgElem
+ * @param msg {string} 警告信息
+ * @returns {boolean}
+ */
+function checkSpace(elem, msgElem, msg = "参数不能包含空格！") {
+    if(elem.val().indexOf(" ") !== -1) {
+        msgElem.text(msg);
+        return false;
+    }
+    return true;
+}
+
+
+/**
+ * 根据正则验证表单参数。
+ * @param elem
+ * @param msgElem
  * @param regex {RegExp} 正则
- * @param nullMsg {string} 参数为空时的提示
- * @param illegalMsg {string} 参数非法时的提示
- * @param trueStyle {JSON} 参数正确时的Css格式
- * @param falseStyle {JSON} 参数错误时的Css格式
+ * @param msg {string} 警告信息
  * @returns {boolean}
  */
-function checkByRegex(elem, elemMsg, regex, nullMsg, illegalMsg, trueStyle, falseStyle) {
-    nullMsg = nullMsg || "参数不能为空！";
-    illegalMsg = illegalMsg || "参数非法！";
-    trueStyle = trueStyle || {"color": "black"};
-    falseStyle = falseStyle || {"color": "red"};
-
-    let elemValue = elem.val().trim();
-    let msg = "";
-    //验证
-    if(!elemValue) {
-        msg = nullMsg;
-    } else if(!regex.test(elemValue)) {
-        msg = illegalMsg;
+function checkByRegex(elem, msgElem, regex, msg = "参数非法！") {
+    if(regex.test(elem.val())) {
+        msgElem.text(msg);
+        return false;
     }
-    //将提示消息放入span
-    elemMsg.text(msg);
-    //根据消息结果改变tr的颜色，并返回验证结果
-    elemMsg.parent().parent().css(msg === "" ? trueStyle : falseStyle);
-    return msg === "";
+    return true;
 }
 
 /**
- * 根据重复输入验证某个jQuery对象对应的参数。
- * @param elem
- * @param reElemMsg
+ * 根据重复输入验证表单参数。
  * @param reElem
- * @param nullMsg {string} 参数为空时的提示
- * @param illegalMsg {string} 参数非法时的提示
- * @param trueStyle {JSON} 参数正确时的Css格式
- * @param falseStyle {JSON} 参数错误时的Css格式
+ * @param elem
+ * @param msgElem
+ * @param msg 警告消息
  * @returns {boolean}
  */
-function checkByRepeat(reElem, reElemMsg, elem, nullMsg, illegalMsg, trueStyle, falseStyle) {
-    nullMsg = nullMsg || "确认参数不能为空！";
-    illegalMsg = illegalMsg || "参数不一致！";
-    trueStyle = trueStyle || {"color": "black"};
-    falseStyle = falseStyle || {"color": "red"};
-
-    let reElemValue = reElem.val().trim();
-    let elemValue = elem.val().trim();
-    let msg = "";
-    //验证
-    if(!reElemValue || !elemValue) {
-        msg = nullMsg;
-    } else if(reElemValue !== elemValue) {
-        msg = illegalMsg;
+function checkByRepeat(reElem, elem, msgElem, msg = "参数不一致！") {
+    if(reElem.val().trim() !== reElem.val()) {
+        msgElem.text(msg);
+        return false;
     }
-    //将提示消息放入span
-    reElemMsg.text(msg);
-    //根据消息结果改变tr的颜色，并返回验证结果
-    reElemMsg.parent().parent().css(msg === "" ? trueStyle : falseStyle);
-    return msg === "";
+    return true;
 }
+
+/**
+ * 验证url。
+ * @param url
+ * @returns {boolean}
+ */
+function validURL(url) {
+    try {
+        url = decodeURIComponent(url);
+    }
+    catch(error) {
+        return false;
+    }
+    const pos = url.indexOf(".html");
+    if(pos === -1 || pos !== url.length - 5)
+        return false;
+    let allowNumber = false;
+    let allowSep = false;
+    let seenDot = false;
+    for(let i = 0; i < url.length - 5; i++) {
+        const ch = url.charAt(i);
+        if('a' <= ch && ch <= 'z' ||
+            'A' <= ch && ch <= 'Z' ||
+            ch === '$' ||
+            ch === '_' ||
+            ch.charCodeAt(0) > 127) {
+            allowNumber = true;
+            allowSep = true;
+        } else if('0' <= ch && ch <= '9'
+            || ch === '-') {
+            if(!allowNumber)
+                return false;
+        } else if(ch === '/' || ch === '.') {
+            if(!allowSep)
+                return false;
+            allowNumber = false;
+            allowSep = false;
+            if(ch === '.')
+                seenDot = true;
+            if(ch === '/' && seenDot)
+                return false;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
 
 /**
  * 弹出确认窗口。
  * @param msg {string} 确认信息
  * @returns {boolean}
  */
-function confirmWarn(msg) {
+function confirm(msg = "确定提交？") {
     return confirm(msg) === true;
 }
 
 
-var interval;
+let interval;
 
 /**
  * 开始倒计时，并在结束后跳转。
- * @param elem
+ * @param jElem
  * @param url {string} 跳转到的地址（相对于Web项目）
  */
-function countDown(elem, url) {
+function countDown(jElem, url) {
     interval = window.setInterval(function() {
-        var sValue = parseInt(elem.text());
-        if(sValue !== 0) {
-            elem.text(sValue - 1);
+        if(jElem.text() !== 0) {
+            jElem.text(jElem.text() - 1);
         } else {
             window.clearInterval(interval);
             //得到目录地址名，例如：/client
-            var pathName = window.location.pathname.substring(1);
+            const pathName = window.location.pathname.substring(1);
             //得到目录名，例如：client
-            var webName = pathName === '' ? '' : pathName.split('/', 1)[0];
+            const webName = pathName === '' ? '' : pathName.split('/', 1)[0];
             //得到完整的用于访问的url，例如：http://localhost:8080/bookstore/index.jsp
             location.href = `${window.location.protocol}//${window.location.host}/${webName}/${url}`;
         }
     }, 1000);
 }
 
-export {checkByNull, checkByRegex, checkByRepeat, confirmWarn, countDown};
+export {checkEmpty, checkSpace, checkByRegex, checkByRepeat, confirm, countDown};

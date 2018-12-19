@@ -18,15 +18,15 @@ import java.util.Date;
 @WebServlet(name = "EditNoticeServlet", urlPatterns = {"/mealordering/admin/editNotice"})
 public class EditNoticeServlet extends HttpServlet {
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		this.doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//得到表单参数
-		int id = Integer.parseInt(request.getParameter("id").trim());
-		String title = request.getParameter("title").trim();
-		String details = request.getParameter("details").trim();
+		int id = Integer.parseInt(req.getParameter("id").trim());
+		String title = req.getParameter("title").trim();
+		String details = req.getParameter("details").trim();
 		//将当前时间设为添加公告的时间
 		String time = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
@@ -38,6 +38,6 @@ public class EditNoticeServlet extends HttpServlet {
 		NoticeService service = new NoticeService();
 		service.doEdit(notice);
 
-		response.sendRedirect(getServletContext().getContextPath() + "/admin/listNotices");
+		resp.sendRedirect(getServletContext().getContextPath() + "/admin/listNotices");
 	}
 }

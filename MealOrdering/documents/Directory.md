@@ -10,7 +10,7 @@
 | temp      |          |      |
 | download  |          |      |
 | WEB-INF   |          |      |
-| index.jsp | 网站首页 |      |
+| index.html | 网站首页 |      |
 
 #  后端
 

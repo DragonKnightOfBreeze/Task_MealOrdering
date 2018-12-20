@@ -42,10 +42,10 @@ public class RegisterServlet extends HttpServlet {
 			service.doRegister(user);
 			//NOTE 测试用代码
 			service.doActive(user.getActiveCode(), 1);
-			response.sendRedirect(request.getContextPath() + "/mealordering/registerSuccess.jsp");
+			response.sendRedirect(request.getContextPath() + "/mealordering/register-success.html");
 		} catch(RegisterException e) {
 			e.printStackTrace();
-			response.sendRedirect(request.getContextPath() + "/mealordering/registerFail.jsp");
+			response.sendRedirect(request.getContextPath() + "/mealordering/register-fail.html");
 		}
 	}
 }

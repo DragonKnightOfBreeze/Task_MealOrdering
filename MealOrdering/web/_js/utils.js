@@ -113,14 +113,41 @@ function validURL(url) {
 }
 
 
+// /**
+//  * 截取地址，得到参数（仅限Get请求）。
+//  */
+// function parseUrl(url){
+//     if(url.indexOf("?") === -1) {
+//         return {};
+//     }
+//     const query = url.split("?")[1];
+//     const queryArr = query.split("&");
+//     const obj = {};
+//     for(const item of queryArr) {
+//         const key = item.split("=")[0];
+//         const value = item.split("=")[1];
+//         obj[key] = decodeURIComponent(value);
+//     }
+//     return obj;
+// }
+
 /**
- * 弹出确认窗口。
- * @param msg {string} 确认信息
- * @returns {boolean}
+ * 截取地址中?后面的部分，得到Get请求参数
+ * @return {{}}
  */
-function confirm(msg = "确定提交？") {
-    return confirm(msg) === true;
+function getParamMap() {
+    let str = window.location.search;
+    let entrySet = str.split("&");
+    let paramMap = {};
+    for(let entry of paramMap) {
+        let key = entry.split("=")[0];
+        let value = entry.split("=")[1];
+        paramMap[key] = decodeURIComponent(value);
+    }
+    return paramMap;
 }
+
+
 
 
 let interval;
@@ -140,10 +167,29 @@ function countDown(jElem, url) {
             const pathName = window.location.pathname.substring(1);
             //得到目录名，例如：client
             const webName = pathName === '' ? '' : pathName.split('/', 1)[0];
-            //得到完整的用于访问的url，例如：http://localhost:8080/bookstore/index.jsp
+            //得到完整的用于访问的url，例如：http://localhost:8080/bookstore/index.html
             location.href = `${window.location.protocol}//${window.location.host}/${webName}/${url}`;
         }
     }, 1000);
 }
 
-export {checkEmpty, checkSpace, checkByRegex, checkByRepeat, confirm, countDown};
+/**
+ * 切换激活
+ * @param $elem 要激活的元素
+ * @param $otherElem 要检查的其他元素，可以为类选择器
+ */
+function toggleActive($elem, ...$otherElem) {
+    if($elem.hasClass("active"))
+        return;
+    for(let $other of $otherElem) {
+        let $o = $other.filter(".active");
+        if($o != null) {
+            $o.removeClass("active");
+            break;
+        }
+    }
+    $elem.addClass("active");
+}
+
+
+export {checkEmpty, checkSpace, checkByRegex, checkByRepeat, countDown, getParamMap, toggleActive};

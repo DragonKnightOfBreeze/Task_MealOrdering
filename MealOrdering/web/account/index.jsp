@@ -6,9 +6,9 @@
   <title>我的主页</title>
 </head>
 <body>
-  <jsp:include page="../_head.jsp"/>
+  <jsp:include page="../_head.html"/>
 
-  <jsp:include page="../_backgroundBar.jsp"/>
+  <jsp:include page="../_background-bar.html"/>
 
   <div class="container" id="_body">
     <!--INFO 侧边信息栏-->
@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <jsp:include page="../_foot.jsp"/>
+  <jsp:include page="../_foot.html"/>
 
 </body>
 </html>

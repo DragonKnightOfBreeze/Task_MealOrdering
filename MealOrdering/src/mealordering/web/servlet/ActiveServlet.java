@@ -31,10 +31,10 @@ public class ActiveServlet extends HttpServlet {
 			//默认设置：24小时的有效时间
 			service.doActive(activeCode, 24);
 
-			response.sendRedirect(request.getContextPath() + "/client/activeSuccess.jsp");
+			response.sendRedirect(request.getContextPath() + "/active-success.html");
 		} catch(ActiveException e) {
 			e.printStackTrace();
-			response.getWriter().println("警告：用户激活失败！");
+			response.sendRedirect(request.getContextPath() + "/active-fail.html");
 		}
 	}
 }

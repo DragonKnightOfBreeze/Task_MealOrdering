@@ -23,5 +23,7 @@
     <orderEntry type="module" module-name="MyCode" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="module" module-name="MealOrdering" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
   </component>
 </module>

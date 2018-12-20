@@ -12,7 +12,7 @@
       import * as utils from "../_js/utils";
 
       $(function() {
-          utils.countDown($("#_second"), "index.jsp");
+          utils.countDown($("#_second"), "index.html");
       });
   </script>
 </head>
@@ -22,7 +22,7 @@
 
   <div class="container text-center" id="_error-info">
     <span>未登陆,请登录后进行操作</span><br/>
-    <a class="btn btn-link" href="${pageContext.request.contextPath}/mealordering/index.jsp">
+    <a class="btn btn-link" href="${pageContext.request.contextPath}/mealordering/index.html">
       <span id="_second">5</span>秒后自动为您跳转到首页。
     </a>
   </div>

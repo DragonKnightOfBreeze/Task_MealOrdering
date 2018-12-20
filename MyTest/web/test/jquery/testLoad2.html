@@ -8,18 +8,23 @@
   <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
   <script>
-      $(function() {
-              $("#div2").load("testLoad1.html #div1");
-          }
-      );
+      $("#div2").load("testLoad1.html");
+      // $("#dd").load("testLoad3.html");
       $("#form").on("submit", function() {
           $("#div5").text($("#num"));
       })
   </script>
 </head>
+
 <body>
+  <div id="dd">
+
+  </div>
+
   <div id="div2">
   </div>
+  d
+
   <div id="div5">
     1235456678989
   </div>
@@ -27,5 +32,7 @@
     <input type="text" value="你好" id="num" name="num">
     <input type="submit" value="提交">
   </form>
+
+
 </body>
 </html>

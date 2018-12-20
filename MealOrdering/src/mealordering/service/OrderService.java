@@ -4,14 +4,12 @@ import mealordering.dao.DaoFactory;
 import mealordering.dao.MealDao;
 import mealordering.dao.OrderDao;
 import mealordering.dao.OrderItemDao;
-import mealordering.domain.BeanPage;
-import mealordering.domain.NormalUser;
-import mealordering.domain.Order;
-import mealordering.domain.OrderItem;
+import mealordering.domain.*;
 import mealordering.utils.DataSourceUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService {
@@ -143,19 +141,37 @@ public class OrderService {
 	/**
 	 * 根据用户查询指定数量的最近生成的订单，分页显示。
 	 */
-	public BeanPage<Order> findByUserRecentInPage(@NotNull NormalUser user, int findCount, int pageIndex, int count) {
-		BeanPage<Order> orderPage = null;
+	public List<Order> findByUserRecent(@NotNull NormalUser user, int findCount) {
+		List<Order> orderList = null;
 		try {
-			List<Order> orderList = orderDao.findByUser(user, findCount);
+			orderList = orderDao.findByUser(user, findCount);
 			for(Order order : orderList) {
 				List<OrderItem> itemList = orderItemDao.findByOrder(order);
 				order.setOrderItemList(itemList);
 			}
-			orderPage = new BeanPage<>(pageIndex, count, orderList);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return orderPage;
+		return orderList;
+	}
+
+	/**
+	 * 得到某个用户最近购买的指定数量的商品。
+	 */
+	public List<Meal> getRecentMealsByUser(@NotNull NormalUser user, int findCount) {
+		List<Meal> mealList = new ArrayList<>();
+		List<Order> orderList = findByUserRecent(user, findCount);
+		flag:
+		for(Order order : orderList) {
+			List<OrderItem> itemList = order.getOrderItemList();
+			for(OrderItem item : itemList) {
+				mealList.add(item.getMeal());
+				if(mealList.size() == findCount) {
+					break flag;
+				}
+			}
+		}
+		return mealList;
 	}
 
 	/**

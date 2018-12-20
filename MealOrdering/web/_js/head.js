@@ -3,16 +3,16 @@ import * as utils from "./utils";
 
 let user = null;
 
+//尝试得到当前登录的用户，显示不同的用户菜单，如果是管理员则跳转到管理页
 $(function() {
-    //判断是否有用户登录，并显示不同的用户菜单，如果是管理员则跳转
-    $.get("/mealordering/getUser",
-        /**
-         * @param data.user
-         */
+    $.post("/mealordering/getUser",
+        /** @property data.user */
         function(data) {
-            if(data.user != null && data.user.type === "管理员") {
+            if(data.user == null)
+                return;
+            if(data.user.type === "管理员") {
                 location.href = "mealordering/admin/welcome.jsp";
-            } else if(data.user != null) {
+            } else {
                 user = data.user;
                 $("#_visitor-menu").hide();
                 $("#_user-menu").show();
@@ -21,9 +21,42 @@ $(function() {
     )
 });
 
+//DONE 按情况显示注册/登录分页，默认显示登录页面
+let $pageLogin = $("#_page-login");
+let $pageRegister = $("#_page-register");
+$("#_btn-login").on("click", function() {
+    utils.toggleActive($pageLogin, $pageRegister);
+});
 $("#_btn-register").on("click", function() {
-    $("#_page-login").removeClass("active");
-    $("#_page-register").addClass("active");
+    utils.toggleActive($pageRegister, $pageLogin);
+});
+
+//DONE 注销确认
+$("#_btn-logout").on("click", function() {
+    return confirm("你确定要注销当前账户吗？");
+});
+
+//DONE 拦截管理员登录，验证输入
+$("#_form-login-admin").on("submit", function() {
+    let $userName = $("#_user-name-admin");
+    let $password = $("#_password-admin");
+    let $alert = $("#_alert-login-admin");
+    let result = utils.checkSpace($userName, $alert, "名字不能包含空格！") &&
+        utils.checkSpace($password, $alert, "密码不能包含空格！");
+    //如果格式正确，则post到Servlet，检查是否存在这个管理员
+    if(result) {
+        $.post("/mealordering/login",
+            {userName: $userName, password: $password},
+            /** @property data.status */
+            function(data) {
+                result = result && data.status;
+            }
+        );
+    }
+    if(!result) {
+        $alert.collapse("show");
+    }
+    return result;
 });
 
 //DONE 拦截用户登录，验证输入
@@ -33,7 +66,25 @@ $("#_form-login").on("submit", function(e) {
     let $alert = $("#_alert-login");
     let result = utils.checkSpace($userName, $alert, "用户名不能包含空格！") &&
         utils.checkSpace($password, $alert, "密码不能包含空格！");
-    $alert.collapse({show: !result});
+    //如果格式正确，则post到Servlet，检查是否存在这个用户
+    if(result) {
+        $.post("/mealordering/login",
+            {userName: $userName, password: $password},
+            /** @property data.status */
+            function(data) {
+                result = result && data.status;
+            }, "json"
+        );
+    }
+    if(result) {
+        let rememberLogin = $("#_rememberLogin").prop("checked");
+        //TODO post到Servlet，记住登录状态
+        if(rememberLogin) {
+            $.post("/mealordering/rememberLogin");
+        }
+    } else {
+        $alert.collapse("show");
+    }
     return result;
 });
 
@@ -54,17 +105,9 @@ $("#_form-register").on("submit", function() {
         utils.checkSpace($password, $alert, "密码不能包含空格！") &&
         utils.checkByRegex($userName, $alert, passwordRegex, "密码格式不合法！") &&
         utils.checkByRepeat($rePassword, $password, $alert, "两次输入的密码不一致！");
-    $alert.collapse({show: !result});
-    return result;
-});
-
-//DONE 拦截管理员登录，验证输入
-$("#_form-login-admin").on("submit", function() {
-    let $userName = $("#_user-name-admin");
-    let $password = $("#_password-admin");
-    let $alert = $("#_alert-login-admin");
-    let result = utils.checkSpace($userName, $alert, "名字不能包含空格！") &&
-        utils.checkSpace($password, $alert, "密码不能包含空格！");
-    $alert.collapse({show: !result});
+    //如果格式正确，即可以提交
+    if(!result) {
+        $alert.collapse("show");
+    }
     return result;
 });

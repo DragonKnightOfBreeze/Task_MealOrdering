@@ -43,6 +43,6 @@ public class IndexServlet extends HttpServlet {
 
 //		request.setAttribute("notice", notice);
 //		request.setAttribute("weekHotMeals", weekHotMeals);
-//		request.getRequestDispatcher("/page/index.jsp").forward(request, response);
+//		request.getRequestDispatcher("/page/index.html").forward(request, response);
 	}
 }

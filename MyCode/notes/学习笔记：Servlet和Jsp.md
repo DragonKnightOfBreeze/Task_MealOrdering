@@ -39,14 +39,14 @@
     <welcome-file-list>
         <welcome-file>index.htm</welcome-file>
         <welcome-file>index.html</welcome-file>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 ```
 
 **后续工作
 
 
-11. 构建好项目后，直接运行index.html或index.jsp，
+11. 构建好项目后，直接运行index.html或index.html，
 12. 不需要手动启动tomcat服务器，且需要确保是关闭的。停止运行则表示与服务器断开连接。
 13. 如果设置了默认浏览器，此后会直接用默认浏览器打开欢迎页。
 

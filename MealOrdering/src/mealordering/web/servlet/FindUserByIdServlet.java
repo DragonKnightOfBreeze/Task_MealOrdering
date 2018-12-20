@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 根据Id查询订单的Servlet
+ * 根据Id查询用户信息的Servlet
  */
 @WebServlet(name = "FindUserByIdServlet", urlPatterns = {"/mealordering/findUserById"})
 public class FindUserByIdServlet extends HttpServlet {

@@ -28,7 +28,7 @@ public class LogoutServlet extends HttpServlet {
 		request.getSession().invalidate();
 		//如果标识不为空，则重定向到首页
 		if(!flag.isEmpty()) {
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			response.sendRedirect(request.getContextPath() + "/index.html");
 		}
 	}
 }

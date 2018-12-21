@@ -23,7 +23,7 @@ public class OrderDao {
 	 * 生成订单。
 	 */
 	public void doCreate(@NotNull Order order) throws SQLException {
-		String sql = "insert into Order(id,money,receiverAddress,receiverName,receiverPhone,payState,orderTime,user_id)" +
+		String sql = "insert into Order(id,totalPrice,receiverAddress,receiverName,receiverPhone,payState,orderTime,user_id)" +
 				" value(?,?,?,?,?,0,null,?)";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(DataSourceUtils.getConnection(), sql,
@@ -36,7 +36,7 @@ public class OrderDao {
 	 * 根据Id取消订单。
 	 */
 	public void doDeleteById(@NotNull String id) throws SQLException {
-		String sql = "delete from orders where id=?";
+		String sql = "delete from Order where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(DataSourceUtils.getConnection(), sql, id);
 	}
@@ -46,21 +46,21 @@ public class OrderDao {
 	 * 根据Id查询订单。
 	 */
 	public Order findById(@NotNull String id) throws SQLException {
-		String sql = "select * from Order,NormalUser where Order.user_id=NormalUser.id and Order.id=? order by Order.id";
+		String sql = "select * from Order,User where Order.user_id=User.id and Order.id=? order by Order.id";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
 			Order order = new Order();
 			if (rs.next()) {
 				NormalUser user = new NormalUser();
-				user.setId(rs.getInt("NormalUser.id"));
-				user.setUserName(rs.getString("NormalUser.userName"));
-				user.setGender(rs.getString("NormalUser.gender"));
-				user.setEmail(rs.getString("NormalUser.email"));
-				user.setPhoneNum(rs.getString("NormalUser.phoneNum"));
-				user.setIntroduce(rs.getString("NormalUser.introduce"));
-				user.setType(rs.getString("NormalUser.type"));
-				user.setActiveState(rs.getInt("NormalUser.activeState"));
-				user.setRegisterTime(rs.getDate("NormalUser.registerTime"));
+				user.setId(rs.getInt("User.id"));
+				user.setUserName(rs.getString("User.userName"));
+				user.setGender(rs.getString("User.gender"));
+				user.setEmail(rs.getString("User.email"));
+				user.setPhoneNum(rs.getString("User.phoneNum"));
+				user.setIntroduce(rs.getString("User.introduce"));
+				user.setType(rs.getString("User.type"));
+				user.setActiveState(rs.getInt("User.activeState"));
+				user.setRegisterTime(rs.getDate("User.registerTime"));
 
 				order.setId(rs.getString("Order.id"));
 				order.setTotalPrice(rs.getDouble("Order.money"));
@@ -88,7 +88,7 @@ public class OrderDao {
 	 * 根据用户查询订单。
 	 */
 	public List<Order> findByUser(@NotNull final NormalUser user) throws SQLException {
-		String sql = "select * from orders where user_id=? order by orderTime";
+		String sql = "select * from Order where user_id=? order by orderTime";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
 			List<Order> orderList = new ArrayList<>();
@@ -113,7 +113,7 @@ public class OrderDao {
 	 * 根据用户查询指定数量的最近生成的订单。
 	 */
 	public List<Order> findByUser(@NotNull final NormalUser user, int findCount) throws SQLException {
-		String sql = "select * from orders where user_id=? order by orderTime limit 0,?";
+		String sql = "select * from Order where user_id=? order by orderTime limit 0,?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
 			List<Order> orderList = new ArrayList<>();
@@ -139,22 +139,23 @@ public class OrderDao {
 	 * 查询所有订单，按照用户Id进行排列。
 	 */
 	public List<Order> findAll() throws SQLException {
-		String sql = "select Order.*,NormalUser.* from Order,NormalUser where NormalUser.id=Order.user_id" +
+		String sql = "select Order.*,User.* from Order,User" +
+				" where User.id=Order.user_id" +
 				" order by Order.user_id asc,Order.orderTime desc";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
 			List<Order> orderList = new ArrayList<>();
 			while (rs.next()) {
 				NormalUser user = new NormalUser();
-				user.setId(rs.getInt("NormalUser.id"));
-				user.setUserName(rs.getString("NormalUser.userName"));
-				user.setGender(rs.getString("NormalUser.gender"));
-				user.setEmail(rs.getString("NormalUser.email"));
-				user.setPhoneNum(rs.getString("NormalUser.phoneNum"));
-				user.setIntroduce(rs.getString("NormalUser.introduce"));
-				user.setType(rs.getString("NormalUser.type"));
-				user.setActiveState(rs.getInt("NormalUser.activeState"));
-				user.setRegisterTime(rs.getDate("NormalUser.registerTime"));
+				user.setId(rs.getInt("User.id"));
+				user.setUserName(rs.getString("User.userName"));
+				user.setGender(rs.getString("User.gender"));
+				user.setEmail(rs.getString("User.email"));
+				user.setPhoneNum(rs.getString("User.phoneNum"));
+				user.setIntroduce(rs.getString("User.introduce"));
+				user.setType(rs.getString("User.type"));
+				user.setActiveState(rs.getInt("User.activeState"));
+				user.setRegisterTime(rs.getDate("User.registerTime"));
 
 				Order order = new Order();
 				order.setId(rs.getString("Order.id"));
@@ -176,7 +177,7 @@ public class OrderDao {
 	 * 更新订单支付状态。
 	 */
 	public void updatePayState(@NotNull String id) throws SQLException {
-		String sql = "update orders set payState=1 where id=?";
+		String sql = "update Order set payState=1 where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(sql, id);
 	}

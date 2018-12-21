@@ -3,8 +3,7 @@
  */
 package mealordering.web.servlet;
 
-import mealordering.exception.ActiveException;
-import mealordering.service.NormalUserService;
+import mealordering.service.ServiceFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,26 +14,26 @@ import java.io.IOException;
 
 /**
  * 用户激活的Servlet
+ * <br>INFO 不使用Ajax。
  */
 @WebServlet(name = "ActiveServlet", urlPatterns = {"/mealordering/active"})
 public class ActiveServlet extends HttpServlet {
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//得到表单参数
-		String activeCode = request.getParameter("activeCode").trim();
+		String activeCode = req.getParameter("activeCode").trim();
 
 		try {
-			NormalUserService service = new NormalUserService();
 			//默认设置：24小时的有效时间
-			service.doActive(activeCode, 24);
+			ServiceFactory.getNormalUserSvc().doActive(activeCode, 24);
 
-			response.sendRedirect(request.getContextPath() + "/active-success.html");
-		} catch(ActiveException e) {
+			resp.sendRedirect(req.getContextPath() + "/active-success.html");
+		} catch(Exception e) {
 			e.printStackTrace();
-			response.sendRedirect(request.getContextPath() + "/active-fail.html");
+			resp.sendRedirect(req.getContextPath() + "/active-fail.html");
 		}
 	}
 }

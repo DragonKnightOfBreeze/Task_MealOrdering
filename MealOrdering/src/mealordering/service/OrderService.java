@@ -1,10 +1,16 @@
 package mealordering.service;
 
+import dk_breeze.annotation.NotTested;
+import dk_breeze.utils.ext.ListExt;
 import mealordering.dao.DaoFactory;
 import mealordering.dao.MealDao;
 import mealordering.dao.OrderDao;
 import mealordering.dao.OrderItemDao;
-import mealordering.domain.*;
+import mealordering.domain.Meal;
+import mealordering.domain.NormalUser;
+import mealordering.domain.Order;
+import mealordering.domain.OrderItem;
+import mealordering.exception.ResultEmptyException;
 import mealordering.utils.DataSourceUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,24 +30,23 @@ public class OrderService {
 	public void doCreate(@NotNull Order order) {
 		try {
 			DataSourceUtils.startTransaction();
-
 			//向Order表中添加数据
 			orderDao.doCreate(order);
 			//向OrderItem表中添加数据
 			orderItemDao.doAdd(order);
 			//修改Meal表中的餐品数量
-			mealDao.updateMealCount(order.getOrderItemList(), n -> n + 1);
-		} catch(SQLException e) {
+			mealDao.updateMealCount(order.getOrderItemList(), false);
+		} catch(Exception e) {
 			e.printStackTrace();
 			try {
 				DataSourceUtils.rollback();
-			} catch(SQLException e1) {
+			} catch(Exception e1) {
 				e1.printStackTrace();
 			}
 		} finally {
 			try {
 				DataSourceUtils.releaseAndCloseConnection();
-			} catch(SQLException e) {
+			} catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -53,13 +58,12 @@ public class OrderService {
 	public void doCancelById(@NotNull String id) {
 		try {
 			DataSourceUtils.startTransaction();
-
 			//查询订单物品
 			Order order = new Order();
 			order.setId(id);
 			List<OrderItem> itemList = orderItemDao.findByOrder(order);
 			//修改餐品库存数量
-			mealDao.updateMealCount(itemList, n -> n - 1);
+			mealDao.updateMealCount(itemList, true);
 			//删除订单物品
 			orderItemDao.doDeleteById(id);
 			//删除订单
@@ -86,7 +90,6 @@ public class OrderService {
 	public void doDeleteById(String id) {
 		try {
 			DataSourceUtils.startTransaction();
-
 			orderItemDao.doDeleteById(id);
 			orderDao.doDeleteById(id);
 		} catch(SQLException e) {
@@ -110,13 +113,10 @@ public class OrderService {
 	 * 根据Id查询订单。
 	 * @param id 订单Id
 	 */
-	public Order findById(@NotNull String id) {
-		Order order = null;
-		try {
-			order = orderDao.findById(id);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+	public Order findById(@NotNull String id) throws SQLException, ResultEmptyException {
+		Order order = orderDao.findById(id);
+		if(order == null)
+			throw new ResultEmptyException();
 		return order;
 	}
 
@@ -124,16 +124,13 @@ public class OrderService {
 	 * 根据用户查询订单。
 	 * @param user 用户
 	 */
-	public List<Order> findByUser(@NotNull NormalUser user) {
-		List<Order> orderList = null;
-		try {
-			orderList = orderDao.findByUser(user);
-			for(Order order : orderList) {
-				List<OrderItem> itemList = orderItemDao.findByOrder(order);
-				order.setOrderItemList(itemList);
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
+	public List<Order> findByUser(@NotNull NormalUser user) throws SQLException, ResultEmptyException {
+		List<Order> orderList = orderDao.findByUser(user);
+		if(ListExt.orEmpty(orderList))
+			throw new ResultEmptyException();
+		for(Order order : orderList) {
+			List<OrderItem> itemList = orderItemDao.findByOrder(order);
+			order.setOrderItemList(itemList);
 		}
 		return orderList;
 	}
@@ -141,16 +138,14 @@ public class OrderService {
 	/**
 	 * 根据用户查询指定数量的最近生成的订单，分页显示。
 	 */
-	public List<Order> findByUserRecent(@NotNull NormalUser user, int findCount) {
-		List<Order> orderList = null;
-		try {
-			orderList = orderDao.findByUser(user, findCount);
-			for(Order order : orderList) {
-				List<OrderItem> itemList = orderItemDao.findByOrder(order);
-				order.setOrderItemList(itemList);
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
+	public List<Order> findByUserRecent(@NotNull NormalUser user, int findCount)
+	throws SQLException, ResultEmptyException {
+		List<Order> orderList = orderDao.findByUser(user, findCount);
+		if(ListExt.orEmpty(orderList))
+			throw new ResultEmptyException();
+		for(Order order : orderList) {
+			List<OrderItem> itemList = orderItemDao.findByOrder(order);
+			order.setOrderItemList(itemList);
 		}
 		return orderList;
 	}
@@ -158,9 +153,13 @@ public class OrderService {
 	/**
 	 * 得到某个用户最近购买的指定数量的商品。
 	 */
-	public List<Meal> getRecentMealsByUser(@NotNull NormalUser user, int findCount) {
+	@NotTested
+	public List<Meal> getRecentMealsByUser(@NotNull NormalUser user, int findCount)
+	throws ResultEmptyException, SQLException {
 		List<Meal> mealList = new ArrayList<>();
 		List<Order> orderList = findByUserRecent(user, findCount);
+		if(ListExt.orEmpty(orderList))
+			throw new ResultEmptyException();
 		flag:
 		for(Order order : orderList) {
 			List<OrderItem> itemList = order.getOrderItemList();
@@ -175,33 +174,25 @@ public class OrderService {
 	}
 
 	/**
-	 * 查询所有订单，分页显示。
+	 * 查询所有订单。
 	 */
-	public BeanPage<Order> findAllInPage(int pageIndex, int count) {
-		BeanPage<Order> orderPage = null;
-		try {
-			List<Order> orderList = orderDao.findAll();
-			for(Order order : orderList) {
-				List<OrderItem> itemList = orderItemDao.findByOrder(order);
-				order.setOrderItemList(itemList);
-			}
-			orderPage = new BeanPage<>(pageIndex, count, orderList);
-		} catch(Exception e) {
-			e.printStackTrace();
+	public List<Order> findAll() throws SQLException, ResultEmptyException {
+		List<Order> orderList = orderDao.findAll();
+		if(ListExt.orEmpty(orderList))
+			throw new ResultEmptyException();
+		for(Order order : orderList) {
+			List<OrderItem> itemList = orderItemDao.findByOrder(order);
+			order.setOrderItemList(itemList);
 		}
-		return orderPage;
+		return orderList;
 	}
 
 	/**
 	 * 更新订单支付状态。
 	 * @param id 订单Id
 	 */
-	public void updatePayState(@NotNull String id) {
-		try {
-			orderDao.updatePayState(id);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+	public void updatePayState(@NotNull String id) throws SQLException {
+		orderDao.updatePayState(id);
 	}
 
 }

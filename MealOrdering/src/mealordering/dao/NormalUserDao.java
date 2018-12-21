@@ -52,10 +52,10 @@ public class NormalUserDao {
 	 * 编辑用户信息。
 	 */
 	public void doEdit(@NotNull NormalUser user) throws SQLException {
-		String sql = "update User set userName=?,password=?,gender=?,email=?,phoneNum=?,introduce=? where id=?";
+		String sql = "update User set userName=?,password=?,gender=?,imgUrl=?,email=?,phoneNum=?,introduce=? where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		int row = runner.update(sql,
-				user.getUserName(), user.getPassword(), user.getGender(), user.getEmail(),
+				user.getUserName(), user.getPassword(), user.getGender(), user.getImgUrl(), user.getEmail(),
 				user.getPhoneNum(), user.getIntroduce(),
 				user.getId()
 		);

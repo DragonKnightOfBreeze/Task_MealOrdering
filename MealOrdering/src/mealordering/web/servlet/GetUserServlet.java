@@ -3,6 +3,7 @@
  */
 package mealordering.web.servlet;
 
+import mealordering.annotations.UseAjax;
 import mealordering.domain.NormalUser;
 import org.json.JSONObject;
 
@@ -16,11 +17,13 @@ import java.io.IOException;
 /**
  * 得到已登录用户信息的Servlet
  */
+@UseAjax
 @WebServlet(name = "GetUserServlet", urlPatterns = "/mealordering/getUser")
 public class GetUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		NormalUser user = (NormalUser) req.getSession().getAttribute("user");
-		JSONObject data = new JSONObject(user);
+
+		var data = new JSONObject(user);
 		resp.getWriter().println(data);
 	}
 }

@@ -2,35 +2,35 @@
 <html>
 <head>
   <title>注册失败</title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
   <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
   <script>
-      import * as utils from "_js/utils";
+      import * as utils from "/mealordering/assets/js/utils";
 
-      $(function() {
-          utils.countDown($("#_second"), "index.html");
-      });
+      $(() => utils.countDown($("#_second"), "index.html"));
   </script>
 </head>
 
 <body>
   <div id="_head"></div>
-  <script>$(() => $("#_head").load("_head.html"));</script>
+  <script>$(() => $("#_head").load("/mealordering/_head.html"));</script>
 
-  <div id="_backgroundBar"></div>
-  <script>$(() => $("#_backgroundBar").load("_backgroundBar.html"));</script>
+  <div id="_background-bar"></div>
+  <script>$(() => $("#_background-bar").load("/mealordering/_background-bar.html"));</script>
 
-  <div class="container text-center" id="_error-info">
+  <div class="container text-center" id="_body-content">
+    <div class="text-center" id="_fail-info">
     <h4>注册失败！</h4>
     <hr>
-    <a class="btn btn-link" href="index.html">
-      <span id="_second">5</span>秒后自动为您跳转到首页。
-    </a>
+      <a class="btn btn-link" href="/mealordering/index.html"><span id="_second">5</span>秒后自动为您跳转到首页</a>
+    </div>
   </div>
 
   <div id="_foot"></div>
-  <script>$(() => $("#_foot").load("_foot.html"));</script>
+  <script>$(() => $("#_foot").load("/mealordering/_foot.html"));</script>
 </body>
 </html>

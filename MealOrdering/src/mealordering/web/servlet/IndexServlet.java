@@ -3,9 +3,10 @@
  */
 package mealordering.web.servlet;
 
+import mealordering.annotations.UseAjax;
 import mealordering.domain.Notice;
-import mealordering.service.MealService;
-import mealordering.service.NoticeService;
+import mealordering.exception.ResultEmptyException;
+import mealordering.service.ServiceFactory;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -23,26 +25,35 @@ import java.util.List;
  * <li>展示本周热销商品。</li>
  * </ol>
  */
+@UseAjax
 @WebServlet(name = "IndexServlet", urlPatterns = {"/mealordering/index"})
 public class IndexServlet extends HttpServlet {
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		this.doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//查询最近的一条公告
-		NoticeService noticeService = new NoticeService();
-		Notice notice = noticeService.findLatest();
-		//查询本周热销的两条商品
-		MealService mealService = new MealService();
-		List<Object[]> weekHotMeals = mealService.getWeekHotMeals(2);
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//声明返回参数
+		String status = "success";
+		Notice notice = null;
+		List<Object[]> weekHotMeals = null;
 
-		JSONObject data = new JSONObject().put("notice", notice).put("weekHotMeals", weekHotMeals);
-		response.getWriter().println(data);
+		try {
+			//查询最近的一条公告
+			notice = ServiceFactory.getNoticeSvc().findRecent(1).get(0);
+			//查询本周热销的两条商品
+			weekHotMeals = ServiceFactory.getMealSvc().getWeekHotMeals(2);
+		} catch(ResultEmptyException e) {
+			e.printStackTrace();
+			status = "empty";
+		} catch(SQLException e) {
+			e.printStackTrace();
+			status = "error";
+		}
 
-//		request.setAttribute("notice", notice);
-//		request.setAttribute("weekHotMeals", weekHotMeals);
-//		request.getRequestDispatcher("/page/index.html").forward(request, response);
+		JSONObject data = new JSONObject().put("status", status).put("notice", notice)
+				.put("weekHotMeals", weekHotMeals);
+		resp.getWriter().println(data);
 	}
 }

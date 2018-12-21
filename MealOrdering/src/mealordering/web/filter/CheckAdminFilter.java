@@ -2,8 +2,8 @@ package mealordering.web.filter;
 
 
 import dk_breeze.utils.ext.StringExt;
-import mealordering.domain.NormalUser;
-import mealordering.domain.enums.EUser_Type;
+import mealordering.domain.User;
+import mealordering.enums.Identity;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -23,16 +23,16 @@ public class CheckAdminFilter implements Filter {
 
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
 		//强制转换
-		HttpServletRequest httpServletRequest = (HttpServletRequest) req;
-		HttpServletResponse httpServletResponse = (HttpServletResponse) resp;
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletResponse response = (HttpServletResponse) resp;
 		//判断是否具有权限
-		NormalUser user = (NormalUser) httpServletRequest.getSession().getAttribute("user");
-		if(user != null && StringExt.equalsE(user.getType(), EUser_Type.Admin)) {
-			chain.doFilter(httpServletRequest, httpServletResponse);
+		User user = (User) request.getSession().getAttribute("user");
+		//如果用户是管理员则通过，否则重定向到登录失败页
+		if(user != null && StringExt.equalsE(user.getType(), Identity.Admin)) {
+			chain.doFilter(request, response);
 			return;
 		}
-		//否则重定向到登录失败页
-		httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/error/identityError.jsp");
+		response.sendRedirect(request.getContextPath() + "/error/identity-error.html");
 	}
 
 	public void destroy() {

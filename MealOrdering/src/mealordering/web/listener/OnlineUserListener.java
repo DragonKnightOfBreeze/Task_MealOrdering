@@ -1,5 +1,7 @@
 package mealordering.web.listener;
 
+import dk_breeze.annotation.NotTested;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -13,8 +15,8 @@ import java.util.TreeSet;
 
 /**
  * 在线用户监听器
- * TODO
  */
+@NotTested
 @WebListener
 public class OnlineUserListener implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
 	//用于application属性操作
@@ -25,36 +27,36 @@ public class OnlineUserListener implements ServletContextListener, HttpSessionLi
 		//取得ServletContext实例
 		this.app = event.getServletContext();
 		//设置空集合
-		this.app.setAttribute("online", new TreeSet());
+		this.app.setAttribute("onlineUser", new TreeSet());
 	}
 
 	//销毁session
 	public void sessionDestroyed(HttpSessionEvent event) {
 		//取出已有列表
-		Set all = (Set) this.app.getAttribute("online");
+		Set all = (Set) this.app.getAttribute("onlineUser");
 		//取出设置的内容
 		all.remove(event.getSession().getAttribute("userId"));
 		//重新保存
-		this.app.setAttribute("online", all);
+		this.app.setAttribute("onlineUser", all);
 	}
 
 	//增加session属性
 	public void attributeAdded(HttpSessionBindingEvent event) {
 		//取出已有列表
-		Set all = (Set) this.app.getAttribute("online");
+		Set all = (Set) this.app.getAttribute("onlineUser");
 		//增加新用户
 		all.add(event.getValue());
 		//重新保存
-		this.app.setAttribute("online", all);
+		this.app.setAttribute("onlineUser", all);
 	}
 
 	//删除session属性
 	public void attributeRemoved(HttpSessionBindingEvent event) {
 		//取出已有列表
-		Set all = (Set) this.app.getAttribute("online");
+		Set all = (Set) this.app.getAttribute("onlineUser");
 		//删除离开的用户
 		all.remove(event.getValue());
 		//重新保存
-		this.app.setAttribute("online", all);
+		this.app.setAttribute("onlineUser", all);
 	}
 }

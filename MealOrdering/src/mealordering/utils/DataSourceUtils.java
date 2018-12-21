@@ -14,7 +14,7 @@ public class DataSourceUtils {
 	/** 从数据库连接池中得到一个连接 */
 	private static DataSource dataSource = new ComboPooledDataSource();
 	/** 本地线程 */
-	private static ThreadLocal<Connection> tl = new ThreadLocal<>();
+	private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
 
 
 	/**
@@ -28,10 +28,10 @@ public class DataSourceUtils {
 	 * 得到连接（需要手动控制事务时）。
 	 */
 	public static Connection getConnection() throws SQLException {
-		var con = tl.get();
+		var con = threadLocal.get();
 		if (con == null) {
 			con = dataSource.getConnection();
-			tl.set(con);
+			threadLocal.set(con);
 		}
 		return con;
 	}
@@ -71,7 +71,7 @@ public class DataSourceUtils {
 		if (con == null)
 			return;
 		con.commit();
-		tl.remove();
+		threadLocal.remove();
 		con.close();
 	}
 }

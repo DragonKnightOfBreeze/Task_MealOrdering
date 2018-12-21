@@ -5,8 +5,9 @@ package mealordering.web.servlet.notice;
 
 import dk_breeze.utils.ext.StringExt;
 import mealordering.domain.Notice;
-import mealordering.domain.enums.EUser_Type;
-import mealordering.service.NoticeService;
+import mealordering.exception.ResultEmptyException;
+import mealordering.service.ServiceFactory;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,30 +15,36 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
- * 根据Id查询公告的Servlet
+ * 根据id查询公告的Servlet
  */
-@WebServlet(name = "FindNoticeByIdServlet", urlPatterns = {"/client/findNoticeById"})
+@WebServlet(name = "FindNoticeByIdServlet", urlPatterns = {"/mealordering/admin/findNoticeById", "/mealordering/notice/findById"})
 public class FindNoticeByIdServlet extends HttpServlet {
-
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		this.doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//得到表单参数
-		int id = StringExt.toInt(request.getParameter("id").trim());
-		String type = request.getParameter("type").trim();
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//得到传入参数
+		int id = StringExt.toInt(req.getParameter("id"));
+		String type = req.getParameter("type").trim();
+		//声明返回参数
+		String status = "success";
+		Notice notice = null;
 
-		NoticeService service = new NoticeService();
-		Notice notice = service.findById(id);
-
-		request.setAttribute("notice", notice);
-		if(StringExt.equalsE(type, EUser_Type.Admin)) {
-			request.getRequestDispatcher("/admin/notice.jsp").forward(request, response);
-		} else {
-			request.getRequestDispatcher("/notice/noticeInfo.jsp").forward(request, response);
+		try {
+			notice = ServiceFactory.getNoticeSvc().findById(id);
+		} catch(ResultEmptyException e) {
+			e.printStackTrace();
+			status = "empty";
+		} catch(SQLException e) {
+			e.printStackTrace();
+			status = "error";
 		}
+
+		var data = new JSONObject().put("status", status).put("meal", notice);
+		resp.getWriter().println(data);
 	}
 }

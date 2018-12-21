@@ -1,11 +1,13 @@
 package mealordering.service;
 
+import dk_breeze.utils.ext.ListExt;
 import mealordering.dao.DaoFactory;
 import mealordering.dao.NoticeDao;
-import mealordering.domain.BeanPage;
 import mealordering.domain.Notice;
+import mealordering.exception.ResultEmptyException;
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -18,106 +20,64 @@ public class NoticeService {
 	 * 添加公告。
 	 * @param notice 公告信息
 	 */
-	public void doAdd(@NotNull Notice notice) {
-		try {
-			dao.doAdd(notice);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+	public void doAdd(@NotNull Notice notice) throws SQLException {
+		dao.doAdd(notice);
 	}
 
 	/**
 	 * 编辑通知信息。
 	 * @param notice 公告信息
 	 */
-	public void doEdit(@NotNull Notice notice) {
-		try {
-			dao.doEdit(notice);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+	public void doEdit(@NotNull Notice notice) throws SQLException {
+		dao.doEdit(notice);
 	}
 
 	/**
 	 * 根据Id删除公告。
 	 * @param id 公告Id
 	 */
-	public void doDeleteById(int id) {
-		try {
-			dao.doDeleteById(id);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+	public void doDeleteById(int id) throws SQLException {
+		dao.doDeleteById(id);
 	}
 
 	/**
 	 * 根据Id查询公告。
 	 * @param id 公告Id
 	 */
-	public Notice findById(int id) {
-		Notice notice = null;
-		try {
-			notice = dao.findById(id);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return notice;
-	}
-
-	/**
-	 * 查询最近添加或修改的一条公告。
-	 */
-	public Notice findLatest() {
-		Notice notice = null;
-		try {
-			notice = dao.findRecent(1).get(0);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+	public Notice findById(int id) throws SQLException, ResultEmptyException {
+		Notice notice = dao.findById(id);
+		if(notice == null)
+			throw new ResultEmptyException();
 		return notice;
 	}
 
 	/**
 	 * 查询指定数量的最近添加或修改的公告。
 	 */
-	public BeanPage<Notice> findInPage(int findCount, int pageIndex, int count) {
-		BeanPage<Notice> noticePage = null;
-		try {
-			List<Notice> noticeList = dao.findRecent(findCount);
-			noticePage = new BeanPage<>(pageIndex, count, noticeList);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return noticePage;
+	public List<Notice> findRecent(int findCount) throws SQLException, ResultEmptyException {
+		List<Notice> noticeList = dao.findRecent(findCount);
+		if(ListExt.orEmpty(noticeList))
+			throw new ResultEmptyException();
+		return noticeList;
 	}
 
 	/**
-	 * 查询所有公告，按照时间降序排列，分页显示。
+	 * 查询所有公告，按照时间降序排列。
 	 */
-	public BeanPage<Notice> findAllInPage(int pageIndex, int count) {
-		BeanPage<Notice> noticePage = null;
-		try {
-			List<Notice> noticeList = dao.findAll();
-			noticePage = new BeanPage<>(pageIndex, count, noticeList);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return noticePage;
+	public List<Notice> findAll() throws SQLException, ResultEmptyException {
+		List<Notice> noticeList = dao.findAll();
+		if(ListExt.orEmpty(noticeList))
+			throw new ResultEmptyException();
+		return noticeList;
 	}
 
 	/**
 	 * 根据公告标题进行模糊搜索。
 	 */
-	public BeanPage<Notice> searchByTitleInPage(@NotNull String title, int pageIndex, int count) {
-		BeanPage<Notice> noticePage = null;
-		try {
-			List<Notice> noticeList = dao.searchByTitle(title, pageIndex, count);
-			noticePage = new BeanPage<>(pageIndex, count, noticeList);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return noticePage;
+	public List<Notice> searchByTitle(@NotNull String title) throws SQLException, ResultEmptyException {
+		List<Notice> noticeList = dao.searchByTitle(title);
+		if(ListExt.orEmpty(noticeList))
+			throw new ResultEmptyException();
+		return noticeList;
 	}
-
-
 }

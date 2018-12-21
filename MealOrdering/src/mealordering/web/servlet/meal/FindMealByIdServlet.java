@@ -3,10 +3,10 @@
  */
 package mealordering.web.servlet.meal;
 
-import dk_breeze.utils.ext.StringExt;
 import mealordering.domain.Meal;
-import mealordering.domain.enums.EUser_Type;
-import mealordering.service.MealService;
+import mealordering.exception.ResultEmptyException;
+import mealordering.service.ServiceFactory;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,32 +14,36 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
- * 根据Id查询餐品信息的Servlet
+ * 根据id查询餐品信息的Servlet
  */
-@WebServlet(name = "FindMealByIdServlet", urlPatterns = {"/mealordering/findMealById"})
+@WebServlet(name = "FindMealByIdServlet", urlPatterns = {"/mealordering/admin/findMealById", "/mealordering/meal/findById"})
 public class FindMealByIdServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//得到表单参数
-		String id = request.getParameter("id").trim();
-		String type = request.getParameter("type").trim();
+		String id = req.getParameter("id").trim();
+		//声明返回参数
+		String status = "success";
+		Meal meal = null;
 
-		MealService service = new MealService();
-		Meal meal = service.findById(id);
-
-		request.setAttribute("meal", meal);
-		if(StringExt.equalsE(type, EUser_Type.Admin)) {
-			request.getRequestDispatcher("/admin/mealInfo.jsp").forward(request, response);
-		} else {
-			request.getRequestDispatcher("/meal/mealInfo.jsp").forward(request, response);
+		try {
+			meal = ServiceFactory.getMealSvc().findById(id);
+		} catch(ResultEmptyException e) {
+			e.printStackTrace();
+			status = "empty";
+		} catch(SQLException e) {
+			e.printStackTrace();
+			status = "error";
 		}
+
+		var data = new JSONObject().put("status", status).put("meal", meal);
+		resp.getWriter().println(data);
 	}
 }
 

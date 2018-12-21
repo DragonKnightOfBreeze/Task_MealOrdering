@@ -4,6 +4,7 @@
 package mealordering.web.servlet.account;
 
 
+import dk_breeze.annotation.NotTested;
 import mealordering.utils.PaymentUtils;
 
 import javax.servlet.ServletException;
@@ -18,19 +19,20 @@ import java.util.ResourceBundle;
  * 在线支付的Servlet
  * TODO 正确的对接
  */
-@WebServlet(name = "OnlinePayServlet", urlPatterns = {"/mealordering/onlinePlay"})
+@NotTested
+@WebServlet(name = "OnlinePayServlet", urlPatterns = {"/mealordering/account/onlinePlay"})
 public class OnlinePayServlet extends HttpServlet {
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//得到在线支付所需的参数
-		String pd_FrpId = request.getParameter("bank"); //银行编码
+		String pd_FrpId = req.getParameter("bank"); //银行编码
 		String p0_Cmd = "Buy"; //业务类型
 		String p1_MerId = ResourceBundle.getBundle("merchantInfo").getString("p1_MerId"); //商户编号
-		String p2_Order = request.getParameter("orderId"); //商户订单号
-		String p3_Amt = request.getParameter("money"); //支付金额
+		String p2_Order = req.getParameter("orderId"); //商户订单号
+		String p3_Amt = req.getParameter("money"); //支付金额
 		String p4_Cur = "CNY"; //交易币种
 		String p5_PId = ""; //商品名称
 		String p6_PCat = ""; //商品种类
@@ -51,21 +53,21 @@ public class OnlinePayServlet extends HttpServlet {
 		//.com/app-merchant-proxy/node?p0_Cmd="+p0_Cmd+"&p1_MerId="+p1_MerId);
 
 		//设置相关特性
-		request.setAttribute("pd_FrpId", pd_FrpId);
-		request.setAttribute("p0_Cmd", p0_Cmd);
-		request.setAttribute("p1_MerId", p1_MerId);
-		request.setAttribute("p2_Order", p2_Order);
-		request.setAttribute("p3_Amt", p3_Amt);
-		request.setAttribute("p4_Cur", p4_Cur);
-		request.setAttribute("p5_PId", p5_PId);
-		request.setAttribute("p6_PCat", p6_PCat);
-		request.setAttribute("p7_PDesc", p7_PDesc);
-		request.setAttribute("p8_Url", p8_Url);
-		request.setAttribute("p9_SAF", p9_SAF);
-		request.setAttribute("pa_MP", pa_MP);
-		request.setAttribute("pr_NeedResponse", pr_NeedResponse);
-		request.setAttribute("hmac", hmac);
+		req.setAttribute("pd_FrpId", pd_FrpId);
+		req.setAttribute("p0_Cmd", p0_Cmd);
+		req.setAttribute("p1_MerId", p1_MerId);
+		req.setAttribute("p2_Order", p2_Order);
+		req.setAttribute("p3_Amt", p3_Amt);
+		req.setAttribute("p4_Cur", p4_Cur);
+		req.setAttribute("p5_PId", p5_PId);
+		req.setAttribute("p6_PCat", p6_PCat);
+		req.setAttribute("p7_PDesc", p7_PDesc);
+		req.setAttribute("p8_Url", p8_Url);
+		req.setAttribute("p9_SAF", p9_SAF);
+		req.setAttribute("pa_MP", pa_MP);
+		req.setAttribute("pr_NeedResponse", pr_NeedResponse);
+		req.setAttribute("hmac", hmac);
 		//跳转到支付确认页面
-		request.getRequestDispatcher("/client/confirm.jsp").forward(request, response);
+		req.getRequestDispatcher("/client/confirm.jsp").forward(req, resp);
 	}
 }

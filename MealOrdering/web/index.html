@@ -9,24 +9,24 @@
   <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" href="_css/index.css">
-  <script src="_js/index.js"></script>
+  <link rel="stylesheet" href="/mealordering/assets/css/index.css">
+  <script src="/mealordering/assets/js/index.js"></script>
 </head>
 
 <body>
   <!--INFO 页面顶部-->
   <div id="_head"></div>
-  <script>$(() => $("#_head").load("_head.html"));</script>
+  <script>$(() => $("#_head").load("/mealordering/_head.html"));</script>
 
   <!--INFO 背景图-->
-  <div id="_backgroundBar"></div>
-  <script>$(() => $("#_backgroundBar").load("_backgroundBar.html"));</script>
+  <div id="_background-bar"></div>
+  <script>$(() => $("#_background-bar").load("/mealordering/_background-bar.html"));</script>
 
   <!--INFO 页面主体：导航条，轮播图，最近的公告，本周推荐-->
   <div class="container" id="_body">
     <!--INFO 搜索栏-->
-    <div id="_searchBar"></div>
-    <script>$(() => $("#_searchBar").load("meal/_searchBar.html"));</script>
+    <div id="_search-bar"></div>
+    <script>$(() => $("#_search-Bar").load("/mealordering/meal/_search-bar.html"));</script>
 
     <!--INFO 首页-->
     <!--INFO 轮播图：广告，具有切换效果-->
@@ -40,19 +40,19 @@
       <!--轮播图片-->
       <div class="carousel-inner" role="listbox">
         <div class="carousel-item active">
-          <img src="_image/meal_img/food10.jpg"/>
+          <img src="assets/image/meal_img/food10.jpg"/>
           <div class="carousel-caption">
             <p>Lorem ipsumdolor sit amet</p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="_image/meal_img/food11.jpg">
+          <img src="assets/image/meal_img/food11.jpg">
           <div class="carousel-caption">
             <p>Lorem ipsumdolor sit amet</p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="_image/meal_img/food12.jpg">
+          <img src="assets/image/meal_img/food12.jpg">
           <div class="carousel-caption">
             <p>Lorem ipsumdolor sit amet</p>
           </div>
@@ -70,7 +70,7 @@
       <!--INFO 最近公告-->
       <div class="border col-md-6">
         <h3>最近公告
-          <a class="float-right" href="notice/noticeList.jsp"><span class="glyphicon glyphicon-plus"></span></a>
+          <a class="float-right" href="notice/notice-list.html"><span class="glyphicon glyphicon-plus"></span></a>
         </h3>
         <hr>
         <article id="_art-latest-notice">
@@ -81,11 +81,11 @@
       <!--INFO 本周推荐-->
       <div class="border col-md-6">
         <h3>本周推荐
-          <a class="float-right" href="meal/mealList.jsp"><span class="glyphicon glyphicon-plus"></span></a>
+          <a class="float-right" href="meal/meal-list.html"><span class="glyphicon glyphicon-plus"></span></a>
         </h3>
         <hr>
         <div class="media border col-md-3 p-3 _media-week-hot">
-          <img src="_image/meal_img/food04.jpg" class="mr-3 mt-3 img-thumbnail" style="width:60px;">
+          <img src="assets/image/meal_img/food04.jpg" class="mr-3 mt-3 img-thumbnail" style="width:60px;">
           <div class="media-body">
             <h4>餐品名称
               <small>销售总量：<span></span></small>
@@ -94,7 +94,7 @@
           </div>
         </div>
         <div class="media border col-md-3 p-3 _media-week-hot">
-          <img src="_image/meal_img/food05.jpg" class="mr-3 mt-3 img-thumbnail" style="width:60px;">
+          <img src="assets/image/meal_img/food05.jpg" class="mr-3 mt-3 img-thumbnail" style="width:60px;">
           <div class="media-body">
             <h4>餐品名称
               <small>销售总量：<span></span></small>
@@ -108,6 +108,6 @@
 
   <!--INFO 页面尾部-->
   <div id="_foot"></div>
-  <script>$(() => $("#_foot").load("_foot.html"));</script>
+  <script>$(() => $("#_foot").load("/mealordering/_foot.html"));</script>
 </body>
 </html>

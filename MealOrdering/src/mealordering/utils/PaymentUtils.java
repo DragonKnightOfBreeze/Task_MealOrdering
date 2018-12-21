@@ -1,5 +1,6 @@
 package mealordering.utils;
 
+import dk_breeze.annotation.NotTested;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.UnsupportedEncodingException;
@@ -10,8 +11,8 @@ import java.util.Arrays;
 /**
  * 支付的工具类
  * TODO 充分理解
- * @noinspection unused, WeakerAccess
  */
+@NotTested
 public class PaymentUtils {
 
 	private static String encodingCharset = "UTF-8";
@@ -33,7 +34,9 @@ public class PaymentUtils {
 	 * @param pr_NeedResponse 应答机制
 	 * @param keyValue 商户密钥
 	 */
-	public static String buildHmac(String p0_Cmd, String p1_MerId, String p2_Order, String p3_Amt, String p4_Cur, String p5_PId, String p6_PCat, String p7_PDesc, String p8_Url, String p9_SAF, String pa_MP, String pd_FrpId, String pr_NeedResponse, String keyValue) {
+	public static String buildHmac(String p0_Cmd, String p1_MerId, String p2_Order, String p3_Amt, String p4_Cur,
+			String p5_PId, String p6_PCat, String p7_PDesc, String p8_Url, String p9_SAF, String pa_MP, String pd_FrpId,
+			String pr_NeedResponse, String keyValue) {
 
 		String sValue = p0_Cmd + p1_MerId + p2_Order + p3_Amt + p4_Cur + p5_PId + p6_PCat + p7_PDesc + p8_Url + p9_SAF + pa_MP + pd_FrpId + pr_NeedResponse;
 		return PaymentUtils.hmacSign(sValue, keyValue);
@@ -55,10 +58,12 @@ public class PaymentUtils {
 	 * @param r9_BType 交易结果返回类型
 	 * @param keyValue 商户密钥
 	 */
-	public static boolean verifyHmac(String hmac, String p1_MerId, String r0_Cmd, String r1_Code, String r2_TrxId, String r3_Amt, String r4_Cur, String r5_Pid, String r6_Order, String r7_Uid, String r8_MP, String r9_BType, String keyValue) {
+	public static boolean verifyHmac(String hmac, String p1_MerId, String r0_Cmd, String r1_Code, String r2_TrxId,
+			String r3_Amt, String r4_Cur, String r5_Pid, String r6_Order, String r7_Uid, String r8_MP, String r9_BType,
+			String keyValue) {
 		String sValue = p1_MerId + r0_Cmd + r1_Code + r2_TrxId + r3_Amt + r4_Cur + r5_Pid + r6_Order + r7_Uid + r8_MP + r9_BType;
 		String str = PaymentUtils.hmacSign(sValue, keyValue);
-		if (str == null)
+		if(str == null)
 			return false;
 		return str.equals(hmac);
 	}
@@ -69,11 +74,11 @@ public class PaymentUtils {
 	 * @param args 参数
 	 */
 	public static String getHmac(@NotNull String key, @NotNull String[] args) {
-		if (args.length == 0)
+		if(args.length == 0)
 			return null;
 
 		StringBuilder str = new StringBuilder();
-		for (String arg : args) {
+		for(String arg : args) {
 			str.append(arg);
 		}
 		return (hmacSign(key, str.toString()));
@@ -90,14 +95,14 @@ public class PaymentUtils {
 		try {
 			value1 = value.getBytes(encodingCharset);
 			key1 = key.getBytes(encodingCharset);
-		} catch (UnsupportedEncodingException e) {
+		} catch(UnsupportedEncodingException e) {
 			value1 = value.getBytes();
 			key1 = key.getBytes();
 		}
 
 		Arrays.fill(k_ipad, key1.length, 64, (byte) 54);
 		Arrays.fill(k_opad, key1.length, 64, (byte) 92);
-		for (int i = 0; i < key1.length; i++) {
+		for(int i = 0; i < key1.length; i++) {
 			k_ipad[i] = (byte) (key1[i] ^ 0x36);
 			k_opad[i] = (byte) (key1[i] ^ 0x5c);
 		}
@@ -105,7 +110,7 @@ public class PaymentUtils {
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("MD5");
-		} catch (NoSuchAlgorithmException e) {
+		} catch(NoSuchAlgorithmException e) {
 			return null;
 		}
 		md.update(k_ipad);
@@ -126,13 +131,13 @@ public class PaymentUtils {
 		byte[] value;
 		try {
 			value = aValue.getBytes(encodingCharset);
-		} catch (UnsupportedEncodingException e) {
+		} catch(UnsupportedEncodingException e) {
 			value = aValue.getBytes();
 		}
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("SHA");
-		} catch (NoSuchAlgorithmException e) {
+		} catch(NoSuchAlgorithmException e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -144,9 +149,9 @@ public class PaymentUtils {
 	 */
 	public static String toHex(@NotNull byte[] input) {
 		StringBuilder output = new StringBuilder(input.length * 2);
-		for (byte anInput : input) {
+		for(byte anInput : input) {
 			int current = anInput & 0xff;
-			if (current < 16)
+			if(current < 16)
 				output.append("0");
 			output.append(Integer.toString(current, 16));
 		}

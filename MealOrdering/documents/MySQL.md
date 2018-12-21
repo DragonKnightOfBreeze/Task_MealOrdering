@@ -27,7 +27,7 @@ alter table Notice comment '通知表';
 create table `Order`
 (
     id varchar(50) NOT NULL comment '订单编号' PRIMARY KEY ,
-    money double COMMENT '订单价格',
+    totalPrice double COMMENT '订单价格',
     receiverAddress varchar(255) COMMENT '收货地址',
     receiverName varchar(20) COMMENT '收货人姓名',
     receiverPhone varchar(20) COMMENT '收货人电话',

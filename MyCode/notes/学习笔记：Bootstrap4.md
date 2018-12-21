@@ -12,6 +12,8 @@
 
 # 笔记
 
+container、row、col三个类必须直接嵌套。
+
 &emsp;
 
 # 代码片段

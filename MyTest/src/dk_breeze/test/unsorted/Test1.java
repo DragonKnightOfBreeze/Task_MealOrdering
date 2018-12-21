@@ -1,7 +1,5 @@
 package dk_breeze.test.unsorted;
 
-import dk_breeze.utils.ext.StringExt;
-
 public class Test1 {
 	public static void main(String[] args) {
 //		String str = null;
@@ -14,11 +12,18 @@ public class Test1 {
 //		String str = null;
 ////		System.out.println(str.isEmpty());
 //		System.out.println(str.isBlank());
-		System.out.println(StringExt.toInt("123"));
-		System.out.println(StringExt.toInt("123 "));
-		System.out.println(StringExt.toInt("aaa"));
-		System.out.println(StringExt.toInt("123", 5));
-		System.out.println(StringExt.toInt("123 ", 5));
-		System.out.println(StringExt.toInt("aaa ", 5));
+//		System.out.println(StringExt.toInt("123"));
+//		System.out.println(StringExt.toInt("123 "));
+//		System.out.println(StringExt.toInt("aaa"));
+//		System.out.println(StringExt.toInt("123", 5));
+//		System.out.println(StringExt.toInt("123 ", 5));
+//		System.out.println(StringExt.toInt("aaa ", 5));
+
+		String str = "123";
+		System.out.println(str.getClass().getName());
+	}
+
+	void test1(String str1) {
+
 	}
 }

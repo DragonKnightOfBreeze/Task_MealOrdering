@@ -4,7 +4,7 @@
 package mealordering.dao;
 
 import mealordering.domain.Admin;
-import mealordering.domain.enums.EUser_Type;
+import mealordering.enums.Identity;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +25,7 @@ public class AdminDao {
 			admin.setId(rs.getInt(1));
 			admin.setUserName(rs.getString(2));
 			admin.setPassword(rs.getString(3));
-			admin.setType(EUser_Type.Admin.toString());
+			admin.setType(Identity.Admin.toString());
 			return admin;
 		}, userName, password);
 	}

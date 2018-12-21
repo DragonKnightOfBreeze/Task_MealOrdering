@@ -27,8 +27,7 @@ public class Meal implements Serializable {
 
 	public Meal() {}
 
-	public Meal(String id, String name, double price, String category, String imgUrl, String description, int count) {
-		this.id = id;
+	public Meal(String name, double price, String category, String imgUrl, String description, int count) {
 		this.name = name;
 		this.price = price;
 		this.category = category;

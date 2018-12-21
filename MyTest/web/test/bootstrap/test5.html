@@ -22,13 +22,26 @@
   <!--alert($("#_remember").prop("checked"));-->
   <!--</script>-->
   <!--</form>-->
+  <!--<script>-->
+  <!--$(function() {-->
+  <!--$.post("test.json", function(data) {-->
+  <!--alert(data.status + "fafaf" + data.count + "dafa" + data.type);-->
+  <!--})-->
+  <!--})-->
+  <!--</script>-->
   <script>
       $(function() {
-          $.post("test.json", function(data) {
-              alert(data.status + "fafaf" + data.count + "dafa" + data.type);
-          })
-      })
+              $("form").submit(function() {
+                  alert("不允许");
+                  return false;
+              });
+          }
+      );
   </script>
+
+  <form id="_testForm" action="javascript:alert('成功')">
+    <input type="submit" value="提交">
+  </form>
 
 </body>
 </html>

@@ -2,7 +2,7 @@ package mealordering.dao;
 
 import mealordering.domain.Meal;
 import mealordering.domain.OrderItem;
-import mealordering.domain.enums.EMeal_Category;
+import mealordering.enums.EMeal_Category;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ArrayListHandler;
@@ -12,9 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.function.IntFunction;
 
 import static dk_breeze.utils.ext.StringExt.equalsE;
 import static dk_breeze.utils.ext.StringExt.f;
@@ -24,7 +22,8 @@ import static dk_breeze.utils.ext.StringExt.f;
  */
 public class MealDao {
 
-	MealDao() { }
+	MealDao() {
+	}
 
 	/**
 	 * 添加餐品。
@@ -43,10 +42,8 @@ public class MealDao {
 	 */
 	public void doEdit(@NotNull Meal meal) throws SQLException {
 		String sql = "update Meal set name=?,price=?,category=?,count=?,description=? ";
-		List<Object> params = new ArrayList<>();
-		Collections.addAll(params,
-				meal.getName(), meal.getPrice(), meal.getCategory(), meal.getCount(), meal.getDescription()
-		);
+		List<Object> params = List
+				.of(meal.getName(), meal.getPrice(), meal.getCategory(), meal.getCount(), meal.getDescription());
 		if(!meal.getImgUrl().isEmpty()) {
 			sql += ",imgUrl=?";
 			params.add(meal.getImgUrl());
@@ -82,7 +79,7 @@ public class MealDao {
 	 * 根据分类查询餐品。
 	 * @param category 餐品分类
 	 */
-	public List<Meal> findByCategory(@NotNull String category) throws SQLException {
+	public List<Meal> searchByCategory(@NotNull String category) throws SQLException {
 		String sql = "select * from Meal where 1=1";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		if(category.isEmpty() || equalsE(category, EMeal_Category.Default)) {
@@ -147,7 +144,9 @@ public class MealDao {
 	/**
 	 * 多条件搜索餐品。
 	 */
-	public List<Meal> searchByConditions(@NotNull String id, @NotNull String name, @NotNull String category, @NotNull String minPrice, @NotNull String maxPrice) throws SQLException {
+	public List<Meal> searchByConditions(@NotNull String id, @NotNull String name, @NotNull String category,
+			@NotNull String minPrice, @NotNull String maxPrice)
+	throws SQLException {
 		String sql = "select * from Meal where 1=1";
 		List<Object> params = new ArrayList<>();
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
@@ -156,7 +155,7 @@ public class MealDao {
 			params.add(id);
 		}
 		if(!name.isEmpty()) {
-			sql += f(" and name like '%{0}%'",name);
+			sql += f(" and name like '%{0}%'", name);
 		}
 		if(!category.isEmpty()) {
 			sql += " and category=? ";
@@ -171,15 +170,17 @@ public class MealDao {
 	}
 
 	/**
-	 * 更新餐品库存数量。
-	 * @param count 计算库存数量的Lambda int->int
+	 * 根据订单餐品中的购买数量，更新餐品库存数量。
+	 * @param itemList 订单餐品列表
+	 * @param doAdd 是否进行增加操作
 	 */
-	public void updateMealCount(@NotNull List<OrderItem> itemList, IntFunction<Integer> count) throws SQLException {
-		String sql = "update Meal set count=? where id=?";
+	public void updateMealCount(@NotNull List<OrderItem> itemList, boolean doAdd) throws SQLException {
+		String sql = "update Meal set count= count+? where id=?";
 		QueryRunner runner = new QueryRunner();
 		Object[][] params = new Object[itemList.size()][2];
 		for(int i = 0; i < params.length; i++) {
-			params[i][0] = count.apply(itemList.get(i).getBuyCount());
+			int delta = itemList.get(i).getBuyCount();
+			params[i][0] = doAdd ? delta : -delta;
 			params[i][1] = itemList.get(i).getMeal().getId();
 		}
 		runner.batch(DataSourceUtils.getConnection(), sql, params);

@@ -1,8 +1,10 @@
 package mealordering.web.servlet;
 
+import mealordering.annotations.UseAjax;
 import mealordering.domain.User;
-import mealordering.exception.LoginException;
-import mealordering.service.NormalUserService;
+import mealordering.exception.UserNotActiveException;
+import mealordering.exception.UserNotFoundException;
+import mealordering.service.ServiceFactory;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -11,36 +13,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
- * 登录的Servlet（Ajax）
+ * 登录的Servlet
  */
+@UseAjax
 @WebServlet(name = "LoginServlet", urlPatterns = {"/mealordering/login"})
 public class LoginServlet extends HttpServlet {
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//表单参数
-		String userName = request.getParameter("userName");
-		String password = request.getParameter("password");
-		//回调数据
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//得到传入参数
+		String userName = req.getParameter("userName");
+		String password = req.getParameter("password");
+		//声明返回参数
 		User user = null;
-		boolean status = false;
+		String status = "success";
 
-		NormalUserService service = new NormalUserService();
 		try {
-			user = service.loginByUserNameAndPassword(userName, password);
-		} catch(LoginException e) {
+			user = ServiceFactory.getNormalUserSvc().loginByUserNameAndPassword(userName, password);
+			//如果查找到用户，则将用户信息存储到session中
+			req.getSession().setAttribute("user", user);
+		} catch(SQLException e) {
 			e.printStackTrace();
+			status = "error";
+		} catch(UserNotFoundException e) {
+			e.printStackTrace();
+			status = "notFound";
+		} catch(UserNotActiveException e) {
+			e.printStackTrace();
+			status = "notActive";
 		}
-		//如果查找到用户，则将用户信息存储到session中
-		if(user != null) {
-			request.getSession().setAttribute("user", user);
-			status = true;
-		}
-		JSONObject data = new JSONObject().put("user", user).put("status", status);
-		response.getWriter().println(data);
+
+		var data = new JSONObject().put("status", status).put("user", user);
+		resp.getWriter().println(data);
 	}
 }

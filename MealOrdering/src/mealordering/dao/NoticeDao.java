@@ -81,7 +81,7 @@ public class NoticeDao {
 	/**
 	 * 根据公告标题进行模糊搜索。
 	 */
-	public List<Notice> searchByTitle(String title, int pageIndex, int count) throws SQLException {
+	public List<Notice> searchByTitle(String title) throws SQLException {
 		String sql = f("select * from Notice where title like '%{0}%'", title);
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanListHandler<>(Notice.class));

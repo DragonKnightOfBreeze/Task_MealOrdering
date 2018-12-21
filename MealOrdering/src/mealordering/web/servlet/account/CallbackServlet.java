@@ -3,6 +3,7 @@
  */
 package mealordering.web.servlet.account;
 
+import dk_breeze.annotation.NotTested;
 import dk_breeze.utils.ext.StringExt;
 import mealordering.service.OrderService;
 import mealordering.utils.PaymentUtils;
@@ -17,10 +18,10 @@ import java.util.ResourceBundle;
 
 /**
  * 数据回调的Servlet，用于支付
- * TODO 正确的对接
- * TODO 重定向连接
+ * TODO 正确的对接，重定向连接
  */
-@WebServlet(name = "CallbackServlet", urlPatterns = {"/mealordering/callback"})
+@NotTested
+@WebServlet(name = "CallbackServlet", urlPatterns = {"/mealordering/account/callback"})
 public class CallbackServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);

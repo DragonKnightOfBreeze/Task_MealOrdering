@@ -2,8 +2,8 @@ package mealordering.web.filter;
 
 
 import dk_breeze.utils.ext.StringExt;
-import mealordering.domain.NormalUser;
-import mealordering.domain.enums.EUser_Type;
+import mealordering.domain.User;
+import mealordering.enums.Identity;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -22,16 +22,15 @@ public class CheckLoginFilter implements Filter {
 
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
 		//强制转换
-		HttpServletRequest httpServletRequest = (HttpServletRequest) req;
-		HttpServletResponse httpServletResponse = (HttpServletResponse) resp;
-		//如果已登录，且不是管理员，则通过
-		NormalUser user = (NormalUser) httpServletRequest.getSession().getAttribute("user");
-		if(user != null && !StringExt.equalsE(user.getType(), EUser_Type.Admin)) {
-			chain.doFilter(httpServletRequest, httpServletResponse);
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletResponse response = (HttpServletResponse) resp;
+		//如果已登录，且不是管理员，则通过，否则重定向到错误页
+		User user = (User) request.getSession().getAttribute("user");
+		if(user != null && !StringExt.equalsE(user.getType(), Identity.Admin)) {
+			chain.doFilter(request, response);
 			return;
 		}
-		//否则重定向到登录失败页
-		httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/error/notLoginError.jsp");
+		response.sendRedirect(request.getContextPath() + "/error/login-state-error.html");
 	}
 
 	public void destroy() {

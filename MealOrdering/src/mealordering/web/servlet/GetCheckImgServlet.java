@@ -16,6 +16,7 @@ import java.io.IOException;
 
 /**
  * 得到验证码的Servlet
+ * <br>INFO 不使用Ajax。
  */
 @WebServlet(name = "GetCheckImgServlet", urlPatterns = {"/mealordering/getCheckImg"})
 public class GetCheckImgServlet extends HttpServlet {

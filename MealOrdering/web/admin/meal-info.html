@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>管理页 餐品详情</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+  <div id="_head"></div>
+  <script>$(() => $("#_head").load("/mealordering/admin/_head.html"));</script>
+
+  <div id="_background-bar"></div>
+  <script>$(() => $("#_background-bar").load("/mealordering/admin/_background-bar.html"));</script>
+
+  <div class="container" id="_body">
+    <div class="row">
+      <!--INFO 侧边菜单栏-->
+      <div class="col-sm-3" id="_side-menu"></div>
+      <script>$(() => $("#_side-menu").load("/mealordering/admin/_side-menu.html"));</script>
+
+      <!--INFO 内容页面-->
+      <div class="col-sm-9" id="_body-content-info">
+
+      </div>
+    </div>
+  </div>
+
+  <div id="_foot"></div>
+  <script>$(() => $("#_foot").load("/mealordering/admin/_foot.html"));</script>
+</body>
+</html>
+

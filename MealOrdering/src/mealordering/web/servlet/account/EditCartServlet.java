@@ -4,7 +4,6 @@
 package mealordering.web.servlet.account;
 
 import dk_breeze.utils.ext.StringExt;
-import mealordering.annotations.UseAjax;
 import mealordering.domain.Meal;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.MealService;
@@ -24,7 +23,6 @@ import java.util.Map;
 /**
  * 更改购物车内容的Servlet
  */
-@UseAjax
 @WebServlet(name = "EditCartServlet", urlPatterns = {"/mealordering/account/editCart"})
 public class EditCartServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

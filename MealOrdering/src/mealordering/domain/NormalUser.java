@@ -1,5 +1,7 @@
 package mealordering.domain;
 
+import mealordering.enums.Identity;
+
 import java.util.Date;
 
 import static dk_breeze.utils.ext.StringExt.f;
@@ -31,8 +33,9 @@ public class NormalUser extends User {
 	public NormalUser() {}
 
 	public NormalUser(String userName, String password, String imgUrl, String gender, String email, String phoneNum, String introduce) {
-		this.setUserName(userName);
-		this.setPassword(password);
+		this.userName = userName;
+		this.password = password;
+		this.type = Identity.normalUser.toString();
 		this.gender = gender;
 		this.email = email;
 		this.phoneNum = phoneNum;
@@ -99,7 +102,8 @@ public class NormalUser extends User {
 
 	@Override
 	public String toString() {
-		return f("NormalUser [id={0}, userName={1}, type={2}, gender={3}, email={4}, phoneNum={5}, introduce={6}]", getId(), getUserName(), getType(), gender, email, phoneNum, introduce);
+		return f("normalUser [id={0}, userName={1}, type={2}, gender={3}, email={4}, phoneNum={5}, introduce={6}]",
+				getId(), getUserName(), getType(), gender, email, phoneNum, introduce);
 	}
 
 	public String getImgUrl() {

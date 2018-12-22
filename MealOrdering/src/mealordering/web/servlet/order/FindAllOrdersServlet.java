@@ -1,11 +1,10 @@
 package mealordering.web.servlet.order;
 
-import mealordering.annotations.UseAjax;
+import dk_breeze.utils.JSONUtils;
 import mealordering.domain.Order;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +18,6 @@ import java.util.List;
 /**
  * 后台查询所有订单的Servlet
  */
-@UseAjax
 @WebServlet(name = "FindAllOrdersServlet", urlPatterns = {"/mealordering/admin/findAllOrders"})
 public class FindAllOrdersServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,8 +43,7 @@ public class FindAllOrdersServlet extends HttpServlet {
 			status = "error";
 		}
 
-		var data = new JSONObject().put("status", status).put("orderPage", orderPage).put("pageBtnText", pageBtnText);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status, "orderPage", orderPage, "pageBtnText", pageBtnText));
 	}
 }
 

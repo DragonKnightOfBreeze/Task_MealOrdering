@@ -1,11 +1,7 @@
 package mealordering.web.servlet;
 
-import mealordering.annotations.UseAjax;
 import mealordering.domain.User;
-import mealordering.exception.UserNotActiveException;
-import mealordering.exception.UserNotFoundException;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,12 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * 登录的Servlet
  */
-@UseAjax
 @WebServlet(name = "LoginServlet", urlPatterns = {"/mealordering/login"})
 public class LoginServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,26 +23,23 @@ public class LoginServlet extends HttpServlet {
 		//得到传入参数
 		String userName = req.getParameter("userName");
 		String password = req.getParameter("password");
-		//声明返回参数
-		User user = null;
-		String status = "success";
+		//声明返回验证参数
+		boolean validateStatus = true;
 
+		//如果密码为空，则只验证用户名是否存在，否则验证密码是否正确
 		try {
-			user = ServiceFactory.getNormalUserSvc().loginByUserNameAndPassword(userName, password);
-			//如果查找到用户，则将用户信息存储到session中
-			req.getSession().setAttribute("user", user);
-		} catch(SQLException e) {
+			if(password == null) {
+				ServiceFactory.getNormalUserSvc().findByUserName(userName);
+			} else {
+				User user = ServiceFactory.getNormalUserSvc().loginByUserNameAndPassword(userName, password);
+				//如果查找到用户，则将用户信息存储到session中
+				req.getSession().setAttribute("user", user);
+			}
+		} catch(Exception e) {
 			e.printStackTrace();
-			status = "error";
-		} catch(UserNotFoundException e) {
-			e.printStackTrace();
-			status = "notFound";
-		} catch(UserNotActiveException e) {
-			e.printStackTrace();
-			status = "notActive";
+			validateStatus = false;
 		}
 
-		var data = new JSONObject().put("status", status).put("user", user);
-		resp.getWriter().println(data);
+		resp.getWriter().println(validateStatus);
 	}
 }

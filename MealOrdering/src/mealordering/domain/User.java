@@ -7,13 +7,13 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 	/** 用户编号 */
-	private int id;
+	protected int id;
 	/** 用户名称 */
-	private String userName;
+	protected String userName;
 	/** 用户密码 */
-	private String password;
+	protected String password;
 	/** 用户类型 */
-	private String type;
+	protected String type;
 
 	public int getId() {
 		return id;

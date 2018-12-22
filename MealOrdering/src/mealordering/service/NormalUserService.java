@@ -174,7 +174,7 @@ public class NormalUserService {
 				"<p>" +
 				"感谢您注册网上书城，请点击：\n" +
 				"<a href='" + href + "'>&nbsp;激活&nbsp;</a>后使用。\n" +
-				"<br/>为保障您的账户安全，请在24小时内完成激活操作。" +
+				"<br>为保障您的账户安全，请在24小时内完成激活操作。" +
 				"</p>";
 //		String[] authInfo = new String[]{"dk_breeze@qq.com", "......"};
 

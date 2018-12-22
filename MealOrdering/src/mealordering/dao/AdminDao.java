@@ -4,7 +4,6 @@
 package mealordering.dao;
 
 import mealordering.domain.Admin;
-import mealordering.enums.Identity;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.jetbrains.annotations.NotNull;
@@ -21,12 +20,22 @@ public class AdminDao {
 		String sql = "select (id,userName,password) from User where userName=? and password=? and type='管理员'";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
-			Admin admin = new Admin();
+			Admin admin = new Admin(rs.getString(2), rs.getString(3));
 			admin.setId(rs.getInt(1));
-			admin.setUserName(rs.getString(2));
-			admin.setPassword(rs.getString(3));
-			admin.setType(Identity.Admin.toString());
 			return admin;
 		}, userName, password);
+	}
+
+	/**
+	 * 根据用户名称查询管理员。
+	 */
+	public Admin findByUserName(@NotNull String userName) throws SQLException {
+		String sql = "select (id,userName,password,type) from User where userName=?";
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		return runner.query(sql, rs -> {
+			Admin admin = new Admin(rs.getString(2), rs.getString(3));
+			admin.setId(rs.getInt(1));
+			return admin;
+		}, userName);
 	}
 }

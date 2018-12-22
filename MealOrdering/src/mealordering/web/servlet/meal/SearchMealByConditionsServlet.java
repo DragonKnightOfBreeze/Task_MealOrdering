@@ -4,7 +4,6 @@
 package mealordering.web.servlet.meal;
 
 import dk_breeze.utils.JSONUtils;
-import mealordering.annotations.UseAjax;
 import mealordering.domain.Meal;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;
@@ -22,7 +21,6 @@ import java.util.List;
 /**
  * 多条件查询产品的Servlet
  */
-@UseAjax
 @WebServlet(name = "SearchMealByConditionsServlet", urlPatterns = {"/mealordering/meal/searchByConditions"})
 public class SearchMealByConditionsServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -32,7 +32,6 @@ public class FindPasswordServlet extends HttpServlet {
 		//发送重置密码邮件
 		ServiceFactory.getNormalUserSvc().sendFindPswEmail(email, resetCode);
 
-		var data = JSONUtils.of("status", status);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status));
 	}
 }

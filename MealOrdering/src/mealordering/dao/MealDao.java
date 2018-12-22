@@ -2,7 +2,7 @@ package mealordering.dao;
 
 import mealordering.domain.Meal;
 import mealordering.domain.OrderItem;
-import mealordering.enums.EMeal_Category;
+import mealordering.enums.Category;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ArrayListHandler;
@@ -82,7 +82,7 @@ public class MealDao {
 	public List<Meal> searchByCategory(@NotNull String category) throws SQLException {
 		String sql = "select * from Meal where 1=1";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		if(category.isEmpty() || equalsE(category, EMeal_Category.Default)) {
+		if(category.isEmpty() || equalsE(category, Category.all)) {
 			return runner.query(sql, new BeanListHandler<>(Meal.class));
 		} else {
 			sql += " and category=?";

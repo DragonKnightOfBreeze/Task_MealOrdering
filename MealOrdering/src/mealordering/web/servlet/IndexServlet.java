@@ -3,11 +3,10 @@
  */
 package mealordering.web.servlet;
 
-import mealordering.annotations.UseAjax;
+import dk_breeze.utils.JSONUtils;
 import mealordering.domain.Notice;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +24,6 @@ import java.util.List;
  * <li>展示本周热销商品。</li>
  * </ol>
  */
-@UseAjax
 @WebServlet(name = "IndexServlet", urlPatterns = {"/mealordering/index"})
 public class IndexServlet extends HttpServlet {
 
@@ -52,8 +50,6 @@ public class IndexServlet extends HttpServlet {
 			status = "error";
 		}
 
-		JSONObject data = new JSONObject().put("status", status).put("notice", notice)
-				.put("weekHotMeals", weekHotMeals);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status, "notice", notice, "weekHotMeals", weekHotMeals));
 	}
 }

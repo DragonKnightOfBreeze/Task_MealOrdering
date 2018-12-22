@@ -112,25 +112,6 @@ function validURL(url) {
     return true;
 }
 
-
-// /**
-//  * 截取地址，得到参数（仅限Get请求）。
-//  */
-// function parseUrl(url){
-//     if(url.indexOf("?") === -1) {
-//         return {};
-//     }
-//     const query = url.split("?")[1];
-//     const queryArr = query.split("&");
-//     const obj = {};
-//     for(const item of queryArr) {
-//         const key = item.split("=")[0];
-//         const value = item.split("=")[1];
-//         obj[key] = decodeURIComponent(value);
-//     }
-//     return obj;
-// }
-
 /**
  * 截取地址中?后面的部分，得到Get请求参数
  * @return {{}}

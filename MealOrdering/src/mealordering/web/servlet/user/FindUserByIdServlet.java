@@ -3,11 +3,11 @@
  */
 package mealordering.web.servlet.user;
 
+import dk_breeze.utils.JSONUtils;
 import dk_breeze.utils.ext.StringExt;
 import mealordering.domain.NormalUser;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,7 +43,6 @@ public class FindUserByIdServlet extends HttpServlet {
 			status = "error";
 		}
 
-		var data = new JSONObject().put("status", status).put("user", user);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status, "user", user));
 	}
 }

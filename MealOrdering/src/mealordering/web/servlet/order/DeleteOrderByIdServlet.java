@@ -3,9 +3,8 @@
  */
 package mealordering.web.servlet.order;
 
-import mealordering.annotations.UseAjax;
+import dk_breeze.utils.JSONUtils;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +16,6 @@ import java.io.IOException;
 /**
  * 删除订单的Servlet。
  */
-@UseAjax
 @WebServlet(name = "DeleteOrderByIdServlet", urlPatterns = {"/mealordering/deleteOrderById"})
 public class DeleteOrderByIdServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,7 +31,6 @@ public class DeleteOrderByIdServlet extends HttpServlet {
 		ServiceFactory.getOrderSvc().doDeleteById(orderId);
 
 		//打印返回参数
-		var data = new JSONObject().put("status", status);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status));
 	}
 }

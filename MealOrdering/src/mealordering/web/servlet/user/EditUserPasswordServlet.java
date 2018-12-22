@@ -1,8 +1,8 @@
 package mealordering.web.servlet.user;
 
+import dk_breeze.utils.JSONUtils;
 import dk_breeze.utils.ext.StringExt;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,7 +38,6 @@ public class EditUserPasswordServlet extends HttpServlet {
 			status = "error";
 		}
 
-		var data = new JSONObject().put("status", status);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status));
 	}
 }

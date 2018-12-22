@@ -4,14 +4,14 @@ package mealordering.enums;
  * 用户类型的枚举
  */
 public enum Identity {
-	Client, Admin;
+	normalUser, admin;
 
 	@Override
 	public String toString() {
 		switch(name()) {
-			case "Client":
+			case "normalUser":
 				return "普通用户";
-			case "Admin":
+			case "admin":
 				return "管理员";
 			default:
 				return "普通用户";

@@ -1,7 +1,6 @@
 package mealordering.web.servlet.meal;
 
 import dk_breeze.utils.JSONUtils;
-import mealordering.annotations.UseAjax;
 import mealordering.service.ServiceFactory;
 
 import javax.servlet.ServletException;
@@ -15,7 +14,6 @@ import java.sql.SQLException;
 /**
  * 删除餐品的Servlet
  */
-@UseAjax
 @WebServlet(name = "DeleteMealServlet", urlPatterns = {"/mealordering/admin/deleteMeal"})
 public class DeleteMealServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

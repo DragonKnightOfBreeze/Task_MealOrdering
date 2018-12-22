@@ -3,12 +3,11 @@
  */
 package mealordering.web.servlet.user;
 
-import mealordering.annotations.UseAjax;
+import dk_breeze.utils.JSONUtils;
 import mealordering.domain.NormalUser;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +21,6 @@ import java.util.List;
 /**
  * 根据名字搜索用户的Servlet
  */
-@UseAjax
 @WebServlet(name = "SearchUserByUserNameServlet", urlPatterns = {"/mealordering/admin/searchUserByName"})
 public class SearchUserByUserNameServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -51,7 +49,6 @@ public class SearchUserByUserNameServlet extends HttpServlet {
 			status = "error";
 		}
 
-		var data = new JSONObject().put("status", status).put("userPage", userPage).put("pageBtnText", pageBtnText);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status, "userPage", userPage, "pageBtnText", pageBtnText));
 	}
 }

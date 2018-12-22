@@ -1,7 +1,6 @@
 package mealordering.web.servlet.meal;
 
 import dk_breeze.utils.JSONUtils;
-import mealordering.annotations.UseAjax;
 import mealordering.domain.Meal;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;
@@ -19,7 +18,6 @@ import java.util.List;
 /**
  * 查询所有餐品信息的Servlet
  */
-@UseAjax
 @WebServlet(name = "FindAllMealsServlet", urlPatterns = {"/mealordering/admin/findAllMeals", "/mealordering/meal/findAll"})
 public class FindAllMealsServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

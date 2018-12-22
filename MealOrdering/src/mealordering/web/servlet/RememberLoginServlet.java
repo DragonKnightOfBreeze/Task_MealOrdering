@@ -1,9 +1,11 @@
 package mealordering.web.servlet;
 
-import dk_breeze.exception.NotImplementedException;
+import dk_breeze.utils.JSONUtils;
+import dk_breeze.utils.ext.StringExt;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +23,17 @@ public class RememberLoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException, IOException {
-		throw new NotImplementedException();
+		//得到传入参数（用户id）
+		int id = StringExt.toInt(req.getParameter("id"), -1);
+		//声明返回参数
+		String status = "success";
+
+		if(id != -1) {
+			resp.addCookie(new Cookie("userId", Integer.toString(id)));
+		} else {
+			status = "error";
+		}
+
+		resp.getWriter().println(JSONUtils.of("status", status));
 	}
 }

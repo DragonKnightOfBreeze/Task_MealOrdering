@@ -1,5 +1,5 @@
 package mealordering.enums;
 
 public enum Status {
-	success, fail
+	success, error, empty, notFound, notActive
 }

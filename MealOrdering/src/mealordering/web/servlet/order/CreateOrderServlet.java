@@ -5,7 +5,6 @@ package mealordering.web.servlet.order;
 
 import dk_breeze.utils.JSONUtils;
 import dk_breeze.utils.UUIDUtils;
-import mealordering.annotations.UseAjax;
 import mealordering.domain.Meal;
 import mealordering.domain.NormalUser;
 import mealordering.domain.Order;
@@ -26,7 +25,6 @@ import java.util.Map;
  * 生成订单的Servlet
  * <br>传入：...，返回：id,status，使用AJax。
  */
-@UseAjax
 @WebServlet(name = "CreateOrderServlet", urlPatterns = {"/mealordering/account/createOrder"})
 public class CreateOrderServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

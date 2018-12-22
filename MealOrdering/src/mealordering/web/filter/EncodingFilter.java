@@ -12,8 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
- * 编码过滤器<br/>
- * 统一全站编码，防止项目中的请求和响应出现乱码情况。
+ * 编码过滤器
+ *<br> 统一全站编码，防止项目中的请求和响应出现乱码情况。
  */
 @WebFilter(filterName = "EncodingFilter", urlPatterns = {"/*"})
 public class EncodingFilter implements Filter {

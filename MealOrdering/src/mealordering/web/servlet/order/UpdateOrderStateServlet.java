@@ -3,9 +3,8 @@
  */
 package mealordering.web.servlet.order;
 
-import mealordering.annotations.UseAjax;
+import dk_breeze.utils.JSONUtils;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +17,6 @@ import java.sql.SQLException;
 /**
  * 更新订单状态的Servlet
  */
-@UseAjax
 @WebServlet(name = "UpdateOrderStateServlet", urlPatterns = {"/mealordering/account/updateOrderState"})
 public class UpdateOrderStateServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,7 +36,6 @@ public class UpdateOrderStateServlet extends HttpServlet {
 			status = "error";
 		}
 
-		var data = new JSONObject().put("status", status);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status));
 	}
 }

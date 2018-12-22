@@ -29,7 +29,6 @@ public class ActiveServlet extends HttpServlet {
 		try {
 			//默认设置：24小时的有效时间
 			ServiceFactory.getNormalUserSvc().doActive(activeCode, 24);
-
 			resp.sendRedirect(req.getContextPath() + "/active-success.html");
 		} catch(Exception e) {
 			e.printStackTrace();

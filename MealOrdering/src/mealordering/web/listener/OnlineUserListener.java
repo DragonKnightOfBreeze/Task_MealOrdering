@@ -35,7 +35,7 @@ public class OnlineUserListener implements ServletContextListener, HttpSessionLi
 		//取出已有列表
 		Set all = (Set) this.app.getAttribute("onlineUser");
 		//取出设置的内容
-		all.remove(event.getSession().getAttribute("userId"));
+		all.remove(event.getSession().getAttribute("user"));
 		//重新保存
 		this.app.setAttribute("onlineUser", all);
 	}

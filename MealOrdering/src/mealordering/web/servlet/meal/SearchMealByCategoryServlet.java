@@ -5,10 +5,9 @@ package mealordering.web.servlet.meal;
 
 import dk_breeze.utils.JSONUtils;
 import dk_breeze.utils.ext.StringExt;
-import mealordering.annotations.UseAjax;
 import mealordering.domain.Meal;
 import mealordering.domain.PageGroup;
-import mealordering.enums.EMeal_Category;
+import mealordering.enums.Category;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
 
@@ -24,7 +23,6 @@ import java.util.List;
 /**
  * 多条件搜索餐品的Servlet
  */
-@UseAjax
 @WebServlet(name = "SearchMealByCategoryServlet", urlPatterns = "/mealordering/meal/searchByCategory")
 public class SearchMealByCategoryServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,7 +40,7 @@ public class SearchMealByCategoryServlet extends HttpServlet {
 		try {
 			//如果是选择的是“所有分类”，则查询全部餐品，否则分类查询。
 			PageGroup<Meal> pageGroup;
-			if(StringExt.equalsE(category, EMeal_Category.Default)) {
+			if(StringExt.equalsE(category, Category.all)) {
 				pageGroup = new PageGroup<>(ServiceFactory.getMealSvc().findAll(), 1);
 			} else {
 				pageGroup = new PageGroup<>(ServiceFactory.getMealSvc().searchByCategory(category), 1);

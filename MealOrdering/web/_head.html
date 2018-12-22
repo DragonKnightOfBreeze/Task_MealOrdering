@@ -1,4 +1,9 @@
-<script src="/mealordering/assets/js/head.js"></script>
+<!--引入jQuery验证插件，包括本地化和附加方法-->
+<script src="framework/jquery-validation/jquery.validate.js"></script>
+<script src="framework/jquery-validation/localization/messages_zh.js"></script>
+<script src="framework/jquery-validation/additional-methods.js"></script>
+<!--引入公用头部脚本-->
+<script src="assets/js/head.js"></script>
 
 <!--INFO 头部，导航栏：网站图标，导航文本，导航栏菜单，登录注册导航表单-->
 <!--固定在页面顶部-->
@@ -88,9 +93,10 @@
       </div>
       <div class="modal-body">
         <!--INFO 管理员登录表单-->
-        <form action="/mealordering/admin/welcome.jsp" method="post" id="_form-login-admin">
+        <form action="/mealordering/admin/welcome.html" method="post" id="_form-login-admin">
           <!--这是验证未通过时弹出的警告-->
-          <div class="alert alert-warning collapse" id="_alert-login-admin">
+          <!--NOTE 使用了jQuery验证插件后，这里应该设置为隐藏而非折叠-->
+          <div class="alert alert-warning" id="_alert-login-admin" style="display: none">
             <span class="fa fa-warning fa-fw"></span><span id="_msg-login-admin"></span>
             <button class="close" data-dismiss="alert">&times;</button>
           </div>
@@ -101,7 +107,8 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><span class="fa fa-user fa-fw"></span></span>
               </div>
-              <input type="text" class="form-control" id="_user-name-admin" placeholder="请输入名字" required>
+              <input type="text" class="form-control" id="_user-name-admin" name="userName"
+                     placeholder="请输入名字" required>
             </div>
           </div>
           <div class="form-row">
@@ -110,7 +117,8 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><span class="fa fa-key fa-fw"></span></span>
               </div>
-              <input type="password" class="form-control" id="_password-admin" placeholder="请输入密码" required>
+              <input type="password" class="form-control" id="_password-admin" name="password"
+                     placeholder="请输入密码" required>
             </div>
           </div>
           <div class="form-row">
@@ -157,7 +165,8 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><span class="fa fa-user fa-fw"></span></span>
                   </div>
-                  <input type="text" class="form-control" id="_user-name" placeholder="请输入用户名" required>
+                  <input type="text" class="form-control" id="_user-name" name="userName"
+                         placeholder="请输入用户名" required>
                 </div>
               </div>
               <div class="form-row">
@@ -166,7 +175,8 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><span class="fa fa-user fa-key"></span></span>
                   </div>
-                  <input type="password" class="form-control" id="_password" placeholder="请输入密码" required>
+                  <input type="password" class="form-control" id="_password" name="password"
+                         placeholder="请输入密码" required>
                 </div>
               </div>
               <div class="form-row">
@@ -184,17 +194,18 @@
           </div>
 
           <div class="tab-pane container" id="_page-register">
-            <!--INFO 注册表单（不使用Ajax，提交到Servlet）-->
+            <!--INFO 注册表单-->
+            <!--NOTE 不使用Ajax，提交到Servlet-->
             <!--可以上传用户头像，使用smartUpload接受-->
-            <!--NOTE 参数：userName,password,imgUrl,gender,email,phoneNum,introduce-->
             <form action="/mealordering/register" method="post" id="_form-register"
                   enctype="multipart/form-data">
               <!--这是验证未通过时弹出的警告-->
-              <div class="alert alert-warning collapse" id="_alert-register">
+              <div class="alert alert-warning" id="_alert-register">
                 <span class="fa fa-warning fa-fw"></span>
                 <span id="_msg-register"></span>
                 <button class="close" data-dismiss="alert">&times;</button>
               </div>
+              <!--这是表单项-->
               <div class="form-row">
                 <label class="col-sm-3" for="_user-name-reg">用户名</label>
                 <div class="input-group col-sm-9">
@@ -221,7 +232,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><span class="fa fa-user fa-fw"></span></span>
                   </div>
-                  <input type="password" class="form-control" id="_re-password-reg"
+                  <input type="password" class="form-control" id="_re-password-reg" name="rePassword"
                          placeholder="请再次确认密码" required>
                 </div>
               </div>

@@ -4,7 +4,6 @@
 package mealordering.web.servlet.notice;
 
 import dk_breeze.utils.JSONUtils;
-import mealordering.annotations.UseAjax;
 import mealordering.domain.Notice;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;
@@ -22,7 +21,6 @@ import java.util.List;
 /**
  * 根据名标题搜索公告的Servlet
  */
-@UseAjax
 @WebServlet(name = "SearchNoticeByTitleServlet", urlPatterns = {"/mealordering/admin/searchNoticeByTitle", "/mealordering/notice/search"})
 public class SearchNoticeByTitleServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

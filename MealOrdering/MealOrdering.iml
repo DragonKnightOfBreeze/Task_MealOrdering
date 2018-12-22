@@ -22,5 +22,7 @@
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="tomcat" level="application" />
     <orderEntry type="module" module-name="MyCode" />
+    <orderEntry type="library" name="jquery.validate" level="application" />
+    <orderEntry type="library" name="messages_zh" level="application" />
   </component>
 </module>

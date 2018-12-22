@@ -26,7 +26,7 @@ public class CheckLoginFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) resp;
 		//如果已登录，且不是管理员，则通过，否则重定向到错误页
 		User user = (User) request.getSession().getAttribute("user");
-		if(user != null && !StringExt.equalsE(user.getType(), Identity.Admin)) {
+		if(user != null && !StringExt.equalsE(user.getType(), Identity.admin)) {
 			chain.doFilter(request, response);
 			return;
 		}

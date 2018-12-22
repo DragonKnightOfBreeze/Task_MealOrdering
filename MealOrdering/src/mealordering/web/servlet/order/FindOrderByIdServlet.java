@@ -3,11 +3,10 @@
  */
 package mealordering.web.servlet.order;
 
-import mealordering.annotations.UseAjax;
+import dk_breeze.utils.JSONUtils;
 import mealordering.domain.Order;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +19,6 @@ import java.sql.SQLException;
 /**
  * 根据Id查询订单的Servlet
  */
-@UseAjax
 @WebServlet(name = "FindOrderByIdServlet", urlPatterns = {"/mealordering/admin/findOrderById", "/mealordering/account/findOrderById"})
 public class FindOrderByIdServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,7 +42,6 @@ public class FindOrderByIdServlet extends HttpServlet {
 		}
 
 		//打印返回参数
-		var data = new JSONObject().put("status", status).put("order", order);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status, "order", order));
 	}
 }

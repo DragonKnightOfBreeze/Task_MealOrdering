@@ -57,7 +57,7 @@ public class StringExt {
 
 
 	/**
-	 * 判断两个字符串是否相等。<br/>
+	 * 判断两个字符串是否相等。<br>
 	 * 可设置是否忽略空格、是否忽略大小写。
 	 */
 	public static boolean equals(String str, @NotNull String secStr, boolean ignoreSpace, boolean ignoreCase) {

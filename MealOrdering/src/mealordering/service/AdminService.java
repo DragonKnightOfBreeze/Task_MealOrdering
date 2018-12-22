@@ -21,4 +21,15 @@ public class AdminService {
 			throw new UserNotFoundException();
 		return admin;
 	}
+
+	/**
+	 * 根据用户名查询管理员。
+	 */
+	public Admin findByUserName(@NotNull String userName)
+	throws SQLException, UserNotFoundException {
+		Admin admin = dao.findByUserName(userName);
+		if(admin == null)
+			throw new UserNotFoundException();
+		return admin;
+	}
 }

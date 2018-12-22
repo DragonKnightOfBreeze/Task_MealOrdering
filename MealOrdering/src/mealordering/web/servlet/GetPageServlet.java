@@ -1,9 +1,8 @@
 package mealordering.web.servlet;
 
+import dk_breeze.utils.JSONUtils;
 import dk_breeze.utils.ext.StringExt;
-import mealordering.annotations.UseAjax;
 import mealordering.domain.PageGroup;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +16,6 @@ import java.util.List;
 /**
  * 得到指定内容分页的Servlet
  */
-@UseAjax
 @WebServlet(name = "GetPageServlet", urlPatterns = "/mealordering/getPage")
 public class GetPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,8 +38,7 @@ public class GetPageServlet extends HttpServlet {
 			session.setAttribute("pageGroup", pageGroup);
 		}
 
-		var data = new JSONObject().put("status", status).put("page", page).put("pageBtnText", pageBtnText);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status, "page", page, "pageBtnText", pageBtnText));
 	}
 }
 

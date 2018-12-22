@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * 下载销售榜单的Servlet
+ * <br>INFO 不使用Ajax。
  */
 @WebServlet(name = "DownloadSalesListServlet", urlPatterns = {"/mealordering/admin/downloadSalesList"})
 public class DownloadSalesListServlet extends HttpServlet {

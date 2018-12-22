@@ -3,6 +3,7 @@
  */
 package mealordering.web.servlet.meal;
 
+import dk_breeze.utils.JSONUtils;
 import dk_breeze.utils.ext.StringExt;
 import mealordering.annotations.UseAjax;
 import mealordering.domain.Meal;
@@ -10,7 +11,6 @@ import mealordering.domain.PageGroup;
 import mealordering.enums.EMeal_Category;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -58,8 +58,7 @@ public class SearchMealByCategoryServlet extends HttpServlet {
 			status = "error";
 		}
 
-		var data = new JSONObject().put("status", status).put("mealPage", mealPage).put("pageBtnText", pageBtnText);
-		data.put("category", category);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status, "mealPage", mealPage, "pageBtnText", pageBtnText)
+				.put("category", category));
 	}
 }

@@ -3,7 +3,7 @@ package mealordering.exception;
 /**
  * 用户未激活时引发的异常
  */
-public class UserNotActiveException extends Exception {
+public class UserNotActiveException extends ResultInvalidException {
 	public UserNotActiveException() {
 		super();
 	}

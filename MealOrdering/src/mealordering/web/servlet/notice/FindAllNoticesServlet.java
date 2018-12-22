@@ -1,10 +1,10 @@
 package mealordering.web.servlet.notice;
 
+import dk_breeze.utils.JSONUtils;
 import mealordering.domain.Notice;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,7 +43,6 @@ public class FindAllNoticesServlet extends HttpServlet {
 			status = "error";
 		}
 
-		var data = new JSONObject().put("status", status).put("noticePage", noticePage).put("pageBtnText", pageBtnText);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status, "noticePage", noticePage, "pageBtnText", pageBtnText));
 	}
 }

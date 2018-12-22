@@ -1,6 +1,7 @@
 package mealordering.service;
 
 import dk_breeze.exception.NotImplementedException;
+import dk_breeze.utils.MailUtils;
 import dk_breeze.utils.ext.ListExt;
 import mealordering.dao.DaoFactory;
 import mealordering.dao.NormalUserDao;
@@ -24,17 +25,10 @@ public class NormalUserService {
 	 * 注册用户。
 	 * @param user 用户信息
 	 */
-	public void doRegister(@NotNull NormalUser user) throws SQLException {
+	public void doRegister(@NotNull NormalUser user) throws SQLException, UserNotFoundException {
 		dao.doRegister(user);
-//			//TODO 提取参数
-//			String href = "http://localhost:8080/mealordering/doActive?activeCode=" + user.getActiveCode();
-//			String fromEmail = "dk_breeze@qq.com";
-//			String toEmail = user.getEmail();
-//			String subject = "用户注册";
-//			String content = f("<b>这是一封激活邮件</b>\n<p>感谢您注册网上书城，请点击：\n<a href='{0}'>&nbsp;激活&nbsp;</a>后使用。\n<br/>为保障您的账户安全，请在24小时内完成激活操作。</p>", href);
-//			String[] authInfo = new String[]{"dk_breeze@qq.com","......"};
-//
-//			dk_breeze.utils.MailUtils.sendHTML(fromEmail,toEmail,subject,content,authInfo,null);
+//		//发送激活邮件
+//		sendActiveEmail(user.getEmail(),user.getActiveCode());
 	}
 
 	/**
@@ -63,6 +57,13 @@ public class NormalUserService {
 	 */
 	public void doEdit(@NotNull NormalUser user) throws SQLException {
 		dao.doEdit(user);
+	}
+
+	/**
+	 * 编辑用户密码。
+	 */
+	public void doEditPassword(int id, String password) throws SQLException {
+		dao.doEditPassword(id, password);
 	}
 
 	/**
@@ -157,5 +158,47 @@ public class NormalUserService {
 		if(ListExt.orEmpty(userList))
 			throw new ResultEmptyException();
 		return userList;
+	}
+
+	/**
+	 * 发送激活邮件。
+	 * @param toEmail 用户输入的邮箱地址
+	 * @param activeCode 激活码
+	 */
+	public void sendActiveEmail(@NotNull String toEmail, @NotNull String activeCode) {
+		//TODO 提取参数
+		String href = "http://localhost:8080/mealordering/active?activeCode=" + activeCode;
+		String fromEmail = "dk_breeze@qq.com";
+		String subject = "用户注册";
+		String content = "<b>这是一封激活邮件</b>\n" +
+				"<p>" +
+				"感谢您注册网上书城，请点击：\n" +
+				"<a href='" + href + "'>&nbsp;激活&nbsp;</a>后使用。\n" +
+				"<br/>为保障您的账户安全，请在24小时内完成激活操作。" +
+				"</p>";
+//		String[] authInfo = new String[]{"dk_breeze@qq.com", "......"};
+
+		dk_breeze.utils.MailUtils.sendHTML(fromEmail, toEmail, subject, content, null, null);
+	}
+
+	/**
+	 * 发送重置密码邮件。
+	 * @param toEmail 用户输入的邮箱地址（不一定是用户的）
+	 * @param resetCode 重置密码所需的uuid
+	 */
+	public void sendFindPswEmail(@NotNull String toEmail, @NotNull String resetCode) {
+		String indexHref = "http://localhost:8080/mealordering/index.html";
+		String href = "http://localhost:8080/mealordering/reset-password.html?resetCode=" + resetCode;
+		String fromEmail = "dk_breeze@qq.com";
+		String subject = "找回你的密码";
+		String content = "<h1>这封邮件来自<a href='" + indexHref + "'>网上订餐系统</a></h1>" +
+				"<p>" +
+				"要重置你的密码，请点击：" +
+				"<a href='" + href + "'>&nbsp;这个链接&nbsp;</a>。" +
+				"<br>若非本人操作，请忽略这份邮件。" +
+				"</p>";
+//		String[] authInfo = new String[]{"dk_breeze@qq.com", "......"};
+
+		MailUtils.sendHTML(fromEmail, toEmail, subject, content, null, null);
 	}
 }

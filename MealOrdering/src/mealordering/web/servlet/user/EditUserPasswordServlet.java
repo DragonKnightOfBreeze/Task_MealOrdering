@@ -1,9 +1,8 @@
-package mealordering.web.servlet.notice;
+package mealordering.web.servlet.user;
 
-
-import dk_breeze.utils.JSONUtils;
-import mealordering.domain.Notice;
+import dk_breeze.utils.ext.StringExt;
 import mealordering.service.ServiceFactory;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,10 +13,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * 添加公告的Servlet
+ * 编辑用户密码的Servlet
  */
-@WebServlet(name = "AddNoticeServlet", urlPatterns = {"/mealordering/admin/addNotice"})
-public class AddNoticeServlet extends HttpServlet {
+@WebServlet(name = "EditUserPasswordServlet", urlPatterns = {"/mealordering/resetPassword"})
+public class EditUserPasswordServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doPost(req, resp);
@@ -25,19 +24,21 @@ public class AddNoticeServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//得到表单参数
-		String title = req.getParameter("title").trim();
-		String details = req.getParameter("details").trim();
+		int id = StringExt.toInt(req.getParameter("id"));
+		String password = req.getParameter("password").trim();
 		//声明返回参数
 		String status = "success";
 
 		try {
-			Notice notice = new Notice(title, details);
-			ServiceFactory.getNoticeSvc().doAdd(notice);
+			//更改用户密码，并清空resetCode属性
+			ServiceFactory.getNormalUserSvc().doEditPassword(id, password);
+			req.getSession().setAttribute("resetCode", null);
 		} catch(SQLException e) {
 			e.printStackTrace();
 			status = "error";
 		}
 
-		resp.getWriter().println(JSONUtils.of("status", status));
+		var data = new JSONObject().put("status", status);
+		resp.getWriter().println(data);
 	}
 }

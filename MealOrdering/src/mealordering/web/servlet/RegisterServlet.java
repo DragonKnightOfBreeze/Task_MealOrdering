@@ -47,7 +47,7 @@ public class RegisterServlet extends HttpServlet {
 			//缓存上传图片
 			String fileName = su.getFiles().getFile(0).getFileName();
 			String ext = su.getFiles().getFile(0).getFileExt();
-			String imgUrl = FileUtils.join(getServletContext().getRealPath("/mealordering/_upload"),
+			String imgUrl = FileUtils.join(getServletContext().getRealPath("/mealordering/images/user_img"),
 					FileUtils.getRandomFileName(fileName));
 			su.getFiles().getFile(0).saveAs(imgUrl);
 

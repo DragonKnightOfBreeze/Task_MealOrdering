@@ -11,6 +11,7 @@ import java.io.IOException;
 
 /**
  * TODO 记住登录状态的Servlet（使用Cookie）
+ * <br>思路得到用户id，存储到cookie中。
  */
 @WebServlet(name = "RememberLoginServlet", urlPatterns = {"/mealordering/rememberLogin"})
 public class RememberLoginServlet extends HttpServlet {

@@ -8,11 +8,12 @@ import java.sql.SQLException;
 
 /**
  * 数据源的工具类
+ * <br>NOTE 其他人请在这里更改dataSource字段对应的构造方法的参数，以对应配置文件。
  * @noinspection unused, WeakerAccess
  */
 public class DataSourceUtils {
 	/** 从数据库连接池中得到一个连接 */
-	private static DataSource dataSource = new ComboPooledDataSource();
+	private static DataSource dataSource = new ComboPooledDataSource("Windea");
 	/** 本地线程 */
 	private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
 

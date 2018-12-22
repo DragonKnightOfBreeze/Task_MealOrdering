@@ -1,7 +1,7 @@
 package mealordering.exception;
 
 /**
- * 查询结果为空时引发的异常
+ * 查询结果（或更新结果）为空时引发的异常
  */
 public class ResultEmptyException extends Exception {
 	public ResultEmptyException() {

@@ -1,14 +1,11 @@
-/*
- * Copyright (c) 2018.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
- */
 package mealordering.web.servlet.meal;
 
+import dk_breeze.utils.JSONUtils;
 import mealordering.annotations.UseAjax;
 import mealordering.domain.Meal;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,7 +45,6 @@ public class FindAllMealsServlet extends HttpServlet {
 			status = "error";
 		}
 
-		var data = new JSONObject().put("status", status).put("mealPage", mealPage).put("pageBtnText", pageBtnText);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status, "mealPage", mealPage, "pageBtnText", pageBtnText));
 	}
 }

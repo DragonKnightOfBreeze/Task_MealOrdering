@@ -1,8 +1,8 @@
 package mealordering.web.servlet.meal;
 
+import dk_breeze.utils.JSONUtils;
 import mealordering.annotations.UseAjax;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,8 +35,7 @@ public class DeleteMealServlet extends HttpServlet {
 			status = "error";
 		}
 
-		var data = new JSONObject().put("status", status);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status));
 	}
 
 }

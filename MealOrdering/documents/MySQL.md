@@ -63,4 +63,8 @@ create TABLE User
     registerTime datetime NOT NULL COMMENT '注册时间'
 );
 ALTER TABLE User COMMENT = '用户表';
+
+insert into User (useName,password,imgUrl,)value
+()
+
 ```

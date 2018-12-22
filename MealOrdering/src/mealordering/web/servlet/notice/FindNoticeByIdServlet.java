@@ -3,11 +3,11 @@
  */
 package mealordering.web.servlet.notice;
 
+import dk_breeze.utils.JSONUtils;
 import dk_breeze.utils.ext.StringExt;
 import mealordering.domain.Notice;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,7 +44,6 @@ public class FindNoticeByIdServlet extends HttpServlet {
 			status = "error";
 		}
 
-		var data = new JSONObject().put("status", status).put("meal", notice);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status, "notice", notice));
 	}
 }

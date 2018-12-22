@@ -2,6 +2,7 @@ package mealordering.dao;
 
 import dk_breeze.exception.NotImplementedException;
 import mealordering.domain.NormalUser;
+import mealordering.exception.UserNotFoundException;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -24,7 +25,7 @@ public class NormalUserDao {
 	/**
 	 * 注册用户。
 	 */
-	public void doRegister(@NotNull NormalUser user) throws SQLException {
+	public void doRegister(@NotNull NormalUser user) throws SQLException, UserNotFoundException {
 		String sql = "insert into User(userName,password,imgUrl,gender,email,phoneNum,introduce,activeCode)" +
 				" value(?,?,?,?,?,?,?)";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
@@ -33,19 +34,19 @@ public class NormalUserDao {
 				user.getPhoneNum(), user.getIntroduce(), user.getActiveCode()
 		);
 		if(row == 0)
-			throw new RuntimeException();
+			throw new UserNotFoundException();
 	}
 
 	/**
 	 * 激活用户。
 	 */
-	public void doActive(@NotNull String activeCode) throws SQLException {
+	public void doActive(@NotNull String activeCode) throws SQLException, UserNotFoundException {
 		String sql = "update User set activeState=? where activeCode=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		int row = runner.update(sql,
 				1, activeCode);
 		if(row == 0)
-			throw new RuntimeException();
+			throw new UserNotFoundException();
 	}
 
 	/**
@@ -54,13 +55,20 @@ public class NormalUserDao {
 	public void doEdit(@NotNull NormalUser user) throws SQLException {
 		String sql = "update User set userName=?,password=?,gender=?,imgUrl=?,email=?,phoneNum=?,introduce=? where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		int row = runner.update(sql,
+		runner.update(sql,
 				user.getUserName(), user.getPassword(), user.getGender(), user.getImgUrl(), user.getEmail(),
 				user.getPhoneNum(), user.getIntroduce(),
 				user.getId()
 		);
-		if(row == 0)
-			throw new RuntimeException();
+	}
+
+	/**
+	 * 编辑用户密码。
+	 */
+	public void doEditPassword(int id, @NotNull String password) throws SQLException {
+		String sql = "update User set password=? where id=?";
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		runner.update(sql, password, id);
 	}
 
 	/**

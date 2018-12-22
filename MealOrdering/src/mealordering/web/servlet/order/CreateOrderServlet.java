@@ -3,6 +3,7 @@
  */
 package mealordering.web.servlet.order;
 
+import dk_breeze.utils.JSONUtils;
 import dk_breeze.utils.UUIDUtils;
 import mealordering.annotations.UseAjax;
 import mealordering.domain.Meal;
@@ -11,7 +12,6 @@ import mealordering.domain.Order;
 import mealordering.domain.OrderItem;
 import mealordering.service.ServiceFactory;
 import org.apache.commons.beanutils.BeanUtils;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -65,7 +65,6 @@ public class CreateOrderServlet extends HttpServlet {
 		}
 
 		//打印返回参数
-		var data = new JSONObject().put("status", status).put("id", id);
-		resp.getWriter().println(data);
+		resp.getWriter().println(JSONUtils.of("status", status, "id", id));
 	}
 }

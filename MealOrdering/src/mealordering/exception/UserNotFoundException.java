@@ -3,7 +3,7 @@ package mealordering.exception;
 /**
  * 用户未找到时引发的异常
  */
-public class UserNotFoundException extends Exception {
+public class UserNotFoundException extends ResultEmptyException {
 	public UserNotFoundException() {
 		super();
 	}

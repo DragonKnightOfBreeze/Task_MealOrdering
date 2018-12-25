@@ -17,25 +17,27 @@
 	<div class="col-sm-7">
 		<ul class="nav nav-tabs" id="mo-nt-category">
 			<li class="nav-item">
-				<a class="nav-link active" href="/mealordering/meal/searchByCategory?category=所有分类">所有分类</a>
+				<a class="nav-link active"
+					 href="/mealordering/meal/meal-search-list.html?searchType=byCategory&category=所有分类">所有分类</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/mealordering/meal/searchByCategory?category=素食">素食</a>
+				<a class="nav-link" href="/mealordering/meal/meal-search-list.html?searchType=byCategory&category=素食">素食</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/mealordering/meal/searchByCategory?category=荤食">荤食</a>
+				<a class="nav-link" href="/mealordering/meal/meal-search-list.html?searchType=byCategory&category=荤食">荤食</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/mealordering/meal/searchByCategory?category=甜点">甜点</a>
+				<a class="nav-link" href="/mealordering/meal/meal-search-list.html?searchType=byCategory&category=甜点">甜点</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/mealordering/meal/searchByCategory?category=黑暗料理">黑暗料理</a>
+				<a class="nav-link" href="/mealordering/meal/meal-search-list.html?searchType=byCategory&category=黑暗料理">黑暗料理</a>
 			</li>
 		</ul>
 	</div>
 	<!--INFO 搜索表单-->
 	<div class="col-md-5 float-right">
-		<form class="form-inline" action="/mealordering/meal/search" method="post">
+		<form class="form-inline" action="/mealordering/meal/meal-search-list.html" method="get">
+			<input type="hidden" name="searchType" value="byName">
 			<div class="form-group">
 				<label class="sr-only" for="name">名称</label>
 				<input type="text" class="form-control" id="name" name="name" placeholder="请输入餐品名称">
@@ -63,12 +65,13 @@
 			<div class="modal-body">
 				<!--INFO 高级搜索表单-->
 				<!--NOTE 参数：name,minPrice,maxPrice,category-->
-				<form action="/mealordering/meal/searchByConditions" method="post"
+				<form action="/mealordering/meal/meal-search-list.html" method="get"
 							id="mo-form-advance-search">
+					<input type="hidden" name="searchType" value="byConditions">
 					<div class="form-row">
-						<label class="col-md-3" for="mo-name2">餐品名称</label>
+						<label class="col-md-3" for="mo-name">餐品名称</label>
 						<div class="col-md-9">
-							<input type="text" class="form-control" id="mo-name2" name="name"
+							<input type="text" class="form-control" id="mo-name" name="name"
 										 placeholder="请输入餐品名称...">
 						</div>
 					</div>

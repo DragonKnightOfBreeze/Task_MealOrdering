@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * 根据名字搜索用户的Servlet
  */
-@WebServlet(name = "SearchUserByUserNameServlet", urlPatterns = {"/mealordering/admin/searchUserByName"})
+@WebServlet(name = "SearchUserByUserNameServlet", urlPatterns = {"/mealordering/admin/searchUserByUserName"})
 public class SearchUserByUserNameServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doPost(req, resp);
@@ -32,15 +32,18 @@ public class SearchUserByUserNameServlet extends HttpServlet {
 		String name = req.getParameter("name").trim();
 		//声明返回参数
 		String status = "success";
-		List<NormalUser> userPage = null;
-		String[] pageBtnText = null;
+		List<NormalUser> page = null;
+		List<String> pageBtnText = null;
+		int pageIndex = 1;
+		int pageCount = 1;
 
 		try {
 			PageGroup<NormalUser> pageGroup = new PageGroup<>(ServiceFactory.getNormalUserSvc().searchByUserName(name),
 					1);
-			req.getSession().setAttribute("pageGroup", pageGroup);
-			userPage = pageGroup.getPage(1);
+			page = pageGroup.getPage(1);
 			pageBtnText = pageGroup.getPageBtnText();
+			pageCount = pageGroup.getPageCount();
+			req.getSession().setAttribute("pageGroup", pageGroup);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
 			status = "empty";
@@ -49,6 +52,7 @@ public class SearchUserByUserNameServlet extends HttpServlet {
 			status = "error";
 		}
 
-		resp.getWriter().println(JSONUtils.of("status", status, "userPage", userPage, "pageBtnText", pageBtnText));
+		resp.getWriter().println(JSONUtils.of("status", status, "page", page, "pageBtnText", pageBtnText)
+				.put("pageIndex", pageIndex).put("pageCount", pageCount));
 	}
 }

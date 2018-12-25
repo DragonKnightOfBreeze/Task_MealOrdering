@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 得到指定内容分页的Servlet
  */
-@WebServlet(name = "GetPageServlet", urlPatterns = "/mealordering/getPage")
+@WebServlet(name = "GetPageServlet", urlPatterns = {"/mealordering/getPage"})
 public class GetPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//得到传入参数，默认每页15条记录
@@ -25,7 +25,8 @@ public class GetPageServlet extends HttpServlet {
 		//声明输出参数
 		String status = "success";
 		List page = null;
-		String[] pageBtnText = null;
+		List pageBtnText = null;
+		int pageCount = 1;
 
 		HttpSession session = req.getSession();
 		PageGroup pageGroup = (PageGroup) session.getAttribute("pageGroup");
@@ -35,10 +36,12 @@ public class GetPageServlet extends HttpServlet {
 		} else {
 			page = pageGroup.getPage(pageIndex, count);
 			pageBtnText = pageGroup.getPageBtnText();
+			pageCount = pageGroup.getPageCount();
 			session.setAttribute("pageGroup", pageGroup);
 		}
 
-		resp.getWriter().println(JSONUtils.of("status", status, "page", page, "pageBtnText", pageBtnText));
+		resp.getWriter().println(JSONUtils.of("status", status, "page", page, "pageBtnText", pageBtnText)
+				.put("pageIndex", pageIndex).put("pageCount", pageCount));
 	}
 }
 

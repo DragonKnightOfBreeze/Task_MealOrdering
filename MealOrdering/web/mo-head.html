@@ -1,0 +1,304 @@
+<!--引入jQuery验证插件，包括本地化和附加方法-->
+<script src="/mealordering/framework/jquery-validation/jquery.validate.js"></script>
+<script src="/mealordering/framework/jquery-validation/localization/messages_zh.js"></script>
+<script src="/mealordering/framework/jquery-validation/additional-methods.js"></script>
+<!--引入公用头部脚本-->
+<script src="/mealordering/assets/js/head.js"></script>
+
+<!--INFO 头部，导航栏：网站图标，导航文本，导航栏菜单，登录注册导航表单-->
+<!--固定在页面顶部-->
+<!-- 小屏幕上水平导航栏会切换为垂直的 -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<!--INFO 导航栏头部-->
+	<div class="navbar-header">
+		<!--INFO 导航栏网站LOGO-->
+		<a class="navbar-brand" href="/mealordering/index.html">
+			<img src="/mealordering/assets/image/logo/logo.jpg"/>
+		</a>
+	</div>
+	<!--INFO 导航栏文本-->
+	<span class="navbar-text">Text goes here.</span>
+	&emsp;&emsp;&emsp;
+	<!--INFO 导航栏下拉菜单-->
+	<!--只在小屏幕上显示-->
+	<button class="navbar-toggler" data-toggle="collapse" data-target="#mo-navbar-menu">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<!--INFO 可折叠式导航栏菜单-->
+	<div class="collapse navbar-collapse" id="mo-navbar-menu">
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link active" href="/mealordering/index.html">主页</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/mealordering/meal/meal-list.html">菜单</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/mealordering/notice/notice-list.html">公告</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#mo-modal-login-admin" data-toggle="modal">管理</a>
+			</li>
+		</ul>
+	</div>
+
+	<!--INFO 导航栏菜单：注册和登录，右对齐-->
+	<ul class="navbar-nav navbar-right" id="mo-visitor-menu">
+		<li class="nav-item active">
+			<a class="nav-link" id="mo-btn-login" href="#mo-modal-login-reg" data-toggle="modal">
+				<span class="fa fa-sign-in"></span> 登录
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="mo-btn-register" href="#mo-modal-login-reg" data-toggle="modal">
+				<span class="fa fa-sign-out"></span> 注册
+			</a>
+		</li>
+	</ul>
+	<!--INFO 导航栏菜单：我的账户和登出，右对齐-->
+	<ul class="navbar-nav navbar-right" id="mo-user-menu" style="display:none">
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle disabled" href="#" data-toggle="dropdown">
+				<span class="fa fa-user"></span> 我的账户
+			</a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="/mealordering/index.html">我的资料</a>
+				<a class="dropdown-item" href="/mealordering/account/my-cart.html">我的购物车</a>
+				<a class="dropdown-item" href="/mealordering/account/my-order-list.html">我的订单</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/mealordering/settings/information.html">修改资料</a>
+			</div>
+		</li>
+		<li class="nav-item">
+			<a id="mo-btn-logout" class="nav-link" href="/mealordering/logout">
+				<span class="fa fa-sign-out"></span> 注销
+			</a>
+		</li>
+	</ul>
+</nav>
+
+<!--INFO 管理员登录模态框 -->
+<!--被模态框标题引用，默认隐藏-->
+<div class="modal fade in" id="mo-modal-login-admin" tabindex="-1" role="dialog" aria-labelledby="mo-mt-login-admin">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!--这是模态框的标题-->
+				<h4 class="modal-title text-center" id="mo-mt-login-admin">管理员登录</h4>
+				<!--这是模态框的关闭按钮-->
+				<button class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<!--INFO 管理员登录表单-->
+				<form action="/mealordering/admin/welcome.html" method="post" id="mo-form-login-admin">
+					<!--这是表单项-->
+					<div class="form-row m-1">
+						<label class="col-sm-3" for="mo-user-name-admin">用户名</label>
+						<div class="input-group col-sm-9">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><span class="fa fa-user fa-fw"></span></span>
+							</div>
+							<input type="text" class="form-control" id="mo-user-name-admin" name="userName"
+										 placeholder="请输入名字" required>
+						</div>
+					</div>
+					<div class="form-row m-1">
+						<label class="col-sm-3" for="mo-password-admin">密码</label>
+						<div class="input-group col-sm-9">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><span class="fa fa-key fa-fw"></span></span>
+							</div>
+							<input type="password" class="form-control" id="mo-password-admin" name="password"
+										 placeholder="请输入密码" required>
+						</div>
+					</div>
+					<div class="form-row m-1">
+						<button type="submit" class="btn btn-primary m-auto">登录</button>
+					</div>
+
+					<!--这是验证未通过时弹出的警告-->
+					<!--NOTE 使用了jQuery验证插件后，这里应该设置为隐藏而非折叠-->
+					<div class="alert alert-warning" id="mo-alert-login-admin" style="display: none">
+						<span class="fa fa-warning fa-fw"></span><span id="mo-msg-login-admin"></span>
+						<button class="close" data-dismiss="alert">&times;</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--INFO 登录与注册模态框 -->
+<!--被模态框标题引用，默认隐藏-->
+<div class="modal fade in" id="mo-modal-login-reg" tabindex="-1" role="dialog" aria-labelledby="mo-mt-login-reg">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title text-center" id="mo-mt-login-reg">登录 & 注册</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<!--INFO 登录与注册页面-->
+				<ul class="nav nav-pills nav-fill">
+					<li class="nav-item">
+						<a class="nav-link" href="#mo-page-login" data-toggle="tab">登录</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#mo-page-register" data-toggle="tab">注册</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane container active" id="mo-page-login">
+						<!--INFO 登录表单-->
+						<form action="/mealordering/index.html" method="post" id="mo-form-login">
+							<!--这是表单项-->
+							<div class="form-row m-1">
+								<label class="col-sm-3" for="mo-user-name">用户名</label>
+								<div class="input-group col-sm-9">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><span class="fa fa-user fa-fw"></span></span>
+									</div>
+									<input type="text" class="form-control" id="mo-user-name" name="userName"
+												 placeholder="请输入用户名" required>
+								</div>
+							</div>
+							<div class="form-row m-1">
+								<label class="col-sm-3" for="mo-password">密码</label>
+								<div class="input-group col-sm-9">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><span class="fa fa-key"></span></span>
+									</div>
+									<input type="password" class="form-control" id="mo-password" name="password"
+												 placeholder="请输入密码" required>
+								</div>
+							</div>
+							<div class="form-row m-1">
+								<label class="form-check-label col-sm-6">
+									<input class="form-check-input" type="checkbox" id="mo-rememberLogin" value="true">记住登录状态
+								</label>
+								<div class="col-sm-6">
+									<a class="btn btn-link float-right" id="mo-btn-forgot-psw" href="reset-password.html">我忘记了密码</a>
+								</div>
+							</div>
+							<div class="form-row m-1">
+								<button type="submit" class="btn btn-primary m-auto">登录</button>
+							</div>
+
+							<!--这是验证未通过时弹出的警告-->
+							<!--NOTE 使用了jQuery验证插件后，这里应该设置为隐藏而非折叠-->
+							<div class="alert alert-warning" id="mo-alert-login" style="display: none">
+								<span class="fa fa-warning fa-fw"></span><span id="mo-msg-login"></span>
+								<button class="close" data-dismiss="alert">&times;</button>
+							</div>
+						</form>
+					</div>
+
+					<div class="tab-pane container" id="mo-page-register">
+						<!--INFO 注册表单-->
+						<!--NOTE 不使用Ajax，提交到Servlet-->
+						<!--可以上传用户头像，使用smartUpload接受-->
+						<form action="/mealordering/register" method="post" id="mo-form-register"
+									enctype="multipart/form-data">
+							<!--这是表单项-->
+							<div class="form-row m-1">
+								<label class="col-sm-3" for="mo-user-name-reg">用户名</label>
+								<div class="input-group col-sm-9">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><span class="fa fa-user fa-fw"></span></span>
+									</div>
+									<input type="text" class="form-control" id="mo-user-name-reg" name="userName"
+												 placeholder="请输入用户名" required>
+								</div>
+							</div>
+							<div class="form-row m-1">
+								<label class="col-sm-3" for="mo-password-reg">密码</label>
+								<div class="input-group col-sm-9">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><span class="fa fa-user fa-fw"></span></span>
+									</div>
+									<input type="password" class="form-control" id="mo-password-reg" name="password"
+												 placeholder="请输入密码" required>
+								</div>
+							</div>
+							<div class="form-row m-1">
+								<label class="col-sm-3" for="mo-re-password-reg">确认密码</label>
+								<div class="input-group col-sm-9">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><span class="fa fa-user fa-fw"></span></span>
+									</div>
+									<input type="password" class="form-control" id="mo-re-password-reg" name="rePassword"
+												 placeholder="请再次确认密码" required>
+								</div>
+							</div>
+							<div class="form-row m-1">
+								<label class="col-sm-3" for="mo-img-url">选择头像</label>
+								<div class="col-sm-9">
+									<input type="file" class="form-control-file" id="mo-img-url" name="imgUrl"
+												 placeholder="选择" required>
+								</div>
+							</div>
+							<div class="form-row m-1">
+								<div class="form-check-inline">
+									<label class="form-check-label">
+										<input class="form-check-input" type="checkbox" name="gender" value="男性" checked>男性
+									</label>
+								</div>
+								<div class="form-check-inline">
+									<label class="form-check-label">
+										<input class="form-check-input" type="checkbox" name="gender" value="女性">女性
+									</label>
+								</div>
+							</div>
+							<div class="form-row m-1">
+								<label class="col-sm-3" for="mo-email-reg">邮箱地址</label>
+								<div class="input-group col-sm-9">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><span class="fa fa-envelope fa-fw"></span></span>
+									</div>
+									<input type="email" class="form-control" id="mo-email-reg" name="email"
+												 placeholder="请输入你的邮箱地址" required>
+								</div>
+							</div>
+							<div class="form-row m-1">
+								<label class="col-sm-3" for="mo-phone-num-reg">手机号码</label>
+								<div class="input-group col-sm-9">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><span class="fa fa-phone fa-fw"></span></span>
+									</div>
+									<input type="number" class="form-control" id="mo-phone-num-reg" name="phoneNum"
+												 minlength="11" maxlength="11" placeholder="请输入你的手机号码" required>
+								</div>
+							</div>
+							<div class="form-row m-1">
+								<label for="mo-introduce-reg">个人介绍</label>
+								<textarea class="form-control" id="mo-introduce-reg" rows="4" name="introduce">
+这个人很懒，什么也没留下...
+                  </textarea>
+							</div>
+							<div class="form-row m-1">
+								<div class="form-check-inline">
+									<label class="form-check-label">
+										<input class="form-check-input" checked type="checkbox">我已阅读并同意XXX
+									</label>
+								</div>
+							</div>
+							<div class="form-row m-1">
+								<button type="submit" class="btn btn-primary m-auto">注册</button>
+							</div>
+
+							<!--这是验证未通过时弹出的警告-->
+							<!--NOTE 使用了jQuery验证插件后，这里应该设置为隐藏而非折叠-->
+							<div class="alert alert-warning" id="mo-alert-register" style="display: none;">
+								<span class="fa fa-warning fa-fw"></span>
+								<span id="mo-msg-register"></span>
+								<button class="close" data-dismiss="alert">&times;</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

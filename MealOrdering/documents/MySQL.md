@@ -8,7 +8,7 @@ create table Meal(
 	name varchar(16) default '未命名' comment '餐品名称',
 	price double(11,2) default 0.00 comment '餐品价格',
 	category varchar(12) default '未分类' comment '餐品分类',
-	imgUrl varchar(50) comment '餐品图片路径',
+	imgUrl varchar(255) comment '餐品图片路径',
 	description varchar(255) comment '餐品描述',
 	count int(9) default 0 comment '餐品数量',
 	soldCount int(9) default 0 comment '餐品售出数量'
@@ -51,20 +51,18 @@ create TABLE User
     id int(8) PRIMARY KEY NOT NULL COMMENT '用户编号（系统自动编号）' AUTO_INCREMENT,
     userName varchar(20) NOT NULL COMMENT '用户姓名',
     password varchar(20) NOT NULL COMMENT '用户密码',
-   	imgUrl varchar(50) comment '用户头像路径',
-    gender varchar(2) DEFAULT '男' COMMENT '用户性别',
+   	imgUrl varchar(255) comment '用户头像路径',
+    type varchar(4) DEFAULT '普通用户' COMMENT '用户类型',
+    
+    gender varchar(2) COMMENT '用户性别',
     email varchar(50) COMMENT '用户邮箱地址',
     phoneNum varchar(20) COMMENT '用户电话号码',
-    introduce varchar(100) COMMENT '用户介绍',
-
-    type varchar(4) DEFAULT '普通用户' COMMENT '用户类型',
+    introduce varchar(255) COMMENT '用户介绍',
     activeCode varchar(50) COMMENT '注册激活码',
-    activeState int(11) DEFAULT 0 COMMENT '用户激活状态 0：未激活，1：已激活',
-    registerTime datetime NOT NULL COMMENT '注册时间'
+    activeState int(1) DEFAULT 0 COMMENT '用户激活状态 0：未激活，1：已激活',
+    registerTime datetime COMMENT '注册时间'
 );
 ALTER TABLE User COMMENT = '用户表';
 
-insert into User (useName,password,imgUrl,)value
-()
-
+insert into User (userName,password,imgUrl,type) value('Windea','BreezesLanding','D:\\My Documents\\My Projects\\Java Projects\\Task\\Task_MealOrdering\\MealOrdering\\web\\assets\\image\\user_img\FoxSworder_4.png','管理员')
 ```

@@ -7,13 +7,13 @@ $(function() {
         /** @property data.user */
         function(data) {
             if(data.user == null || data.user.type !== "管理员") {
-                location.href = "../error/identity-error.html";
+							location.href = "/mealordering/error/identity-error.html";
             }
-            $("#_admin-name").text("管理员" + user.userName);
+					$("#mo-admin-name").text("管理员" + user.userName);
         }, "json"
     );
 
-    $("#_btn-logout").click(function() {
+	$("#mo-btn-logout").click(function() {
         return confirm("你确定要注销当前账户吗？");
     })
 });

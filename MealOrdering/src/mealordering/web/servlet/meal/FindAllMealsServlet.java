@@ -24,17 +24,22 @@ public class FindAllMealsServlet extends HttpServlet {
 		doPost(req, resp);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//声明返回参数
 		String status = "success";
-		List<Meal> mealPage = null;
-		String[] pageBtnText = null;
+		List<Meal> page = null;
+		List<String> pageBtnText = null;
+		int pageIndex = 1;
+		int pageCount = 1;
 
 		try {
-			PageGroup<Meal> pageGroup = new PageGroup<>(ServiceFactory.getMealSvc().findAll(), 1);
-			req.getSession().setAttribute("pageGroup", pageGroup);
-			mealPage = pageGroup.getPage(1);
+			//如果索引为0，则表面要重新冲数据库中读取，否则从session中读取，并换页。
+			PageGroup<Meal> pageGroup = new PageGroup<>(ServiceFactory.getMealSvc().findAll());
+			page = pageGroup.getPage(1);
 			pageBtnText = pageGroup.getPageBtnText();
+			pageCount = pageGroup.getPageCount();
+			req.getSession().setAttribute("pageGroup", pageGroup);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
 			status = "empty";
@@ -43,6 +48,7 @@ public class FindAllMealsServlet extends HttpServlet {
 			status = "error";
 		}
 
-		resp.getWriter().println(JSONUtils.of("status", status, "mealPage", mealPage, "pageBtnText", pageBtnText));
+		resp.getWriter().println(JSONUtils.of("status", status, "page", page, "pageBtnText", pageBtnText)
+				.put("pageIndex", pageIndex).put("pageCount", pageCount));
 	}
 }

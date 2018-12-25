@@ -1116,5 +1116,275 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
+    <table id="281" parent="7" name="Meal">
+      <Comment>餐品表</Comment>
+    </table>
+    <table id="282" parent="7" name="Notice">
+      <Comment>通知表</Comment>
+    </table>
+    <table id="283" parent="7" name="Order">
+      <Comment>订单表</Comment>
+    </table>
+    <table id="284" parent="7" name="OrderItem">
+      <Comment>订单物品表</Comment>
+    </table>
+    <table id="285" parent="7" name="User">
+      <Comment>用户表</Comment>
+    </table>
+    <column id="286" parent="281" name="id">
+      <Position>1</Position>
+      <Comment>餐品编号</Comment>
+      <DataType>varchar(8)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="287" parent="281" name="name">
+      <Position>2</Position>
+      <Comment>餐品名称</Comment>
+      <DataType>varchar(16)|0s</DataType>
+      <DefaultExpression>&apos;未命名&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="288" parent="281" name="price">
+      <Position>3</Position>
+      <Comment>餐品价格</Comment>
+      <DataType>double(11,2 digit)|0s</DataType>
+      <DefaultExpression>&apos;0.00&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="289" parent="281" name="category">
+      <Position>4</Position>
+      <Comment>餐品分类</Comment>
+      <DataType>varchar(12)|0s</DataType>
+      <DefaultExpression>&apos;未分类&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="290" parent="281" name="imgUrl">
+      <Position>5</Position>
+      <Comment>餐品图片路径</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="291" parent="281" name="description">
+      <Position>6</Position>
+      <Comment>餐品描述</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="292" parent="281" name="count">
+      <Position>7</Position>
+      <Comment>餐品数量</Comment>
+      <DataType>int(9)|0s</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="293" parent="281" name="soldCount">
+      <Position>8</Position>
+      <Comment>餐品售出数量</Comment>
+      <DataType>int(9)|0s</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="294" parent="281" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="295" parent="282" name="id">
+      <Position>1</Position>
+      <Comment>通知编号</Comment>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="296" parent="282" name="title">
+      <Position>2</Position>
+      <Comment>通知标题</Comment>
+      <DataType>varchar(32)|0s</DataType>
+      <DefaultExpression>&apos;未命名&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="297" parent="282" name="details">
+      <Position>3</Position>
+      <Comment>通知内容</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="298" parent="282" name="time">
+      <Position>4</Position>
+      <Comment>通知时间</Comment>
+      <DataType>varchar(16)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="299" parent="282" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="300" parent="283" name="id">
+      <Position>1</Position>
+      <Comment>订单编号</Comment>
+      <DataType>varchar(50)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="301" parent="283" name="totalPrice">
+      <Position>2</Position>
+      <Comment>订单价格</Comment>
+      <DataType>double|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="302" parent="283" name="receiverAddress">
+      <Position>3</Position>
+      <Comment>收货地址</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="303" parent="283" name="receiverName">
+      <Position>4</Position>
+      <Comment>收货人姓名</Comment>
+      <DataType>varchar(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="304" parent="283" name="receiverPhone">
+      <Position>5</Position>
+      <Comment>收货人电话</Comment>
+      <DataType>varchar(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="305" parent="283" name="payState">
+      <Position>6</Position>
+      <Comment>订单支付状态 0：未支付，1：已支付</Comment>
+      <DataType>int(1)|0s</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="306" parent="283" name="orderTime">
+      <Position>7</Position>
+      <Comment>订单生成时间</Comment>
+      <DataType>datetime|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="307" parent="283" name="user_id">
+      <Position>8</Position>
+      <Comment>订单所属用户的Id</Comment>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="308" parent="283" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="309" parent="284" name="order_id">
+      <Position>1</Position>
+      <Comment>订单的ID</Comment>
+      <DataType>varchar(50)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="310" parent="284" name="meal_id">
+      <Position>2</Position>
+      <Comment>餐品的ID</Comment>
+      <DataType>varchar(100)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="311" parent="284" name="buyCount">
+      <Position>3</Position>
+      <Comment>购买数量</Comment>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="312" parent="284" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>meal_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="313" parent="285" name="id">
+      <Position>1</Position>
+      <Comment>用户编号（系统自动编号）</Comment>
+      <DataType>int(8)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="314" parent="285" name="userName">
+      <Position>2</Position>
+      <Comment>用户姓名</Comment>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="315" parent="285" name="password">
+      <Position>3</Position>
+      <Comment>用户密码</Comment>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="316" parent="285" name="imgUrl">
+      <Position>4</Position>
+      <Comment>用户头像路径</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="317" parent="285" name="gender">
+      <Position>5</Position>
+      <Comment>用户性别</Comment>
+      <DataType>varchar(2)|0s</DataType>
+      <DefaultExpression>&apos;男&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="318" parent="285" name="email">
+      <Position>6</Position>
+      <Comment>用户邮箱地址</Comment>
+      <DataType>varchar(50)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="319" parent="285" name="phoneNum">
+      <Position>7</Position>
+      <Comment>用户电话号码</Comment>
+      <DataType>varchar(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="320" parent="285" name="introduce">
+      <Position>8</Position>
+      <Comment>用户介绍</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="321" parent="285" name="type">
+      <Position>9</Position>
+      <Comment>用户类型</Comment>
+      <DataType>varchar(4)|0s</DataType>
+      <DefaultExpression>&apos;普通用户&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="322" parent="285" name="activeCode">
+      <Position>10</Position>
+      <Comment>注册激活码</Comment>
+      <DataType>varchar(50)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="323" parent="285" name="activeState">
+      <Position>11</Position>
+      <Comment>用户激活状态 0：未激活，1：已激活</Comment>
+      <DataType>int(1)|0s</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="324" parent="285" name="registerTime">
+      <Position>12</Position>
+      <Comment>注册时间</Comment>
+      <DataType>datetime|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="325" parent="285" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
   </database-model>
 </dataSource>

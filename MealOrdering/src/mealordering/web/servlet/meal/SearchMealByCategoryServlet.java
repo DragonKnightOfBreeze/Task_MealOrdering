@@ -34,8 +34,10 @@ public class SearchMealByCategoryServlet extends HttpServlet {
 		String category = req.getParameter("category").trim();
 		//声明返回参数
 		String status = "success";
-		List<Meal> mealPage = null;
-		String[] pageBtnText = null;
+		List<Meal> page = null;
+		List<String> pageBtnText = null;
+		int pageIndex = 1;
+		int pageCount = 1;
 
 		try {
 			//如果是选择的是“所有分类”，则查询全部餐品，否则分类查询。
@@ -45,9 +47,10 @@ public class SearchMealByCategoryServlet extends HttpServlet {
 			} else {
 				pageGroup = new PageGroup<>(ServiceFactory.getMealSvc().searchByCategory(category), 1);
 			}
-			req.getSession().setAttribute("pageGroup", pageGroup);
-			mealPage = pageGroup.getPage(1);
+			page = pageGroup.getPage(1);
 			pageBtnText = pageGroup.getPageBtnText();
+			pageCount = pageGroup.getPageCount();
+			req.getSession().setAttribute("pageGroup", pageGroup);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
 			status = "empty";
@@ -56,7 +59,7 @@ public class SearchMealByCategoryServlet extends HttpServlet {
 			status = "error";
 		}
 
-		resp.getWriter().println(JSONUtils.of("status", status, "mealPage", mealPage, "pageBtnText", pageBtnText)
-				.put("category", category));
+		resp.getWriter().println(JSONUtils.of("status", status, "page", page, "pageBtnText", pageBtnText)
+				.put("pageIndex", pageIndex).put("pageCount", pageCount).put("category", category));
 	}
 }

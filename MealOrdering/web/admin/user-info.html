@@ -9,31 +9,181 @@
   <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
+  <script>
+		import * as utils from "/mealordering/assets/js/utils";
+
+		//尝试得到get参数
+		let data = utils.getParamMap();
+		let url = "/mealordering/admin/findUserById";
+		//如果没有正确的get参数，则设置为0
+		if(data["id"] == null) {
+			data["id"] = 0;
+		}
+
+		$(function() {
+			$("#mo-head").load("/mealordering/admin/mo-head.html");
+			$("#mo-background-bar").load("/mealordering/admin/mo-background-bar.html");
+			$("#mo-foot").load("/mealordering/admin/mo-foot.html");
+			$("#mo-side-menu").load("/mealordering/admin/mo-side-menu.html", function() {
+				//切换侧边栏激活
+				$("#mo-side-menu .nav-link").removeClass("active").eq("4").addClass("active");
+			});
+
+			//通过Ajax得到数据，接着插入相应的位置
+			$.post(url, data, function(data) {
+				generate(data);
+			});
+
+			/**
+			 * 生成页面。
+			 * @param {string} data.status
+			 * @param {object} data.user
+			 */
+			function generate(data) {
+				if(data.status === "empty") {
+					let $content = $("#mo-body-content-admin");
+					$content.empty();
+					$content.append(`
+				<div class="row m-3 text-center text-success">
+					<h4>用户数据为空</h4>
+				</div>
+				<hr>
+				<div class="row m-3 text-center text-success">
+					<p>看看其他内容吧......</p>
+				</div>
+            `);
+				}
+				//NOTE 如果发生错误，则跳转到错误页
+				else if(data.status === "error") {
+					location.href = "/mealordering/error/unexpected-error.html";
+				}
+				//NOTE 如果一切正常，则插入数据
+				else {
+					//插入数据
+					$("#mo-id").val(data.user.id);
+					$("#mo-user-name").val(data.user.userName);
+					$("#mo-password").val(data.user.password);
+					$("#mo-gender").val(data.user.gender);
+					$("#mo-email").val(data.user.email);
+					$("#mo-phone-num").val(data.user.phoneNum);
+					$("#mo-introduce").text(data.user.introduce);
+					$("#mo-type").val(data.user.type);
+					$("#mo-active-state").val(data.user.activeState === 0 ? "未激活" : "已激活");
+					let date = utils.formatDate(data.user.registerTime.toString());
+					$("#mo-register-time").val(date);
+				}
+			}
+		});
+  </script>
 </head>
 
 <body>
-  <div id="_head"></div>
-  <script>$(() => $("#_head").load("/mealordering/admin/_head.html"));</script>
+  <!--INFO 页面顶部-->
+  <div id="mo-head"></div>
 
-  <div id="_background-bar"></div>
-  <script>$(() => $("#_background-bar").load("/mealordering/admin/_background-bar.html"));</script>
+  <!--INFO 背景图-->
+  <div class="container-fluid" id="mo-background-bar"></div>
 
-  <div class="container" id="_body">
-
+  <!--INFO 页面主体-->
+  <div class="container" id="mo-body-admin">
     <div class="row">
       <!--INFO 侧边菜单栏-->
-      <div class="col-sm-3" id="_side-menu"></div>
-      <script>$(() => $("#_side-menu").load("/mealordering/admin/_side-menu.html"));</script>
+      <div class="col-sm-3" id="mo-side-menu"></div>
 
       <!--INFO 内容页面-->
-      <div class="col-sm-9" id="_body-content-info">
+      <div class="col-sm-9">
+        <div class="container" id="mo-body-content-admin">
+          <!--INFO 标题-->
+          <div class="row m-3">
+            <div class="col-sm-6">
+              <h2>用户详情</h2>
+            </div>
+          </div>
+          <!--INFO 表格-->
+          <div class="row" id="mo-body-info-admin">
+            <!--INFO 显示用户信息的表单，不能更改-->
+            <form class="m-auto" action="#" method="post" id="mo-form-edit">
+              <!--用户id-->
+              <div class="form-row m-1">
+                <label class="col-sm-3" for="mo-id">id</label>
+                <div class="input-group col-sm-9">
+                  <input type="text" class="form-control disabled" id="mo-id">
+                </div>
+              </div>
+              <!--用户名-->
+              <div class="form-row m-1">
+                <label class="col-sm-3" for="mo-user-name">用户名</label>
+                <div class="input-group col-sm-9">
+                  <input type="text" class="form-control" id="mo-user-name">
+                </div>
+              </div>
+              <!--用户性别-->
+              <div class="form-row m-1">
+                <label class="col-sm-3" for="mo-gender">性别</label>
+                <div class="input-group col-sm-9">
+                  <input type="text" class="form-control" id="mo-gender">
+                </div>
+              </div>
+              <!--用户邮箱-->
+              <div class="form-row m-1">
+                <label class="col-sm-3" for="mo-email">邮箱地址</label>
+                <div class="input-group col-sm-9">
+                  <input type="text" class="form-control" id="mo-email">
+                </div>
+              </div>
+              <!--用户手机号码-->
+              <div class="form-row m-1">
+                <label class="col-sm-3" for="mo-phone-num">手机号码</label>
+                <div class="input-group col-sm-9">
+                  <input type="text" class="form-control" id="mo-phone-num">
+                </div>
+              </div>
+              <!--用户介绍-->
+              <div class="form-row m-1">
+                <label class="col-sm-3" for="mo-introduce">介绍</label>
+                <div class="input-group col-sm-9">
+                  <textarea class="form-control" id="mo-introduce">
+这家伙很懒，什么也没留下......
+                  </textarea>
+                </div>
+              </div>
+              <!--用户类型-->
+              <div class="form-row m-1">
+                <label class="col-sm-3" for="mo-type">类型</label>
+                <div class="input-group col-sm-9">
+                  <input type="text" class="form-control" id="mo-type">
+                </div>
+              </div>
+              <!--用户激活状态-->
+              <div class="form-row m-1">
+                <label class="col-sm-3" for="mo-active-state">激活状态</label>
+                <div class="input-group col-sm-9">
+                  <input type="text" class="form-control" id="mo-active-state">
+                </div>
+              </div>
+              <!--用户注册时间-->
+              <div class="form-row m-1">
+                <label class="col-sm-3" for="mo-register-time">注册时间</label>
+                <div class="input-group col-sm-9">
+                  <input type="text" class="form-control" id="mo-register-time">
+                </div>
+              </div>
 
+              <!--按钮-->
+              <div class="form-row m-1">
+                <div class="col-sm-4 offset-4">
+                  <button class="btn btn-secondary m-auto" onclick="history.go(-1)">返回</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div id="_foot"></div>
-  <script>$(() => $("#_foot").load("/mealordering/admin/_foot.html"));</script>
+  <!--INFO 页面尾部-->
+  <div class="container" id="mo-foot"></div>
 </body>
 </html>
 

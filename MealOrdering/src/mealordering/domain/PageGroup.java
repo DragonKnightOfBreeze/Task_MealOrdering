@@ -29,6 +29,10 @@ public class PageGroup<T extends Serializable> implements Serializable {
 	public PageGroup() {
 	}
 
+	public PageGroup(List<T> list) {
+		this(list, 1);
+	}
+
 	public PageGroup(List<T> list, int pageIndex) {
 		this(list, pageIndex, 15);
 	}
@@ -93,10 +97,14 @@ public class PageGroup<T extends Serializable> implements Serializable {
 
 	/**
 	 * 得到指定的分页，并更新当前页面索引和页面条数。
+	 * <br>参数小于1时自动转化。
 	 * @param pageIndex 页面索引
 	 * @param count 页面条目数
 	 */
 	public List<T> getPage(int pageIndex, int count) {
+		pageIndex = Math.min(1, pageIndex);
+		count = Math.min(1, count);
+
 		this.pageIndex = pageIndex;
 		this.count = count;
 		int from = (pageIndex - 1) * count;
@@ -105,53 +113,43 @@ public class PageGroup<T extends Serializable> implements Serializable {
 	}
 
 	/**
-	 * 得到分页条所依据的字符串数组。默认从5开始省略，最多显示8(+1)个按钮。
+	 * 得到分页条所依据的字符串图表（pageIndex,adtClass）。
+	 * <br>默认从5开始省略，最多显示8(+1)个按钮。
 	 * <br>在js中通过模版字符串，附加判断，生成正确的分页条。
 	 * <br> 示例格式：上一页,1,2,3,4,...,i=6,7,8,...,下一页
 	 * <br> 示例参数：maxBtnNum = 8,startIgnore = 5,pageIndex=6,pageCount=12
 	 */
-	public String[] getPageBtnText() {
+	public List<String> getPageBtnText() {
 		return getPageBtnText(5, 8);
 	}
 
 	/**
-	 * 得到分页条所依据的字符串数组。
+	 * 得到分页条所依据的索引/文本（中间可能有省略号）
 	 * <br>在js中通过模版字符串，附加判断，生成正确的分页条。
-	 * <br> 示例格式：上一页,1,2,3,4,...,i=6,7,8,...,下一页
+	 * <br>当前索引另外传递
+	 * <br> 示例格式：1,2,3,4,...,(i=)6,7,8
 	 * <br> 示例参数：maxBtnNum = 8,startIgnore = 5,pageIndex=6,pageCount=12
 	 */
-	public String[] getPageBtnText(int startIgnore, int maxBtnNum) {
+	public List<String> getPageBtnText(int startIgnore, int maxBtnNum) {
 		if(startIgnore >= maxBtnNum)
 			throw new IllegalArgumentException();
 
 		int to = Math.min(pageCount, maxBtnNum);
-		int delta = pageIndex - startIgnore;
 		List<String> result = new ArrayList<>();
+		//从1到最大显示数量遍历
 		IntStream.rangeClosed(1, to).boxed().forEachOrdered(e -> {
-			if(e == 1) {
-				if(pageIndex == 1) {
-					result.add("D 上一页");
-				} else {
-					result.add("上一页");
-				}
-				result.add("1");
-			} else if(pageIndex > startIgnore) {
+			if(maxBtnNum - pageCount > 0 & pageIndex - startIgnore > 0) {
+				//如果页面数量超出最大显示数目，且当前索引大于一定数值，则要考虑在当前索引之前显示省略号
 				if(e == startIgnore) {
-					result.add("D ...");
-				} else if(e > startIgnore) {
-					result.add(Integer.toString(e + delta));
-				}
-			} else if(e == to) {
-				if(pageIndex == pageCount) {
-					result.add("D 下一页");
+					result.add("...");
 				} else {
-					result.add("下一页");
-					result.add("D ...");
+					result.add("" + (e + pageIndex - startIgnore - 1));
 				}
+			} else {
+				//没超过，或者超过当不大于一定数值，则不显示最后面的页数，也不显示省略号
+				result.add("" + e);
 			}
 		});
-		result.set(startIgnore + 1, "A " + pageIndex);
-		return result.toArray(new String[0]);
+		return result;
 	}
 }
-

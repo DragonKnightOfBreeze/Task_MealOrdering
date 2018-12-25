@@ -2,7 +2,6 @@ import * as utils from "./utils";
 
 let user = null;
 
-
 $(function() {
     //尝试得到当前登录的用户，显示不同的用户菜单，如果是管理员则跳转到管理页
     //QUESTION 既然此目录下的所有页面都包含这个HTML片段，过滤器是否还有必要设置？
@@ -15,30 +14,30 @@ $(function() {
                 location.href = "/mealordering/admin/welcome.html";
             } else {
                 user = data.user;
-                $("#_visitor-menu").hide();
-                $("#_user-menu").show();
+							$("#mo-visitor-menu").hide();
+							$("#mo-user-menu").show();
             }
         }, "json"
     );
 
     //DONE 按情况显示注册/登录分页，默认显示登录页面
-    let $pageLogin = $("#_page-login");
-    let $pageRegister = $("#_page-register");
-    $("#_btn-login").click(function() {
+	let $pageLogin = $("#mo-page-login");
+	let $pageRegister = $("#mo-page-register");
+	$("#mo-btn-login").click(function() {
         utils.toggleActive($pageLogin, $pageRegister);
     });
-    $("#_btn-register").click(function() {
+	$("#mo-btn-register").click(function() {
         utils.toggleActive($pageRegister, $pageLogin);
     });
 
     //DONE 注销确认
-    $("#_btn-logout").click(function() {
+	$("#mo-btn-logout").click(function() {
         return confirm("你确定要注销当前账户吗？");
     });
 
     //DONE 拦截管理员登录，验证输入
     //INFO 使用jQuery验证插件
-    $("#_form-login-admin").validate({
+	$("#mo-form-login-admin").validate({
         //验证通过后的回调函数
         submitHandler: function(form) {
             $(form).submit();
@@ -48,11 +47,11 @@ $(function() {
             userName: {
                 required: true,
                 //1到10位的字母、数字、下划线
-                pattern: "^[a-zA-Z_]\\w{0,9}",
+							pattern: "[a-zA-Z_]\\w{0,9}",
                 //使用Ajax进行异步验证，默认会提交当前验证的值到远程地址。远程地址只能输出true或false
                 remote: {
                     url: "/mealordering/admin/login", type: "post", dataType: "json",
-                    data: {username: $("#_user-name-admin").val()}
+									data: {username: $("#mo-user-name-admin").val()}
                 }
             },
             password: {
@@ -62,7 +61,7 @@ $(function() {
                 //使用Ajax进行异步验证，默认会提交当前验证的值到远程地址。判断哪个参数为null来区分要验证的数据
                 remote: {
                     url: "/mealordering/admin/login", type: "post", dataType: "json",
-                    data: {username: $("#_user-name-admin").val(), password: $("#_password-admin").val()}
+									data: {username: $("#mo-user-name-admin").val(), password: $("#mo-password-admin").val()}
                 }
             }
         },
@@ -81,12 +80,12 @@ $(function() {
         },
         //错误信息的插入位置（参数：错误信息对应元素，在验证的元素）
         errorPlacement: function(error, element) {
-            error.appendTo($("#_msg-login-admin"));
+					error.appendTo($("#mo-msg-login-admin"));
         },
         //错误消息对应的元素类型，默认为label
         errorElement: "label",
         //错误消息对应的要切换显示的容器元素
-        errorContainer: "#_alert-login-admin",
+		errorContainer: "#mo-alert-login-admin",
         //验证通过后的回调函数（参数：验证元素）或字符串（添加类到验证元素）
         success: "valid"
     });
@@ -121,10 +120,10 @@ $(function() {
 
     //DONE 拦截用户登录，验证输入
     //INFO 使用jQuery验证插件
-    $("#_form-login").validate({
+	$("#mo-form-login").validate({
         submitHandler: function(form) {
             //如果勾选记住登录状态，则post到Servlet以添加Cookie，然后再提交
-            let rememberLogin = $("#_rememberLogin").prop("checked");
+					let rememberLogin = $("#mo-rememberLogin").prop("checked");
             if(rememberLogin) {
                 $.post("/mealordering/rememberLogin");
             }
@@ -134,10 +133,10 @@ $(function() {
             userName: {
                 required: true,
                 //1到10位的字母、数字、下划线
-                pattern: "^[a-zA-Z_]\\w{0,9}",
+							pattern: "[a-zA-Z_]\\w{0,9}",
                 remote: {
                     url: "/mealordering/login", type: "post",
-                    data: {username: $("#_user-name").val()}
+									data: {username: $("#mo-user-name").val()}
                 }
             },
             password: {
@@ -146,7 +145,7 @@ $(function() {
                 pattern: ".{6,16}",
                 remote: {
                     url: "/mealordering/login", type: "post",
-                    data: {username: $("#_user-name").val(), password: $("#_password").val()}
+									data: {username: $("#mo-user-name").val(), password: $("#mo-password").val()}
                 }
             }
         },
@@ -163,9 +162,9 @@ $(function() {
             }
         },
         errorPlacement: function(error, element) {
-            error.appendTo($("#_msg-login"));
+					error.appendTo($("#mo-msg-login"));
         },
-        errorContainer: "#_alert-login",
+		errorContainer: "#mo-alert-login",
         success: "valid"
     });
 
@@ -199,7 +198,7 @@ $(function() {
 
     //DONE 拦截用户注册，验证输入
     //INFO 使用jQuery验证插件
-    $("#_form-register").validate({
+	$("#mo-form-register").validate({
             submitHandler: function(form) {
                 //NOTE 提交到的就是register的Servlet
                 $(form).submit();
@@ -208,7 +207,7 @@ $(function() {
                 userName: {
                     required: true,
                     //1到10位的字母、数字、下划线
-                    pattern: "^[a-zA-Z_]\\w{0,9}"
+									pattern: "[a-zA-Z_]\\w{0,9}"
                 },
                 password: {
                     required: true,
@@ -217,7 +216,7 @@ $(function() {
                 },
                 rePassword: {
                     required: true,
-                    equalTo: "#_password-reg"
+									equalTo: "#mo-password-reg"
                 },
                 email: {
                     required: true,
@@ -251,9 +250,9 @@ $(function() {
                 }
             },
             errorPlacement: function(error, element) {
-                error.appendTo($("#_msg-register"));
+							error.appendTo($("#mo-msg-register"));
             },
-            errorContainer: "#_alert-register",
+			errorContainer: "#mo-alert-register",
             success: "valid"
         }
     );

@@ -27,14 +27,17 @@ public class FindAllNoticesServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//声明返回参数
 		String status = "success";
-		List<Notice> noticePage = null;
-		String[] pageBtnText = null;
+		List<Notice> page = null;
+		List<String> pageBtnText = null;
+		int pageIndex = 1;
+		int pageCount = 1;
 
 		try {
 			PageGroup<Notice> pageGroup = new PageGroup<>(ServiceFactory.getNoticeSvc().findAll(), 1);
-			req.getSession().setAttribute("pageGroup", pageGroup);
-			noticePage = pageGroup.getPage(1);
+			page = pageGroup.getPage(1);
 			pageBtnText = pageGroup.getPageBtnText();
+			pageCount = pageGroup.getPageCount();
+			req.getSession().setAttribute("pageGroup", pageGroup);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
 			status = "empty";
@@ -43,6 +46,8 @@ public class FindAllNoticesServlet extends HttpServlet {
 			status = "error";
 		}
 
-		resp.getWriter().println(JSONUtils.of("status", status, "noticePage", noticePage, "pageBtnText", pageBtnText));
+		resp.getWriter().println(
+				JSONUtils.of("status", status, "page", page, "pageBtnText", pageBtnText).put("pageIndex", pageIndex)
+						.put("pageCount", pageCount));
 	}
 }

@@ -32,14 +32,17 @@ public class FindOrderByUserServlet extends HttpServlet {
 		NormalUser user = (NormalUser) session.getAttribute("user");
 		//声明返回参数
 		String status = "success";
-		List<Order> orderPage = null;
-		String[] pageBtnText = null;
+		List<Order> page = null;
+		List<String> pageBtnText = null;
+		int pageIndex = 1;
+		int pageCount = 1;
 
 		try {
 			PageGroup<Order> pageGroup = new PageGroup<>(ServiceFactory.getOrderSvc().findByUser(user), 1);
-			session.setAttribute("pageGroup", pageGroup);
-			orderPage = pageGroup.getPage(1);
+			page = pageGroup.getPage(1);
 			pageBtnText = pageGroup.getPageBtnText();
+			pageCount = pageGroup.getPageCount();
+			session.setAttribute("pageGroup", pageGroup);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
 			status = "empty";
@@ -48,7 +51,8 @@ public class FindOrderByUserServlet extends HttpServlet {
 			status = "error";
 		}
 
-		//输出返回参数
-		resp.getWriter().println(JSONUtils.of("status", status, "orderPage", orderPage, "pageBtnText", pageBtnText));
+		resp.getWriter().println(
+				JSONUtils.of("status", status, "page", page, "pageBtnText", pageBtnText).put("pageIndex", pageIndex)
+						.put("pageCount", pageCount));
 	}
 }

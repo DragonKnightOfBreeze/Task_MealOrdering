@@ -36,15 +36,18 @@ public class SearchMealByConditionsServlet extends HttpServlet {
 		String maxPrice = req.getParameter("maxPrice").trim();
 		//声明返回参数
 		String status = "success";
-		List<Meal> mealPage = null;
-		String[] pageBtnText = null;
+		List<Meal> page = null;
+		List<String> pageBtnText = null;
+		int pageIndex = 1;
+		int pageCount = 1;
 
 		try {
 			PageGroup<Meal> pageGroup = new PageGroup<>(
 					ServiceFactory.getMealSvc().searchByConditions(id, name, category, minPrice, maxPrice), 1);
-			req.getSession().setAttribute("pageGroup", pageGroup);
-			mealPage = pageGroup.getPage(1);
+			page = pageGroup.getPage(1);
 			pageBtnText = pageGroup.getPageBtnText();
+			pageCount = pageGroup.getPageCount();
+			req.getSession().setAttribute("pageGroup", pageGroup);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
 			status = "empty";
@@ -53,6 +56,7 @@ public class SearchMealByConditionsServlet extends HttpServlet {
 			status = "error";
 		}
 
-		resp.getWriter().println(JSONUtils.of("status", status, "mealPage", mealPage, "pageBtnText", pageBtnText));
+		resp.getWriter().println(JSONUtils.of("status", status, "page", page, "pageBtnText", pageBtnText)
+				.put("pageIndex", pageIndex).put("pageCount", pageCount));
 	}
 }

@@ -15,6 +15,7 @@
           <element id="file-copy" path="$PROJECT_DIR$/MyCode/lib/annotations-16.0.2.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/MyCode/lib/javax.mail-api-1.6.2.jar" />
           <element id="library" level="module" name="MyCode_Lib" module-name="MyCode" />
+          <element id="library" level="application" name="com.alibaba:fastjson:1.2.54" />
         </element>
       </element>
     </root>

@@ -9,28 +9,38 @@
   <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
   <script>
-      import * as utils from "/mealordering/assets/js/utils";
+		import * as utils from "/mealordering/assets/js/utils";
 
-      $(() => utils.countDown($("#_second"), "index.html"));
+		$(function() {
+			$("#mo-head").load("/mealordering/mo-head.html");
+			$("#mo-background-bar").load("/mealordering/mo-background-bar.html");
+			$("#mo-foot").load("/mealordering/mo-foot.html");
+
+			utils.countDown($("#mo-second"), "index.html");
+		});
   </script>
 </head>
 
 <body>
-  <div id="_head"></div>
-  <script>$(() => $("#_head").load("/mealordering/_head.html"));</script>
+  <!--INFO 页面顶部-->
+  <div id="mo-head"></div>
 
-  <div id="_background-bar"></div>
-  <script>$(() => $("#_background-bar").load("/mealordering/_background-bar.html"));</script>
+  <!--INFO 背景图-->
+  <div class="container-fluid" id="mo-background-bar"></div>
 
-  <div class="container text-center" id="_body-content">
-    <div class="text-center" id="_fail-info">
-    <h4>注册失败！</h4>
+  <div class="container" id="mo-success-info">
+    <div class="row text-center m-3 text-warning">
+      <h4>注册失败！</h4>
+    </div>
     <hr>
-      <a class="btn btn-link" href="/mealordering/index.html"><span id="_second">5</span>秒后自动为您跳转到首页</a>
+    <div class="row text-center m-3 text-warning">
+      <a class="btn btn-link" href="/mealordering/index.html">
+        <span id="mo-second">5</span>秒后自动为您跳转到首页
+      </a>
     </div>
   </div>
 
-  <div id="_foot"></div>
-  <script>$(() => $("#_foot").load("/mealordering/_foot.html"));</script>
+  <!--INFO 页面尾部-->
+  <div class="container" id="mo-foot"></div>
 </body>
 </html>

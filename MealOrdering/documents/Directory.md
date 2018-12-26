@@ -2,13 +2,15 @@
 
 | 目录      | 说明     | 作者 |
 | --------- | -------- | ---- |
-| jsp       |          |      |
-| js        |          |      |
-| css       |          |      |
-| bootstrap |          |      |
-| images    |          |      |
-| temp      |          |      |
-| download  |          |      |
+| framework      | 插件和框架         |      |
+|    assets      |          |      |
+|   temp      |  缓存文件        |      |
+| download |          |      |
+| account  |          |      |
+|   admin   |  管理员页面        |      |
+| meal  |          |      |
+| notice  |          |      |
+| error  |   错误页       |      |
 | WEB-INF   |          |      |
 | index.html | 网站首页 |      |
 

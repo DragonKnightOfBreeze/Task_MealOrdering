@@ -94,6 +94,14 @@ public class Meal implements Serializable {
 		this.description = description;
 	}
 
+	public int getSoldCount() {
+		return soldCount;
+	}
+
+	public void setSoldCount(int soldCount) {
+		this.soldCount = soldCount;
+	}
+
 
 	@Override
 	public int hashCode() {

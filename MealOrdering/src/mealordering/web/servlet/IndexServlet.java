@@ -4,7 +4,6 @@ import dk_breeze.utils.ext.StringExt;
 import mealordering.domain.Notice;
 import mealordering.domain.User;
 import mealordering.domain.WeekHotMeal;
-import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
 
 import javax.servlet.ServletException;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -32,31 +30,40 @@ public class IndexServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//STEP 后台操作
+		//查询最近的一条公告
+		Notice notice = null;
 		try {
-			//STEP 后台操作
-			//查询最近的一条公告
-			Notice notice = ServiceFactory.getNoticeSvc().findRecent(1).get(0);
-			//查询本周热销的两条商品
-			List<WeekHotMeal> weekHotMeals = ServiceFactory.getMealSvc().getWeekHotMeals(2);
-			//检查cookie，设置session.onlineUser
-			int userId = -1;
-			Cookie[] cookies = req.getCookies();
-			for(Cookie cookie : cookies) {
-				if(StringExt.equals(cookie.getName(), "userId")) {
-					userId = StringExt.toInt(cookie.getValue(), -1);
-				}
+			notice = ServiceFactory.getNoticeSvc().findRecent(1).get(0);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		//查询本周热销的两条商品
+		List<WeekHotMeal> weekHotMeals = null;
+		try {
+			weekHotMeals = ServiceFactory.getMealSvc().getWeekHotMeals(2);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		//STEP 检查cookie，设置session.onlineUser
+		int userId = -1;
+		Cookie[] cookies = req.getCookies();
+		for(Cookie cookie : cookies) {
+			if(StringExt.equals(cookie.getName(), "userId")) {
+				userId = StringExt.toInt(cookie.getValue(), -1);
 			}
-			if(userId != -1) {
+		}
+		if(userId != -1) {
+			try {
 				User user = ServiceFactory.getNormalUserSvc().findById(userId);
 				req.getSession().setAttribute("onlineUser", user);
+			} catch(Exception e) {
+				e.printStackTrace();
 			}
-			//STEP 设置转发属性与跳转
-			req.setAttribute("notice", notice);
-			req.setAttribute("weekHotMeals", weekHotMeals);
-			req.getRequestDispatcher("index.jsp").forward(req, resp);
-		} catch(ResultEmptyException | SQLException e) {
-			e.printStackTrace();
-//			resp.sendRedirect(req.getContextPath()+"/mealordering/error/empty-result.jsp");
 		}
+		//STEP 设置转发属性与跳转
+		req.setAttribute("notice", notice);
+		req.setAttribute("weekHotMeals", weekHotMeals);
+		req.getRequestDispatcher("index.jsp").forward(req, resp);
 	}
 }

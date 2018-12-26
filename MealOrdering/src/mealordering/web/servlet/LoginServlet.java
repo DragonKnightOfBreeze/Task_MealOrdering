@@ -26,9 +26,9 @@ public class LoginServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
-		String userName = req.getParameter("userName").trim();
-		String password = req.getParameter("password").trim();
-		String rememberLogin = req.getParameter("rememberLogin").trim();
+		String userName = req.getParameter("userName");
+		String password = req.getParameter("password");
+		String rememberLogin = req.getParameter("rememberLogin");
 
 		try {
 			//STEP 后台操作

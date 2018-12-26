@@ -16,11 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * 注册的Servlet
  * <br>如果成功，则跳转到注册成功页，如果出现问题，则跳转回注册页面，显示错误信息。
- * <br>STEP 不使用Ajax。
  */
 @WebServlet(name = "registerServlet", urlPatterns = {"/mealordering/register"})
 public class RegisterServlet extends HttpServlet {
@@ -43,14 +43,18 @@ public class RegisterServlet extends HttpServlet {
 			String email = su.getRequest().getParameter("email");
 			String phoneNum = su.getRequest().getParameter("phoneNum");
 			String introduce = su.getRequest().getParameter("introduce");
-			//STEP 缓存上传图片
-			String fileName = su.getFiles().getFile(0).getFileName();
-			String ext = su.getFiles().getFile(0).getFileExt();
-			String imgUrl = FileUtils.join(getServletContext().getRealPath("/mealordering/assets/image/user_img"),
-					FileUtils.getRandomFileName(fileName));
-			su.getFiles().getFile(0).saveAs(imgUrl);
+			String imgUrl = "";
+			//STEP 缓存上传图片（如果有的话）
+			if(su.getFiles().getCount() > 0) {
+				String fileName = su.getFiles().getFile(0).getFileName();
+				String ext = su.getFiles().getFile(0).getFileExt();
+				imgUrl = FileUtils.join(getServletContext().getRealPath("/mealordering/assets/image/user_img"),
+						FileUtils.getRandomFileName(fileName));
+				su.getFiles().getFile(0).saveAs(imgUrl);
+			}
 			//STEP 后台操作
 			NormalUser user = new NormalUser(userName, password, imgUrl, gender, email, phoneNum, introduce);
+			user.setRegisterTime(new Date());
 			user.setActiveCode(UUIDUtils.getUUID());
 			ServiceFactory.getNormalUserSvc().doRegister(user);
 			//NOTE 测试用代码

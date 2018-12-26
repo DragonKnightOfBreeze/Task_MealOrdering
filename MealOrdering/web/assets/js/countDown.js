@@ -1,4 +1,4 @@
-var interval;
+let interval;
 
 /**
  * 开始倒计时，并在结束后跳转。

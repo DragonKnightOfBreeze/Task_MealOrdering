@@ -34,7 +34,7 @@ public class FindAllUsersServlet extends HttpServlet {
 			req.getSession().setAttribute("pageGroup", pageGroup);
 			req.setAttribute("page", page);
 			req.setAttribute("pageBtnText", pageBtnText);
-			req.getRequestDispatcher("/mealordering/admin/settings-list.jsp").forward(req, resp);
+			req.getRequestDispatcher("/mealordering/admin/user-list.jsp").forward(req, resp);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
 			resp.sendRedirect(req.getContextPath() + "/mealordering/admin/empty-result.jsp");

@@ -12,7 +12,6 @@ import java.io.IOException;
 
 /**
  * 登出的Servlet
- * <br>STEP 不使用Ajax。
  */
 @WebServlet(name = "LogoutServlet", urlPatterns = {"/mealordering/logout"})
 public class LogoutServlet extends HttpServlet {

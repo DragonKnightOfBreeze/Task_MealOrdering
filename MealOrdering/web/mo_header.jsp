@@ -2,14 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%--CITE 传入：session.onlineUser--%>
-<%--@elvariable id="user" type="mealordering.domain.User"--%>
+<%--@elvariable id="onlineUser" type="mealordering.domain.User"--%>
 
 <!--STEP 导航栏：网站图标，导航文本，导航栏菜单，登录注册导航表单-->
+<!--STEP 导航栏：网站图标，导航文本，导航栏菜单，显示管理员名字-->
 <!--固定在页面顶部，小屏幕上水平导航栏会切换为垂直的-->
 <div id="mo_header">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<!--导航栏头部-->
-		<div class="navbar-header">
+		<div class="container">
+			<!--STEP 导航栏头部-->
+			<div class="navbar-header">
 			<!--导航栏网站LOGO-->
 			<a class="navbar-brand" href="<c:url value="/mealordering/index"/>">
 				<img src="<c:url value="/mealordering/assets/image/logo/logo.jpg"/>"/>
@@ -29,10 +31,10 @@
 					<a class="nav-link active" href="<c:url value="/mealordering/index"/>">主页</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<c:url value="/mealordering/meal/findAll"/>">菜单</a>
+					<a class="nav-link" href="<c:url value="/mealordering/meal/find-all"/>">菜单</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<c:url value="/mealordering/notice/findAll"/>">公告</a>
+					<a class="nav-link" href="<c:url value="/mealordering/notice/find-all"/>">公告</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#mo_modal-login-admin" data-toggle="modal">管理</a>
@@ -42,7 +44,7 @@
 
 		<%--判断是否有用户登录，显示不同的菜单--%>
 		<c:choose>
-			<c:when test="${empty user}">
+			<c:when test="${empty onlineUser}">
 				<!--STEP 导航栏菜单：注册和登录，右对齐-->
 				<%--TODO 点击注册时，切换激活注册导航--%>
 				<ul class="navbar-nav navbar-right" id="mo_visitor-menu">
@@ -62,15 +64,15 @@
 				<!--STEP 导航栏菜单：我的账户和登出，右对齐-->
 				<ul class="navbar-nav navbar-right" id="mo_user-menu">
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle disabled" data-toggle="dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown">
 							<span class="fa fa-user"></span> 我的账户
 						</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="<c:url value="/mealordering/account/home.html"/>">我的资料</a>
-							<a class="dropdown-item" href="<c:url value="/mealordering/account/my-cart.html"/>">我的购物车</a>
-							<a class="dropdown-item" href="<c:url value="/mealordering/account/findOrderByUser"/>">我的订单</a>
+							<a class="dropdown-item" href="<c:url value="/mealordering/account/home.jsp"/>">我的资料</a>
+							<a class="dropdown-item" href="<c:url value="/mealordering/account/my-cart.jsp"/>">我的购物车</a>
+							<a class="dropdown-item" href="<c:url value="/mealordering/account/find-order-by-user"/>">我的订单</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="<c:url value="/mealordering/settings/information.html"/>">修改资料</a>
+							<a class="dropdown-item" href="<c:url value="/mealordering/settings/information.jsp"/>">修改资料</a>
 						</div>
 					</li>
 					<li class="nav-item">
@@ -98,7 +100,7 @@
 			<div class="modal-body">
 				<!--STEP 表单：管理员登录-->
 				<%--CITE POST 传出：userName,password--%>
-				<form action="<c:url value="/mealordering/loginAdmin"/>" method="post" id="mo_form-login-admin">
+				<form action="<c:url value="/mealordering/login-admin"/>" method="post" id="mo_form-login-admin">
 					<!--表单输入-->
 					<%--输入用户名--%>
 					<div class="form-row m-1">
@@ -292,9 +294,8 @@
 							<%--输入个人介绍--%>
 							<div class="form-row m-1">
 								<label for="mo_introduce-reg">个人介绍</label>
-								<textarea class="form-control" id="mo_introduce-reg" rows="4" name="introduce">
-这个人很懒，什么也没留下...
-                  </textarea>
+								<textarea class="form-control" id="mo_introduce-reg" rows="4"
+								          name="introduce">这个人很懒，什么也没留下...</textarea>
 							</div>
 							<%--是否同意条款--%>
 							<div class="form-row m-1">

@@ -17,7 +17,7 @@ import java.io.IOException;
 /**
  * 得到验证码的Servlet
  */
-@WebServlet(name = "GetCheckImgServlet", urlPatterns = {"/mealordering/getCheckImg"})
+@WebServlet(name = "GetCheckImgServlet", urlPatterns = {"/mealordering/get-check-img"})
 public class GetCheckImgServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

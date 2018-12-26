@@ -32,7 +32,7 @@ public class AddNoticeServlet extends HttpServlet {
 			Notice notice = new Notice(title, details);
 			ServiceFactory.getNoticeSvc().doAdd(notice);
 			//STEP 设置转发属性与跳转
-			resp.sendRedirect(req.getContextPath() + "/mealordering/admin/find-all-meals");
+			resp.sendRedirect(req.getContextPath() + "/mealordering/admin/find-all-notices");
 		} catch(SQLException e) {
 			e.printStackTrace();
 			resp.sendRedirect(req.getContextPath() + "/mealordering/error/unexpected-error.jsp");

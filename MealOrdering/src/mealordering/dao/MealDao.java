@@ -135,9 +135,9 @@ public class MealDao {
 	public List<WeekHotMeal> getWeekHotMeals(int count) throws SQLException {
 		@Language("MySQL")
 		String sql = "select Meal.id,Meal.name,Meal.imgUrl,Meal.description,sum(OrderItem.buyCount) salesCount" +
-				" from OrderItem,Order,Meal" +
-				" where OrderItem.order_id = Order.id and Meal.id = OrderItem.meal_id" +
-				" and Order.payState=1 and Order.orderTime > DATE_SUB(NOW(), INTERVAL 7 DAY)" +
+				" from OrderItem,`Order`,Meal" +
+				" where OrderItem.order_id = `Order`.id and Meal.id = OrderItem.meal_id" +
+				" and `Order`.payState=1 and `Order`.orderTime > DATE_SUB(NOW(), INTERVAL 7 DAY)" +
 				" group by Meal.id,Meal.name,Meal.imgUrl" +
 				" order by salesCount desc" +
 				" limit 0, ?";
@@ -171,16 +171,12 @@ public class MealDao {
 	/**
 	 * 多条件搜索餐品。
 	 */
-	public List<Meal> searchByConditions(@NotNull String id, @NotNull String name, @NotNull String category,
+	public List<Meal> searchByConditions(@NotNull String name, @NotNull String category,
 			@NotNull String minPrice, @NotNull String maxPrice)
 	throws SQLException {
 		@Language("MySQL")
 		String sql = "select * from Meal where 1=1";
 		List<Object> paramList = new ArrayList<>();
-		if(!id.isEmpty()) {
-			sql += " and id=? ";
-			paramList.add(id);
-		}
 		if(!name.isEmpty()) {
 			sql += " and name like '%" + name + "%'";
 		}

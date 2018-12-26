@@ -18,7 +18,7 @@ import java.sql.SQLException;
 /**
  * 登录的Servlet
  */
-@WebServlet(name = "LoginAdminServlet", urlPatterns = {"/mealordering/loginAdmin"})
+@WebServlet(name = "LoginAdminServlet", urlPatterns = {"/mealordering/login-admin"})
 public class LoginAdminServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);

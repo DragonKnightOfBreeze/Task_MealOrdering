@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%--CITE 传入：session.settings--%>
-<%--@elvariable id="user" type="mealordering.domain.User"--%>
+<%--CITE 传入：session.onlineUser--%>
+<%--@elvariable id="onlineUser" type="mealordering.domain.User"--%>
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,7 @@
 
 	<!--STEP 页面主体-->
 	<div class="container" id="mo_body-admin">
-		<div class="row">
+		<div class="row m-3">
 			<!--STEP 侧边菜单栏-->
 			<div class="col-sm-3">
 				<jsp:include page="/mealordering/admin/mo_side-menu.jsp"/>

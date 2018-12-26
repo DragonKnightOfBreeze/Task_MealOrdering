@@ -128,10 +128,11 @@ public class MailUtils {
 					return new PasswordAuthentication(authInfo[0], authInfo[1]);
 				}
 			};
-			session = Session.getDefaultInstance(properties, auth);
+			session = Session.getInstance(properties, auth);
 		} else {
 			//设置为不需要进行身份验证
-			session = Session.getDefaultInstance(properties);
+			//ERROR 这一行有问题，不用Default？
+			session = Session.getInstance(properties);
 		}
 
 		try {

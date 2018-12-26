@@ -24,7 +24,7 @@ public class Test1 {
 		// 设置邮件服务器，指定发送邮件的主机为 localhost
 		properties.setProperty("mail.smtp.host", "localhost");
 		// 获取默认session对象
-		Session session = Session.getDefaultInstance(properties);
+		Session session = Session.getInstance(properties);
 
 		try {
 			// 创建默认的 MimeMessage 对象

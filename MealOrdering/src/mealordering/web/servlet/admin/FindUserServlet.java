@@ -19,7 +19,7 @@ import java.sql.SQLException;
 /**
  * 根据id查询用户信息的Servlet
  */
-@WebServlet(name = "FindUserServlet", urlPatterns = {"/mealordering/admin/find-settings"})
+@WebServlet(name = "FindUserServlet", urlPatterns = {"/mealordering/admin/find-user"})
 public class FindUserServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
@@ -33,8 +33,8 @@ public class FindUserServlet extends HttpServlet {
 			//STEP 后台操作
 			User user = ServiceFactory.getNormalUserSvc().findById(id);
 			//STEP 设置转发属性与跳转
-			req.setAttribute("settings", user);
-			req.getRequestDispatcher("/mealordering/admin/settings-info.jsp").forward(req, resp);
+			req.setAttribute("onlineUser", user);
+			req.getRequestDispatcher("/mealordering/admin/user-info.jsp").forward(req, resp);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
 			resp.sendRedirect(req.getContextPath() + "/mealordering/admin/empty-result.jsp");

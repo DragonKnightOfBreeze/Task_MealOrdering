@@ -32,6 +32,8 @@ public class SearchMealServlet extends HttpServlet {
 		String searchType = req.getParameter("searchType");
 		String name = req.getParameter("name");
 		String category = req.getParameter("category");
+		String minPrice = req.getParameter("minPrice");
+		String maxPrice = req.getParameter("maxPrice");
 
 		try {
 			// STEP 后台操作
@@ -40,6 +42,8 @@ public class SearchMealServlet extends HttpServlet {
 				mealList = ServiceFactory.getMealSvc().searchByName(name);
 			} else if(StringExt.equals(searchType, "byCategory")) {
 				mealList = ServiceFactory.getMealSvc().searchByCategory(category);
+			} else {
+				mealList = ServiceFactory.getMealSvc().searchByConditions(name, category, minPrice, maxPrice);
 			}
 			PageGroup<Meal> pageGroup = new PageGroup<>(mealList);
 			List<Meal> page = pageGroup.getPage(1);

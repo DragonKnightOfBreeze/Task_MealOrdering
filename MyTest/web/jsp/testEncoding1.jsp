@@ -9,7 +9,7 @@
 <body>
 	<p>fafafaf发发发发风3</p>
 	<form action="<c:url value="/test/testEncoding3"/>" method="get">
-		<input type="text" name="name" value="你好">
+		<input type="text" name="name" value="你好" disabled>
 		<input type="submit" value="提交">
 	</form>
 

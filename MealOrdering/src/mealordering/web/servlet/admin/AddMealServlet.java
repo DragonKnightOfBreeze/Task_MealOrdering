@@ -41,12 +41,15 @@ public class AddMealServlet extends HttpServlet {
 			String category = su.getRequest().getParameter("category");
 			String description = su.getRequest().getParameter("description");
 			int count = StringExt.toInt(su.getRequest().getParameter("count"));
-			//STEP 缓存上传图片
-			String fileName = su.getFiles().getFile(0).getFileName();
-			String ext = su.getFiles().getFile(0).getFileExt();
-			String imgUrl = FileUtils.join(getServletContext().getRealPath("/mealordering/assets/image/meal_img"),
-					FileUtils.getRandomFileName(fileName));
-			su.getFiles().getFile(0).saveAs(imgUrl);
+			String imgUrl = "";
+			//STEP 缓存上传图片（如果有的话）
+			if(su.getFiles().getCount() > 0) {
+				String fileName = su.getFiles().getFile(0).getFileName();
+				String ext = su.getFiles().getFile(0).getFileExt();
+				imgUrl = FileUtils.join(getServletContext().getRealPath("/mealordering/assets/image/meal_img"),
+						FileUtils.getRandomFileName(fileName));
+				su.getFiles().getFile(0).saveAs(imgUrl);
+			}
 			//STEP 后台操作
 			Meal meal = new Meal(name, price, category, imgUrl, description, count);
 			meal.setId(id);

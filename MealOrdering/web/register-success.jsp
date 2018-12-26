@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>激活失败</title>
+	<title>注册成功</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -21,7 +21,7 @@
 	<%--STEP 页面主体--%>
 	<div class="container" id="mo_success-info">
 		<div class="row text-center m-3 text-warning">
-			<h2 class="m-auto">激活失败！</h2>
+			<h2 class="m-auto">注册成功！</h2>
 		</div>
 		<hr>
 		<div class="row text-center m-3 text-warning">

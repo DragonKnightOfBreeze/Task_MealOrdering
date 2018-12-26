@@ -87,10 +87,10 @@ public class MealService {
 	/**
 	 * 多条件查询餐品，分页显示。
 	 */
-	public List<Meal> searchByConditions(@NotNull String id, @NotNull String name, @NotNull String category,
+	public List<Meal> searchByConditions(@NotNull String name, @NotNull String category,
 			@NotNull String minPrice, @NotNull String maxPrice)
 	throws SQLException, ResultEmptyException {
-		List<Meal> mealList = dao.searchByConditions(id, name, category, minPrice, maxPrice);
+		List<Meal> mealList = dao.searchByConditions(name, category, minPrice, maxPrice);
 		if(ListExt.orEmpty(mealList))
 			throw new ResultEmptyException();
 		return mealList;

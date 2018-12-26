@@ -2,6 +2,7 @@ package mealordering.domain;
 
 import dk_breeze.annotation.NotTested;
 import dk_breeze.utils.ext.ArrayExt;
+import dk_breeze.utils.ext.MathExt;
 
 import java.beans.JavaBean;
 import java.io.Serializable;
@@ -99,13 +100,13 @@ public class PageGroup<T extends Serializable> implements Serializable {
 
 	/**
 	 * 得到指定的分页，并更新当前页面索引和页面条数。
-	 * <br>参数小于1时自动转化。
+	 * <br>对参数进行夹值处理
 	 * @param pageIndex 页面索引
 	 * @param count 页面条目数
 	 */
 	public List<T> getPage(int pageIndex, int count) {
-		pageIndex = Math.min(1, pageIndex);
-		count = Math.min(1, count);
+		pageIndex = MathExt.clamp(pageIndex, 1, pageCount);
+		count = MathExt.clamp(1, count, totalCount);
 
 		this.pageIndex = pageIndex;
 		this.count = count;

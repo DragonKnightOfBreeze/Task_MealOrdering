@@ -1,38 +1,42 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
-
+<!--STEP 页面导航：分类导航-->
 <div class="container mo_search-bar">
 	<div class="row">
-		<!--STEP 页面导航：分类导航-->
 		<div class="col-sm-7">
 			<ul class="nav nav-tabs" id="mo_nt-category">
 				<li class="nav-item">
-					<c:url var="url1" value="/mealordering/meal/searchByCategory">
+					<c:url var="url1" value="/mealordering/meal/search">
+						<c:param name="searchType" value="byCategory"/>
 						<c:param name="category" value="所有分类"/>
 					</c:url>
 					<a class="nav-link active" href="${url1}">所有分类</a>
 				</li>
 				<li class="nav-item">
-					<c:url var="url2" value="/mealordering/meal/searchByCategory">
+					<c:url var="url2" value="/mealordering/meal/search">
+						<c:param name="searchType" value="byCategory"/>
 						<c:param name="category" value="素食"/>
 					</c:url>
 					<a class="nav-link" href="${url2}">素食</a>
 				</li>
 				<li class="nav-item">
-					<c:url var="url3" value="/mealordering/meal/searchByCategory">
+					<c:url var="url3" value="/mealordering/meal/search">
+						<c:param name="searchType" value="byCategory"/>
 						<c:param name="category" value="荤食"/>
 					</c:url>
 					<a class="nav-link" href="${url3}">荤食</a>
 				</li>
 				<li class="nav-item">
-					<c:url var="url4" value="/mealordering/meal/searchByCategory">
+					<c:url var="url4" value="/mealordering/meal/search">
+						<c:param name="searchType" value="byCategory"/>
 						<c:param name="category" value="甜点"/>
 					</c:url>
 					<a class="nav-link" href="${url4}">甜点</a>
 				</li>
 				<li class="nav-item">
-					<c:url var="url5" value="/mealordering/meal/searchByCategory">
+					<c:url var="url5" value="/mealordering/meal/search">
+						<c:param name="searchType" value="byCategory"/>
 						<c:param name="category" value="黑暗料理"/>
 					</c:url>
 					<a class="nav-link" href="${url5}">黑暗料理</a>
@@ -44,6 +48,8 @@
 			<!--STEP 内联表单：普通搜索-->
 			<%--CITE GET 传出：name--%>
 			<form class="form-inline" action="<c:url value="/mealordering/meal/search"/>" method="get">
+				<%--搜索类型--%>
+				<input type="hidden" name="searchType" value="byName"/>
 				<%--输入餐品名称--%>
 				<div class="form-group">
 					<label class="sr-only" for="mo_name-search">名称</label>
@@ -73,7 +79,9 @@
 				<div class="modal-body">
 					<!--STEP 内联表单：高级搜索-->
 					<!--CITE GET 传出：name,minPrice,maxPrice,category-->
-					<form action="<c:url value="/mealordering/meal/searchByConditions"/>" method="get">
+					<form action="<c:url value="/mealordering/meal/search"/>" method="get">
+						<%--搜索类型--%>
+						<input type="hidden" name="searchType" value="byName"/>
 						<%--输入餐品名称--%>
 						<div class="form-row m-1">
 							<label class="col-md-3" for="mo_name-adv-search">餐品名称</label>
@@ -119,6 +127,10 @@
 </div>
 
 
+<%--STEP 引入脚本--%>
+<%--引入jQuery和Bootstrap脚本--%>
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script>
 	$(function() {
 		//STEP 限制最低价格总是小于最高价格

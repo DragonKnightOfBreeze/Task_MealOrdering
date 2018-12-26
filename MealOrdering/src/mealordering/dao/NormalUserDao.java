@@ -26,12 +26,12 @@ public class NormalUserDao {
 	 */
 	public void doRegister(@NotNull NormalUser user) throws SQLException, UserNotFoundException {
 		@Language("MySQL")
-		String sql = "insert into User(userName,password,imgUrl,gender,email,phoneNum,introduce,activeCode)" +
-				" value(?,?,?,?,?,?,?,?)";
+		String sql = "insert into User(userName,password,imgUrl,gender,email,phoneNum,introduce,activeCode,registerTime)" +
+				" value(?,?,?,?,?,?,?,?,?)";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		int row = runner.update(sql,
 				user.getUserName(), user.getPassword(), user.getImgUrl(), user.getGender(), user.getEmail(),
-				user.getPhoneNum(), user.getIntroduce(), user.getActiveCode()
+				user.getPhoneNum(), user.getIntroduce(), user.getActiveCode(), user.getRegisterTime()
 		);
 		if(row == 0)
 			throw new UserNotFoundException();

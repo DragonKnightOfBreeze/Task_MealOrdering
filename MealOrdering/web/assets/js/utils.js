@@ -174,9 +174,7 @@ export {
 	checkSpace,
 	checkByRegex,
 	checkByRepeat,
-	countDown,
 	getParamMap,
 	toggleActive,
 	formatDate,
-	interval
 };

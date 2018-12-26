@@ -13,7 +13,7 @@
     <schema id="3" parent="1" name="MySQLLesson">
       <Collation>utf8mb4_0900_ai_ci</Collation>
     </schema>
-    <schema id="4" parent="1" name="chapter06">
+    <schema id="4" parent="1" name="foodordering">
       <Collation>utf8mb4_0900_ai_ci</Collation>
     </schema>
     <schema id="5" parent="1" name="information_schema">
@@ -1134,7 +1134,7 @@
     <column id="286" parent="281" name="id">
       <Position>1</Position>
       <Comment>餐品编号</Comment>
-      <DataType>varchar(8)|0s</DataType>
+      <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1156,7 +1156,7 @@
       <Position>4</Position>
       <Comment>餐品分类</Comment>
       <DataType>varchar(12)|0s</DataType>
-      <DefaultExpression>&apos;未分类&apos;</DefaultExpression>
+      <DefaultExpression>&apos;所有分类&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="290" parent="281" name="imgUrl">
@@ -1214,7 +1214,7 @@
     <column id="298" parent="282" name="time">
       <Position>4</Position>
       <Comment>通知时间</Comment>
-      <DataType>varchar(16)|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="299" parent="282" name="PRIMARY">
@@ -1225,7 +1225,7 @@
     <column id="300" parent="283" name="id">
       <Position>1</Position>
       <Comment>订单编号</Comment>
-      <DataType>varchar(50)|0s</DataType>
+      <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1280,7 +1280,7 @@
     <column id="309" parent="284" name="order_id">
       <Position>1</Position>
       <Comment>订单的ID</Comment>
-      <DataType>varchar(50)|0s</DataType>
+      <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1305,7 +1305,7 @@
     <column id="313" parent="285" name="id">
       <Position>1</Position>
       <Comment>用户编号（系统自动编号）</Comment>
-      <DataType>int(8)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
@@ -1330,36 +1330,35 @@
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="317" parent="285" name="gender">
+    <column id="317" parent="285" name="type">
       <Position>5</Position>
-      <Comment>用户性别</Comment>
-      <DataType>varchar(2)|0s</DataType>
-      <DefaultExpression>&apos;男&apos;</DefaultExpression>
+      <Comment>用户类型</Comment>
+      <DataType>varchar(4)|0s</DataType>
+      <DefaultExpression>&apos;普通用户&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="318" parent="285" name="email">
+    <column id="318" parent="285" name="gender">
       <Position>6</Position>
+      <Comment>用户性别</Comment>
+      <DataType>varchar(2)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="319" parent="285" name="email">
+      <Position>7</Position>
       <Comment>用户邮箱地址</Comment>
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="319" parent="285" name="phoneNum">
-      <Position>7</Position>
+    <column id="320" parent="285" name="phoneNum">
+      <Position>8</Position>
       <Comment>用户电话号码</Comment>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="320" parent="285" name="introduce">
-      <Position>8</Position>
+    <column id="321" parent="285" name="introduce">
+      <Position>9</Position>
       <Comment>用户介绍</Comment>
       <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="321" parent="285" name="type">
-      <Position>9</Position>
-      <Comment>用户类型</Comment>
-      <DataType>varchar(4)|0s</DataType>
-      <DefaultExpression>&apos;普通用户&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="322" parent="285" name="activeCode">

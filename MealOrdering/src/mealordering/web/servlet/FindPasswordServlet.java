@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * 生成resetCode，并发送找回密码邮件的Servlet
  */
-@WebServlet(name = "FindPasswordServlet", urlPatterns = "/mealordering/sendResetPswEmail")
+@WebServlet(name = "FindPasswordServlet", urlPatterns = "/mealordering/send-reset-psw-email")
 public class FindPasswordServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);

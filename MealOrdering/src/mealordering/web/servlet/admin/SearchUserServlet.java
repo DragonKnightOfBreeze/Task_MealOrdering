@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * 根据搜索类型查询公告信息。
  */
-@WebServlet(name = "SearchUserServlet", urlPatterns = "/mealordering/admin/search-settings")
+@WebServlet(name = "SearchUserServlet", urlPatterns = "/mealordering/admin/search-user")
 public class SearchUserServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
@@ -43,7 +43,7 @@ public class SearchUserServlet extends HttpServlet {
 			req.getSession().setAttribute("pageGroup", pageGroup);
 			req.setAttribute("page", page);
 			req.setAttribute("pageBtnText", pageBtnText);
-			req.getRequestDispatcher("/mealordering/admin/settings-list.jsp").forward(req, resp);
+			req.getRequestDispatcher("/mealordering/admin/user-list.jsp").forward(req, resp);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
 			resp.sendRedirect(req.getContextPath() + "/mealordering/admin/empty-result.jsp");

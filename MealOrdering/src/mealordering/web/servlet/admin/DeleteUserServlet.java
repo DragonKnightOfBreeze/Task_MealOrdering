@@ -14,7 +14,7 @@ import java.sql.SQLException;
 /**
  * 删除用户的Servlet
  */
-@WebServlet(name = "DeleteUserServlet", urlPatterns = {"/mealordering/admin/delete-settings"})
+@WebServlet(name = "DeleteUserServlet", urlPatterns = {"/mealordering/admin/delete-user"})
 public class DeleteUserServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doPost(req, resp);

@@ -1,4 +1,4 @@
-import * as utils from "./utils";
+import * as utils from "/mealordering/assets/js/utils";
 
 // let settings = null;
 

@@ -30,10 +30,11 @@ public class EditNoticeServlet extends HttpServlet {
 		try {
 			//STEP 后台操作
 			Notice notice = new Notice(title, details);
+			notice.setId(id);
 			ServiceFactory.getNoticeSvc().doEdit(notice);
 			//STEP 设置转发属性与跳转
 			req.setAttribute("id", id);
-			req.getRequestDispatcher("/mealordering/admin/find-meal-by-id").forward(req, resp);
+			req.getRequestDispatcher("/mealordering/admin/find-notice").forward(req, resp);
 		} catch(SQLException e) {
 			e.printStackTrace();
 			resp.sendRedirect(req.getContextPath() + "/mealordering/error/unexpected-error.jsp");

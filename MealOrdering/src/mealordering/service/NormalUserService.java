@@ -28,7 +28,7 @@ public class NormalUserService {
 	public void doRegister(@NotNull NormalUser user) throws SQLException, UserNotFoundException {
 		dao.doRegister(user);
 //		//发送激活邮件
-//		sendActiveEmail(settings.getEmail(),settings.getActiveCode());
+//		sendActiveEmail(user.getEmail(),user.getActiveCode());
 	}
 
 	/**

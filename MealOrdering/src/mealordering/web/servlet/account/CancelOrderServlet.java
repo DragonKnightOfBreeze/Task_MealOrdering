@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * 删除订单的Servlet。
  */
-@WebServlet(name = "CancelOrderServlet", urlPatterns = {"/mealordering/cancel-order"})
+@WebServlet(name = "CancelOrderServlet", urlPatterns = {"/mealordering/account/cancel-order"})
 public class CancelOrderServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);

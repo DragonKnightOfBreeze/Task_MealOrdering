@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 得到指定内容分页的Servlet
  */
-@WebServlet(name = "GetPageServlet", urlPatterns = {"/mealordering/getPage"})
+@WebServlet(name = "GetPageServlet", urlPatterns = {"/mealordering/get-page"})
 public class GetPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//得到传入参数，默认每页15条记录

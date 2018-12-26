@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,35 +9,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
-	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
 
 	<script>
 		$(function() {
-			$("#mo_header").load("/mealordering/mo_header.html",
-				function() {
-					//如果用户为空则直接返回
-					if(user == null)
-						return;
-					//动态加载数据
-					$("#mo_id-edit").val(user.id);
-					$("#mo_user-name-edit").val(user.userName);
-					$("#mo_password-edit").val(user.password);
-					$("#mo_re-password-edit").val(user.password);
-					$("#mo_img-edit").attr("src", user.imgUrl);
-					$("#mo_img-url-edit").val(user.imgUrl);
-					let genderNum = user.gender === "男性" ? 0 : 1;
-					$(".mo_gender-edit").attr("checked", false).eq(genderNum).attr("checked", true);
-					$("#mo_email-edit").val(user.email);
-					$("#mo_phone-num-edit").val(user.phoneNum);
-					$("#mo_introduce-edit").text(user.introduce);
-				});
-
-			$("#mo_background-bar").load("/mealordering/mo_background-bar.html");
-			$("#mo_footer").load("/mealordering/mo_footer.html");
-			$("#mo_side-menu").load("/mealordering/settings/mo_side-menu.html");
-
 			//DONE 拦截用户注册，验证输入
 			//STEP 使用jQuery验证插件
 			$("#mo_form-edit").validate({
@@ -90,7 +67,7 @@
 					errorPlacement: function(error, element) {
 						error.appendTo($("#mo_msg-edit"));
 					},
-				errorContainer: "#mo_alert-edit",
+					errorContainer: "#mo_alert-edit",
 					success: "valid"
 				}
 			);
@@ -99,12 +76,14 @@
 	</script>
 </head>
 
-
 <body>
-	<div id="mo_header"></div>
+	<!--STEP 页面顶部-->
+	<jsp:include page="/mealordering/mo_header.jsp"/>
 
-	<div id="mo_background-bar"></div>
+	<!--STEP 背景图-->
+	<jsp:include page="/mealordering/mo_background-bar.jsp"/>
 
+	<%--STEP 页面主体--%>
 	<div class="container" id="mo_body">
 		<div class="row">
 			<!--STEP 侧边菜单栏-->
@@ -128,12 +107,12 @@
 								<div class="form-group">
 									<label for="mo_password-edit">用户密码</label>
 									<input type="password" class="form-control" id="mo_password-edit" name="password" title="用户密码"
-												 required>
+									       required>
 								</div>
 								<div class="form-group">
 									<label for="mo_re-password-edit">确认密码</label>
 									<input type="password" class="form-control" id="mo_re-password-edit" name="rePassword" title="确认密码"
-												 required>
+									       required>
 								</div>
 								<div class="form-check-inline">
 									<label class="form-check-label">
@@ -155,9 +134,8 @@
 								</div>
 								<div class="form-group">
 									<label for="mo_introduce-edit">个人介绍</label>
-									<textarea class="form-control" id="mo_introduce-edit" rows="4" name="introduce">
-这个人很懒，什么也没留下...
-            </textarea>
+									<textarea class="form-control" id="mo_introduce-edit" rows="4"
+									          name="introduce">这个人很懒，什么也没留下...</textarea>
 								</div>
 								<!--NOTE 这是验证未通过时弹出的警告-->
 								<div class="alert alert-warning" id="mo_alert-edit" style="display: none;">
@@ -190,6 +168,13 @@
 		</div>
 	</div>
 
-	<div id="mo_footer"></div>
+	<!--STEP 页面尾部-->
+	<jsp:include page="/mealordering/mo_footer.jsp"/>
+
+
+	<%--STEP 引入脚本--%>
+	<%--引入jQuery和Bootstrap脚本--%>
+	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </body>
 </html>

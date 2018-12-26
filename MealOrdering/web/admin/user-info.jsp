@@ -33,7 +33,7 @@
 			<%--切换侧边栏导航激活--%>
 			<script>
 				$(function() {
-					$("#mo_side-menu .nav-link").removeClass("active").eq(4).addClass("active");
+					$("#mo_side-menu .nav-link").eq(4).click();
 				})
 			</script>
 
@@ -92,10 +92,8 @@
 							</div>
 							<!--显示用户介绍-->
 							<div class="form-row m-1">
-								<label class="col-sm-3" for="mo_introduce">介绍</label>
-								<div class="input-group col-sm-9">
-									<textarea class="form-control" id="mo_introduce" disabled>${user.introduce}</textarea>
-								</div>
+								<label for="mo_introduce">介绍</label>
+								<textarea class="form-control" id="mo_introduce" disabled>${user.introduce}</textarea>
 							</div>
 							<!--显示用户类型-->
 							<div class="form-row m-1">

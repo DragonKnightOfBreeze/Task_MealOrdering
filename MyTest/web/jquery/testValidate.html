@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<!--引入jQuery验证插件，包括本地化和附加方法-->
+	<script src="../framework/jquery-validation/jquery.validate.min.js"></script>
+	<script src="../framework/jquery-validation/localization/messages_zh.min.js"></script>
+	<script src="../framework/jquery-validation/additional-methods.min.js"></script>
+	<script>
+
+		$("#test_form").validate({
+			//验证通过后的回调函数
+			submitHandler: function(form) {
+				$(form).submit();
+			},
+			//验证规则
+			rules: {
+				title: {
+					required: true,
+					//1到10位的字母、数字、下划线
+					minLength: 4
+				}
+			},
+			//验证不通过时显示的信息
+			messages: {
+				title: {
+					required: "管理员名必须填写！",
+					minLength: "管理员名格式不正确！"
+				}
+			},
+			//错误信息的插入位置（参数：错误信息对应元素，在验证的元素）
+			errorPlacement: function(error, element) {
+				error.appendTo($("#mo_msg-login-admin"));
+			},
+			//错误消息对应的元素类型，默认为label
+			errorElement: "label",
+			//错误消息对应的要切换显示的容器元素
+			errorContainer: "#mo_alert-login-admin",
+			//验证通过后的回调函数（参数：验证元素）或字符串（添加类到验证元素）
+			success: "valid"
+		});
+	</script>
+</head>
+
+<body>
+	<!--STEP 页面导航：公告搜索-->
+	<div class="container mo_search-bar">
+		<div class="row">
+			<div class="col-sm-5 offset-7">
+				<form class="form-inline" action="javascript:alert('提交！')" method="get" id="test_form">
+					<%--搜索类型--%>
+					<input type="hidden" name="searchType" value="byTitle">
+					<%--输入公告标题--%>
+					<div class="form-group">
+						<label class="sr-only" for="mo_title">标题</label>
+						<input type="text" class="form-control" id="mo_title"
+									 name="title" placeholder="请输入公告标题" required>
+					</div>
+					<%--提交表单--%>
+					<button type="submit" class="btn btn-default">
+						<span class="fa fa-search"></span>
+					</button>
+					<!--验证未通过时弹出的警告-->
+					<%--TODO jQuery验证插件使用时仍然有问题--%>
+					<div class="alert alert-warning" id="mo_alert-login-admin" style="display: none">
+						<span class="fa fa-warning fa-fw"></span><span id="mo_msg-login-admin"></span>
+						<button class="close" data-dismiss="alert">&times;</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

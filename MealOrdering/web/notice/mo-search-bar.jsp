@@ -11,7 +11,8 @@
 				<%--输入公告标题--%>
 				<div class="form-group">
 					<label class="sr-only" for="mo_title">标题</label>
-					<input type="text" class="form-control" id="mo_title" name="Title" placeholder="请输入公告标题" required>
+					<input type="text" class="form-control" id="mo_title"
+					       name="title" placeholder="请输入公告标题" required>
 				</div>
 				<%--提交表单--%>
 				<button type="submit" class="btn btn-default">

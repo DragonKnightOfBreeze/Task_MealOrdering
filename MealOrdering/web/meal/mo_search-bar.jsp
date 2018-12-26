@@ -46,7 +46,7 @@
 
 		<div class="col-md-5 float-right">
 			<!--STEP 内联表单：普通搜索-->
-			<%--CITE GET 传出：name--%>
+			<%--CITE GET 传出：searchType,name--%>
 			<form class="form-inline" action="<c:url value="/mealordering/meal/search"/>" method="get">
 				<%--搜索类型--%>
 				<input type="hidden" name="searchType" value="byName"/>
@@ -78,15 +78,16 @@
 				</div>
 				<div class="modal-body">
 					<!--STEP 内联表单：高级搜索-->
-					<!--CITE GET 传出：name,minPrice,maxPrice,category-->
+					<!--CITE GET 传出：searchType,name,minPrice,maxPrice,category-->
 					<form action="<c:url value="/mealordering/meal/search"/>" method="get">
 						<%--搜索类型--%>
-						<input type="hidden" name="searchType" value="byName"/>
+						<input type="hidden" name="searchType" value="byConditions"/>
 						<%--输入餐品名称--%>
 						<div class="form-row m-1">
 							<label class="col-md-3" for="mo_name-adv-search">餐品名称</label>
 							<div class="col-md-9">
-								<input type="text" class="form-control" id="mo_name-adv-search" name="name" placeholder="请输入餐品名称...">
+								<input type="text" class="form-control" id="mo_name-adv-search" name="name"
+								       placeholder="请输入餐品名称...">
 							</div>
 						</div>
 						<%--输入最低价格和最高价格--%>
@@ -102,6 +103,14 @@
 								       min="0" max="10000">
 							</div>
 						</div>
+						<%--限制最低价格总是小于最高价格--%>
+						<script>
+							$("#mo_min-num,#mo_max-num").change(function() {
+								let $min = $("#mo_minPrice-adv-search");
+								let $max = $("#mo_maxPrice-adv-search");
+								$min.val(Math.min(parseInt($min.val()), parseInt($max.val())));
+							});
+						</script>
 						<%--选择餐品分类--%>
 						<div class="form-row m-1">
 							<label class="col-md-3" for="mo_category-adv-search">餐品分类</label>
@@ -125,20 +134,3 @@
 		</div>
 	</div>
 </div>
-
-
-<%--STEP 引入脚本--%>
-<%--引入jQuery和Bootstrap脚本--%>
-<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script>
-	$(function() {
-		//STEP 限制最低价格总是小于最高价格
-		$("#mo_min-num,#mo_max-num").on("change", function() {
-				let $min = $("#mo_min-num");
-				let $max = $("#mo_max-num");
-				$min.val(Math.min(parseInt($min.val()), parseInt($max.val())));
-			}
-		);
-	});
-</script>

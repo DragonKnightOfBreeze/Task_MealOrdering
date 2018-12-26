@@ -18,10 +18,10 @@
 
 <body>
 	<!--STEP 页面顶部-->
-	<jsp:include page="mo_header.jsp"/>
+	<jsp:include page="/mealordering/mo_header.jsp"/>
 
 	<!--STEP 背景图-->
-	<jsp:include page="mo_background-bar.jsp"/>
+	<jsp:include page="/mealordering/mo_background-bar.jsp"/>
 
 	<!--STEP 页面主体-->
 	<div class="container" id="mo_body">
@@ -132,7 +132,7 @@
 	</div>
 
 	<!--STEP 页面尾部-->
-	<jsp:include page="mo_footer.jsp"/>
+	<jsp:include page="/mealordering/mo_footer.jsp"/>
 
 
 	<%--STEP 引入脚本--%>
@@ -144,6 +144,6 @@
 	<script src="framework/jquery-validation/localization/messages_zh.min.js"></script>
 	<script src="framework/jquery-validation/additional-methods.min.js"></script>
 	<!--引入自定义脚本-->
-	<script src="assets/js/head.js"></script>
+	<script src="assets/js/header.js"></script>
 </body>
 </html>

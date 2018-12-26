@@ -13,8 +13,7 @@
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	<!--NOTE 不需要重复引入jQuery验证插件-->
-	<script src="<c:url value="/mealordering/assets/js/reset-password.js"/>"></script>
+
 	<script>
 
 		$(function() {

@@ -33,7 +33,7 @@
 			<%--切换侧边栏导航激活--%>
 			<script>
 				$(function() {
-					$("#mo_side-menu .nav-link").removeClass("active").eq(3).addClass("active");
+					$("#mo_side-menu .nav-link").eq(3).click();
 				})
 			</script>
 

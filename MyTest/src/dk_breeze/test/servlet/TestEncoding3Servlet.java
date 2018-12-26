@@ -11,6 +11,7 @@ public class TestEncoding3Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 	throws IOException {
 		var name = req.getParameter("name");
+		resp.getWriter().println(name == null);
 		//编码有问题
 		resp.getWriter().println(name);
 		resp.getWriter().println("发放给奉古国过过");

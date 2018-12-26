@@ -5,84 +5,92 @@
 <%--@elvariable id="onlineUser" type="mealordering.domain.User"--%>
 
 <!--STEP 导航栏：网站图标，导航文本，导航栏菜单，登录注册导航表单-->
-<!--STEP 导航栏：网站图标，导航文本，导航栏菜单，显示管理员名字-->
 <!--固定在页面顶部，小屏幕上水平导航栏会切换为垂直的-->
 <div id="mo_header">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<div class="container">
 			<!--STEP 导航栏头部-->
 			<div class="navbar-header">
-			<!--导航栏网站LOGO-->
-			<a class="navbar-brand" href="<c:url value="/mealordering/index"/>">
-				<img src="<c:url value="/mealordering/assets/image/logo/logo.jpg"/>"/>
-			</a>
-		</div>
-		<!--导航栏文本-->
-		<span class="navbar-text">Text goes here.</span>
-		&emsp;&emsp;&emsp;
-		<!--导航栏下拉菜单，只在小地图上显示-->
-		<button class="navbar-toggler" data-toggle="collapse" data-target="#mo_navbar-menu">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<!--可折叠式导航栏菜单-->
-		<div class="collapse navbar-collapse" id="mo_navbar-menu">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link active" href="<c:url value="/mealordering/index"/>">主页</a>
+				<!--导航栏网站LOGO-->
+				<a class="navbar-brand" href="<c:url value="/mealordering/index"/>">
+					<img src="<c:url value="/mealordering/assets/image/logo/logo.jpg"/>"/>
+				</a>
+			</div>
+			<!--导航栏文本-->
+			<span class="navbar-text">Text goes here.</span>
+			&emsp;&emsp;&emsp;
+			<!--导航栏下拉菜单，只在小地图上显示-->
+			<button class="navbar-toggler" data-toggle="collapse" data-target="#mo_navbar-menu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<!--可折叠式导航栏菜单-->
+			<div class="collapse navbar-collapse" id="mo_navbar-menu">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link active" href="<c:url value="/mealordering/index"/>">主页</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="<c:url value="/mealordering/meal/find-all"/>">菜单</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="<c:url value="/mealordering/notice/find-all"/>">公告</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#mo_modal-login-admin" data-toggle="modal">管理</a>
+					</li>
+				</ul>
+			</div>
+
+			<%--判断是否有用户登录，显示不同的菜单--%>
+			<c:choose>
+			<c:when test="${empty onlineUser}">
+			<!--STEP 导航栏菜单：注册和登录，右对齐-->
+
+			<ul class="navbar-nav navbar-right" id="mo_visitor-menu">
+				<li class="nav-item active">
+					<a class="nav-link" id="mo_nav-login" href="#mo_modal-login-reg" data-toggle="modal">
+						<span class="fa fa-sign-in"></span> 登录
+					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<c:url value="/mealordering/meal/find-all"/>">菜单</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="<c:url value="/mealordering/notice/find-all"/>">公告</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#mo_modal-login-admin" data-toggle="modal">管理</a>
+					<a class="nav-link" id="mo_nav-reg" href="#mo_modal-login-reg" data-toggle="modal">
+						<span class="fa fa-sign-out"></span> 注册
+					</a>
 				</li>
 			</ul>
-		</div>
-
-		<%--判断是否有用户登录，显示不同的菜单--%>
-		<c:choose>
-			<c:when test="${empty onlineUser}">
-				<!--STEP 导航栏菜单：注册和登录，右对齐-->
-				<%--TODO 点击注册时，切换激活注册导航--%>
-				<ul class="navbar-nav navbar-right" id="mo_visitor-menu">
-					<li class="nav-item active">
-						<a class="nav-link" id="mo_btn-login" href="#mo_modal-login-reg" data-toggle="modal">
-							<span class="fa fa-sign-in"></span> 登录
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" id="mo_btn-register" href="#mo_modal-login-reg" data-toggle="modal">
-							<span class="fa fa-sign-out"></span> 注册
-						</a>
-					</li>
-				</ul>
+				<%--点击登录/注册按钮时，切换显示登录/注册分页--%>
+			<script>
+				$("#mo_nav-login").click(function() {
+					$(".mo_nl-login").click();
+				});
+				$("#mo_nav-reg").click(function() {
+					$(".mo_nl-reg").click();
+				});
+			</script>
 			</c:when>
 			<c:otherwise>
-				<!--STEP 导航栏菜单：我的账户和登出，右对齐-->
-				<ul class="navbar-nav navbar-right" id="mo_user-menu">
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown">
-							<span class="fa fa-user"></span> 我的账户
-						</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="<c:url value="/mealordering/account/home.jsp"/>">我的资料</a>
-							<a class="dropdown-item" href="<c:url value="/mealordering/account/my-cart.jsp"/>">我的购物车</a>
-							<a class="dropdown-item" href="<c:url value="/mealordering/account/find-order-by-user"/>">我的订单</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="<c:url value="/mealordering/settings/information.jsp"/>">修改资料</a>
-						</div>
-					</li>
-					<li class="nav-item">
-						<a id="mo_btn-logout" class="nav-link" href="<c:url value="/mealordering/logout"/>">
-							<span class="fa fa-sign-out"></span> 注销
-						</a>
-					</li>
-				</ul>
+			<!--STEP 导航栏菜单：我的账户和登出，右对齐-->
+			<ul class="navbar-nav navbar-right" id="mo_user-menu">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown">
+						<span class="fa fa-user"></span> 我的账户
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="<c:url value="/mealordering/account/home.jsp"/>">我的资料</a>
+						<a class="dropdown-item" href="<c:url value="/mealordering/account/my-cart.jsp"/>">我的购物车</a>
+						<a class="dropdown-item" href="<c:url value="/mealordering/account/find-order-by-user"/>">我的订单</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="<c:url value="/mealordering/settings/information.jsp"/>">修改资料</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a id="mo_btn-logout" class="nav-link" href="<c:url value="/mealordering/logout"/>">
+						<span class="fa fa-sign-out"></span> 注销
+					</a>
+				</li>
+			</ul>
 			</c:otherwise>
-		</c:choose>
+			</c:choose>
 	</nav>
 </div>
 
@@ -140,7 +148,7 @@
 	</div>
 </div>
 
-<!--STEP 登录与注册模态框 -->
+<!--STEP 模态框：普通用户登录与注册 -->
 <!--被模态框标题引用，默认隐藏-->
 <div class="modal fade in" id="mo_modal-login-reg">
 	<div class="modal-dialog">
@@ -153,10 +161,10 @@
 				<!--STEP 导航：登录与注册-->
 				<ul class="nav nav-pills nav-fill">
 					<li class="nav-item">
-						<a class="nav-link" href="#mo_tp-login" data-toggle="tab">登录</a>
+						<a class="nav-link active" id="mo_nl-login" href="#mo_tp-login" data-toggle="tab">登录</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#mo_tp-reg" data-toggle="tab">注册</a>
+						<a class="nav-link" id="mo_nl-reg" href="#mo_tp-reg" data-toggle="tab">注册</a>
 					</li>
 				</ul>
 
@@ -301,7 +309,7 @@
 							<div class="form-row m-1">
 								<div class="form-check-inline">
 									<label class="form-check-label">
-										<input class="form-check-input" id="mo_agree-reg" type="checkbox" checked>我已阅读并同意XXX条款
+										<input class="form-check-input" id="mo_agree-reg" type="radio" checked>我已阅读并同意XXX条款
 									</label>
 								</div>
 							</div>

@@ -1465,7 +1465,7 @@
     <inspection_tool class="JSDeclarationsAtScopeStart" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="JSDeprecatedSymbols" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="JSDuplicatedDeclaration" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="JSEqualityComparisonWithCoercion" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="JSEqualityComparisonWithCoercion" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSEqualityComparisonWithCoercion.TS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSFieldCanBeLocal" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="JSFileReferences" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -1618,7 +1618,25 @@
     <inspection_tool class="JspDirectiveInspection" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="JspPropertiesInspection" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="JspTagBodyContent" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="JspUnescapedEl" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="JspUnescapedEl" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="safeTags">
+        <list>
+          <SafeTagInfo>
+            <option name="namespace" value="http://java.sun.com/jsp/jstl/core" />
+            <option name="tagName" value="out" />
+            <option name="attributeName" value="value" />
+            <option name="fix" value="true" />
+          </SafeTagInfo>
+          <SafeTagInfo>
+            <option name="namespace" value="http://java.sun.com/JSP/Page" />
+          </SafeTagInfo>
+          <SafeTagInfo>
+            <option name="namespace" value="http://java.sun.com/jsp/jstl/fmt" />
+            <option name="tagName" value="formatDate" />
+          </SafeTagInfo>
+        </list>
+      </option>
+    </inspection_tool>
     <inspection_tool class="KDocMissingDocumentation" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="KDocUnresolvedReference" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="KeySetIterationMayUseEntrySet" enabled="false" level="WARNING" enabled_by_default="false" />

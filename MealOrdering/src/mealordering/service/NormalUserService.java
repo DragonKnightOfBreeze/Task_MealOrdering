@@ -28,7 +28,7 @@ public class NormalUserService {
 	public void doRegister(@NotNull NormalUser user) throws SQLException, UserNotFoundException {
 		dao.doRegister(user);
 //		//发送激活邮件
-//		sendActiveEmail(user.getEmail(),user.getActiveCode());
+//		sendActiveEmail(settings.getEmail(),settings.getActiveCode());
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class NormalUserService {
 	 * 删除用户信息。
 	 * @param id 用户Id
 	 */
-	public void doDelete(int id) throws SQLException {
+	public void doDeleteById(int id) throws SQLException {
 		dao.doDeleteById(id);
 	}
 
@@ -187,8 +187,8 @@ public class NormalUserService {
 	 * @param resetCode 重置密码所需的uuid
 	 */
 	public void sendFindPswEmail(@NotNull String toEmail, @NotNull String resetCode) {
-		String indexHref = "http://localhost:8080/mealordering/index.html";
-		String href = "http://localhost:8080/mealordering/reset-password.html?resetCode=" + resetCode;
+		String indexHref = "http://localhost:8080/mealordering/index.jsp";
+		String href = "http://localhost:8080/mealordering/reset-password.jsp?resetCode=" + resetCode;
 		String fromEmail = "dk_breeze@qq.com";
 		String subject = "找回你的密码";
 		String content = "<h1>这封邮件来自<a href='" + indexHref + "'>网上订餐系统</a></h1>" +

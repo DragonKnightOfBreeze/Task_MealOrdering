@@ -5,18 +5,18 @@ import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import static dk_breeze.utils.ext.StringExt.f;
-
 /**
  * 公告的Dao类
  */
 public class NoticeDao {
-	NoticeDao() {}
+	NoticeDao() {
+	}
 
 
 	/**
@@ -24,6 +24,7 @@ public class NoticeDao {
 	 * @param notice 公告信息
 	 */
 	public void doAdd(@NotNull Notice notice) throws SQLException {
+		@Language("MySQL")
 		String sql = "insert into Notice(title,details,time) values(?,?,?)";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(sql, notice.getTitle(), notice.getDetails(), notice.getTime());
@@ -34,6 +35,7 @@ public class NoticeDao {
 	 * @param notice 公告信息
 	 */
 	public void doEdit(@NotNull Notice notice) throws SQLException {
+		@Language("MySQL")
 		String sql = "update Notice set title=?,details=?,time=? where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(sql, notice.getTitle(), notice.getDetails(), notice.getTime(), notice.getId());
@@ -41,10 +43,11 @@ public class NoticeDao {
 
 	/**
 	 * 根据Id删除公告。
-	 * @param id  公告Id
+	 * @param id 公告Id
 	 */
 	public void doDeleteById(int id) throws SQLException {
-		String sql = "doDeleteById from Notice where id = ?";
+		@Language("MySQL")
+		String sql = "delete from Notice where id = ?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(sql, id);
 	}
@@ -55,6 +58,7 @@ public class NoticeDao {
 	 * @param id 公告Id
 	 */
 	public Notice findById(int id) throws SQLException {
+		@Language("MySQL")
 		String sql = "select * from Notice where id = ?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanHandler<>(Notice.class), id);
@@ -64,6 +68,7 @@ public class NoticeDao {
 	 * 查询指定数量的最近添加或修改的公告。
 	 */
 	public List<Notice> findRecent(int findCount) throws SQLException {
+		@Language("MySQL")
 		String sql = "select * from Notice order by time desc limit 0,?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanListHandler<>(Notice.class), findCount);
@@ -73,6 +78,7 @@ public class NoticeDao {
 	 * 查询所有公告，按照时间降序排列。
 	 */
 	public List<Notice> findAll() throws SQLException {
+		@Language("MySQL")
 		String sql = "select * from Notice order by time desc";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanListHandler<>(Notice.class));
@@ -82,7 +88,8 @@ public class NoticeDao {
 	 * 根据公告标题进行模糊搜索。
 	 */
 	public List<Notice> searchByTitle(String title) throws SQLException {
-		String sql = f("select * from Notice where title like '%{0}%'", title);
+		@Language("MySQL")
+		String sql = "select * from Notice where title like '%" + title + "%'";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanListHandler<>(Notice.class));
 	}

@@ -29,7 +29,7 @@ module.exports = (config) => {
     reporters: ['dots', 'coverage-istanbul'],
     port: 9876,
     colors: true,
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_STEP || config.LOG_DEBUG
     logLevel: config.LOG_ERROR || config.LOG_WARN,
     autoWatch: false,
     customLaunchers: {

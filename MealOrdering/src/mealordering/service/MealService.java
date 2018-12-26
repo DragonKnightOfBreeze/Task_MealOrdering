@@ -4,6 +4,7 @@ import dk_breeze.utils.ext.ListExt;
 import mealordering.dao.DaoFactory;
 import mealordering.dao.MealDao;
 import mealordering.domain.Meal;
+import mealordering.domain.WeekHotMeal;
 import mealordering.exception.ResultEmptyException;
 import org.jetbrains.annotations.NotNull;
 
@@ -112,8 +113,8 @@ public class MealService {
 	 * 得到指定数量的本周热销商品。
 	 * @param count 要得到的数量
 	 */
-	public List<Object[]> getWeekHotMeals(int count) throws SQLException, ResultEmptyException {
-		List<Object[]> weekHot = dao.getWeekHotMeals(count);
+	public List<WeekHotMeal> getWeekHotMeals(int count) throws SQLException, ResultEmptyException {
+		List<WeekHotMeal> weekHot = dao.getWeekHotMeals(count);
 		if(ListExt.orEmpty(weekHot))
 			throw new ResultEmptyException();
 		return weekHot;

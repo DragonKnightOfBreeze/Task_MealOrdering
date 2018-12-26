@@ -7,7 +7,6 @@ import dk_breeze.utils.ext.StringExt;
 import mealordering.domain.Meal;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,13 +31,11 @@ public class AddToCartServlet extends HttpServlet {
 
 	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//得到传入参数（餐品id，购买数量）
+		//STEP 得到传入参数（餐品id，修改后的购买数量）
 		String id = req.getParameter("id");
 		int count = StringExt.toInt(req.getParameter("count"), 1);
-		//声明返回参数
-		String status = "success";
 
-		//从session中得到购物车对象
+		//STEP 从session中得到购物车对象
 		HttpSession session = req.getSession();
 		Map<Meal, Integer> cart = (Map<Meal, Integer>) session.getAttribute("cart");
 		//如果购物车为null，说明没有商品存储在购物车中，则创建出购物车
@@ -46,21 +43,20 @@ public class AddToCartServlet extends HttpServlet {
 			cart = new HashMap<>();
 		}
 		try {
+			//STEP 后台操作
 			//从数据库中查找
 			Meal meal = ServiceFactory.getMealSvc().findById(id);
 			//向购物车中添加商品，如果没有，则设置数量为n，否则设置数量为+n
 			cart.merge(meal, count, (a, b) -> a + b);
+			//STEP 设置转发属性与跳转
 			session.setAttribute("cart", cart);
+			resp.sendRedirect(req.getContextPath() + "/mealordering/account/my-cart.jsp");
 		} catch(SQLException e) {
 			e.printStackTrace();
-			status = "error";
+			resp.sendRedirect(req.getContextPath() + "/mealordering/error/unexpected-error.jsp");
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
-			status = "empty";
+			resp.sendRedirect(req.getContextPath() + "/mealordering/error/empty-result.jsp");
 		}
-
-		//打印返回参数
-		var data = new JSONObject().put("status", status);
-		resp.getWriter().println(data);
 	}
 }

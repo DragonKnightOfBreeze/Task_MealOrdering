@@ -16,23 +16,22 @@ import java.io.IOException;
 
 /**
  * 得到验证码的Servlet
- * <br>INFO 不使用Ajax。
  */
 @WebServlet(name = "GetCheckImgServlet", urlPatterns = {"/mealordering/getCheckImg"})
 public class GetCheckImgServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//首先就要得到session对象
+		//STEP 首先就要得到session对象
 		HttpSession session = req.getSession();
-		//设置内容类型为图片，设置浏览器不要缓存此图片
+		//STEP 设置内容类型为图片，设置浏览器不要缓存此图片
 		resp.setContentType("image/jpeg");
 		resp.setHeader("Pragma", "No-cache");
 		resp.setHeader("Cache-Control", "no-cache");
 		resp.setDateHeader("Expires", 0);
-		//将图像输出到客户端
+		//STEP 将图像输出到客户端
 		char[] checkCode = CheckUtils.getCheckCode(4);
 		ImageIO.write(CheckUtils.getCheckImg(checkCode), "jpeg", resp.getOutputStream());
-		//将当前验证码存入到Session中
+		//STEP 将当前验证码存入到Session中
 		session.setAttribute("checkCode", checkCode);
 	}
 }

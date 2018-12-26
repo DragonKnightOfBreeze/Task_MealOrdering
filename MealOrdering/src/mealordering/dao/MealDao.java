@@ -2,12 +2,14 @@ package mealordering.dao;
 
 import mealordering.domain.Meal;
 import mealordering.domain.OrderItem;
+import mealordering.domain.WeekHotMeal;
 import mealordering.enums.Category;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ArrayListHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
@@ -15,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static dk_breeze.utils.ext.StringExt.equalsE;
-import static dk_breeze.utils.ext.StringExt.f;
 
 /**
  * 餐品的Dao类
@@ -30,10 +31,12 @@ public class MealDao {
 	 * @param meal 餐品信息
 	 */
 	public void doAdd(@NotNull Meal meal) throws SQLException {
+		@Language("MySQL")
 		String sql = "insert into Meal(id,name,price,category,imgUrl,description,count,soldCount)" +
 				" value(?,?,?,?,?,?,?,?)";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		runner.update(sql, meal.getId(), meal.getName(), meal.getPrice(), meal.getCategory(), meal.getCount(), meal.getImgUrl(), meal.getDescription(), 0);
+		runner.update(sql, meal.getId(), meal.getName(), meal.getPrice(), meal.getCategory(), meal.getCount(),
+				meal.getImgUrl(), meal.getDescription(), 0);
 	}
 
 	/**
@@ -41,17 +44,22 @@ public class MealDao {
 	 * @param meal 餐品信息
 	 */
 	public void doEdit(@NotNull Meal meal) throws SQLException {
+		@Language("MySQL")
 		String sql = "update Meal set name=?,price=?,category=?,count=?,description=? ";
-		List<Object> params = List
-				.of(meal.getName(), meal.getPrice(), meal.getCategory(), meal.getCount(), meal.getDescription());
+		List<Object> paramList = new ArrayList<>();
+		paramList.add(meal.getName());
+		paramList.add(meal.getPrice());
+		paramList.add(meal.getCategory());
+		paramList.add(meal.getCount());
+		paramList.add(meal.getDescription());
 		if(!meal.getImgUrl().isEmpty()) {
 			sql += ",imgUrl=?";
-			params.add(meal.getImgUrl());
+			paramList.add(meal.getImgUrl());
 		}
 		sql += "where id=? ";
-		params.add(meal.getId());
+		paramList.add(meal.getId());
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		runner.update(sql, params.toArray());
+		runner.update(sql, paramList.toArray());
 	}
 
 	/**
@@ -59,6 +67,7 @@ public class MealDao {
 	 * @param id 餐品Id
 	 */
 	public void doDeleteById(@NotNull String id) throws SQLException {
+		@Language("MySQL")
 		String sql = "delete from Meal where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(sql, id);
@@ -70,16 +79,18 @@ public class MealDao {
 	 * @param id 餐品Id
 	 */
 	public Meal findById(@NotNull String id) throws SQLException {
+		@Language("MySQL")
 		String sql = "select * from Meal where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanHandler<>(Meal.class), id);
 	}
 
 	/**
-	 * 根据分类查询餐品。
+	 * 根据分类查询餐品（为全部分类时自动查找全部）。
 	 * @param category 餐品分类
 	 */
 	public List<Meal> searchByCategory(@NotNull String category) throws SQLException {
+		@Language("MySQL")
 		String sql = "select * from Meal where 1=1";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		if(category.isEmpty() || equalsE(category, Category.all)) {
@@ -94,6 +105,7 @@ public class MealDao {
 	 * 查询所有餐品。
 	 */
 	public List<Meal> findAll() throws SQLException {
+		@Language("MySQL")
 		String sql = "select * from Meal";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanListHandler<>(Meal.class));
@@ -105,10 +117,11 @@ public class MealDao {
 	 * @param month 月
 	 */
 	public List<Object[]> getSalesList(@NotNull String year, @NotNull String month) throws SQLException {
+		@Language("MySQL")
 		String sql = "select Meal.name,sum(OrderItem.buyCount) salesCount" +
-				" from Order,Meal,OrderItem" +
-				" where Order.id=OrderItem.order_id and Meal.id=OrderItem.meal_id" +
-				" and Order.payState=1 and month(orderTime) =? and year(orderTime) =?" +
+				" from `Order`,Meal,OrderItem" +
+				" where `Order`.id=OrderItem.order_id and Meal.id=OrderItem.meal_id" +
+				" and `Order`.payState=1 and month(`Order`.orderTime) =? and year(`Order`.orderTime) =?" +
 				" group by Meal.name" +
 				" order by salesCount desc";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
@@ -119,7 +132,8 @@ public class MealDao {
 	 * 得到指定数量的本周热销商品。
 	 * @param count 要得到的数量
 	 */
-	public List<Object[]> getWeekHotMeals(int count) throws SQLException {
+	public List<WeekHotMeal> getWeekHotMeals(int count) throws SQLException {
+		@Language("MySQL")
 		String sql = "select Meal.id,Meal.name,Meal.imgUrl,Meal.description,sum(OrderItem.buyCount) salesCount" +
 				" from OrderItem,Order,Meal" +
 				" where OrderItem.order_id = Order.id and Meal.id = OrderItem.meal_id" +
@@ -128,7 +142,19 @@ public class MealDao {
 				" order by salesCount desc" +
 				" limit 0, ?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
-		return runner.query(sql, new ArrayListHandler(), count);
+		return runner.query(sql, rs -> {
+			List<WeekHotMeal> list = new ArrayList<>();
+			while(rs.next()) {
+				WeekHotMeal weekHot = new WeekHotMeal();
+				weekHot.setId(rs.getString("Meal.id"));
+				weekHot.setName(rs.getString("Meal.name"));
+				weekHot.setImgUrl(rs.getString("Meal.imgUrl"));
+				weekHot.setDescription(rs.getString("Meal.description"));
+				weekHot.setSalesCount(rs.getInt("salesCount"));
+				list.add(weekHot);
+			}
+			return list;
+		}, count);
 	}
 
 	/**
@@ -136,7 +162,8 @@ public class MealDao {
 	 * @param name 餐品名字
 	 */
 	public List<Meal> searchByName(@NotNull String name) throws SQLException {
-		String sql = f("select * from Meal where name like '%{0}%' limit ?,?", name);
+		@Language("MySQL")
+		String sql = "select * from Meal where name like '%" + name + "%' limit ?,?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanListHandler<>(Meal.class));
 	}
@@ -147,26 +174,27 @@ public class MealDao {
 	public List<Meal> searchByConditions(@NotNull String id, @NotNull String name, @NotNull String category,
 			@NotNull String minPrice, @NotNull String maxPrice)
 	throws SQLException {
+		@Language("MySQL")
 		String sql = "select * from Meal where 1=1";
-		List<Object> params = new ArrayList<>();
-		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		List<Object> paramList = new ArrayList<>();
 		if(!id.isEmpty()) {
 			sql += " and id=? ";
-			params.add(id);
+			paramList.add(id);
 		}
 		if(!name.isEmpty()) {
-			sql += f(" and name like '%{0}%'", name);
+			sql += " and name like '%" + name + "%'";
 		}
 		if(!category.isEmpty()) {
 			sql += " and category=? ";
-			params.add(category);
+			paramList.add(category);
 		}
 		if(!minPrice.isEmpty() && !maxPrice.isEmpty()) {
 			sql += " and price between ? and ? ";
-			params.add(minPrice);
-			params.add(maxPrice);
+			paramList.add(minPrice);
+			paramList.add(maxPrice);
 		}
-		return runner.query(sql, new BeanListHandler<>(Meal.class), params.toArray());
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		return runner.query(sql, new BeanListHandler<>(Meal.class), paramList.toArray());
 	}
 
 	/**
@@ -175,6 +203,7 @@ public class MealDao {
 	 * @param doAdd 是否进行增加操作
 	 */
 	public void updateMealCount(@NotNull List<OrderItem> itemList, boolean doAdd) throws SQLException {
+		@Language("MySQL")
 		String sql = "update Meal set count= count+? where id=?";
 		QueryRunner runner = new QueryRunner();
 		Object[][] params = new Object[itemList.size()][2];

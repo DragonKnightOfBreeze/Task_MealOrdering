@@ -5,6 +5,7 @@ import mealordering.domain.Order;
 import mealordering.domain.OrderItem;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
+import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
@@ -21,7 +22,8 @@ public class OrderItemDao {
 	 * 添加订单物品。
 	 */
 	public void doAdd(@NotNull Order order) throws SQLException {
-		String sql = "insert into OrderItem(order_id,meal_id,buyCount)" +
+		@Language("MySQL")
+		String sql = "insert into OrderItem (order_id,meal_id,buyCount)" +
 				" value(?,?,?)";
 		QueryRunner runner = new QueryRunner();
 		List<OrderItem> orderItemList = order.getOrderItemList();
@@ -38,6 +40,7 @@ public class OrderItemDao {
 	 * 根据Id删除订单物品。
 	 */
 	public void doDeleteById(@NotNull String id) throws SQLException {
+		@Language("MySQL")
 		String sql = "delete from OrderItem where order_id=?";
 		QueryRunner runner = new QueryRunner();
 		runner.update(DataSourceUtils.getConnection(), sql, id);
@@ -47,8 +50,9 @@ public class OrderItemDao {
 	 * 根据订单查询订单物品，包括对应的餐品。
 	 */
 	public List<OrderItem> findByOrder(@NotNull final Order order) throws SQLException {
+		@Language("MySQL")
 		String sql = "select * from OrderItem,Meal" +
-				" where Meal.id=OrderItem.product_id and OrderItem.order_id=?";
+				" where Meal.id=OrderItem.meal_id and OrderItem.order_id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
 			List<OrderItem> itemList = new ArrayList<>();

@@ -759,7 +759,7 @@
             if('ontouchstart' in document.documentElement) {
               // If it's a touch-enabled device, mouseenter/leave are fired as
               // part of the mouse compatibility events on first tap - the carousel
-              // would stop cycling until user tapped out of it;
+              // would stop cycling until settings tapped out of it;
               // here, we listen for touchend, explicitly pause the carousel
               // (as if it's the second time we tap on it, mouseenter compat event
               // is NOT fired) and after a timeout (to allow for mouse compatibility
@@ -2406,7 +2406,7 @@
 
     this.disableEventListeners();
 
-    // remove the popper if user explicity asked for the deletion on destroy
+    // remove the popper if settings explicity asked for the deletion on destroy
     // do not use `remove` because IE11 doesn't support it
     if(this.options.removeOnDestroy) {
       this.popper.parentNode.removeChild(this.popper);

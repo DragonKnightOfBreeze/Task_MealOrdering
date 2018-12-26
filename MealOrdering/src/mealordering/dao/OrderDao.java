@@ -5,6 +5,7 @@ import mealordering.domain.Order;
 import mealordering.utils.DataSourceUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
@@ -23,7 +24,8 @@ public class OrderDao {
 	 * 生成订单。
 	 */
 	public void doCreate(@NotNull Order order) throws SQLException {
-		String sql = "insert into Order(id,totalPrice,receiverAddress,receiverName,receiverPhone,payState,orderTime,user_id)" +
+		@Language("MySQL")
+		String sql = "insert into `Order`(id,totalPrice,receiverAddress,receiverName,receiverPhone,payState,orderTime,user_id)" +
 				" value(?,?,?,?,?,0,null,?)";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(DataSourceUtils.getConnection(), sql,
@@ -36,7 +38,8 @@ public class OrderDao {
 	 * 根据Id取消订单。
 	 */
 	public void doDeleteById(@NotNull String id) throws SQLException {
-		String sql = "delete from Order where id=?";
+		@Language("MySQL")
+		String sql = "delete from `Order` where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(DataSourceUtils.getConnection(), sql, id);
 	}
@@ -46,11 +49,12 @@ public class OrderDao {
 	 * 根据Id查询订单。
 	 */
 	public Order findById(@NotNull String id) throws SQLException {
-		String sql = "select * from Order,User where Order.user_id=User.id and Order.id=? order by Order.id";
+		@Language("MySQL")
+		String sql = "select * from `Order`,User where `Order`.user_id=User.id and `Order`.id=? order by `Order`.id";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
 			Order order = new Order();
-			if (rs.next()) {
+			if(rs.next()) {
 				NormalUser user = new NormalUser();
 				user.setId(rs.getInt("User.id"));
 				user.setUserName(rs.getString("User.userName"));
@@ -79,7 +83,8 @@ public class OrderDao {
 	 * 查询指定数量的最近生成的订单。
 	 */
 	public Order findRecent(int count) throws SQLException {
-		String sql = "select * from Order order by orderTime desc limit 0,?";
+		@Language("MySQL")
+		String sql = "select * from `Order` order by orderTime desc limit 0,?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanHandler<>(Order.class), count);
 	}
@@ -88,11 +93,12 @@ public class OrderDao {
 	 * 根据用户查询订单。
 	 */
 	public List<Order> findByUser(@NotNull final NormalUser user) throws SQLException {
-		String sql = "select * from Order where user_id=? order by orderTime";
+		@Language("MySQL")
+		String sql = "select * from `Order` where user_id=? order by orderTime";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
 			List<Order> orderList = new ArrayList<>();
-			while (rs.next()) {
+			while(rs.next()) {
 				Order order = new Order();
 				order.setId(rs.getString("Order.id"));
 				order.setTotalPrice(rs.getDouble("Order.money"));
@@ -113,11 +119,12 @@ public class OrderDao {
 	 * 根据用户查询指定数量的最近生成的订单。
 	 */
 	public List<Order> findByUser(@NotNull final NormalUser user, int findCount) throws SQLException {
-		String sql = "select * from Order where user_id=? order by orderTime limit 0,?";
+		@Language("MySQL")
+		String sql = "select * from `Order` where user_id=? order by orderTime limit 0,?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
 			List<Order> orderList = new ArrayList<>();
-			while (rs.next()) {
+			while(rs.next()) {
 				Order order = new Order();
 				order.setId(rs.getString("Order.id"));
 				order.setTotalPrice(rs.getDouble("Order.money"));
@@ -139,13 +146,14 @@ public class OrderDao {
 	 * 查询所有订单，按照用户Id进行排列。
 	 */
 	public List<Order> findAll() throws SQLException {
-		String sql = "select Order.*,User.* from Order,User" +
-				" where User.id=Order.user_id" +
-				" order by Order.user_id asc,Order.orderTime desc";
+		@Language("MySQL")
+		String sql = "select `Order`.*,User.* from `Order`,User" +
+				" where User.id=`Order`.user_id" +
+				" order by `Order`.user_id asc,`Order`.orderTime desc";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, rs -> {
 			List<Order> orderList = new ArrayList<>();
-			while (rs.next()) {
+			while(rs.next()) {
 				NormalUser user = new NormalUser();
 				user.setId(rs.getInt("User.id"));
 				user.setUserName(rs.getString("User.userName"));
@@ -177,7 +185,8 @@ public class OrderDao {
 	 * 更新订单支付状态。
 	 */
 	public void updatePayState(@NotNull String id) throws SQLException {
-		String sql = "update Order set payState=1 where id=?";
+		@Language("MySQL")
+		String sql = "update `Order` set payState=1 where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(sql, id);
 	}

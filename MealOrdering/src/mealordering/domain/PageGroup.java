@@ -1,9 +1,10 @@
 package mealordering.domain;
 
 import dk_breeze.annotation.NotTested;
+import dk_breeze.utils.ext.ArrayExt;
 
+import java.beans.JavaBean;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -11,6 +12,7 @@ import java.util.stream.IntStream;
  * 封装有分页信息的数据页组的实体类
  */
 @NotTested
+@JavaBean
 public class PageGroup<T extends Serializable> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,7 +24,7 @@ public class PageGroup<T extends Serializable> implements Serializable {
 	private int pageCount;
 	/** 总条数 */
 	private int totalCount;
-	/** 每页的Bean条目列表 */
+	/** 所有的内容 */
 	private List<T> list;
 
 
@@ -113,43 +115,51 @@ public class PageGroup<T extends Serializable> implements Serializable {
 	}
 
 	/**
-	 * 得到分页条所依据的字符串图表（pageIndex,adtClass）。
-	 * <br>默认从5开始省略，最多显示8(+1)个按钮。
-	 * <br>在js中通过模版字符串，附加判断，生成正确的分页条。
-	 * <br> 示例格式：上一页,1,2,3,4,...,i=6,7,8,...,下一页
-	 * <br> 示例参数：maxBtnNum = 8,startIgnore = 5,pageIndex=6,pageCount=12
+	 * 得到分页按钮需要的文本数组
 	 */
-	public List<String> getPageBtnText() {
-		return getPageBtnText(5, 8);
+	public String[] getPageBtnText() {
+		int[] intArray = IntStream.rangeClosed(1, pageCount).toArray();
+		return ArrayExt.toStringArray(intArray);
 	}
 
-	/**
-	 * 得到分页条所依据的索引/文本（中间可能有省略号）
-	 * <br>在js中通过模版字符串，附加判断，生成正确的分页条。
-	 * <br>当前索引另外传递
-	 * <br> 示例格式：1,2,3,4,...,(i=)6,7,8
-	 * <br> 示例参数：maxBtnNum = 8,startIgnore = 5,pageIndex=6,pageCount=12
-	 */
-	public List<String> getPageBtnText(int startIgnore, int maxBtnNum) {
-		if(startIgnore >= maxBtnNum)
-			throw new IllegalArgumentException();
-
-		int to = Math.min(pageCount, maxBtnNum);
-		List<String> result = new ArrayList<>();
-		//从1到最大显示数量遍历
-		IntStream.rangeClosed(1, to).boxed().forEachOrdered(e -> {
-			if(maxBtnNum - pageCount > 0 & pageIndex - startIgnore > 0) {
-				//如果页面数量超出最大显示数目，且当前索引大于一定数值，则要考虑在当前索引之前显示省略号
-				if(e == startIgnore) {
-					result.add("...");
-				} else {
-					result.add("" + (e + pageIndex - startIgnore - 1));
-				}
-			} else {
-				//没超过，或者超过当不大于一定数值，则不显示最后面的页数，也不显示省略号
-				result.add("" + e);
-			}
-		});
-		return result;
-	}
+//	/**
+//	 * 得到分页条所依据的字符串图表（pageIndex,adtClass）。
+//	 * <br>默认从5开始省略，最多显示8(+1)个按钮。
+//	 * <br>在js中通过模版字符串，附加判断，生成正确的分页条。
+//	 * <br> 示例格式：上一页,1,2,3,4,...,i=6,7,8,...,下一页
+//	 * <br> 示例参数：maxBtnNum = 8,startIgnore = 5,pageIndex=6,pageCount=12
+//	 */
+//	public List<String> getPageBtnText() {
+//		return getPageBtnText(5, 8);
+//	}
+//
+//	/**
+//	 * 得到分页条所依据的索引/文本（中间可能有省略号）
+//	 * <br>在js中通过模版字符串，附加判断，生成正确的分页条。
+//	 * <br>当前索引另外传递
+//	 * <br> 示例格式：1,2,3,4,...,(i=)6,7,8
+//	 * <br> 示例参数：maxBtnNum = 8,startIgnore = 5,pageIndex=6,pageCount=12
+//	 */
+//	public List<String> getPageBtnText(int startIgnore, int maxBtnNum) {
+//		if(startIgnore >= maxBtnNum)
+//			throw new IllegalArgumentException();
+//
+//		int to = Math.min(pageCount, maxBtnNum);
+//		List<String> result = new ArrayList<>();
+//		//从1到最大显示数量遍历
+//		IntStream.rangeClosed(1, to).boxed().forEachOrdered(e -> {
+//			if(maxBtnNum - pageCount > 0 & pageIndex - startIgnore > 0) {
+//				//如果页面数量超出最大显示数目，且当前索引大于一定数值，则要考虑在当前索引之前显示省略号
+//				if(e == startIgnore) {
+//					result.add("...");
+//				} else {
+//					result.add("" + (e + pageIndex - startIgnore - 1));
+//				}
+//			} else {
+//				//没超过，或者超过当不大于一定数值，则不显示最后面的页数，也不显示省略号
+//				result.add("" + e);
+//			}
+//		});
+//		return result;
+//	}
 }

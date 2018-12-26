@@ -1,6 +1,5 @@
 package mealordering.web.servlet.notice;
 
-import dk_breeze.utils.JSONUtils;
 import mealordering.domain.Notice;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;
@@ -18,36 +17,29 @@ import java.util.List;
 /**
  * 后台查询所有公告的Servlet
  */
-@WebServlet(name = "FindAllNoticesServlet", urlPatterns = {"/mealordering/admin/findAllNotices", "/mealordering/notice/findAll"})
+@WebServlet(name = "FindAllNoticesServlet", urlPatterns = {"/mealordering/notice/find-all"})
 public class FindAllNoticesServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//声明返回参数
-		String status = "success";
-		List<Notice> page = null;
-		List<String> pageBtnText = null;
-		int pageIndex = 1;
-		int pageCount = 1;
-
 		try {
-			PageGroup<Notice> pageGroup = new PageGroup<>(ServiceFactory.getNoticeSvc().findAll(), 1);
-			page = pageGroup.getPage(1);
-			pageBtnText = pageGroup.getPageBtnText();
-			pageCount = pageGroup.getPageCount();
+			// STEP 后台操作
+			PageGroup<Notice> pageGroup = new PageGroup<>(ServiceFactory.getNoticeSvc().findAll());
+			List<Notice> page = pageGroup.getPage(1);
+			String[] pageBtnText = pageGroup.getPageBtnText();
+			//STEP 设置转发属性与跳转
 			req.getSession().setAttribute("pageGroup", pageGroup);
+			req.setAttribute("page", page);
+			req.setAttribute("pageBtnText", pageBtnText);
+			req.getRequestDispatcher("/mealordering/notice/notice-list.jsp").forward(req, resp);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
-			status = "empty";
+			resp.sendRedirect(req.getContextPath() + "/mealordering/empty-result.jsp");
 		} catch(SQLException e) {
 			e.printStackTrace();
-			status = "error";
+			resp.sendRedirect(req.getContextPath() + "/mealordering/error/unexpected-error.jsp");
 		}
-
-		resp.getWriter().println(
-				JSONUtils.of("status", status, "page", page, "pageBtnText", pageBtnText).put("pageIndex", pageIndex)
-						.put("pageCount", pageCount));
 	}
 }

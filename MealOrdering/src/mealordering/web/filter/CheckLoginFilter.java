@@ -13,6 +13,7 @@ import java.io.IOException;
 
 /**
  * 用户登录验证的过滤器
+ * NOTE 不过启用与否，都仍然存在乱码问题
  */
 @WebFilter(filterName = "CheckLoginFilter", urlPatterns = {"/mealordering/account/*", "/mealordering/settings/*"})
 public class CheckLoginFilter implements Filter {
@@ -20,17 +21,20 @@ public class CheckLoginFilter implements Filter {
 	public void init(FilterConfig filterConfig) {
 	}
 
-	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
+	throws IOException, ServletException {
 		//强制转换
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-		//如果已登录，且不是管理员，则通过，否则重定向到错误页
-		User user = (User) request.getSession().getAttribute("user");
+		//如果已登录且不是管理员则通过，如果是管理员则重定向到管理员页，否则重定向到错误页
+		User user = (User) request.getSession().getAttribute("onlineUser");
 		if(user != null && !StringExt.equalsE(user.getType(), Identity.admin)) {
 			chain.doFilter(request, response);
-			return;
+		} else if(user != null && StringExt.equalsE(user.getType(), Identity.admin)) {
+			response.sendRedirect(request.getContextPath() + "/mealordering/admin/welcome.jsp");
+		} else {
+			response.sendRedirect(request.getContextPath() + "/mealordering/error/login-state-error.jsp");
 		}
-		response.sendRedirect(request.getContextPath() + "/error/login-state-error.html");
 	}
 
 	public void destroy() {

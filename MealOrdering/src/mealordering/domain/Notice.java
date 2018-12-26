@@ -1,11 +1,13 @@
 package mealordering.domain;
 
+import java.beans.JavaBean;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 通知的实体类
  */
+@JavaBean
 public class Notice implements Serializable {
 	private static final long serialVersionUID = 1L;
 

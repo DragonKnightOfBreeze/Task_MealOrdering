@@ -5,9 +5,12 @@ package mealordering.domain;
 
 import mealordering.enums.Identity;
 
+import java.beans.JavaBean;
+
 /**
  * 管理员的实体类
  */
+@JavaBean
 public class Admin extends User {
 	public Admin(String userName, String password) {
 		this.userName = userName;

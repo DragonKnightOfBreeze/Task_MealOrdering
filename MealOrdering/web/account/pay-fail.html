@@ -13,33 +13,33 @@
 		import * as utils from "/mealordering/assets/js/utils";
 
 		$(function() {
-			$("#mo-head").load("/mealordering/mo-head.html");
-			$("#mo-background-bar").load("/mealordering/mo-background-bar.html");
-			$("#mo-foot").load("/mealordering/mo-foot.html");
+			$("#mo_header").load("/mealordering/mo_header.html");
+			$("#mo_background-bar").load("/mealordering/mo_background-bar.html");
+			$("#mo_footer").load("/mealordering/mo_footer.html");
 
-			utils.countDown($("#mo-second"), "index.html");
+			utils.countDown($("#mo_second"), "index.html");
 		});
   </script>
 
 </head>
 
 <body>
-  <div id="mo-head"></div>
+	<div id="mo_header"></div>
 
-  <div id="mo-background-bar"></div>
+	<div id="mo_background-bar"></div>
 
-  <div class="container" id="mo-body">
+	<div class="container" id="mo_body">
     <div class="row text-center m-3 text-warning">
       <h4>支付失败！</h4>
     </div>
     <hr>
     <div class="row text-center m-3 text-warning">
       <a class="btn btn-link" href="/mealordering/index.html">
-        <span id="mo-second">5</span>秒后自动为您跳转到首页
+				<span id="mo_second">5</span>秒后自动为您跳转到首页
       </a>
     </div>
   </div>
 
-  <div id="mo-foot"></div>
+	<div id="mo_footer"></div>
 </body>
 </html>

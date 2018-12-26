@@ -3,8 +3,10 @@
  */
 package mealordering.domain;
 
+import java.beans.JavaBean;
 import java.io.Serializable;
 
+@JavaBean
 public class User implements Serializable {
 	/** 用户编号 */
 	protected int id;

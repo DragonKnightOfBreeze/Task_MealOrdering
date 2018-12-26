@@ -1,10 +1,10 @@
-#mo-head {
+#mo_header {
 	margin: 1em 3em 0.5em 3em;
 }
-#mo-body {
+#mo_body {
 	margin: 0.5em 3em 0.5em 3em;
 }
-#mo-foot {
+#mo_footer {
 	margin: 0.5em 3em 1em 3em;
 }
 /*.navbar-brand {*/

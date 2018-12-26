@@ -12,7 +12,7 @@ function generatePageBar($pagination, pageBtnText, pageIndex, pageCount) {
 	let adtClass1 = pageIndex === 1 ? " disabled" : "";
 	$pagination.append(`
 							<li class="page-item">
-								<a class="page-link${adtClass1}" id="mo-pre-page" 
+								<a class="page-link${adtClass1}" id="mo_pre-page" 
 									href="#">上一页</a>
 							</li>
 	`);
@@ -22,7 +22,7 @@ function generatePageBar($pagination, pageBtnText, pageIndex, pageCount) {
 		let adtClass2 = pageIndex === index ? " active" : "";
 		$pagination.append(`
 							<li class="page-item">
-								<a class="page-link${adtClass2} mo-change-page" 
+								<a class="page-link${adtClass2} mo_change-page" 
 									href="#">${text}</a>
 							</li>
 		`);
@@ -31,7 +31,7 @@ function generatePageBar($pagination, pageBtnText, pageIndex, pageCount) {
 	let adtClass3 = pageIndex === pageCount ? " disabled" : "";
 	$pagination.append(`
 							<li class="page-item">
-								<a class="page-link${adtClass3}" id="mo-next-page" 
+								<a class="page-link${adtClass3}" id="mo_next-page" 
 									href="#">下一页</a>
 							</li>
 	`);

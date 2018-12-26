@@ -2,6 +2,7 @@ package mealordering.domain;
 
 import mealordering.enums.Identity;
 
+import java.beans.JavaBean;
 import java.util.Date;
 
 import static dk_breeze.utils.ext.StringExt.f;
@@ -9,6 +10,7 @@ import static dk_breeze.utils.ext.StringExt.f;
 /**
  * 普通用户的实体类
  */
+@JavaBean
 public class NormalUser extends User {
 	private static final long serialVersionUID = 1L;
 

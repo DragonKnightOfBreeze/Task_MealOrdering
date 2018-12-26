@@ -128,30 +128,6 @@ function getParamMap() {
 	return paramMap;
 }
 
-
-let interval;
-
-/**
- * 开始倒计时，并在结束后跳转。
- * @param jElem
- * @param url {string} 跳转到的地址（相对于Web项目，不以/开头）
- */
-function countDown(jElem, url) {
-	interval = window.setInterval(function() {
-		if(jElem.text() !== 0) {
-			jElem.text(jElem.text() - 1);
-		} else {
-			window.clearInterval(interval);
-			//得到目录地址名，例如：/client
-			const pathName = window.location.pathname.substring(1);
-			//得到目录名，例如：client
-			const webName = pathName === '' ? '' : pathName.split('/', 1)[0];
-			//得到完整的用于访问的url，例如：http://localhost:8080/bookstore/index.html
-			location.href = `${window.location.protocol}//${window.location.host}/${webName}/${url}`;
-		}
-	}, 1000);
-}
-
 /**
  * 切换激活
  * @param $elem 要激活的元素
@@ -193,4 +169,14 @@ function formatDate(time) {
 }
 
 
-export {checkEmpty, checkSpace, checkByRegex, checkByRepeat, countDown, getParamMap, toggleActive, formatDate};
+export {
+	checkEmpty,
+	checkSpace,
+	checkByRegex,
+	checkByRepeat,
+	countDown,
+	getParamMap,
+	toggleActive,
+	formatDate,
+	interval
+};

@@ -21,18 +21,19 @@ public class CheckAdminFilter implements Filter {
 	public void init(FilterConfig filterConfig) {
 	}
 
-	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
+	throws IOException, ServletException {
 		//强制转换
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		//判断是否具有权限
-		User user = (User) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute("onlineUser");
 		//如果用户是管理员则通过，否则重定向到登录失败页
 		if(user != null && StringExt.equalsE(user.getType(), Identity.admin)) {
 			chain.doFilter(request, response);
-			return;
+		} else {
+			response.sendRedirect(request.getContextPath() + "/mealordering/error/identity-error.jsp");
 		}
-		response.sendRedirect(request.getContextPath() + "/error/identity-error.html");
 	}
 
 	public void destroy() {

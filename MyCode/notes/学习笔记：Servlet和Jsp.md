@@ -69,12 +69,12 @@
 `response.sendRedirect(getServletContext().getContextPath() + "/sampleUrl");`：重定向。
 客户端跳转，地址改变。  
 清空response，然后再将状态码302和地址返回到浏览器。意味着浏览器会自动地向服务器提出第二次请求。
-参数：如果以`/`开头，则代表站点根目录。
+参数：`req.getContextPath()+"path"`的形式，其中path相对于站点根目录，以`/`开头。
 
 `request.getRequestDispatcher("/sampleUrl.jsp").forward(request, response);`：转发。
 服务器端跳转，地址不变。  
 共享request和response，可以传递参数。  
-参数：如果以`/`开头，则代表Web应用程序根目录。
+参数：如果以`/`开头，则相对于站点根目录，否则相对于当前路径。
 
 链接地址和表单提交地址：都应该从站点根目录开始填写。
 

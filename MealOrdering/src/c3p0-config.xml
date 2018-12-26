@@ -4,20 +4,20 @@
     <default-config>
         <property name="user">admin</property>
         <property name="password">123</property>
-        <property name="driverClass">com.mysql.jdbc.Driver</property>
-        <property name="jdbcUrl">jdbc:mysql://localhost:3306/mealordering</property>
+        <property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/mealordering?serverTimezone=GMT%2B8</property>
     </default-config>
     <named-config name="Windea">
         <property name="user">Windea</property>
         <property name="password">BreezesLanding</property>
-        <property name="driverClass">com.mysql.jdbc.Driver</property>
-        <property name="jdbcUrl">jdbc:mysql://localhost:3306/mealordering</property>
+        <property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/mealordering?serverTimezone=GMT%2B8</property>
     </named-config>
     <!--NOTE 其他人请在这里配置自己的环境信息，然后在DataSourceUtils中更改相关参数-->
     <named-config name="???">
         <property name="user">???</property>
         <property name="password">???</property>
-        <property name="driverClass">com.mysql.jdbc.Driver</property>
-        <property name="jdbcUrl">jdbc:mysql://localhost:3306/mealordering</property>
+        <property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/mealordering?serverTimezone=GMT%2B8</property>
     </named-config>
 </c3p0-config>

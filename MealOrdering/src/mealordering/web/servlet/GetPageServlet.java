@@ -35,7 +35,7 @@ public class GetPageServlet extends HttpServlet {
 			status = "empty";
 		} else {
 			page = pageGroup.getPage(pageIndex, count);
-			pageBtnText = pageGroup.getPageBtnText();
+//			pageBtnText = pageGroup.getPageBtnText();
 			pageCount = pageGroup.getPageCount();
 			session.setAttribute("pageGroup", pageGroup);
 		}

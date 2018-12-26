@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /**
  * 用户激活的Servlet
- * <br>INFO 不使用Ajax。
+ * <br>STEP 不使用Ajax。
  */
 @WebServlet(name = "ActiveServlet", urlPatterns = {"/mealordering/active"})
 public class ActiveServlet extends HttpServlet {
@@ -23,16 +23,18 @@ public class ActiveServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//得到表单参数
+		//STEP 得到传入参数
 		String activeCode = req.getParameter("activeCode").trim();
 
 		try {
+			//STEP 后台操作
 			//默认设置：24小时的有效时间
 			ServiceFactory.getNormalUserSvc().doActive(activeCode, 24);
-			resp.sendRedirect(req.getContextPath() + "/active-success.html");
+			//STEP 设置转发属性与跳转
+			resp.sendRedirect(req.getContextPath() + "/mealordering/active-success.jsp");
 		} catch(Exception e) {
 			e.printStackTrace();
-			resp.sendRedirect(req.getContextPath() + "/active-fail.html");
+			resp.sendRedirect(req.getContextPath() + "/mealordering/active-fail.jsp");
 		}
 	}
 }

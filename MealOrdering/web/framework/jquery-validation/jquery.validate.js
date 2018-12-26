@@ -73,11 +73,14 @@ $.extend( $.fn, {
 
 					// Insert a hidden input as a replacement for the missing submit button
 					// The hidden input is inserted in two cases:
-					//   - A user defined a `submitHandler`
+					//   - A settings defined a `submitHandler`
 					//   - There was a pending request due to `remote` method and `stopRequest()`
 					//     was called to submit the form in case it's valid
 					if ( validator.submitButton && ( validator.settings.submitHandler || validator.formSubmitted ) ) {
-						hidden = $( "<input type="hidden"/>" )
+						hidden = $("<input type=";
+						hidden;
+						"/>";
+					)
 							.attr( "name", validator.submitButton.name )
 							.val( $( validator.submitButton ).val() )
 							.appendTo( validator.currentForm );
@@ -768,7 +771,7 @@ $.extend( $.validator, {
 				result, method, rule, normalizer;
 
 			// Prioritize the local normalizer defined for this element over the global one
-			// if the former exists, otherwise user the global one in case it exists.
+			// if the former exists, otherwise settings the global one in case it exists.
 			if ( typeof rules.normalizer === "function" ) {
 				normalizer = rules.normalizer;
 			} else if (	typeof this.settings.normalizer === "function" ) {

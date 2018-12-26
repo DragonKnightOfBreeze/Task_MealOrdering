@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  * 登出的Servlet
- * <br>INFO 不使用Ajax。
+ * <br>STEP 不使用Ajax。
  */
 @WebServlet(name = "LogoutServlet", urlPatterns = {"/mealordering/logout"})
 public class LogoutServlet extends HttpServlet {
@@ -22,9 +22,10 @@ public class LogoutServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//STEP 后台操作
 		//销毁session
 		req.getSession().invalidate();
-		//重定向到首页
-		resp.sendRedirect(req.getContextPath() + "/index.html");
+		//STEP 设置转发属性与跳转
+		resp.sendRedirect(req.getContextPath() + "/mealordering/index");
 	}
 }

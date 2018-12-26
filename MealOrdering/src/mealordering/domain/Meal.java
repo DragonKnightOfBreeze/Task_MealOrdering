@@ -1,10 +1,12 @@
 package mealordering.domain;
 
+import java.beans.JavaBean;
 import java.io.Serializable;
 
 /**
  * 餐品的实体类
  */
+@JavaBean
 public class Meal implements Serializable {
 	private static final long serialVersionUID = 1L;
 

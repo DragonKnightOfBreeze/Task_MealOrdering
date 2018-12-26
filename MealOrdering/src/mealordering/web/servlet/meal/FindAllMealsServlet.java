@@ -1,6 +1,5 @@
 package mealordering.web.servlet.meal;
 
-import dk_breeze.utils.JSONUtils;
 import mealordering.domain.Meal;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;
@@ -18,7 +17,7 @@ import java.util.List;
 /**
  * 查询所有餐品信息的Servlet
  */
-@WebServlet(name = "FindAllMealsServlet", urlPatterns = {"/mealordering/admin/findAllMeals", "/mealordering/meal/findAll"})
+@WebServlet(name = "FindAllMealsServlet", urlPatterns = {"/mealordering/meal/find-all"})
 public class FindAllMealsServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
@@ -26,29 +25,22 @@ public class FindAllMealsServlet extends HttpServlet {
 
 	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//声明返回参数
-		String status = "success";
-		List<Meal> page = null;
-		List<String> pageBtnText = null;
-		int pageIndex = 1;
-		int pageCount = 1;
-
 		try {
-			//如果索引为0，则表面要重新冲数据库中读取，否则从session中读取，并换页。
+			// STEP 后台操作
 			PageGroup<Meal> pageGroup = new PageGroup<>(ServiceFactory.getMealSvc().findAll());
-			page = pageGroup.getPage(1);
-			pageBtnText = pageGroup.getPageBtnText();
-			pageCount = pageGroup.getPageCount();
+			List<Meal> page = pageGroup.getPage(1);
+			String[] pageBtnText = pageGroup.getPageBtnText();
+			//STEP 设置转发属性与跳转
 			req.getSession().setAttribute("pageGroup", pageGroup);
+			req.setAttribute("page", page);
+			req.setAttribute("pageBtnText", pageBtnText);
+			req.getRequestDispatcher("/mealordering/meal/meal-list.jsp").forward(req, resp);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
-			status = "empty";
+			resp.sendRedirect(req.getContextPath() + "/mealordering/empty-result.jsp");
 		} catch(SQLException e) {
 			e.printStackTrace();
-			status = "error";
+			resp.sendRedirect(req.getContextPath() + "/mealordering/error/unexpected-error.jsp");
 		}
-
-		resp.getWriter().println(JSONUtils.of("status", status, "page", page, "pageBtnText", pageBtnText)
-				.put("pageIndex", pageIndex).put("pageCount", pageCount));
 	}
 }

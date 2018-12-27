@@ -20,12 +20,14 @@ import java.sql.SQLException;
  * 添加餐品的Servlet
  * <br>STEP 不使用Ajax。
  */
-@WebServlet(name = "Admin_AddMealServlet", urlPatterns = {"/mealordering/admin/add-meal"})
+@WebServlet(name = "Admin_AddMealServlet", urlPatterns = "/mealordering/admin/add-meal")
 public class Admin_AddMealServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			//STEP 解析请求表单，得到文件和表单参数

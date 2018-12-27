@@ -15,10 +15,12 @@ import java.io.IOException;
  */
 @WebServlet(name = "FindPasswordServlet", urlPatterns = "/mealordering/send-reset-psw-email")
 public class FindPasswordServlet extends HttpServlet {
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		String email = req.getParameter("email");

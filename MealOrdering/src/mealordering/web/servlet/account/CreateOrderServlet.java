@@ -24,12 +24,14 @@ import java.util.Map;
  * 生成订单的Servlet
  * <br>传入：...，返回：id,status，使用AJax。
  */
-@WebServlet(name = "CreateOrderServlet", urlPatterns = {"/mealordering/account/createOrder"})
+@WebServlet(name = "CreateOrderServlet", urlPatterns = "/mealordering/account/create-order")
 public class CreateOrderServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数 （从session中得到当前用户和购物车图表）

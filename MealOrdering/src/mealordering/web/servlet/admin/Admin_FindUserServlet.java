@@ -19,12 +19,14 @@ import java.sql.SQLException;
 /**
  * 根据id查询用户信息的Servlet
  */
-@WebServlet(name = "Admin_FindUserServlet", urlPatterns = {"/mealordering/admin/find-user"})
+@WebServlet(name = "Admin_FindUserServlet", urlPatterns = "/mealordering/admin/find-user")
 public class Admin_FindUserServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		int id = StringExt.toInt(req.getParameter("id"));

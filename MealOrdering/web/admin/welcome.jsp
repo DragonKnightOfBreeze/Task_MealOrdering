@@ -31,12 +31,12 @@
 
 			<!--STEP 欢迎页面-->
 			<div class="col-sm-9">
-				<div class="container" id="mo_body-content-admin">
-					<div class="row m-3">
+				<div class="container" id="mo_body-page-admin">
+					<div class="row m-3" id="mo_body-title-admin">
 						<h2 class="m-auto text-info">欢迎进入网上订餐系统管理页面</h2>
 					</div>
 					<hr>
-					<div class="row m-3 ">
+					<div class="row m-3 " id="mo_body-content-admin">
 						<p class="m-auto text-info">请点击侧边菜单栏中的选项，进入分类管理。</p>
 					</div>
 				</div>
@@ -52,5 +52,11 @@
 	<%--引入jQuery和Bootstrap脚本--%>
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script>
+		$(function() {
+			//STEP 切换侧边栏导航显示
+			$("#mo_side-menu .nav-link").removeClass("active").eq(0).addClass("active");
+		});
+	</script>
 </body>
 </html>

@@ -19,12 +19,14 @@ import java.sql.SQLException;
 /**
  * 根据id查询公告的Servlet
  */
-@WebServlet(name = "Admin_FindNoticeServlet", urlPatterns = {"/mealordering/admin/find-notice"})
+@WebServlet(name = "Admin_FindNoticeServlet", urlPatterns = "/mealordering/admin/find-notice")
 public class Admin_FindNoticeServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		int id = StringExt.toInt(req.getParameter("id"));

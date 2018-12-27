@@ -33,24 +33,18 @@
 			<div class="col-sm-3">
 				<jsp:include page="/mealordering/admin/mo_side-menu.jsp"/>
 			</div>
-			<%--切换侧边栏导航激活--%>
-			<script>
-				$(function() {
-					$("#mo_side-menu .nav-link").eq(2).click();
-				})
-			</script>
-
 			<!--STEP 内容页面-->
 			<div class="col-sm-9">
-				<div class="container" id="mo_body-content-admin">
+				<div class="container" id="mo_body-page-admin">
 					<!--STEP 标题-->
-					<div class="row m-3 ">
+					<div class="row m-3" id="mo_body-title-admin">
 						<div class="col-sm-6">
 							<h2>公告列表</h2>
 						</div>
-						<div class="col-sm-5" id="mo_search-by-title">
+						<div class="col-sm-5">
 							<%--STEP 内联搜索表单--%>
-							<form class="form-inline" action="<c:url value="/mealordering/admin/search-notice"/>" method="get">
+							<form class="form-inline" id="mo_form-search" action="<c:url value="/mealordering/admin/search-notice"/>"
+							      method="get">
 								<%--搜索类型--%>
 								<input type="hidden" name="searchType" value="byTitle">
 								<%--输入用户名--%>
@@ -72,11 +66,10 @@
 						</div>
 					</div>
 					<hr>
-
-					<!--STEP 表格-->
-					<div class="row" id="mo_body-table-admin">
+					<!--STEP 内容-->
+					<div class="row" id="mo_body-content-admin">
 						<table class="table table-bordered table-striped table-hover table-responsive m-auto">
-							<thead class="thead-dark text-center">
+							<thead class="text-center">
 							<tr>
 								<th>id</th>
 								<th>标题</th>
@@ -86,7 +79,7 @@
 							</tr>
 							</thead>
 							<tbody class="text-center">
-							<%--STEP 动态插入数据--%>
+							<%--NOTE 动态插入数据--%>
 							<c:forEach var="notice" items="${page}">
 								<tr>
 									<td>${notice.id}</td>
@@ -97,7 +90,7 @@
 										<c:url var="deleteUrl" value="/mealordering/admin/delete-notice">
 											<c:param name="id" value="${notice.id}"/>
 										</c:url>
-										<a class="btn btn-danger mo_btn_delete" href="${deleteUrl}">删除</a>
+										<a class="btn btn-danger mo_btn-delete" href="${deleteUrl}">删除</a>
 										<c:url var="detailUrl" value="/mealordering/admin/find-notice">
 											<c:param name="id" value="${notice.id}"/>
 										</c:url>
@@ -105,17 +98,13 @@
 									</td>
 								</tr>
 							</c:forEach>
-							<script>
-								$(".mo_btn-delete").click(() => confirm("你确定要删除该公告吗？"));
-							</script>
 							</tbody>
 						</table>
 					</div>
-
-					<!--STEP 分页栏-->
+					<!--STEP 分页导航-->
 					<div class="row m-3" id="mo_page-bar-admin">
-						<!--STEP 动态生成分页栏-->
-						<ul class="pagination">
+						<!--STEP 动态生成分页导航-->
+						<ul class="pagination-lg  m-auto">
 							<c:forEach var="text" items="${pageBtnText}">
 								<li class="page-item">
 									<c:url var="pageUrl" value="/mealordering/admin/get-page">
@@ -142,21 +131,21 @@
 				</div>
 				<div class="modal-body">
 					<!--STEP 创建公告的表单-->
-					<form action="<c:url value="/mealordering/admin/add-notice"/>" method="post" id="mo_form-add">
+					<form id="mo_form-add" action="<c:url value="/mealordering/admin/add-notice"/>" method="post">
 						<!--公告标题-->
 						<div class="form-row m-1">
-							<label class="col-sm-3" for="mo_notice-title">标题</label>
-							<div class="input-group col-sm-9">
-								<input type="text" class="form-control" id="mo_notice-title"
+							<label class="col-sm-3" for="mo_title">标题</label>
+							<div class="col-sm-9 input-group">
+								<input type="text" class="form-control" id="mo_title"
 								       name="title" value="公告标题" placeholder="请输入公告标题" required>
 							</div>
 						</div>
 						<!--公告详情-->
 						<div class="form-row m-1">
-							<label class="col-sm-3" for="mo_notice-details">详情</label>
-							<div class="input-group col-sm-9">
-                        <textarea class="form-control" id="mo_notice-details" rows="4"
-                                  name="details">在这里输入公告详情......</textarea>
+							<label class="col-sm-3" for="mo_details">详情</label>
+							<div class="col-sm-9 input-group">
+								<textarea class="form-control" id="mo_details" rows="4"
+								          name="details">在这里输入公告详情......</textarea>
 							</div>
 						</div>
 						<!--提交按钮-->
@@ -177,6 +166,16 @@
 	<%--引入jQuery和Bootstrap脚本--%>
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script>
+		$(function() {
+			//STEP 切换侧边栏导航显示
+			$("#mo_side-menu .nav-link").removeClass("active").eq(2).addClass("active");
+		});
+		//STEP 删除前确认
+		$(".mo_btn-delete").click(function() {
+			return confirm("你确定要删除该公告吗？");
+		});
+	</script>
 </body>
 </html>
 

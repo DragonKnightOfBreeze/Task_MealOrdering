@@ -30,46 +30,44 @@
 			<div class="col-sm-3">
 				<jsp:include page="/mealordering/admin/mo_side-menu.jsp"/>
 			</div>
-			<%--切换侧边栏导航激活--%>
-			<script>
-				$(function() {
-					$("#mo_side-menu .nav-link").eq(4).click();
-				})
-			</script>
 
 			<!--STEP 内容页面-->
 			<div class="col-sm-9">
-				<div class="container" id="mo_body-content-admin">
+				<div class="container" id="mo_body-page-admin">
 					<!--STEP 标题-->
-					<div class="row m-3">
+					<div class="row m-3" id="mo_body-title-admin">
 						<div class="col-sm-6">
 							<h2>用户详情</h2>
 						</div>
 					</div>
 					<!--STEP 内容-->
-					<div class="row" id="mo_body-info-admin">
+					<div class="row m-3" id="mo_body-content-admin">
 						<!--STEP 显示用户信息的表单，不能更改-->
-						<form class="m-auto" action="#" method="post" id="mo_form-edit">
+						<form class="m-auto" id="mo_form-info">
 							<!--显示用户id-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_id">id</label>
-								<div class="input-group col-sm-9">
+								<div class="col-sm-9 input-group">
 									<input type="text" class="form-control" id="mo_id"
 									       value="${user.id}" disabled>
+									<input type="hidden" name="id" value="${user.id}"/>
 								</div>
 							</div>
 							<!--显示用户名-->
 							<div class="form-row m-1">
-								<label class="col-sm-3" for="mo_user-name">用户名</label>
-								<div class="input-group col-sm-9">
-									<input type="text" class="form-control" id="mo_user-name"
+								<label class="col-sm-3" for="mo_userName">用户名</label>
+								<div class="col-sm-9 input-group">
+									<input type="text" class="form-control" id="mo_userName"
 									       value="${user.userName}" disabled>
 								</div>
+							</div>
+							<div class="form-row m-1">
+								<img class="rounded-circle" src="${user.imgUrl}"/>
 							</div>
 							<!--显示用户性别-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_gender">性别</label>
-								<div class="input-group col-sm-9">
+								<div class="col-sm-9 input-group">
 									<input type="text" class="form-control" id="mo_gender"
 									       value="${user.gender}" disabled>
 								</div>
@@ -77,16 +75,16 @@
 							<!--显示用户邮箱-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_email">邮箱地址</label>
-								<div class="input-group col-sm-9">
+								<div class="col-sm-9 input-group">
 									<input type="text" class="form-control" id="mo_email"
 									       value="${user.email}" disabled>
 								</div>
 							</div>
 							<!--显示用户手机号码-->
 							<div class="form-row m-1">
-								<label class="col-sm-3" for="mo_phone-num">手机号码</label>
-								<div class="input-group col-sm-9">
-									<input type="text" class="form-control" id="mo_phone-num"
+								<label class="col-sm-3" for="mo_phoneNum">手机号码</label>
+								<div class="col-sm-9 input-group">
+									<input type="text" class="form-control" id="mo_phoneNum"
 									       value="${user.phoneNum}" disabled>
 								</div>
 							</div>
@@ -98,40 +96,37 @@
 							<!--显示用户类型-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_type">类型</label>
-								<div class="input-group col-sm-9">
+								<div class="col-sm-9 input-group">
 									<input type="text" class="form-control" id="mo_type"
 									       value="${user.type}" disabled>
 								</div>
 							</div>
 							<!--显示用户激活状态-->
 							<div class="form-row m-1">
-								<label class="col-sm-3" for="mo_active-state">激活状态</label>
-								<div class="input-group col-sm-9">
-									<input type="text" class="form-control" id="mo_active-state"
+								<label class="col-sm-3" for="mo_activeState">激活状态</label>
+								<div class="col-sm-9 input-group">
+									<input type="text" class="form-control" id="mo_activeState"
 									       value="${user.activeState == 0?"未激活":"已激活"}" disabled>
 								</div>
 							</div>
 							<!--显示用户注册时间-->
 							<div class="form-row m-1">
-								<label class="col-sm-3" for="mo_register-time">注册时间</label>
-								<div class="input-group col-sm-9">
-									<input type="text" class="form-control" id="mo_register-time"
+								<label class="col-sm-3" for="mo_registerTime">注册时间</label>
+								<div class="col-sm-9 input-group">
+									<input type="text" class="form-control" id="mo_registerTime"
 									       value="<fmt:formatDate value="${user.registerTime}"/>" disabled>
 								</div>
 							</div>
 							<!--显示按钮-->
 							<div class="form-row m-1">
 								<div class="col-sm-4 offset-2">
+									<div class="col-sm-4">
+										<button class="btn btn-secondary m-auto" onclick="history.go(-1)">返回</button>
+									</div>
 									<c:url var="deleteUrl" value="/mealordering/admin/delete-notice">
 										<c:param name="id" value="${user.id}"/>
 									</c:url>
 									<a class="btn btn-danger m-auto" id="mo_btn-delete" href="${deleteUrl}">删除</a>
-									<script>
-										$(".mo_btn-delete").click(() => confirm("你确定要删除该用户吗？"));
-									</script>
-								</div>
-								<div class="col-sm-4">
-									<button class="btn btn-secondary m-auto" onclick="history.go(-1)">返回</button>
 								</div>
 							</div>
 						</form>
@@ -148,5 +143,15 @@
 		<%--引入jQuery和Bootstrap脚本--%>
 		<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+		<script>
+			$(function() {
+				//STEP 切换侧边栏导航显示
+				$("#mo_side-menu .nav-link").removeClass("active").eq(4).addClass("active");
+			});
+			//STEP 删除前确认
+			$(".mo_btn-delete").click(function() {
+				return confirm("你确定要删除该用户吗？");
+			});
+		</script>
 </body>
 </html>

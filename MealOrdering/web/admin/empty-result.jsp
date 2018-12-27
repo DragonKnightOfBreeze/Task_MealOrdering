@@ -29,14 +29,16 @@
 				<jsp:include page="/mealordering/admin/mo_side-menu.jsp"/>
 			</div>
 
-			<!--STEP 欢迎页面-->
+			<!--STEP 内容页面-->
 			<div class="col-sm-9">
-				<div class="container" id="mo_body-content-admin">
-					<div class="row m-3">
+				<div class="container" id="mo_body-page-admin">
+					<%--STEP 标题--%>
+					<div class="row m-3" id="mo_body-title-admin">
 						<h2 class="m-auto text-info">没有查询到数据</h2>
 					</div>
 					<hr>
-					<div class="row m-3">
+					<%--STEP 内容--%>
+					<div class="row m-3" id="mo_body-content-admin">
 						<p class="m-auto text-info">看看其他内容吧......</p>
 					</div>
 				</div>

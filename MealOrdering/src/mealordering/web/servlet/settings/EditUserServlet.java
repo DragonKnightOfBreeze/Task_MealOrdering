@@ -19,12 +19,14 @@ import java.io.IOException;
 /**
  * 编辑用户信息的Servlet
  */
-@WebServlet(name = "EditUserServlet", urlPatterns = {"/mealordering/settings/edit-information"})
+@WebServlet(name = "EditUserServlet", urlPatterns = "/mealordering/settings/edit-information")
 public class EditUserServlet extends HttpServlet {
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			//STEP 解析请求表单，得到文件和表单参数

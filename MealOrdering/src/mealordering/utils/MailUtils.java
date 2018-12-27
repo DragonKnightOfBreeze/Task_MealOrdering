@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMessage.RecipientType;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -29,6 +28,7 @@ public class MailUtils {
 		props.load(MailUtils.class.getResourceAsStream("/props/mailProps.properties"));
 		//创建验证器
 		Authenticator auth = new Authenticator() {
+			@Override
 			public PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication("dk_breeze.qq.com", "******");
 			}
@@ -68,7 +68,7 @@ public class MailUtils {
 		//设置发送者
 		message.setFrom(new InternetAddress(emailFrom));
 		//设置发送方式与接收者
-		message.setRecipient(RecipientType.TO, new InternetAddress(emailTo));
+		message.setRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
 		//设置邮件主题
 		message.setSubject(subject);
 		message.setContent(content, "text/html;charset=utf-8");

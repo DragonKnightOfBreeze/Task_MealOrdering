@@ -32,24 +32,18 @@
 			<div class="col-sm-3">
 				<jsp:include page="/mealordering/admin/mo_side-menu.jsp"/>
 			</div>
-			<%--切换侧边栏导航激活--%>
-			<script>
-				$(function() {
-					$("#mo_side-menu .nav-link").eq(3).click();
-				})
-			</script>
-
 			<!--STEP 内容页面-->
 			<div class="col-sm-9">
-				<div class="container" id="mo_body-content-admin">
+				<div class="container" id="mo_body-page-admin">
 					<!--STEP 标题-->
-					<div class="row m-3 ">
+					<div class="row m-3" id="mo_body-title-admin">
 						<div class="col-sm-6">
 							<h2>订单列表</h2>
 						</div>
-						<div class="col-sm-5" id="mo_search-by-userName">
-							<%--STEP 内联搜索表单--%>
-							<form class="form-inline" action="<c:url value="/mealordering/admin/search-order"/>" method="get">
+						<div class="col-sm-5">
+							<%--STEP 内联表单：按用户名搜索--%>
+							<form class="form-inline" id="mo_form-search" action="<c:url value="/mealordering/admin/search-order"/>"
+							      method="get">
 								<%--搜索类型--%>
 								<input type="hidden" name="searchType" value="byUserName">
 								<%--输入用户名--%>
@@ -65,10 +59,10 @@
 						</div>
 					</div>
 					<hr>
-					<!--STEP 表格-->
-					<div class="row" id="mo_body-table-admin">
+					<!--STEP 内容-->
+					<div class="row m-3" id="mo_body-content-admin">
 						<table class="table table-bordered table-striped table-hover table-responsive m-auto">
-							<thead class="thead-dark text-center">
+							<thead class="text-center">
 							<tr>
 								<th>id</th>
 								<th>总价</th>
@@ -82,7 +76,7 @@
 							</tr>
 							</thead>
 							<tbody class="text-center">
-							<%--STEP 动态插入数据--%>
+							<%--NOTE 动态插入数据--%>
 							<c:forEach var="order" items="${page}">
 								<tr>
 									<td>${order.id}</td>
@@ -94,6 +88,10 @@
 									<td><fmt:formatDate value="${order.orderTime}"/></td>
 									<td>${order.user.id}</td>
 									<td>
+										<c:url var="deleteUrl" value="/mealordering/admin/delete-order">
+											<c:param name="id" value="${order.id}"/>
+										</c:url>
+										<a class="btn btn-danger mo_btn-delete" href="${deleteUrl}">删除</a>
 										<c:url var="detailUrl" value="/mealordering/admin/find-order">
 											<c:param name="id" value="${order.id}"/>
 										</c:url>
@@ -104,10 +102,10 @@
 							</tbody>
 						</table>
 					</div>
-					<!--STEP 分页栏-->
+					<!--STEP 分页导航-->
 					<div class="row m-3" id="mo_page-bar-admin">
-						<ul class="pagination">
-							<!--NOTE 动态生成分页栏-->
+						<ul class="pagination-lg  m-auto">
+							<!--NOTE 动态生成分页导航-->
 							<c:forEach var="text" items="${pageBtnText}">
 								<li class="page-item">
 									<c:url var="pageUrl" value="/mealordering/admin/get-page">
@@ -132,6 +130,16 @@
 	<%--引入jQuery和Bootstrap脚本--%>
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script>
+		$(function() {
+			//STEP 切换侧边栏导航显示
+			$("#mo_side-menu .nav-link").removeClass("active").eq(3).addClass("active");
+		});
+		//STEP 删除前确认
+		$(".mo_btn-delete").click(function() {
+			return confirm("你确定要删除该订单吗？");
+		});
+	</script>
 </body>
 </html>
 

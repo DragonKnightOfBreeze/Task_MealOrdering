@@ -15,12 +15,14 @@ import java.sql.SQLException;
 /**
  * 编辑公告信息的Servlet
  */
-@WebServlet(name = "Admin_EditNoticeServlet", urlPatterns = {"/mealordering/admin/edit-notice"})
+@WebServlet(name = "Admin_EditNoticeServlet", urlPatterns = "/mealordering/admin/edit-notice")
 public class Admin_EditNoticeServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		int id = StringExt.toInt(req.getParameter("id"));

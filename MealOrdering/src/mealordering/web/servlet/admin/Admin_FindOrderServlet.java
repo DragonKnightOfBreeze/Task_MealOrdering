@@ -18,12 +18,14 @@ import java.sql.SQLException;
 /**
  * 根据Id查询订单的Servlet
  */
-@WebServlet(name = "Admin_FindOrderServlet", urlPatterns = {"/mealordering/admin/find-order"})
+@WebServlet(name = "Admin_FindOrderServlet", urlPatterns = "/mealordering/admin/find-order")
 public class Admin_FindOrderServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException, IOException {
 		//STEP 得到传入参数

@@ -18,12 +18,14 @@ import java.sql.SQLException;
 /**
  * 根据id查询餐品信息的Servlet
  */
-@WebServlet(name = "FindMealServlet", urlPatterns = {"/mealordering/meal/find"})
+@WebServlet(name = "FindMealServlet", urlPatterns = "/mealordering/meal/find")
 public class FindMealServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		String id = req.getParameter("id").trim();

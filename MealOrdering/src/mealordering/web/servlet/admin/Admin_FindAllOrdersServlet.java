@@ -18,12 +18,14 @@ import java.util.List;
 /**
  * 查询所有订单信息的Servlet
  */
-@WebServlet(name = "Admin_FindAllOrdersServlet", urlPatterns = {"/mealordering/admin/find-all-orders"})
+@WebServlet(name = "Admin_FindAllOrdersServlet", urlPatterns = "/mealordering/admin/find-all-orders")
 public class Admin_FindAllOrdersServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			// STEP 后台操作

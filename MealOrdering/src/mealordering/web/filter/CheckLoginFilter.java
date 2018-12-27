@@ -18,9 +18,11 @@ import java.io.IOException;
 @WebFilter(filterName = "CheckLoginFilter", urlPatterns = {"/mealordering/account/*", "/mealordering/settings/*"})
 public class CheckLoginFilter implements Filter {
 
+	@Override
 	public void init(FilterConfig filterConfig) {
 	}
 
+	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 	throws IOException, ServletException {
 		//强制转换
@@ -37,6 +39,7 @@ public class CheckLoginFilter implements Filter {
 		}
 	}
 
+	@Override
 	public void destroy() {
 	}
 

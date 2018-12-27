@@ -16,12 +16,14 @@ import java.util.List;
  * 下载销售榜单的Servlet<br>
  * INFO 搁置
  */
-@WebServlet(name = "Admin_DownloadSalesListServlet", urlPatterns = {"/mealordering/admin/download-sales-list"})
+@WebServlet(name = "Admin_DownloadSalesListServlet", urlPatterns = "/mealordering/admin/download-sales-list")
 public class Admin_DownloadSalesListServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		String year = req.getParameter("year").trim();

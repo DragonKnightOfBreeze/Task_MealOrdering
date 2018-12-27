@@ -30,54 +30,48 @@
 			<div class="col-sm-3">
 				<jsp:include page="/mealordering/admin/mo_side-menu.jsp"/>
 			</div>
-			<%--切换侧边栏导航激活--%>
-			<script>
-				$(function() {
-					$("#mo_side-menu .nav-link").eq(1).click();
-				})
-			</script>
 
 			<!--STEP 内容页面-->
 			<div class="col-sm-9">
-				<div class="container" id="mo_body-content-admin">
+				<div class="container" id="mo_body-page-admin">
 					<!--STEP 标题-->
-					<div class="row m-3">
+					<div class="row m-3" id="mo_body-title-admin">
 						<div class="col-sm-6">
 							<h2>餐品详情</h2>
 						</div>
 					</div>
+					<hr>
 					<!--STEP 内容-->
-					<div class="row" id="mo_body-info-admin">
+					<div class="row m-3" id="mo_body-content-admin">
 						<!--STEP 显示和编辑餐品信息的表单-->
 						<%--NOTE 包含图片，注意设置enctype--%>
-						<form class="m-auto" action="<c:url value="/mealordering/admin/edit-meal"/>" method="post"
-						      id="mo_form-edit" enctype="multipart/form-data">
+						<form class="m-auto" id="mo_form-info" action="<c:url value="/mealordering/admin/edit-meal"/>" method="post"
+						      enctype="multipart/form-data">
 							<!--显示餐品id-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_id">id</label>
-								<div class="input-group col-sm-9">
-									<input type="text" class="form-control" id="mo_id"
-									       value="${meal.id}" disabled>
+								<div class="col-sm-9 input-group">
+									<input type="text" class="form-control" id="mo_id" value="${meal.id}" disabled>
 									<input type="hidden" name="id" value="${meal.id}"/>
 								</div>
 							</div>
 							<!--显示餐品名字-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_name">名字</label>
-								<div class="input-group col-sm-9">
-									<input type="text" class="form-control" id="mo_name" name="name"
-									       value="${meal.name}" required>
+								<div class="col-sm-9 input-group">
+									<input type="text" class="form-control" id="mo_name" name="name" value="${meal.name}" required>
 								</div>
 							</div>
 							<!--显示餐品价格-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_price">价格</label>
-								<div class="input-group col-sm-9">
-									<input type="number" class="form-control" id="mo_price" name="price"
-									       min="0" max="10000" value="${meal.price}" required>
+								<div class="col-sm-9 input-group">
+									<input type="number" class="form-control" id="mo_price" name="price" min="0" value="${meal.price}"
+									       required>
 								</div>
 							</div>
 							<!--显示餐品分类-->
+							<%--QUESTION 未测试通过--%>
 							<div class="form-row m-1">
 								<label class="col-md-3" for="mo_category">分类</label>
 								<div class="col-md-9">
@@ -92,23 +86,14 @@
 							</div>
 							<!--显示餐品图片-->
 							<div class="form-row m-1">
-								<div class="col-sm-9 offset-3">
-									<img src="${meal.imgUrl}" class="rounded w-75 h-75 m-auto" id="mo_img" title="餐品图片">
-								</div>
+								<img src="${meal.imgUrl}" class="rounded w-75 h-75 m-auto" id="mo_img" title="餐品图片">
 							</div>
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_imgUrl">选择图片</label>
 								<div class="col-sm-9">
-									<input type="file" class="form-control-file" id="mo_imgUrl" name="imgUrl"
-									       value="${meal.imgUrl}">
+									<input type="file" class="form-control-file" id="mo_imgUrl" name="imgUrl" value="${meal.imgUrl}">
 								</div>
 							</div>
-							<%--当选择新的图片式改变显示的图片--%>
-							<script>
-								$("#mo_imgUrl").change(function() {
-									$("#mo_img").attr("src", $(this).val());
-								});
-							</script>
 							<!--显示餐品描述-->
 							<div class="form-row m-1">
 								<label for="mo_description">描述</label>
@@ -118,32 +103,29 @@
 							<!--显示餐品数量-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_count">数量</label>
-								<div class="input-group col-sm-9">
-									<input type="number" class="form-control" id="mo_count" name="count"
-									       min="0" max="10000" value="${meal.count}" required>
+								<div class="col-sm-9 input-group">
+									<input type="number" class="form-control" id="mo_count" name="count" min="0" value="${meal.count}"
+									       required>
 								</div>
 							</div>
 							<!--显示餐品售出数量-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_soldCount">售出数量</label>
-								<div class="input-group col-sm-9">
-									<input type="number" class="form-control" id="mo_soldCount" name="count"
-									       min="0" max="10000" value="${meal.soldCount}" required>
+								<div class="col-sm-9 input-group">
+									<input type="number" class="form-control" id="mo_soldCount" name="count" min="0"
+									       value="${meal.soldCount}" required>
 								</div>
 							</div>
 							<!--删除、返回以及确认更改按钮-->
 							<div class="form-row m-1">
 								<div class="col-sm-4">
+									<button class="btn btn-secondary m-auto" onclick="history.go(-1)">返回</button>
+								</div>
+								<div class="col-sm-4">
 									<c:url var="deleteUrl" value="/mealordering/admin/delete-meal">
 										<c:param name="id" value="${meal.id}"/>
 									</c:url>
-									<a class="btn btn-danger m-auto mo_btn-delete" href="${deleteUrl}">删除</a>
-									<script>
-										$(".mo_btn-delete").click(() => confirm("你确定要删除该餐品吗？"));
-									</script>
-								</div>
-								<div class="col-sm-4">
-									<button class="btn btn-secondary m-auto" onclick="history.go(-1)">返回</button>
+									<a class="btn btn-danger mo_btn-delete m-auto" href="${deleteUrl}">删除</a>
 								</div>
 								<div class="col-sm-4">
 									<button type="submit" class="btn btn-primary m-auto" id="mo_btn-submit">更新</button>
@@ -153,15 +135,31 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
 
-			<!--STEP 页面尾部-->
-			<jsp:include page="/mealordering/admin/mo_footer.jsp"/>
+	<!--STEP 页面尾部-->
+	<jsp:include page="/mealordering/admin/mo_footer.jsp"/>
 
 
-			<%--STEP 引入脚本--%>
-			<%--引入jQuery和Bootstrap脚本--%>
-			<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
-			<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<%--STEP 引入脚本--%>
+	<%--引入jQuery和Bootstrap脚本--%>
+	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script>
+		$(function() {
+			//STEP 切换侧边栏导航显示
+			$("#mo_side-menu .nav-link").removeClass("active").eq(1).addClass("active");
+		});
+		//STEP 删除前确认
+		$(".mo_btn-delete").click(function() {
+			return confirm("你确定要删除该餐品吗？");
+		});
+		<%--STEP 当选择新的图片式改变显示的图片--%>
+		$("#mo_imgUrl").change(function() {
+			$("#mo_img").attr("src", $(this).val());
+		});
+	</script>
 </body>
 </html>
 

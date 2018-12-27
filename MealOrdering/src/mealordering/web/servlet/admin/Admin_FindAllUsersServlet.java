@@ -18,12 +18,14 @@ import java.util.List;
 /**
  * 查询所有用户信息的Servlet
  */
-@WebServlet(name = "Admin_FindAllUsersServlet", urlPatterns = {"/mealordering/admin/find-all-users"})
+@WebServlet(name = "Admin_FindAllUsersServlet", urlPatterns = "/mealordering/admin/find-all-users")
 public class Admin_FindAllUsersServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			// STEP 后台操作

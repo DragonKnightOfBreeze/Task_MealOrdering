@@ -22,12 +22,14 @@ import java.util.Map;
 /**
  * 更改购物车内容的Servlet
  */
-@WebServlet(name = "EditCartServlet", urlPatterns = {"/mealordering/account/editCart"})
+@WebServlet(name = "EditCartServlet", urlPatterns = "/mealordering/account/edit-cart")
 public class EditCartServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数（餐品id，修改后的购买数量）

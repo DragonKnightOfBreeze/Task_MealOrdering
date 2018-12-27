@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2018.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
- */
-package mealordering.web.servlet.account;
+package mealordering.web.servlet.meal;
 
 import dk_breeze.utils.ext.StringExt;
 import mealordering.domain.Meal;
@@ -21,14 +18,15 @@ import java.util.Map;
 
 /**
  * 向购物车中添加商品的Servlet
- * <br>传入：id,count，返回status，使用Ajax。
  */
-@WebServlet(name = "AddToCartServlet", urlPatterns = {"/mealordering/account/addToCart"})
+@WebServlet(name = "AddToCartServlet", urlPatterns = "/mealordering/meal/add-to-cart")
 public class AddToCartServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数（餐品id，修改后的购买数量）

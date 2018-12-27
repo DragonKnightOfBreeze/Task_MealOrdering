@@ -20,10 +20,12 @@ import java.sql.SQLException;
  */
 @WebServlet(name = "FindOrderServlet", urlPatterns = {"/mealordering/admin/findOrderById", "/mealordering/account/find-order"})
 public class FindOrderServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		String id = req.getParameter("id").trim();

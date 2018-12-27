@@ -32,24 +32,18 @@
 			<div class="col-sm-3">
 				<jsp:include page="/mealordering/admin/mo_side-menu.jsp"/>
 			</div>
-			<%--切换侧边栏导航激活--%>
-			<script>
-				$(function() {
-					$("#mo_side-menu .nav-link").eq(1).click();
-				})
-			</script>
-
 			<!--STEP 内容页面-->
 			<div class="col-sm-9">
-				<div class="container" id="mo_body-content-admin">
+				<div class="container" id="mo_body-page-admin">
 					<!--STEP 标题-->
-					<div class="row m-3 ">
+					<div class="row m-3" id="mo_body-title-admin">
 						<div class="col-sm-6">
 							<h2>餐品列表</h2>
 						</div>
-						<div class="col-sm-5" id="mo_search-by-name">
-							<%--STEP 内联搜索表单--%>
-							<form class="form-inline" action="<c:url value="/mealordering/admin/search-meal"/>" method="get">
+						<div class="col-sm-5">
+							<%--STEP 内联表单：按名称搜索--%>
+							<form class="form-inline" id="mo_form-search" action="<c:url value="/mealordering/admin/search-meal"/>"
+							      method="get">
 								<%--搜索类型--%>
 								<input type="hidden" name="searchType" value="byName">
 								<%--输入餐品名称--%>
@@ -63,18 +57,18 @@
 								</button>
 							</form>
 						</div>
-						<%--STEP 添加公告按钮--%>
-						<div class="col-sm-1" id="mo_btn-add">
-							<button class="btn btn-info"
-							        data-toggle="modal" data-target="#mo_modal-add">增加
+						<div class="col-sm-1">
+							<%--STEP 添加公告按钮--%>
+							<button class="btn btn-info" id="mo_btn-add" data-toggle="modal" data-target="#mo_modal-add">
+								<span class="fa fa-plus-square"></span>
 							</button>
 						</div>
 					</div>
 					<hr>
-					<!--STEP 表格-->
-					<div class="row" id="mo_body-table-admin">
+					<!--STEP 内容-->
+					<div class="row m-3" id="mo_body-content-admin">
 						<table class="table table-bordered table-striped table-hover table-responsive m-auto">
-							<thead class="thead-dark text-center">
+							<thead class="text-center">
 							<tr>
 								<th>id</th>
 								<th>名字</th>
@@ -86,11 +80,10 @@
 							</tr>
 							</thead>
 							<tbody class="text-center">
-							<%--STEP 动态插入数据--%>
+							<%--NOTE 动态插入数据--%>
 							<c:forEach var="notice" items="${page}">
 								<tr>
 									<td>${notice.id}</td>
-									<td>${notice.name}</td>
 									<td>${notice.name}</td>
 									<td>${notice.price}</td>
 									<td>${notice.category}</td>
@@ -100,7 +93,7 @@
 										<c:url var="deleteUrl" value="/mealordering/admin/delete-meal">
 											<c:param name="id" value="${notice.id}"/>
 										</c:url>
-										<a class="btn btn-danger mo_btn_delete" href="${deleteUrl}">删除</a>
+										<a class="btn btn-danger mo_btn-delete" href="${deleteUrl}">删除</a>
 										<c:url var="detailUrl" value="/mealordering/admin/find-meal">
 											<c:param name="id" value="${notice.id}"/>
 										</c:url>
@@ -108,21 +101,17 @@
 									</td>
 								</tr>
 							</c:forEach>
-							<script>
-								$(".mo_btn-delete").click(() => confirm("你确定要删除该餐品吗？"));
-							</script>
 							</tbody>
 						</table>
 					</div>
-
-					<!--STEP 分页栏-->
+					<!--STEP 分页导航-->
 					<div class="row m-3" id="mo_page-bar-admin">
-						<!--STEP 动态生成分页栏-->
-						<ul class="pagination">
+						<!--NOTE 动态生成分页导航-->
+						<ul class="pagination-lg m-auto">
 							<c:forEach var="text" items="${pageBtnText}">
 								<li class="page-item">
 									<c:url var="pageUrl" value="/mealordering/admin/get-page">
-										<c:param name="item" value="user"/>
+										<c:param name="item" value="meal"/>
 										<c:param name="pageIndex" value="${text}"/>
 									</c:url>
 									<a class="page-link mo_change-page" href="${pageUrl}"> ${text} </a>
@@ -150,7 +139,7 @@
 						<!--餐品名字-->
 						<div class="form-row m-1">
 							<label class="col-sm-3" for="mo_meal-name">名字</label>
-							<div class="input-group col-sm-9">
+							<div class="col-sm-9 input-group">
 								<input type="text" class="form-control" id="mo_meal-name"
 								       name="name" placeholder="请输入餐品名字" required>
 							</div>
@@ -158,7 +147,7 @@
 						<!--餐品价格-->
 						<div class="form-row m-1">
 							<label class="col-sm-3" for="mo_meal-price">价格</label>
-							<div class="input-group col-sm-9">
+							<div class="col-sm-9 input-group">
 								<input type="number" class="form-control" id="mo_meal-price"
 								       name="price" min="0" max="10000" placeholder="请输入餐品价格" required>
 							</div>
@@ -192,7 +181,7 @@
 						<!--餐品数量-->
 						<div class="form-row m-1">
 							<label class="col-sm-3" for="mo_meal-count">数量</label>
-							<div class="input-group col-sm-9">
+							<div class="col-sm-9 input-group">
 								<input type="number" class="form-control" id="mo_meal-count"
 								       name="count" min="0" max="10000" placeholder="输入餐品数量" required>
 							</div>
@@ -215,6 +204,16 @@
 	<%--引入jQuery和Bootstrap脚本--%>
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script>
+		$(function() {
+			//STEP 切换侧边栏导航显示
+			$("#mo_side-menu .nav-link").removeClass("active").eq(1).addClass("active");
+		});
+		//STEP 删除前确认
+		$(".mo_btn-delete").click(function() {
+			return confirm("你确定要删除该餐品吗？");
+		});
+	</script>
 </body>
 </html>
 

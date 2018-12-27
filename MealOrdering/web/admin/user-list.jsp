@@ -16,6 +16,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+
+	<%--STEP 引入脚本--%>
+	<%--引入jQuery和Bootstrap脚本--%>
+	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -32,18 +37,12 @@
 			<div class="col-sm-3">
 				<jsp:include page="/mealordering/admin/mo_side-menu.jsp"/>
 			</div>
-			<%--切换侧边栏导航激活--%>
-			<script>
-				$(function() {
-					$("#mo_side-menu .nav-link").eq(4).click();
-				})
-			</script>
 
 			<!--STEP 内容页面-->
 			<div class="col-sm-9">
-				<div class="container" id="mo_body-content-admin">
+				<div class="container" id="mo_body-page-admin">
 					<!--STEP 标题-->
-					<div class="row m-3 ">
+					<div class="row m-3" id="mo_body-title-admin">
 						<div class="col-sm-6">
 							<h2>用户列表</h2>
 						</div>
@@ -65,8 +64,8 @@
 						</div>
 					</div>
 					<hr>
-					<!--STEP 表格-->
-					<div class="row" id="mo_body-table-admin">
+					<!--STEP 内容-->
+					<div class="row" id="mo_body-content-admin">
 						<table class="table table-bordered table-striped table-hover table-responsive m-auto">
 							<thead class="thead-dark text-center">
 							<tr>
@@ -97,7 +96,7 @@
 										<c:url var="deleteUrl" value="/mealordering/admin/delete-user">
 											<c:param name="id" value="${user.id}"/>
 										</c:url>
-										<a class="btn btn-danger mo_btn_delete" href="${deleteUrl}">删除</a>
+										<a class="btn btn-danger mo_btn-delete" href="${deleteUrl}">删除</a>
 										<c:url var="detailUrl" value="/mealordering/admin/find-user">
 											<c:param name="id" value="${user.id}"/>
 										</c:url>
@@ -112,10 +111,10 @@
 						</table>
 					</div>
 
-					<!--STEP 分页栏-->
+					<!--STEP 分页导航-->
 					<div class="row m-3" id="mo_page-bar-admin">
-						<!--NOTE 动态生成分页栏-->
-						<ul class="pagination">
+						<!--NOTE 动态生成分页导航-->
+						<ul class="pagination  m-auto">
 							<c:forEach var="text" items="${pageBtnText}">
 								<li class="page-item">
 									<c:url var="pageUrl" value="/mealordering/admin/get-page">
@@ -140,5 +139,15 @@
 	<%--引入jQuery和Bootstrap脚本--%>
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script>
+		$(function() {
+			//STEP 切换侧边栏导航显示
+			$("#mo_side-menu .nav-link").removeClass("active").eq(4).addClass("active");
+		});
+		//STEP 删除前确认
+		$(".mo_btn-delete").click(function() {
+			return confirm("你确定要删除该用户吗？");
+		});
+	</script>
 </body>
 </html>

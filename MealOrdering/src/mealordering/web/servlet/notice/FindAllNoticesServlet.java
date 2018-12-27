@@ -17,12 +17,14 @@ import java.util.List;
 /**
  * 后台查询所有公告的Servlet
  */
-@WebServlet(name = "FindAllNoticesServlet", urlPatterns = {"/mealordering/notice/find-all"})
+@WebServlet(name = "FindAllNoticesServlet", urlPatterns = "/mealordering/notice/find-all")
 public class FindAllNoticesServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			// STEP 后台操作

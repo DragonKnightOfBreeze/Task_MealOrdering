@@ -18,12 +18,14 @@ import java.sql.SQLException;
 /**
  * 登录的Servlet
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/mealordering/login"})
+@WebServlet(name = "LoginServlet", urlPatterns = "/mealordering/login")
 public class LoginServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		String userName = req.getParameter("userName");

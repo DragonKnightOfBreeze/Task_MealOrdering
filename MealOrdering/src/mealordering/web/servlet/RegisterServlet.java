@@ -22,12 +22,14 @@ import java.util.Date;
  * 注册的Servlet
  * <br>如果成功，则跳转到注册成功页，如果出现问题，则跳转回注册页面，显示错误信息。
  */
-@WebServlet(name = "registerServlet", urlPatterns = {"/mealordering/register"})
+@WebServlet(name = "registerServlet", urlPatterns = "/mealordering/register")
 public class RegisterServlet extends HttpServlet {
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			//STEP 解析请求表单，得到文件和表单参数

@@ -17,9 +17,10 @@ import java.io.IOException;
 /**
  * 得到验证码的Servlet
  */
-@WebServlet(name = "GetCheckImgServlet", urlPatterns = {"/mealordering/get-check-img"})
+@WebServlet(name = "GetCheckImgServlet", urlPatterns = "/mealordering/get-check-img")
 public class GetCheckImgServlet extends HttpServlet {
 
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 首先就要得到session对象
 		HttpSession session = req.getSession();

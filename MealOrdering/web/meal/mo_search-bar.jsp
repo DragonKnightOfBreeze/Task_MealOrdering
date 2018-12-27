@@ -61,7 +61,7 @@
 					<span class="fa fa-search"></span>
 				</button>
 				<%--高级搜索按钮--%>
-				<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="mo_modal-adv-search">
+				<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#mo_modal-adv-search">
 					<span class="fa fa-star"></span>高级搜索
 				</button>
 			</form>

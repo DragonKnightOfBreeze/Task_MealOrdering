@@ -57,15 +57,6 @@
 					</a>
 				</li>
 			</ul>
-				<%--点击登录/注册按钮时，切换显示登录/注册分页--%>
-			<script>
-				$("#mo_nav-login").click(function() {
-					$("#mo_nl-login").click();
-				});
-				$("#mo_nav-reg").click(function() {
-					$("#mo_nl-reg").click();
-				});
-			</script>
 			</c:when>
 			<c:otherwise>
 			<!--STEP 导航栏菜单：我的账户和登出，右对齐-->
@@ -112,7 +103,7 @@
 					<%--输入用户名--%>
 					<div class="form-row m-1">
 						<label class="col-sm-3" for="mo_userName-login-admin">用户名</label>
-						<div class="input-group col-sm-9">
+						<div class="col-sm-9 input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"><span class="fa fa-user fa-fw"></span></span>
 							</div>
@@ -123,7 +114,7 @@
 					<%--输入密码--%>
 					<div class="form-row m-1">
 						<label class="col-sm-3" for="mo_password-login-admin">密码</label>
-						<div class="input-group col-sm-9">
+						<div class="col-sm-9 input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text"><span class="fa fa-key fa-fw"></span></span>
 							</div>
@@ -176,7 +167,7 @@
 							<%--输入用户名--%>
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_userName-login">用户名</label>
-								<div class="input-group col-sm-9">
+								<div class="col-sm-9 input-group">
 									<div class="input-group-prepend">
 										<span class="input-group-text"><span class="fa fa-user fa-fw"></span></span>
 									</div>
@@ -187,7 +178,7 @@
 							<%--输入密码--%>
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_password-login">密码</label>
-								<div class="input-group col-sm-9">
+								<div class="col-sm-9 input-group">
 									<div class="input-group-prepend">
 										<span class="input-group-text"><span class="fa fa-key"></span></span>
 									</div>
@@ -225,7 +216,7 @@
 							<%--输入用户名--%>
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_userName-reg">用户名</label>
-								<div class="input-group col-sm-9">
+								<div class="col-sm-9 input-group">
 									<div class="input-group-prepend">
 										<span class="input-group-text"><span class="fa fa-user fa-fw"></span></span>
 									</div>
@@ -236,7 +227,7 @@
 							<%--输入用户密码--%>
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_password-reg">密码</label>
-								<div class="input-group col-sm-9">
+								<div class="col-sm-9 input-group">
 									<div class="input-group-prepend">
 										<span class="input-group-text"><span class="fa fa-key fa-fw"></span></span>
 									</div>
@@ -247,7 +238,7 @@
 							<%--确认用户密码--%>
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_rePassword-reg">确认密码</label>
-								<div class="input-group col-sm-9">
+								<div class="col-sm-9 input-group">
 									<div class="input-group-prepend">
 										<span class="input-group-text"><span class="fa fa-key fa-fw"></span></span>
 									</div>
@@ -279,7 +270,7 @@
 							<%--输入邮箱地址--%>
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_email-reg">邮箱地址</label>
-								<div class="input-group col-sm-9">
+								<div class="col-sm-9 input-group">
 									<div class="input-group-prepend">
 										<span class="input-group-text"><span class="fa fa-envelope fa-fw"></span></span>
 									</div>
@@ -290,7 +281,7 @@
 							<%--输入手机号码--%>
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_phonNum-reg">手机号码</label>
-								<div class="input-group col-sm-9">
+								<div class="col-sm-9 input-group">
 									<div class="input-group-prepend">
 										<span class="input-group-text"><span class="fa fa-phone fa-fw"></span></span>
 									</div>
@@ -329,6 +320,16 @@
 		</div>
 	</div>
 </div>
+
+<%--STEP 点击登录/注册按钮时，切换显示登录/注册分页--%>
+<script>
+	$("#mo_nav-login").click(function() {
+		$("#mo_nl-login").click();
+	});
+	$("#mo_nav-reg").click(function() {
+		$("#mo_nl-reg").click();
+	});
+</script>
 
 
 

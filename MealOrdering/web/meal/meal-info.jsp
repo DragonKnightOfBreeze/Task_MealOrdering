@@ -14,6 +14,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+
+	<%--STEP 引入脚本--%>
+	<%--引入jQuery和Bootstrap脚本--%>
+	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -46,7 +51,7 @@
 					</h3>
 					<p class="card-text"><c:out value="${meal.description}">餐品描述。</c:out></p>
 					<%--返回、购买按钮--%>
-					<c:url var="buyUrl" value="/mealordering/account/add-to-cart">
+					<c:url var="buyUrl" value="/mealordering/meal/add-to-cart">
 						<c:param name="id" value="i${meal.id}"/>
 					</c:url>
 					<a class="btn btn-primary" href="${buyUrl}">购买</a>
@@ -58,11 +63,5 @@
 
 	<!--STEP 页面尾部-->
 	<jsp:include page="/mealordering/mo_footer.jsp"/>
-
-
-	<%--STEP 引入脚本--%>
-	<%--引入jQuery和Bootstrap脚本--%>
-	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </body>
 </html>

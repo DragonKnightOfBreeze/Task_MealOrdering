@@ -8,11 +8,13 @@ import java.io.IOException;
  * 编码过滤器
  * <br> 统一全站编码，防止项目中的请求和响应出现乱码情况。
  */
-@WebFilter(filterName = "EncodingFilter", urlPatterns = {"/*"})
+@WebFilter(filterName = "EncodingFilter", urlPatterns = "/*")
 public class EncodingFilter implements Filter {
+	@Override
 	public void init(FilterConfig config) {
 	}
 
+	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 	throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
@@ -21,6 +23,7 @@ public class EncodingFilter implements Filter {
 		chain.doFilter(req, resp);
 	}
 
+	@Override
 	public void destroy() {
 	}
 }

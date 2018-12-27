@@ -18,12 +18,14 @@ import java.util.List;
 /**
  * 根据用户查询订单的Servlet
  */
-@WebServlet(name = "FindOrderByUserServlet", urlPatterns = {"/mealordering/account/find-order-by-user"})
+@WebServlet(name = "FindOrderByUserServlet", urlPatterns = "/mealordering/account/find-order-by-user")
 public class FindOrderByUserServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		String searchType = req.getParameter("searchType");

@@ -21,10 +21,12 @@ import java.util.List;
  */
 @WebServlet(name = "Admin_SearchUserServlet", urlPatterns = "/mealordering/admin/search-user")
 public class Admin_SearchUserServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		String searchType = req.getParameter("searchType");

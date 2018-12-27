@@ -19,12 +19,14 @@ import java.util.List;
 /**
  * 根据搜索类型查询订单信息。
  */
-@WebServlet(name = "Admin_SearchOrderServlet", urlPatterns = {"/mealordering/admin/search-order"})
+@WebServlet(name = "Admin_SearchOrderServlet", urlPatterns = "/mealordering/admin/search-order")
 public class Admin_SearchOrderServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		String searchType = req.getParameter("searchType");

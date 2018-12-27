@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2018.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
  */
-package mealordering.web.servlet.account;
+package mealordering.web.servlet.admin;
 
 import mealordering.service.ServiceFactory;
 
@@ -11,13 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
- * 更新订单状态的Servlet
+ * 删除订单的Servlet。
  */
-@WebServlet(name = "UpdateOrderStateServlet", urlPatterns = "/mealordering/account/update-order-state")
-public class UpdateOrderStateServlet extends HttpServlet {
+@WebServlet(name = "Admin_DeleteOrderServlet", urlPatterns = "/mealordering/admin/delete-order")
+public class Admin_DeleteOrderServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
@@ -25,14 +24,11 @@ public class UpdateOrderStateServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//STEP 得到传入参数（订单id）
+		//STEP 得到传入参数
 		String id = req.getParameter("id").trim();
-		try {
-			ServiceFactory.getOrderSvc().updatePayState(id);
-			resp.sendRedirect(req.getContextPath() + "/mealordering/account/pay-success.jsp");
-		} catch(SQLException e) {
-			e.printStackTrace();
-			resp.sendRedirect(req.getContextPath() + "/mealordering/account/pay-fail.jsp");
-		}
+
+		//STEP 后台操作，设置转发属性与跳转
+		ServiceFactory.getOrderSvc().doDeleteById(id);
+		resp.sendRedirect(req.getContextPath() + "/mealordering/admin/find-all-orders");
 	}
 }

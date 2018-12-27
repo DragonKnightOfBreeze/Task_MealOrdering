@@ -21,12 +21,14 @@ import java.util.List;
 /**
  * 根据名标题搜索公告的Servlet
  */
-@WebServlet(name = "SearchNoticeServlet", urlPatterns = {"/mealordering/notice/search"})
+@WebServlet(name = "SearchNoticeServlet", urlPatterns = "/mealordering/notice/search")
 public class SearchNoticeServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		String searchType = req.getParameter("searchType");

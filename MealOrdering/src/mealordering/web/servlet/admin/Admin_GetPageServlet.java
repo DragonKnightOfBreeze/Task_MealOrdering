@@ -15,12 +15,14 @@ import java.util.List;
 /**
  * 得到指定内容分页的Servlet
  */
-@WebServlet(name = "Admin_GetPageServlet", urlPatterns = {"/mealordering/admin/get-page"})
+@WebServlet(name = "Admin_GetPageServlet", urlPatterns = "/mealordering/admin/get-page")
 public class Admin_GetPageServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		int pageIndex = StringExt.toInt(req.getParameter("pageIndex"), 1);

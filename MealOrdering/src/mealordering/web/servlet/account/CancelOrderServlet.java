@@ -15,12 +15,14 @@ import java.io.IOException;
 /**
  * 删除订单的Servlet。
  */
-@WebServlet(name = "CancelOrderServlet", urlPatterns = {"/mealordering/account/cancel-order"})
+@WebServlet(name = "CancelOrderServlet", urlPatterns = "/mealordering/account/cancel-order")
 public class CancelOrderServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		String id = req.getParameter("id").trim();

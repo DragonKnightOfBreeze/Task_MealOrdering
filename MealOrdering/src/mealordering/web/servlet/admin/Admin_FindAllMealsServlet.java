@@ -17,12 +17,14 @@ import java.util.List;
 /**
  * 查询所有餐品信息的Servlet
  */
-@WebServlet(name = "Admin_FindAllMealsServlet", urlPatterns = {"/mealordering/admin/find-all-meals"})
+@WebServlet(name = "Admin_FindAllMealsServlet", urlPatterns = "/mealordering/admin/find-all-meals")
 public class Admin_FindAllMealsServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			// STEP 后台操作

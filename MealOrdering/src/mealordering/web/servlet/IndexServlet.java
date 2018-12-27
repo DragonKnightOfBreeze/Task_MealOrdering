@@ -23,13 +23,15 @@ import java.util.List;
  * <li>展示本周热销商品。</li>
  * </ol>
  */
-@WebServlet(name = "IndexServlet", urlPatterns = {"/mealordering/index"})
+@WebServlet(name = "IndexServlet", urlPatterns = "/mealordering/index")
 public class IndexServlet extends HttpServlet {
 
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 后台操作
 		//查询最近的一条公告

@@ -16,12 +16,14 @@ import java.io.IOException;
  * 用户激活的Servlet
  * <br>STEP 不使用Ajax。
  */
-@WebServlet(name = "ActiveServlet", urlPatterns = {"/mealordering/active"})
+@WebServlet(name = "ActiveServlet", urlPatterns = "/mealordering/active")
 public class ActiveServlet extends HttpServlet {
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		String activeCode = req.getParameter("activeCode").trim();

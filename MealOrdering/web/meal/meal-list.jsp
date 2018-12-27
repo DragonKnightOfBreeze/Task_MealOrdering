@@ -16,6 +16,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+
+	<%--STEP 引入脚本--%>
+	<%--引入jQuery和Bootstrap脚本--%>
+	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -35,9 +40,11 @@
 		</div>
 
 		<!--STEP 餐品列表，媒体对象-->
-		<div class="row m-3 w-100" id="mo_media-list">
+		<div class="row m-3" id="mo_media-list">
+			<div class="container m-auto">
 			<c:forEach var="meal" items="${page}">
-				<div class="media border m-1">
+				<div class="row m-2">
+					<div class="media border w-75 m-auto">
 					<c:url var="infoUrl" value="/mealordering/meal/find">
 						<c:param name="id" value="${meal.id}"/>
 					</c:url>
@@ -55,19 +62,26 @@
 						<p>${meal.description}</p>
 						<em class="text-info">￥ <c:out value="${meal.price}">0</c:out></em>
 							<%--购买按钮--%>
-						<c:url var="buyUrl" value="/mealordering/account/add-to-cart">
+						<c:url var="buyUrl" value="/mealordering/meal/add-to-cart">
 							<c:param name="id" value="i${meal.id}"/>
 						</c:url>
 						<a class="btn btn-primary" href="${buyUrl}">购买</a>
+							<%--详情按钮--%>
+						<c:url var="buyUrl" value="/mealordering/meal/find">
+							<c:param name="id" value="i${meal.id}"/>
+						</c:url>
+						<a class="btn btn-info" href="${buyUrl}">详情</a>
+					</div>
 					</div>
 				</div>
 			</c:forEach>
+			</div>
 		</div>
 
-		<!--STEP 分页栏-->
+		<!--STEP 分页导航-->
 		<div class="row m-3" id="mo_page-bar">
-			<!--STEP 动态生成分页栏-->
-			<ul class="pagination">
+			<!--STEP 动态生成分页导航-->
+			<ul class="pagination  m-auto">
 				<c:forEach var="text" items="${pageBtnText}">
 					<li class="page-item">
 						<c:url var="pageUrl" value="/mealordering/get-page">
@@ -82,11 +96,5 @@
 
 		<!--STEP 页面尾部-->
 		<jsp:include page="/mealordering/mo_footer.jsp"/>
-
-
-		<%--STEP 引入脚本--%>
-		<%--引入jQuery和Bootstrap脚本--%>
-		<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -15,13 +15,15 @@ import java.sql.SQLException;
 /**
  * 添加公告的Servlet
  */
-@WebServlet(name = "Admin_AddNoticeServlet", urlPatterns = {"/mealordering/admin/add-notice"})
+@WebServlet(name = "Admin_AddNoticeServlet", urlPatterns = "/mealordering/admin/add-notice")
 public class Admin_AddNoticeServlet extends HttpServlet {
 
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		String title = req.getParameter("title").trim();

@@ -15,12 +15,14 @@ import java.io.IOException;
  * 用户权限验证的过滤器<br>
  * 判断用户权限，如果不是管理员，则重定向到错误页。
  */
-@WebFilter(filterName = "CheckAdminFilter", urlPatterns = {"/mealordering/admin/*"})
+@WebFilter(filterName = "CheckAdminFilter", urlPatterns = "/mealordering/admin/*")
 public class CheckAdminFilter implements Filter {
 
+	@Override
 	public void init(FilterConfig filterConfig) {
 	}
 
+	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 	throws IOException, ServletException {
 		//强制转换
@@ -36,6 +38,7 @@ public class CheckAdminFilter implements Filter {
 		}
 	}
 
+	@Override
 	public void destroy() {
 	}
 

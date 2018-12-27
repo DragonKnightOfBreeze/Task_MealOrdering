@@ -13,13 +13,15 @@ import java.io.IOException;
 /**
  * 登出的Servlet
  */
-@WebServlet(name = "LogoutServlet", urlPatterns = {"/mealordering/logout"})
+@WebServlet(name = "LogoutServlet", urlPatterns = "/mealordering/logout")
 public class LogoutServlet extends HttpServlet {
 
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 后台操作
 		//销毁session

@@ -16,6 +16,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+
+	<%--STEP 引入脚本--%>
+	<%--引入jQuery和Bootstrap脚本--%>
+	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -37,22 +42,29 @@
 		<!--STEP 公告列表，媒体对象-->
 		<div class="row m-3 w-100" id="mo_media-list">
 			<c:forEach var="notice" items="${page}">
-				<div class="media border m-1">
-					<c:url var="infoUrl" value="/mealordering/notice/find">
-						<c:param name="id" value="${notice.id}"/>
-					</c:url>
-					<div class="media-body">
-						<h3 class="media-heading"><a class="btn btn-link" href="${infoUrl}">${notice.title}</a></h3>
-						<p>${notice.details}</p>
+				<div class="row m-auto">
+					<div class="media border w-75 m-auto">
+						<c:url var="infoUrl" value="/mealordering/notice/find">
+							<c:param name="id" value="${notice.id}"/>
+						</c:url>
+						<div class="media-body">
+							<h3 class="media-heading"><a class="btn btn-link" href="${infoUrl}">${notice.title}</a></h3>
+							<p>${notice.details}</p>
+								<%--详情按钮--%>
+							<c:url var="buyUrl" value="/mealordering/meal/find">
+								<c:param name="id" value="i${notice.id}"/>
+							</c:url>
+							<a class="btn btn-info" href="${buyUrl}">详情</a>
+						</div>
 					</div>
 				</div>
 			</c:forEach>
 		</div>
 
-		<!--STEP 分页栏-->
+		<!--STEP 分页导航-->
 		<div class="row m-3" id="mo_page-bar">
-			<!--STEP 动态生成分页栏-->
-			<ul class="pagination">
+			<!--STEP 动态生成分页导航-->
+			<ul class="pagination  m-auto">
 				<c:forEach var="text" items="${pageBtnText}">
 					<li class="page-item">
 						<c:url var="pageUrl" value="/mealordering/get-page">
@@ -67,11 +79,5 @@
 
 		<!--STEP 页面尾部-->
 		<jsp:include page="/mealordering/admin/mo_footer.jsp"/>
-
-
-		<%--STEP 引入脚本--%>
-		<%--引入jQuery和Bootstrap脚本--%>
-		<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </body>
 </html>

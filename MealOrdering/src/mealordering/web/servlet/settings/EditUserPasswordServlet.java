@@ -14,13 +14,15 @@ import java.sql.SQLException;
 /**
  * 编辑用户密码的Servlet
  */
-@WebServlet(name = "EditUserPasswordServlet", urlPatterns = {"/mealordering/resetPassword"})
+@WebServlet(name = "EditUserPasswordServlet", urlPatterns = "/mealordering/resetPassword")
 public class EditUserPasswordServlet extends HttpServlet {
 
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doPost(req, resp);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		int id = StringExt.toInt(req.getParameter("id"));

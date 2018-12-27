@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * 根据名标题搜索公告的Servlet
  */
-@WebServlet(name = "SearchNoticeServlet", urlPatterns = {"/mealordering/admin/searchNoticeByTitle", "/mealordering/notice/search"})
+@WebServlet(name = "SearchNoticeServlet", urlPatterns = {"/mealordering/notice/search"})
 public class SearchNoticeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doPost(req, resp);

@@ -28,14 +28,16 @@
 
 	<div class="container" id="mo_body">
 		<!--STEP 侧边信息栏-->
-		<div class="col-sm-4" id="mo_side-page">
+		<div class="col-sm-4">
 
 
 		</div>
 
 		<!--STEP 我的主页-->
-		<div class="col-sm-8" id="mo_body-content">
+		<div class="col-sm-8">
+			<div class="container" id="mo_body-content">
 
+			</div>
 		</div>
 	</div>
 

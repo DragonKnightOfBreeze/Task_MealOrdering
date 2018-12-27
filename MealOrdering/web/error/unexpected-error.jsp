@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,12 +20,16 @@
 	<jsp:include page="/mealordering/mo_background-bar.jsp"/>
 
 	<%--STEP 页面主体--%>
-	<div class="container" id="mo_body">
-		<div class="text-center" id="mo_error-info">
-			<h2 class="m-auto">意外错误！</h2>
-			<hr>
-			<p>抱歉，网页出错了......</p>
-			<button class="btn btn-link m-auto " id="mo_btn-back" onclick="history.go(-1)">返回上一页</button>
+	<div class="container" id="mo_body_error-info">
+		<div class="row m-3">
+			<h2 class="m-auto text-warning">意外错误</h2>
+		</div>
+		<hr>
+		<div class="row m-3">
+			<p class="m-auto text-warning">抱歉，网页出错了......</p>
+			<p class="m-auto text-warning">
+				<button class="btn btn-link" id="mo_btn-back" onclick="history.go(-1)">返回上一页</button>
+			</p>
 		</div>
 	</div>
 

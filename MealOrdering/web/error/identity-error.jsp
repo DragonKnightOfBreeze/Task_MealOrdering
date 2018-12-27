@@ -19,14 +19,18 @@
 	<jsp:include page="/mealordering/mo_background-bar.jsp"/>
 
 	<%--STEP 页面主体--%>
-	<div class="container" id="mo_body">
-		<div class="text-center" id="mo_error-info">
-			<h2 class="m-auto">权限错误</h2>
-			<hr>
-			<p>权限不足,请登录管理员账号后进行操作。</p>
-			<a class="btn btn-link m-auto " href="<c:url value="/mealordering/index.jsp"/>">
-				<span id="mo_second">5</span>秒后自动为您跳转到首页
-			</a>
+	<div class="container" id="mo_body_error-info">
+		<div class="row m-3">
+			<h2 class="m-auto text-warning">权限错误</h2>
+		</div>
+		<hr>
+		<div class="row m-3">
+			<p class="m-auto text-warning">权限不足,请登录管理员账号后进行操作。</p>
+			<p class="m-auto text-warning">
+				<a class="btn btn-link m-auto " href="<c:url value="/mealordering/index.jsp"/>">
+					<span id="mo_second">5</span>秒后自动为您跳转到首页
+				</a>
+			</p>
 		</div>
 	</div>
 

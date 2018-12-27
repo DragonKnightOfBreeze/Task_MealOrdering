@@ -25,10 +25,12 @@
 		</div>
 		<hr>
 		<div class="row m-3">
-			<p>一封激活邮件已发送到您的邮箱。</p>
-			<a class="btn btn-link  m-auto text-success" href="<c:url value="/mealordering/index.jsp"/>">
-				<span id="mo_second">5</span>秒后自动为您跳转到首页。
-			</a>
+			<p class="m-auto text-success">一封激活邮件已发送到您的邮箱。</p>
+			<p class="m-auto text-success">
+				<a class="btn btn-link" href="<c:url value="/mealordering/index.jsp"/>">
+					<span id="mo_second">5</span>秒后自动为您跳转到首页。
+				</a>
+			</p>
 		</div>
 	</div>
 

@@ -62,7 +62,6 @@ public class ArrayExt {
 	/**
 	 * 判断数组是否为null、小于等于指定长度。
 	 */
-	@Contract(value = "null, _ -> true", pure = true)
 	public static <T> boolean orLessE(T[] array, int length) {
 		length = Math.max(length, 1);
 		return array == null || array.length <= length;

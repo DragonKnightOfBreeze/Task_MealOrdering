@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * 编辑用户信息的Servlet
  */
-@WebServlet(name = "EditUserServlet", urlPatterns = {"/mealordering/settings/editInformation"})
+@WebServlet(name = "EditUserServlet", urlPatterns = {"/mealordering/settings/edit-information"})
 public class EditUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);

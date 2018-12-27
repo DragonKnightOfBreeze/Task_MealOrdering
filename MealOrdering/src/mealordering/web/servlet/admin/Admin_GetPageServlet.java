@@ -15,9 +15,13 @@ import java.util.List;
 /**
  * 得到指定内容分页的Servlet
  */
-@WebServlet(name = "GetPageServlet", urlPatterns = {"/mealordering/admin/get-page"})
-public class GetPageServlet extends HttpServlet {
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+@WebServlet(name = "Admin_GetPageServlet", urlPatterns = {"/mealordering/admin/get-page"})
+public class Admin_GetPageServlet extends HttpServlet {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
+	}
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		int pageIndex = StringExt.toInt(req.getParameter("pageIndex"), 1);
 		int count = StringExt.toInt(req.getParameter("count"), 15);
@@ -28,7 +32,6 @@ public class GetPageServlet extends HttpServlet {
 			PageGroup pageGroup = (PageGroup) req.getSession().getAttribute("pageGroup");
 			if(pageGroup == null || pageGroup.getList() == null || pageGroup.getList().isEmpty())
 				throw new ResultEmptyException();
-
 			List page = pageGroup.getPage(pageIndex);
 			String[] pageBtnText = pageGroup.getPageBtnText();
 			//STEP 设置转发属性与跳转

@@ -14,8 +14,8 @@ import java.sql.SQLException;
 /**
  * 删除公告的Servlet
  */
-@WebServlet(name = "DeleteNoticeServlet", urlPatterns = {"/mealordering/admin/delete-notice"})
-public class DeleteNoticeServlet extends HttpServlet {
+@WebServlet(name = "Admin_DeleteNoticeServlet", urlPatterns = {"/mealordering/admin/delete-notice"})
+public class Admin_DeleteNoticeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doPost(req, resp);
 	}

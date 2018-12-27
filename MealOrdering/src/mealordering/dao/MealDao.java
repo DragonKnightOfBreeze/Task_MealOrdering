@@ -163,7 +163,7 @@ public class MealDao {
 	 */
 	public List<Meal> searchByName(@NotNull String name) throws SQLException {
 		@Language("MySQL")
-		String sql = "select * from Meal where name like '%" + name + "%' limit ?,?";
+		String sql = "select * from Meal where name like '%" + name + "%'";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanListHandler<>(Meal.class));
 	}

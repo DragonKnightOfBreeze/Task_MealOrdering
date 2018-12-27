@@ -42,9 +42,9 @@ public class PageGroup<T extends Serializable> implements Serializable {
 
 	public PageGroup(List<T> list, int pageIndex, int count) {
 		this.pageIndex = pageIndex;
-		this.count = count;
+		this.count = Math.min(count, list.size());
 		this.totalCount = list.size();
-		this.pageCount = (int) Math.ceil(totalCount * 1.0 / count);
+		this.pageCount = (int) Math.ceil(totalCount * 1.0 / this.count);
 		this.list = list;
 	}
 
@@ -106,12 +106,12 @@ public class PageGroup<T extends Serializable> implements Serializable {
 	 */
 	public List<T> getPage(int pageIndex, int count) {
 		pageIndex = MathExt.clamp(pageIndex, 1, pageCount);
-		count = MathExt.clamp(1, count, totalCount);
+		count = MathExt.clamp(count, 1, totalCount);
 
 		this.pageIndex = pageIndex;
 		this.count = count;
-		int from = (pageIndex - 1) * count;
-		int to = Math.min(pageIndex * count, list.size());
+		int from = (this.pageIndex - 1) * this.count;
+		int to = Math.min(this.pageIndex * this.count, list.size());
 		return list.subList(from, to);
 	}
 

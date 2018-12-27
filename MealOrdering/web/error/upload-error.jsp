@@ -19,12 +19,16 @@
 	<jsp:include page="/mealordering/mo_background-bar.jsp"/>
 
 	<%--STEP 页面主体--%>
-	<div class="container" id="mo_body">
-		<div class="text-center" id="mo_error-info">
-			<h2 class="m-auto">文件上传错误</h2>
-			<hr>
-			<p>上传文件时发生了错误。</p>
-			<button class="btn btn-link m-auto" id="mo_btn-back" onclick="history.go(-1)">返回上一页</button>
+	<div class="container" id="mo_body_error-info">
+		<div class="row m-3">
+			<h2 class="m-auto text-warning">文件上传错误</h2>
+		</div>
+		<hr>
+		<div class="row m-3">
+			<p class="m-auto text-warning">上传文件时发生了错误。</p>
+			<p class="m-auto text-warning">
+				<button class="btn btn-link" id="mo_btn-back" onclick="history.go(-1)">返回上一页</button>
+			</p>
 		</div>
 	</div>
 

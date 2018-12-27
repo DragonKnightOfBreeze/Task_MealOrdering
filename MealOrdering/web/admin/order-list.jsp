@@ -105,7 +105,7 @@
 						</table>
 					</div>
 					<!--STEP 分页栏-->
-					<div class="row" id="mo_page-bar-admin">
+					<div class="row m-3" id="mo_page-bar-admin">
 						<ul class="pagination">
 							<!--NOTE 动态生成分页栏-->
 							<c:forEach var="text" items="${pageBtnText}">

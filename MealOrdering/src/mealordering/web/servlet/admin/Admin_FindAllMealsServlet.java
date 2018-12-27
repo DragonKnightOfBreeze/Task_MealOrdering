@@ -1,6 +1,5 @@
 package mealordering.web.servlet.admin;
 
-import dk_breeze.utils.ext.StringExt;
 import mealordering.domain.Meal;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;
@@ -16,29 +15,18 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * 根据搜索类型查询餐品信息。
+ * 查询所有餐品信息的Servlet
  */
-@WebServlet(name = "SearchMealServlet", urlPatterns = "/mealordering/admin/search-meal")
-public class SearchMealServlet extends HttpServlet {
+@WebServlet(name = "Admin_FindAllMealsServlet", urlPatterns = {"/mealordering/admin/find-all-meals"})
+public class Admin_FindAllMealsServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//STEP 得到传入参数
-		String searchType = req.getParameter("searchType");
-		String name = req.getParameter("name");
-		String category = req.getParameter("category");
-
 		try {
 			// STEP 后台操作
-			List<Meal> mealList = null;
-			if(searchType == null || StringExt.equals(searchType, "byName")) {
-				mealList = ServiceFactory.getMealSvc().searchByName(name);
-			} else if(StringExt.equals(searchType, "byCategory")) {
-				mealList = ServiceFactory.getMealSvc().searchByCategory(category);
-			}
-			PageGroup<Meal> pageGroup = new PageGroup<>(mealList);
+			PageGroup<Meal> pageGroup = new PageGroup<>(ServiceFactory.getMealSvc().findAll());
 			List<Meal> page = pageGroup.getPage(1);
 			String[] pageBtnText = pageGroup.getPageBtnText();
 			//STEP 设置转发属性与跳转

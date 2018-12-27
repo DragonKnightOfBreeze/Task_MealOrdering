@@ -3,8 +3,7 @@
  */
 package mealordering.web.servlet.admin;
 
-import dk_breeze.utils.ext.StringExt;
-import mealordering.domain.Notice;
+import mealordering.domain.Order;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
 
@@ -17,24 +16,25 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * 根据id查询公告的Servlet
+ * 根据Id查询订单的Servlet
  */
-@WebServlet(name = "FindNoticeServlet", urlPatterns = {"/mealordering/admin/find-notice"})
-public class FindNoticeServlet extends HttpServlet {
+@WebServlet(name = "Admin_FindOrderServlet", urlPatterns = {"/mealordering/admin/find-order"})
+public class Admin_FindOrderServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		this.doPost(req, resp);
+		doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+	throws ServletException, IOException {
 		//STEP 得到传入参数
-		int id = StringExt.toInt(req.getParameter("id"));
+		String id = req.getParameter("id").trim();
 
 		try {
 			//STEP 后台操作
-			Notice notice = ServiceFactory.getNoticeSvc().findById(id);
+			Order order = ServiceFactory.getOrderSvc().findById(id);
 			//STEP 设置转发属性与跳转
-			req.setAttribute("notice", notice);
-			req.getRequestDispatcher("/mealordering/admin/notice-info.jsp").forward(req, resp);
+			req.setAttribute("order", order);
+			req.getRequestDispatcher("/mealordering/admin/order-info.jsp").forward(req, resp);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
 			resp.sendRedirect(req.getContextPath() + "/mealordering/admin/empty-result.jsp");

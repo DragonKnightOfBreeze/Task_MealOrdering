@@ -33,7 +33,7 @@
 			<div class="col-sm-9">
 				<div class="container" id="mo_body-content-admin">
 					<div class="row m-3">
-						<h2 class="m-auto text-info">查询到的数据为空</h2>
+						<h2 class="m-auto text-info">没有查询到数据</h2>
 					</div>
 					<hr>
 					<div class="row m-3">

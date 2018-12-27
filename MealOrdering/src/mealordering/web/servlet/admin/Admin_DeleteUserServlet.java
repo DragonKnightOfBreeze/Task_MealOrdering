@@ -1,10 +1,6 @@
-/*
- * Copyright (c) 2018.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
- */
 package mealordering.web.servlet.admin;
 
-import mealordering.domain.Meal;
-import mealordering.exception.ResultEmptyException;
+import dk_breeze.utils.ext.StringExt;
 import mealordering.service.ServiceFactory;
 
 import javax.servlet.ServletException;
@@ -16,31 +12,26 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * 根据id查询餐品信息的Servlet
+ * 删除用户的Servlet
  */
-@WebServlet(name = "FindMealServlet", urlPatterns = {"/mealordering/admin/find-meal"})
-public class FindMealServlet extends HttpServlet {
+@WebServlet(name = "Admin_DeleteUserServlet", urlPatterns = {"/mealordering/admin/delete-user"})
+public class Admin_DeleteUserServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doPost(req, resp);
+		this.doPost(req, resp);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
-		String id = req.getParameter("id").trim();
+		int id = StringExt.toInt(req.getParameter("id"));
 
 		try {
 			//STEP 后台操作
-			Meal meal = ServiceFactory.getMealSvc().findById(id);
+			ServiceFactory.getNormalUserSvc().doDeleteById(id);
 			//STEP 设置转发属性与跳转
-			req.setAttribute("meal", meal);
-			req.getRequestDispatcher("/mealordering/admin/meal-info.jsp").forward(req, resp);
-		} catch(ResultEmptyException e) {
-			e.printStackTrace();
-			resp.sendRedirect(req.getContextPath() + "/mealordering/admin/empty-result.jsp");
+			resp.sendRedirect(req.getContextPath() + "/mealordering/admin/find-all-users");
 		} catch(SQLException e) {
 			e.printStackTrace();
 			resp.sendRedirect(req.getContextPath() + "/mealordering/error/unexpected-error.jsp");
 		}
 	}
 }
-

@@ -13,8 +13,8 @@ import java.sql.SQLException;
 /**
  * 删除餐品的Servlet
  */
-@WebServlet(name = "DeleteMealServlet", urlPatterns = {"/mealordering/admin/delete-meal"})
-public class DeleteMealServlet extends HttpServlet {
+@WebServlet(name = "Admin_DeleteMealServlet", urlPatterns = {"/mealordering/admin/delete-meal"})
+public class Admin_DeleteMealServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}

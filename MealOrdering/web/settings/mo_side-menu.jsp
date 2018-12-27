@@ -4,18 +4,6 @@
 <!--STEP 侧边菜单-->
 <ul class="nav nav-pills flex-column" id="mo_side-menu">
 	<li class="nav-item">
-		<a class="nav-link active" href="<c:url value="/mealordering/admin/welcome.jsp"/>">欢迎页</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" href="<c:url value="/mealordering/admin/find-all-meals"/>">餐品管理</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" href="<c:url value="/mealordering/admin/find-all-notices"/>">公告管理</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" href="<c:url value="/mealordering/admin/find-all-orders"/>">订单管理</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" href="<c:url value="/mealordering/admin/find-all-users"/>">用户管理</a>
+		<a class="nav-link active" href="<c:url value="/mealordering/settings/information.jsp"/>">我的资料</a>
 	</li>
 </ul>

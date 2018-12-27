@@ -3,7 +3,7 @@
  */
 package mealordering.web.servlet.admin;
 
-import mealordering.domain.Order;
+import mealordering.domain.Meal;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
 
@@ -16,25 +16,24 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * 根据Id查询订单的Servlet
+ * 根据id查询餐品信息的Servlet
  */
-@WebServlet(name = "FindOrderServlet", urlPatterns = {"/mealordering/admin/find-order"})
-public class FindOrderServlet extends HttpServlet {
+@WebServlet(name = "Admin_FindMealServlet", urlPatterns = {"/mealordering/admin/find-meal"})
+public class Admin_FindMealServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-	throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
 		String id = req.getParameter("id").trim();
 
 		try {
 			//STEP 后台操作
-			Order order = ServiceFactory.getOrderSvc().findById(id);
+			Meal meal = ServiceFactory.getMealSvc().findById(id);
 			//STEP 设置转发属性与跳转
-			req.setAttribute("order", order);
-			req.getRequestDispatcher("/mealordering/admin/order-info.jsp").forward(req, resp);
+			req.setAttribute("meal", meal);
+			req.getRequestDispatcher("/mealordering/admin/meal-info.jsp").forward(req, resp);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
 			resp.sendRedirect(req.getContextPath() + "/mealordering/admin/empty-result.jsp");
@@ -44,3 +43,4 @@ public class FindOrderServlet extends HttpServlet {
 		}
 	}
 }
+

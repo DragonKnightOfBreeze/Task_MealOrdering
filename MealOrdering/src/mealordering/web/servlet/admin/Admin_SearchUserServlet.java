@@ -1,8 +1,8 @@
 package mealordering.web.servlet.admin;
 
+
 import dk_breeze.utils.ext.StringExt;
 import mealordering.domain.NormalUser;
-import mealordering.domain.Order;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
@@ -17,10 +17,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * 根据搜索类型查询订单信息。
+ * 根据搜索类型查询公告信息。
  */
-@WebServlet(name = "SearchOrderServlet", urlPatterns = {"/mealordering/admin/search-order"})
-public class SearchOrderServlet extends HttpServlet {
+@WebServlet(name = "Admin_SearchUserServlet", urlPatterns = "/mealordering/admin/search-user")
+public class Admin_SearchUserServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
@@ -32,19 +32,18 @@ public class SearchOrderServlet extends HttpServlet {
 
 		try {
 			// STEP 后台操作
-			List<Order> orderList = null;
+			List<NormalUser> userList = null;
 			if(searchType == null || StringExt.equals(searchType, "byUserName")) {
-				NormalUser user = ServiceFactory.getNormalUserSvc().findByUserName(userName);
-				orderList = ServiceFactory.getOrderSvc().findByUser(user);
+				userList = ServiceFactory.getNormalUserSvc().searchByUserName(userName);
 			}
-			PageGroup<Order> pageGroup = new PageGroup<>(orderList);
-			List<Order> page = pageGroup.getPage(1);
+			PageGroup<NormalUser> pageGroup = new PageGroup<>(userList);
+			List<NormalUser> page = pageGroup.getPage(1);
 			String[] pageBtnText = pageGroup.getPageBtnText();
 			//STEP 设置转发属性与跳转
 			req.getSession().setAttribute("pageGroup", pageGroup);
 			req.setAttribute("page", page);
 			req.setAttribute("pageBtnText", pageBtnText);
-			req.getRequestDispatcher("/mealordering/admin/order-list.jsp").forward(req, resp);
+			req.getRequestDispatcher("/mealordering/admin/user-list.jsp").forward(req, resp);
 		} catch(ResultEmptyException e) {
 			e.printStackTrace();
 			resp.sendRedirect(req.getContextPath() + "/mealordering/admin/empty-result.jsp");

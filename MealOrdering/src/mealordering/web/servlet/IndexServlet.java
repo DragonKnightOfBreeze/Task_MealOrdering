@@ -1,5 +1,6 @@
 package mealordering.web.servlet;
 
+import dk_breeze.utils.ext.ArrayExt;
 import dk_breeze.utils.ext.StringExt;
 import mealordering.domain.Notice;
 import mealordering.domain.User;
@@ -48,9 +49,11 @@ public class IndexServlet extends HttpServlet {
 		//STEP 检查cookie，设置session.onlineUser
 		int userId = -1;
 		Cookie[] cookies = req.getCookies();
-		for(Cookie cookie : cookies) {
-			if(StringExt.equals(cookie.getName(), "userId")) {
-				userId = StringExt.toInt(cookie.getValue(), -1);
+		if(!ArrayExt.orLessE(cookies, 1)) {
+			for(Cookie cookie : cookies) {
+				if(StringExt.equals(cookie.getName(), "userId")) {
+					userId = StringExt.toInt(cookie.getValue(), -1);
+				}
 			}
 		}
 		if(userId != -1) {

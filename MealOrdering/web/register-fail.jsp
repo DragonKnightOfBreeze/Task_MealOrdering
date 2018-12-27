@@ -19,15 +19,17 @@
 	<jsp:include page="/mealordering/mo_background-bar.jsp"/>
 
 	<%--STEP 页面主体--%>
-	<div class="container" id="mo_success-info">
+	<div class="container" id="mo_fail-info">
 		<div class="row m-3">
 			<h2 class="m-auto  text-warning">注册失败！</h2>
 		</div>
 		<hr>
 		<div class="row text-center m-3">
-			<a class="btn m-auto  btn-link  text-warning" href="<c:url value="/mealordering/index.jsp"/>">
-				<span id="mo_second">5</span>秒后自动为您跳转到首页。
-			</a>
+			<p class="m-auto text-warning">
+				<a class="btn m-auto  btn-link  text-warning" href="<c:url value="/mealordering/index.jsp"/>">
+					<span id="mo_second">5</span>秒后自动为您跳转到首页。
+				</a>
+			</p>
 		</div>
 	</div>
 

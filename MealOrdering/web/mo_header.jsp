@@ -45,7 +45,6 @@
 			<c:choose>
 			<c:when test="${empty onlineUser}">
 			<!--STEP 导航栏菜单：注册和登录，右对齐-->
-
 			<ul class="navbar-nav navbar-right" id="mo_visitor-menu">
 				<li class="nav-item active">
 					<a class="nav-link" id="mo_nav-login" href="#mo_modal-login-reg" data-toggle="modal">
@@ -61,10 +60,10 @@
 				<%--点击登录/注册按钮时，切换显示登录/注册分页--%>
 			<script>
 				$("#mo_nav-login").click(function() {
-					$(".mo_nl-login").click();
+					$("#mo_nl-login").click();
 				});
 				$("#mo_nav-reg").click(function() {
-					$(".mo_nl-reg").click();
+					$("#mo_nl-reg").click();
 				});
 			</script>
 			</c:when>
@@ -73,7 +72,7 @@
 			<ul class="navbar-nav navbar-right" id="mo_user-menu">
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown">
-						<span class="fa fa-user"></span> 我的账户
+						<span class="fa fa-user"></span>${onlineUser.userName}
 					</a>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="<c:url value="/mealordering/account/home.jsp"/>">我的资料</a>

@@ -116,8 +116,8 @@
 					</div>
 
 					<!--STEP 分页栏-->
-					<div class="row" id="mo_page-bar-admin">
-						<!--NOTE 动态生成分页栏-->
+					<div class="row m-3" id="mo_page-bar-admin">
+						<!--STEP 动态生成分页栏-->
 						<ul class="pagination">
 							<c:forEach var="text" items="${pageBtnText}">
 								<li class="page-item">
@@ -145,7 +145,6 @@
 				</div>
 				<div class="modal-body">
 					<!--STEP 增加餐品的表单-->
-					<!--NOTE 不使用Ajax，提交到Servlet-->
 					<form action="<c:url value="/mealordering/admin/add-meal"/>" method="post" id="mo_form-add"
 					      enctype="multipart/form-data">
 						<!--餐品名字-->

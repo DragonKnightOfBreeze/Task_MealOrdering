@@ -13,6 +13,7 @@
           <element id="file-copy" path="$PROJECT_DIR$/MyCode/lib/annotations-16.0.2.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/MyCode/lib/javax.mail-api-1.6.2.jar" />
           <element id="library" level="module" name="MyCode_Lib" module-name="MyCode" />
+          <element id="file-copy" path="$PROJECT_DIR$/../../../../My Reference/JavaWeb/jspSmartUpload.jar" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="MealOrdering/web/Web" />

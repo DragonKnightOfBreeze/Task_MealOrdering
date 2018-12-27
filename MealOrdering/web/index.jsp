@@ -25,12 +25,12 @@
 
 	<!--STEP 页面主体-->
 	<div class="container" id="mo_body">
-		<%--<!--STEP 搜索栏：具有普通搜索、分类搜索、高级搜索等功能-->--%>
-		<%--<jsp:include page="meal/mo_search-bar.jsp"/>--%>
+		<!--STEP 搜索栏：具有普通搜索、分类搜索、高级搜索等功能-->
+		<jsp:include page="meal/mo_search-bar.jsp"/>
 
 		<!--STEP 轮播图：固定广告，自动切换-->
-		<div class="row m-auto" id="mo_ad">
-			<div class="carousel slide" id="mo_carousel" data-ride="carousel">
+		<div class="row m-3" id="mo_ad">
+			<div class="carousel slide m-auto w-75" id="mo_carousel" data-ride="carousel">
 				<!--指示符-->
 				<ol class="carousel-indicators">
 					<li data-target="#mo_carousel" data-slide-to="0" class="active"></li>
@@ -139,6 +139,8 @@
 	<%--引入jQuery和Bootstrap脚本--%>
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+	<script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
 	<!--引入jQuery验证插件，包括本地化和附加方法-->
 	<script src="framework/jquery-validation/jquery.validate.min.js"></script>
 	<script src="framework/jquery-validation/localization/messages_zh.min.js"></script>

@@ -18,8 +18,8 @@ import java.sql.SQLException;
 /**
  * 后台用于编辑商品信息的Servlet
  */
-@WebServlet(name = "EditMealServlet", urlPatterns = {"/mealordering/admin/edit-meal"})
-public class EditMealServlet extends HttpServlet {
+@WebServlet(name = "Admin_EditMealServlet", urlPatterns = {"/mealordering/admin/edit-meal"})
+public class Admin_EditMealServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}

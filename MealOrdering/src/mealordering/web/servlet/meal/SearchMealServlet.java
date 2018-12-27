@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * 根据名字搜索餐品的Servlet
  */
-@WebServlet(name = "SearchMealServlet", urlPatterns = {"/mealordering/meal/search", "/mealordering/meal/search"})
+@WebServlet(name = "SearchMealServlet", urlPatterns = {"/mealordering/meal/search"})
 public class SearchMealServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doPost(req, resp);
@@ -37,7 +37,7 @@ public class SearchMealServlet extends HttpServlet {
 
 		try {
 			// STEP 后台操作
-			List<Meal> mealList = null;
+			List<Meal> mealList;
 			if(searchType == null || StringExt.equals(searchType, "byName")) {
 				mealList = ServiceFactory.getMealSvc().searchByName(name);
 			} else if(StringExt.equals(searchType, "byCategory")) {

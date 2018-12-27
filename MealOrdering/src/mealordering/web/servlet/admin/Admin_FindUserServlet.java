@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) 2018.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
+ */
 package mealordering.web.servlet.admin;
 
-
-import mealordering.domain.Notice;
+import dk_breeze.utils.ext.StringExt;
+import mealordering.domain.User;
+import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
 
 import javax.servlet.ServletException;
@@ -13,26 +17,27 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * 添加公告的Servlet
+ * 根据id查询用户信息的Servlet
  */
-@WebServlet(name = "AddNoticeServlet", urlPatterns = {"/mealordering/admin/add-notice"})
-public class AddNoticeServlet extends HttpServlet {
-
+@WebServlet(name = "Admin_FindUserServlet", urlPatterns = {"/mealordering/admin/find-user"})
+public class Admin_FindUserServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		this.doPost(req, resp);
+		doPost(req, resp);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//STEP 得到传入参数
-		String title = req.getParameter("title").trim();
-		String details = req.getParameter("details").trim();
+		int id = StringExt.toInt(req.getParameter("id"));
 
 		try {
 			//STEP 后台操作
-			Notice notice = new Notice(title, details);
-			ServiceFactory.getNoticeSvc().doAdd(notice);
+			User user = ServiceFactory.getNormalUserSvc().findById(id);
 			//STEP 设置转发属性与跳转
-			resp.sendRedirect(req.getContextPath() + "/mealordering/admin/find-all-notices");
+			req.setAttribute("onlineUser", user);
+			req.getRequestDispatcher("/mealordering/admin/user-info.jsp").forward(req, resp);
+		} catch(ResultEmptyException e) {
+			e.printStackTrace();
+			resp.sendRedirect(req.getContextPath() + "/mealordering/admin/empty-result.jsp");
 		} catch(SQLException e) {
 			e.printStackTrace();
 			resp.sendRedirect(req.getContextPath() + "/mealordering/error/unexpected-error.jsp");

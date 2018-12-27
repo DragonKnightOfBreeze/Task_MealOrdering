@@ -11,7 +11,7 @@
 						<c:param name="searchType" value="byCategory"/>
 						<c:param name="category" value="所有分类"/>
 					</c:url>
-					<a class="nav-link active" href="${url1}">所有分类</a>
+					<a class="nav-link" href="${url1}">所有分类</a>
 				</li>
 				<li class="nav-item">
 					<c:url var="url2" value="/mealordering/meal/search">
@@ -53,7 +53,8 @@
 				<%--输入餐品名称--%>
 				<div class="form-group">
 					<label class="sr-only" for="mo_name-search">名称</label>
-					<input type="text" class="form-control" id="mo_name-search" name="name" placeholder="请输入餐品名称" required>
+					<input type="text" class="form-control" id="mo_name-search" name="name"
+					       placeholder="请输入餐品名称" required>
 				</div>
 				<%--提交表单--%>
 				<button type="submit" class="btn btn-default">

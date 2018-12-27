@@ -8,8 +8,6 @@ package dkbreeze.utils.ext;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.text.MessageFormat;
-
 /**
  * String类的拓展类
  */
@@ -35,7 +33,7 @@ public class StringExt {
 	 * 判断字符串是否为Null、为空。
 	 */
 	@Contract(value = "null -> true; !null -> false", pure = true)
-	public static boolean orEmpty(String str) {
+	public static boolean isOrEmpty(String str) {
 		return str == null || str.isEmpty();
 	}
 
@@ -51,10 +49,9 @@ public class StringExt {
 	 * 判断字符串是否为Null、为空、为空格（制表符、换行符）。
 	 */
 	@Contract(value = "null -> true; !null -> false", pure = true)
-	public static boolean orBlank(String str) {
+	public static boolean isOrBlank(String str) {
 		return str == null || str.isBlank();
 	}
-
 
 	/**
 	 * 判断两个字符串是否相等。<br>
@@ -98,13 +95,13 @@ public class StringExt {
 	/**
 	 * 判断指定的字符串和指定的枚举值是否相等。
 	 */
-	public static boolean equalsE(String str, Enum e) {
+	@Contract("null, _ -> false")
+	public static boolean equalsE(String str, @NotNull Enum<?> e) {
 		return e.toString().equals(str);
 	}
 
-
 	/**
-	 * 将指定的字符串转化为数字（忽略空格）。如果失败，则转化为默认值。
+	 * 将指定的字符串转化为整型数值（忽略空格）。如果失败，则转化为默认值。
 	 * @param str 指定的字符串
 	 * @param defaultNum 默认值
 	 */
@@ -119,21 +116,22 @@ public class StringExt {
 	}
 
 	/**
-	 * 将指定的字符串转化为数字（忽略空格）。如果失败，则转化为0。
+	 * 将指定的字符串转化为整型数值（忽略空格）。如果失败，则转化为0。
 	 * @param str 指定的字符串
 	 */
 	public static int toInt(String str) {
 		return toInt(str, 0);
 	}
 
-	public static double toDouble(String str) {
-		return toDouble(str, 0.0);
-	}
-
-	public static double toDouble(String str, double defaultNum) {
-		double result;
+	/**
+	 * 将指定的字符串转化为单精度数值（忽略空格）。如果失败，则转化为默认值。
+	 * @param str 指定的字符串
+	 * @param defaultNum 默认值
+	 */
+	public static float toFloat(String str, float defaultNum) {
+		float result;
 		try {
-			result = Integer.parseInt(str.trim());
+			result = Float.parseFloat(str.trim());
 		} catch(Exception e) {
 			result = defaultNum;
 		}
@@ -141,17 +139,78 @@ public class StringExt {
 	}
 
 	/**
-	 * 格式化字符串（自动转义单引号）。
-	 * <ul>
-	 * <li>占位符格式：{index,type,style}</li>
-	 * <li>index：参数的索引，从0开始</li>
-	 * <li>type：格式化类型，可选值：number，date，time，choice</li>
-	 * <li>style：格式化风格，可选值：short，medium，long，full，integer，currency，percent，subformatPattern</li>
-	 * </ul>
-	 * @param pattern 模版字符串
-	 * @param args 对应数量的参数
+	 * 将指定的字符串转化为单精度数值（忽略空格）。如果失败，则转化为默认值。
+	 * @param str 指定的字符串
 	 */
-	public static String f(@NotNull String pattern, @NotNull Object... args) {
-		return MessageFormat.format(pattern.replace("'", "''"), args);
+	public static float toFloat(String str) {
+		return toFloat(str, 0.0f);
+	}
+
+	/**
+	 * 将指定的字符串转化为双精度数值（忽略空格）。如果失败，则转化为默认值。
+	 * @param str 指定的字符串
+	 * @param defaultNum 默认值
+	 */
+	public static double toDouble(String str, double defaultNum) {
+		double result;
+		try {
+			result = Double.parseDouble(str.trim());
+		} catch(Exception e) {
+			result = defaultNum;
+		}
+		return result;
+	}
+
+	/**
+	 * 将指定的字符串转化为双精度数值（忽略空格）。如果失败，则转化为0。
+	 * @param str 指定的字符串
+	 */
+	public static double toDouble(String str) {
+		return toDouble(str, 0.0);
+	}
+
+	/**
+	 * 如果指定的字符串为null、为空、为空格，则转化为空字符串。
+	 * @param str 指定的字符串
+	 */
+	public static String toStr(String str) {
+		return toStr(str, "");
+	}
+
+	/**
+	 * 如果指定的字符串为null、为空、为空格，则转化为默认值。
+	 * @param str 指定的字符串
+	 * @param defaultStr 默认值
+	 */
+	@Contract("null, _ -> param2")
+	public static String toStr(String str, String defaultStr) {
+		if(str == null || str.isBlank())
+			return defaultStr;
+		return str;
+	}
+
+	/**
+	 * 将指定的字符串转化为枚举值。如果不匹配，则返回null。
+	 * @param str 指定的字符串
+	 * @param clazz 枚举类
+	 */
+	public static Enum toEnum(String str, Class<? extends Enum> clazz) {
+		var consts = clazz.getEnumConstants();
+		for(var c : consts) {
+			if(c.toString().equals(str)) {
+				return c;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 将指定的字符串转化为枚举值的序数。如果不匹配，则返回-1。
+	 * @param str 指定的字符串
+	 * @param clazz 枚举类
+	 */
+	public static int toEnumOrd(String str, Class<? extends Enum> clazz) {
+		var e = toEnum(str, clazz);
+		return e == null ? -1 : e.ordinal();
 	}
 }

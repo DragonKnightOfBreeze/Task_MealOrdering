@@ -104,14 +104,6 @@
 								       min="0" max="10000">
 							</div>
 						</div>
-						<!--限制最低价格总是小于最高价格-->
-						<script>
-							$("#mo_min-num,#mo_max-num").change(function() {
-								let $min = $("#mo_minPrice-adv-search");
-								let $max = $("#mo_maxPrice-adv-search");
-								$min.val(Math.min(parseInt($min.val()), parseInt($max.val())));
-							});
-						</script>
 						<!--选择餐品分类-->
 						<div class="form-row m-1">
 							<label class="col-md-3" for="mo_category-adv-search">餐品分类</label>
@@ -135,3 +127,15 @@
 		</div>
 	</div>
 </div>
+
+
+<script>
+	$(function() {
+		//STEP 限制最低价格总是小于最高价格
+		$("#mo_min-num,#mo_max-num").change(function() {
+			let $min = $("#mo_minPrice-adv-search");
+			let $max = $("#mo_maxPrice-adv-search");
+			$min.val(Math.min(parseInt($min.val()), parseInt($max.val())));
+		});
+	});
+</script>

@@ -6,6 +6,7 @@ package mealordering.web.servlet.meal;
 import dkbreeze.utils.ext.StringExt;
 import mealordering.domain.Meal;
 import mealordering.domain.PageGroup;
+import mealordering.enums.Category;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;
 
@@ -33,7 +34,7 @@ public class SearchMealServlet extends HttpServlet {
 		//STEP 得到传入参数
 		String searchType = req.getParameter("searchType");
 		String name = req.getParameter("name");
-		String category = req.getParameter("category");
+		String category = StringExt.toStr(req.getParameter("category"), Category.all.toString());
 		String minPrice = req.getParameter("minPrice");
 		String maxPrice = req.getParameter("maxPrice");
 
@@ -44,6 +45,8 @@ public class SearchMealServlet extends HttpServlet {
 				mealList = ServiceFactory.getMealSvc().searchByName(name);
 			} else if(StringExt.equals(searchType, "byCategory")) {
 				mealList = ServiceFactory.getMealSvc().searchByCategory(category);
+				//设置分类枚举序数
+				req.setAttribute("categoryOrd", StringExt.toEnumOrd(category, Category.class));
 			} else {
 				mealList = ServiceFactory.getMealSvc().searchByConditions(name, category, minPrice, maxPrice);
 			}

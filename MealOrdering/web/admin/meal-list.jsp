@@ -158,9 +158,9 @@
 						</div>
 						<!--餐品分类-->
 						<div class="form-row m-1">
-							<label class="col-md-3" for="mo_meal-category">分类</label>
+							<label class="col-md-3" for="mo_category">分类</label>
 							<div class="input-group col-md-9">
-								<select class="form-control" id="mo_meal-category">
+								<select class="form-control" id="mo_category">
 									<option name="category" value="所有分类" selected>所有分类</option>
 									<option name="category" value="素食">素食</option>
 									<option name="category" value="荤食">荤食</option>

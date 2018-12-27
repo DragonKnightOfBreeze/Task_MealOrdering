@@ -17,9 +17,7 @@
 		$(function() {
 			$("#test_form").validate({
 				//NOTE 验证通过时的回调函数
-				submitHandler: function(form) {
-					$(form).submit();
-				},
+				submitHandler: () => $("#test_form").submit(),
 				//NOTE 验证规则
 				rules: {
 					title: {
@@ -40,7 +38,7 @@
 				//错误消息元素的类型，默认为label
 				// errorElement: "label",
 				//NOTE：切换显示验证信息的容器元素
-				errorContainer: "#mo_alert-login-admin"
+				errorContainer: $("#mo_alert")
 			});
 		});
 	</script>

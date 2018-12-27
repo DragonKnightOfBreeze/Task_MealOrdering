@@ -128,10 +128,7 @@
 					</div>
 					<!--验证未通过时弹出的警告-->
 					<!--TODO jQuery验证插件使用时仍然有问题-->
-					<div class="alert alert-warning" id="mo_alert-login-admin" style="display: none">
-						<span class="fa fa-warning fa-fw"></span><span id="mo_msg-login-admin"></span>
-						<button class="close" data-dismiss="alert">&times;</button>
-					</div>
+					<div class="alert alert-warning" id="mo_alert-login-admin" style="display: none"></div>
 				</form>
 			</div>
 		</div>
@@ -200,10 +197,7 @@
 								<button type="submit" class="btn btn-primary m-auto">登录</button>
 							</div>
 							<!--验证未通过时弹出的警告-->
-							<div class="alert alert-warning" id="mo_alert-login" style="display: none">
-								<span class="fa fa-warning fa-fw"></span><span id="mo_msg-login"></span>
-								<button class="close" data-dismiss="alert">&times;</button>
-							</div>
+							<div class="alert alert-warning" id="mo_alert-login" style="display: none"></div>
 						</form>
 					</div>
 
@@ -309,9 +303,6 @@
 							</div>
 							<!--验证未通过时弹出的警告-->
 							<div class="alert alert-warning" id="mo_alert-reg" style="display: none;">
-								<span class="fa fa-warning fa-fw"></span>
-								<span id="mo_msg-reg"></span>
-								<button class="close" data-dismiss="alert">&times;</button>
 							</div>
 						</form>
 					</div>
@@ -322,18 +313,136 @@
 </div>
 
 
-<!--STEP 引入脚本-->
-<!--引入jQuery验证插件，包括本地化和附加方法-->
-<script src="framework/jquery-validation/jquery.validate.min.js"></script>
-<script src="framework/jquery-validation/localization/messages_zh.min.js"></script>
-<script src="framework/jquery-validation/additional-methods.min.js"></script>
-<!--引入自定义脚本-->
-<script src="assets/js/d_header.js"></script>
+<%--STEP 引入脚本--%>
 <script>
 	$(function() {
 		//STEP 点击登录/注册按钮时，切换显示登录/注册分页
 		$("#mo_nav-login").click(() => $("#mo_nl-login").click());
 		$("#mo_nav-reg").click(() => $("#mo_nl-reg").click());
+
+		const warn = '<span class="fa fa-warning fa-fw"></span>';
+		//STEP 验证管理员登录
+		let $formLoginAdmin = $("#mo_form-login-admin");
+		let $alertLoginAdmin = $("#mo_alert-login-admin");
+		$formLoginAdmin.validate({
+			submitHandler: () => $formLoginAdmin.submit(),
+			rules: {
+				userName: {
+					required: true,
+					//1到10位的字母、数字、下划线
+					pattern: "[a-zA-Z_]\\w{0,9}"
+				},
+				password: {
+					required: true,
+					//6到16位的任意非空白符字符
+					pattern: ".{6,16}"
+				}
+			},
+			messages: {
+				userName: {
+					required: "管理员名必须填写！",
+					pattern: "管理员名格式不正确！"
+				},
+				password: {
+					required: "管理员密码必须填写！",
+					pattern: "管理员密码格式不正确！"
+				}
+			},
+			errorPlacement: function(error, element) {
+				$alertLoginAdmin.html(warn).append(error);
+			},
+			errorContainer: $alertLoginAdmin
+		});
+
+		//STEP 验证用户登录
+		let $formLogin = $("#mo_form-login");
+		let $alertLogin = $("#mo_alert-login");
+		$formLogin.validate({
+			submitHandler: () => $formLogin.submit(),
+			rules: {
+				userName: {
+					required: true,
+					//1到10位的字母、数字、下划线
+					pattern: "[a-zA-Z_]\\w{0,9}"
+				},
+				password: {
+					required: true,
+					//6到16位的任意非空白符字符
+					pattern: ".{6,16}"
+				}
+			},
+			messages: {
+				userName: {
+					required: "用户名必须填写！",
+					pattern: "用户名格式不正确！"
+				},
+				password: {
+					required: "用户密码必须填写！",
+					pattern: "用户密码格式不正确！"
+				}
+			},
+			errorPlacement: function(error, element) {
+				$alertLogin.html(warn).append(error);
+			},
+			errorContainer: $alertLogin
+		});
+
+		//STEP 验证用户注册
+		let $formReg = $("#mo_form-reg");
+		let $alertReg = $("#mo_alert-reg");
+		$formReg.validate({
+			submitHandler: () => $formReg.submit(),
+			rules: {
+				userName: {
+					required: true,
+					//1到10位的字母、数字、下划线
+					pattern: "[a-zA-Z_]\\w{0,9}"
+				},
+				password: {
+					required: true,
+					//6到16位的任意非空白符字符
+					pattern: ".{6,16}"
+				},
+				rePassword: {
+					required: true,
+					equalTo: "#mo_password-reg"
+				},
+				email: {
+					required: true,
+					email: true
+				},
+				phoneNum: {
+					required: true,
+					rangelength: [11, 11]
+				}
+			},
+			messages: {
+				userName: {
+					required: "用户名必须填写！",
+					pattern: "用户名格式不正确！"
+				},
+				password: {
+					required: "用户密码必须填写！",
+					pattern: "用户密码格式不正确！"
+				},
+				rePassword: {
+					required: "请再次确认你的密码！",
+					equalTo: "两次输入的密码不一致！"
+				},
+				email: {
+					required: "用户邮箱必须填写！",
+					email: "邮箱格式不正确！"
+				},
+				phoneNum: {
+					required: "用户手机号码必须填写！",
+					rangelength: "手机号码格式不正确！"
+				}
+			},
+			errorPlacement: function(error, element) {
+				$alertReg.html(warn).append(error);
+			},
+			errorContainer: $alertReg
+		});
 	});
 </script>
 

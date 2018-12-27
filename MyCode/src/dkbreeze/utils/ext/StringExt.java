@@ -5,8 +5,11 @@
 
 package dkbreeze.utils.ext;
 
+import dkbreeze.annotation.Outlook;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import java.text.MessageFormat;
 
 /**
  * String类的拓展类
@@ -223,5 +226,22 @@ public class StringExt {
 	public static int toEnumOrd(String str, Class<? extends Enum> clazz) {
 		var e = toEnum(str, clazz);
 		return e == null ? -1 : e.ordinal();
+	}
+
+
+	/**
+	 * 格式化字符串（自动转义单引号）。
+	 * <ul>
+	 * <li>占位符格式：{index,type,style}</li>
+	 * <li>index：参数的索引，从0开始</li>
+	 * <li>type：格式化类型，可选值：number，date，time，choice</li>
+	 * <li>style：格式化风格，可选值：short，medium，long，full，integer，currency，percent，subformatPattern</li>
+	 * </ul>
+	 * @param pattern 模版字符串
+	 * @param args 对应数量的参数
+	 */
+	@Outlook
+	public static String f(@NotNull String pattern, @NotNull Object... args) {
+		return MessageFormat.format(pattern.replace("'", "''"), args);
 	}
 }

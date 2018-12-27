@@ -337,8 +337,8 @@
     <inspection_tool class="AndroidUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="AndroidUnresolvedRoomSqlReference" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="AngularCliAddDependency" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="Annotation" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
-    <inspection_tool class="AnnotationClass" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+    <inspection_tool class="Annotation" enabled="false" level="INFORMATION" enabled_by_default="false" />
+    <inspection_tool class="AnnotationClass" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="Annotator" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="Anonymous2MethodRef" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="AnonymousClassComplexity" enabled="false" level="WARNING" enabled_by_default="false">
@@ -376,13 +376,13 @@
     <inspection_tool class="ArrayLengthInLoopCondition" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ArrayObjectsEquals" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ArraysAsListWithZeroOrOneArgument" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="AssertAsName" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+    <inspection_tool class="AssertAsName" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="AssertEqualsBetweenInconvertibleTypes" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="AssertEqualsBetweenInconvertibleTypesTestNG" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="AssertEqualsCalledOnArray" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AssertEqualsMayBeAssertSame" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AssertMessageNotString" enabled="true" level="INFORMATION" enabled_by_default="true" />
-    <inspection_tool class="AssertStatement" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+    <inspection_tool class="AssertStatement" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="AssertWithSideEffects" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="AssertionCanBeIf" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="AssertsWithoutMessages" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -402,16 +402,16 @@
     </inspection_tool>
     <inspection_tool class="AssignmentToNull" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="AssignmentToStaticFieldFromInstanceMethod" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
-    <inspection_tool class="AssignmentToSuperclassField" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+    <inspection_tool class="AssignmentToSuperclassField" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="AssignmentUsedAsCondition" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="AsyncMethodInspection" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="AtomicFieldUpdaterIssues" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="AtomicFieldUpdaterNotStaticFinal" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="AutoBoxing" enabled="false" level="WEAK WARNING" enabled_by_default="false">
+    <inspection_tool class="AutoBoxing" enabled="false" level="INFORMATION" enabled_by_default="false">
       <option name="ignoreAddedToCollection" value="false" />
     </inspection_tool>
     <inspection_tool class="AutoCloseableResource" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="AutoUnboxing" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="AutoUnboxing" enabled="false" level="INFORMATION" enabled_by_default="false" />
     <inspection_tool class="AwaitNotInLoop" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AwaitWithoutCorrespondingSignal" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="BadExceptionCaught" enabled="false" level="WARNING" enabled_by_default="false">
@@ -931,8 +931,8 @@
     <inspection_tool class="EmptyWebServiceClass" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="EndBlockNamesInspection" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="EndlessStream" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="EnumAsName" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
-    <inspection_tool class="EnumClass" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="EnumAsName" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="EnumClass" enabled="false" level="INFORMATION" enabled_by_default="false" />
     <inspection_tool class="EnumEntryName" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="EnumSwitchStatementWhichMissesCases" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="ignoreSwitchStatementsWithDefault" value="false" />
@@ -1042,7 +1042,7 @@
     <inspection_tool class="ForLoopWithMissingComponent" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="ignoreCollectionLoops" value="false" />
     </inspection_tool>
-    <inspection_tool class="ForeachStatement" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="ForeachStatement" enabled="false" level="INFORMATION" enabled_by_default="false" />
     <inspection_tool class="FormSpellChecking" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="FrequentlyUsedInheritorInspection" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="FtlCallsInspection" enabled="true" level="ERROR" enabled_by_default="true" />
@@ -2422,7 +2422,7 @@
     <inspection_tool class="SerialPersistentFieldsWithWrongSignature" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="SerialVersionUIDNotStaticFinal" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="SerializableCanHaveDefaultSerialUID" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="SerializableDeserializableClassInSecureContext" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="SerializableDeserializableClassInSecureContext" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="SerializableHasSerialVersionUIDField" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="ignoreAnonymousInnerClasses" value="false" />
       <option name="superClassString" value="java.awt.Component" />
@@ -2986,7 +2986,7 @@
     <inspection_tool class="ValidExternallyBoundObject" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="ValidatorConfigModelInspection" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="ValidatorModelInspection" enabled="true" level="ERROR" enabled_by_default="true" />
-    <inspection_tool class="VarargParameter" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
+    <inspection_tool class="VarargParameter" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="VariableNotUsedInsideIf" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="VariableTypeCanBeExplicit" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="VoidExpressionJS" enabled="false" level="WARNING" enabled_by_default="false" />

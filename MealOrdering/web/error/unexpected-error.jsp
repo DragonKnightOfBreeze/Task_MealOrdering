@@ -41,5 +41,10 @@
 	<!--引入jQuery和Bootstrap脚本-->
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+	<!--引入jQuery验证插件，包括本地化和附加方法-->
+	<script src="<c:url value="/mealordering/framework/jquery-validation/jquery.validate.min.js"/>"></script>
+	<script src="<c:url value="/mealordering/framework/jquery-validation/localization/messages_zh.min.js"/>"></script>
+	<script src="<c:url value="/mealordering/framework/jquery-validation/additional-methods.min.js"/>"></script>
 </body>
 </html>

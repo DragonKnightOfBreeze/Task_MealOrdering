@@ -3,8 +3,6 @@
  */
 package dkbreeze.test.stringExt;
 
-import dkbreeze.utils.ext.StringExt;
-
 import java.text.MessageFormat;
 
 public class TestFormat {
@@ -19,9 +17,9 @@ public class TestFormat {
 //		System.out.println(MessageFormat.format("She's name is \'{0}\'",str));
 //		System.out.println(MessageFormat.format("She\'s name is \'{0}\'",str));
 
-		System.out.println(StringExt.f("She's name is '{0}'", str));
-		var name = "Windea";
-		String sql = StringExt.f("select * from Meal where name like '%{0}%' limit ?,?", name);
-		System.out.println(sql);
+//		System.out.println(StringExt.f("She's name is '{0}'", str));
+//		var name = "Windea";
+//		String sql = StringExt.f("select * from Meal where name like '%{0}%' limit ?,?", name);
+//		System.out.println(sql);
 	}
 }

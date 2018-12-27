@@ -1,3 +1,5 @@
+<%--TODO--%>
+
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -67,7 +69,7 @@
 						</div>
 						<div class="form-group">
 							<label for="mo_password-change-psw">再次确认密码：</label>
-							<input type="text" class="form-control" id="mo_re-password-change-psw"
+							<input type="text" class="form-control" id="mo_rePassword-change-psw" name="rePassword"
 							       placeholder="请再次确认密码" required>
 						</div>
 						<div class="form-row">
@@ -99,5 +101,51 @@
 	<!--引入jQuery和Bootstrap脚本-->
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+	<!--引入jQuery验证插件，包括本地化和附加方法-->
+	<script src="<c:url value="/mealordering/framework/jquery-validation/jquery.validate.min.js"/>"></script>
+	<script src="<c:url value="/mealordering/framework/jquery-validation/localization/messages_zh.min.js"/>"></script>
+	<script src="<c:url value="/mealordering/framework/jquery-validation/additional-methods.min.js"/>"></script>
+	<script>
+		$(function() {
+			const warn = '<span class="fa fa-warning fa-fw"></span>';
+			//STEP 验证邮箱输入
+			let $formFindPsw = $("#mo_form-find-psw");
+			let $alertFindPsw = $("#mo_alert-find-psw");
+			$formFindPsw.validate({
+				submitHandler: () => $formFindPsw.submit(),
+				rules: {
+					email: {required: true, email: true}
+				},
+				messages: {
+					email: {required: "邮箱地址不能为空！", email: "邮箱地址格式不正确！"}
+				},
+				errorPlacement: function(error, element) {
+					$alertFindPsw.html(warn).append(error);
+				},
+				errorContainer: $alertFindPsw
+			});
+
+			//STEP 验证密码输入
+			let $formChangePsw = $("#mo_form-change-psw");
+			let $alertChangePsw = $("#mo_alert-change-psw");
+			$formChangePsw.validate({
+				submitHandler: () => $formChangePsw.submit(),
+				rules: {
+					password: {required: true, pattern: ".{6,16}"},
+					rePassword: {required: true, equalTo: "#mo_rePassword-change-psw"}
+				},
+				messages: {
+					password: {required: "密码不能为空！", pattern: "密码格式不正确！"},
+					rePassword: {required: "确认密码不能为空！", equalTo: "两次输入的密码不一致！"}
+				},
+				errorPlacement: function(error, element) {
+					$alertChangePsw.html(warn).append(error);
+				},
+				errorContainer: $alertChangePsw
+			});
+		});
+	</script>
+
 </body>
 </html>

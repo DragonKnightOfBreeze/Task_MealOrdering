@@ -14,43 +14,33 @@
 	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<script>
-		<!--测试通过-->
 		$(function() {
 			$("#test_form").validate({
-				//验证通过后的回调函数
+				//NOTE 验证通过时的回调函数
 				submitHandler: function(form) {
 					$(form).submit();
 				},
-				//验证规则
+				//NOTE 验证规则
 				rules: {
 					title: {
 						required: true, minlength: 4
 					}
 				},
-				//验证不通过时显示的信息
+				//NOTE 验证未通过时显示的警告信息
 				messages: {
 					title: {
 						required: "标题必须填写！", minlength: "标题长度过短！"
 					}
 				},
-				//错误信息的插入位置（参数：错误信息对应元素，在验证的元素）
-				//NOTE data-dismiss会直接删除元素
+				//NOTE 如何插入验证信息元素
 				errorPlacement: function(error, element) {
-					// $("#warn").html(`
-					// 	<div class="alert alert-warning" id="mo_alert-login-admin">
-					// 	<span class="fa fa-warning fa-fw"></span>${$(error).text()}
-					// 	<button class="close" data-dismiss="alert">&times;</button>
-					// 	</div>
-					// `);
-					$("#mo_alert-login-admin").html('<span class="fa fa-warning fa-fw"></span>');
-					$("#mo_alert-login-admin").append(error);
+					const warn = '<span class="fa fa-warning fa-fw"></span>';
+					$("#mo_alert").html(warn).append(error);
 				},
-				//错误消息对应的元素类型，默认为label
+				//错误消息元素的类型，默认为label
 				// errorElement: "label",
-				// //错误消息对应的要切换显示的容器元素
-				errorContainer: "#mo_alert-login-admin",
-				//验证通过后的回调函数（参数：验证元素）或字符串（添加类到验证元素）
-				// success: "valid"
+				//NOTE：切换显示验证信息的容器元素
+				errorContainer: "#mo_alert-login-admin"
 			});
 		});
 	</script>
@@ -76,10 +66,8 @@
 						<span class="fa fa-search"></span>
 					</button>
 				</form>
-				<!--验证未通过时弹出的警告-->
-				<!--TODO jQuery验证插件使用时仍然有问题-->
-				<div class="alert alert-warning" id="mo_alert-login-admin" style="display: none">
-					<!--<span class="fa fa-warning fa-fw"></span><span id="mo_msg-login-admin"></span>-->
+				<!--NOTE 验证未通过时弹出的警告-->
+				<div class="alert alert-warning" id="mo_alert" style="display: none">
 				</div>
 			</div>
 		</div>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%--CITE 传入：session.onlineUser--%>
+<!--CITE 传入：session.onlineUser-->
 <%--@elvariable id="onlineUser" type="mealordering.domain.User"--%>
 <%--@elvariable id="pageGroup" type="mealordering.domain.PageGroup"--%>
 <%--@elvariable id="page" type="java.util.List<mealordering.domain.Notice>"--%>
@@ -42,23 +42,23 @@
 							<h2>公告列表</h2>
 						</div>
 						<div class="col-sm-5">
-							<%--STEP 内联搜索表单--%>
+							<!--STEP 内联搜索表单-->
 							<form class="form-inline" id="mo_form-search" action="<c:url value="/mealordering/admin/search-notice"/>"
 							      method="get">
-								<%--搜索类型--%>
+								<!--搜索类型-->
 								<input type="hidden" name="searchType" value="byTitle">
-								<%--输入用户名--%>
+								<!--输入用户名-->
 								<div class="form-group">
 									<label class="sr-only" for="mo_by-title">名称</label>
 									<input type="text" class="form-control" id="mo_by-title" name="title" placeholder="按标题搜索" required>
 								</div>
-								<%--提交表单--%>
+								<!--提交表单-->
 								<button type="submit" class="btn btn-default">
 									<span class="fa fa-search"></span>
 								</button>
 							</form>
 						</div>
-						<%--STEP 添加公告按钮--%>
+						<!--STEP 添加公告按钮-->
 						<div class="col-sm-1" id="mo_btn-add">
 							<button class="btn btn-info"
 							        data-toggle="modal" data-target="#mo_modal-add">增加
@@ -79,7 +79,7 @@
 							</tr>
 							</thead>
 							<tbody class="text-center">
-							<%--NOTE 动态插入数据--%>
+							<!--NOTE 动态插入数据-->
 							<c:forEach var="notice" items="${page}">
 								<tr>
 									<td>${notice.id}</td>
@@ -162,18 +162,18 @@
 	<jsp:include page="/mealordering/admin/mo_footer.jsp"/>
 
 
-	<%--STEP 引入脚本--%>
-	<%--引入jQuery和Bootstrap脚本--%>
+	<!--STEP 引入脚本-->
+	<!--引入jQuery和Bootstrap脚本-->
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<script>
 		$(function() {
 			//STEP 切换侧边栏导航显示
-			$("#mo_side-menu .nav-link").removeClass("active").eq(2).addClass("active");
-		});
-		//STEP 删除前确认
-		$(".mo_btn-delete").click(function() {
-			return confirm("你确定要删除该公告吗？");
+			$("#mo_side-menu .nav-link").eq(2).addClass("active");
+			//STEP 删除前确认
+			$(".mo_btn-delete").click(function() {
+				return confirm("你确定要删除该公告吗？");
+			});
 		});
 	</script>
 </body>

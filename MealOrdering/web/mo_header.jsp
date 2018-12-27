@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%--CITE 传入：session.onlineUser--%>
+<!--CITE 传入：session.onlineUser-->
 <%--@elvariable id="onlineUser" type="mealordering.domain.User"--%>
 
 <!--STEP 导航栏：网站图标，导航文本，导航栏菜单，登录注册导航表单-->
@@ -41,7 +41,7 @@
 				</ul>
 			</div>
 
-			<%--判断是否有用户登录，显示不同的菜单--%>
+			<!--判断是否有用户登录，显示不同的菜单-->
 			<c:choose>
 			<c:when test="${empty onlineUser}">
 			<!--STEP 导航栏菜单：注册和登录，右对齐-->
@@ -97,10 +97,10 @@
 			</div>
 			<div class="modal-body">
 				<!--STEP 表单：管理员登录-->
-				<%--CITE POST 传出：userName,password--%>
+				<!--CITE POST 传出：userName,password-->
 				<form action="<c:url value="/mealordering/login-admin"/>" method="post" id="mo_form-login-admin">
 					<!--表单输入-->
-					<%--输入用户名--%>
+					<!--输入用户名-->
 					<div class="form-row m-1">
 						<label class="col-sm-3" for="mo_userName-login-admin">用户名</label>
 						<div class="col-sm-9 input-group">
@@ -111,7 +111,7 @@
 							       placeholder="请输入名字" required>
 						</div>
 					</div>
-					<%--输入密码--%>
+					<!--输入密码-->
 					<div class="form-row m-1">
 						<label class="col-sm-3" for="mo_password-login-admin">密码</label>
 						<div class="col-sm-9 input-group">
@@ -122,12 +122,12 @@
 							       placeholder="请输入密码" required>
 						</div>
 					</div>
-					<%--提交表单--%>
+					<!--提交表单-->
 					<div class="form-row m-1">
 						<button type="submit" class="btn btn-primary m-auto">登录</button>
 					</div>
 					<!--验证未通过时弹出的警告-->
-					<%--TODO jQuery验证插件使用时仍然有问题--%>
+					<!--TODO jQuery验证插件使用时仍然有问题-->
 					<div class="alert alert-warning" id="mo_alert-login-admin" style="display: none">
 						<span class="fa fa-warning fa-fw"></span><span id="mo_msg-login-admin"></span>
 						<button class="close" data-dismiss="alert">&times;</button>
@@ -161,10 +161,10 @@
 				<div class="tab-content">
 					<div class="tab-pane container active" id="mo_tp-login">
 						<!--STEP 表单：登录-->
-						<%--CITE POST 传出：userName,password,rememberLogin:string--%>
+						<!--CITE POST 传出：userName,password,rememberLogin:string-->
 						<form action="<c:url value="/mealordering/login"/>" method="post" id="mo_form-login">
 							<!--表单输入-->
-							<%--输入用户名--%>
+							<!--输入用户名-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_userName-login">用户名</label>
 								<div class="col-sm-9 input-group">
@@ -175,7 +175,7 @@
 									       placeholder="请输入用户名" required>
 								</div>
 							</div>
-							<%--输入密码--%>
+							<!--输入密码-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_password-login">密码</label>
 								<div class="col-sm-9 input-group">
@@ -186,7 +186,7 @@
 									       placeholder="请输入密码" required>
 								</div>
 							</div>
-							<%--记住登录状态/忘了密码--%>
+							<!--记住登录状态/忘了密码-->
 							<div class="form-row m-1">
 								<label class="form-check-label col-sm-6">
 									<input class="form-check-input" type="radio" name="rememberLogin" value="true">记住登录状态
@@ -195,7 +195,7 @@
 									<a class="btn btn-link float-right" href="<c:url value="/mealordering/resetPassword"/>">我忘记了密码</a>
 								</div>
 							</div>
-							<%--提交表单--%>
+							<!--提交表单-->
 							<div class="form-row m-1">
 								<button type="submit" class="btn btn-primary m-auto">登录</button>
 							</div>
@@ -209,11 +209,11 @@
 
 					<div class="tab-pane container" id="mo_tp-reg">
 						<!--STEP 表单：注册-->
-						<%--CITE POST MP 传出：userName,password,rePassword,imgUrl,gender,email,phoneNum,description--%>
+						<!--CITE POST MP 传出：userName,password,rePassword,imgUrl,gender,email,phoneNum,description-->
 						<form action="<c:url value="/mealordering/register"/>" method="post" id="mo_form-reg"
 						      enctype="multipart/form-data">
 							<!--表单输入-->
-							<%--输入用户名--%>
+							<!--输入用户名-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_userName-reg">用户名</label>
 								<div class="col-sm-9 input-group">
@@ -224,7 +224,7 @@
 									       placeholder="请输入用户名" required>
 								</div>
 							</div>
-							<%--输入用户密码--%>
+							<!--输入用户密码-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_password-reg">密码</label>
 								<div class="col-sm-9 input-group">
@@ -235,7 +235,7 @@
 									       placeholder="请输入密码" required>
 								</div>
 							</div>
-							<%--确认用户密码--%>
+							<!--确认用户密码-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_rePassword-reg">确认密码</label>
 								<div class="col-sm-9 input-group">
@@ -246,7 +246,7 @@
 									       placeholder="请再次确认密码" required>
 								</div>
 							</div>
-							<%--选择头像--%>
+							<!--选择头像-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_imgUrl-reg">选择头像</label>
 								<div class="col-sm-9">
@@ -254,7 +254,7 @@
 									       placeholder="选择">
 								</div>
 							</div>
-							<%--选择用户性别--%>
+							<!--选择用户性别-->
 							<div class="form-row m-1">
 								<div class="form-check-inline">
 									<label class="form-check-label">
@@ -267,7 +267,7 @@
 									</label>
 								</div>
 							</div>
-							<%--输入邮箱地址--%>
+							<!--输入邮箱地址-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_email-reg">邮箱地址</label>
 								<div class="col-sm-9 input-group">
@@ -278,7 +278,7 @@
 									       placeholder="请输入你的邮箱地址" required>
 								</div>
 							</div>
-							<%--输入手机号码--%>
+							<!--输入手机号码-->
 							<div class="form-row m-1">
 								<label class="col-sm-3" for="mo_phonNum-reg">手机号码</label>
 								<div class="col-sm-9 input-group">
@@ -289,13 +289,13 @@
 									       placeholder="请输入你的手机号码" required>
 								</div>
 							</div>
-							<%--输入个人介绍--%>
+							<!--输入个人介绍-->
 							<div class="form-row m-1">
 								<label for="mo_introduce-reg">个人介绍</label>
 								<textarea class="form-control" id="mo_introduce-reg" rows="4"
 								          name="introduce">这个人很懒，什么也没留下...</textarea>
 							</div>
-							<%--是否同意条款--%>
+							<!--是否同意条款-->
 							<div class="form-row m-1">
 								<div class="form-check-inline">
 									<label class="form-check-label">
@@ -303,7 +303,7 @@
 									</label>
 								</div>
 							</div>
-							<%--提交表单--%>
+							<!--提交表单-->
 							<div class="form-row m-1">
 								<button type="submit" class="btn btn-primary m-auto">注册</button>
 							</div>
@@ -321,13 +321,19 @@
 	</div>
 </div>
 
-<%--STEP 点击登录/注册按钮时，切换显示登录/注册分页--%>
+
+<!--STEP 引入脚本-->
+<!--引入jQuery验证插件，包括本地化和附加方法-->
+<script src="framework/jquery-validation/jquery.validate.min.js"></script>
+<script src="framework/jquery-validation/localization/messages_zh.min.js"></script>
+<script src="framework/jquery-validation/additional-methods.min.js"></script>
+<!--引入自定义脚本-->
+<script src="assets/js/d_header.js"></script>
 <script>
-	$("#mo_nav-login").click(function() {
-		$("#mo_nl-login").click();
-	});
-	$("#mo_nav-reg").click(function() {
-		$("#mo_nl-reg").click();
+	$(function() {
+		//STEP 点击登录/注册按钮时，切换显示登录/注册分页
+		$("#mo_nav-login").click(() => $("#mo_nl-login").click());
+		$("#mo_nav-reg").click(() => $("#mo_nl-reg").click());
 	});
 </script>
 

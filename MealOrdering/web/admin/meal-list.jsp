@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%--CITE 传入：session.onlineUser--%>
+<!--CITE 传入：session.onlineUser-->
 <%--@elvariable id="onlineUser" type="mealordering.domain.User"--%>
 <%--@elvariable id="pageGroup" type="mealordering.domain.PageGroup"--%>
 <%--@elvariable id="page" type="java.util.List<mealordering.domain.Meal>"--%>
@@ -41,24 +41,24 @@
 							<h2>餐品列表</h2>
 						</div>
 						<div class="col-sm-5">
-							<%--STEP 内联表单：按名称搜索--%>
+							<!--STEP 内联表单：按名称搜索-->
 							<form class="form-inline" id="mo_form-search" action="<c:url value="/mealordering/admin/search-meal"/>"
 							      method="get">
-								<%--搜索类型--%>
+								<!--搜索类型-->
 								<input type="hidden" name="searchType" value="byName">
-								<%--输入餐品名称--%>
+								<!--输入餐品名称-->
 								<div class="form-group">
 									<label class="sr-only" for="mo_name-by-name">名称</label>
 									<input type="text" class="form-control" id="mo_name-by-name" name="name" placeholder="按名称搜索" required>
 								</div>
-								<%--提交表单--%>
+								<!--提交表单-->
 								<button type="submit" class="btn btn-default">
 									<span class="fa fa-search"></span>
 								</button>
 							</form>
 						</div>
 						<div class="col-sm-1">
-							<%--STEP 添加公告按钮--%>
+							<!--STEP 添加公告按钮-->
 							<button class="btn btn-info" id="mo_btn-add" data-toggle="modal" data-target="#mo_modal-add">
 								<span class="fa fa-plus-square"></span>
 							</button>
@@ -80,7 +80,7 @@
 							</tr>
 							</thead>
 							<tbody class="text-center">
-							<%--NOTE 动态插入数据--%>
+							<!--NOTE 动态插入数据-->
 							<c:forEach var="notice" items="${page}">
 								<tr>
 									<td>${notice.id}</td>
@@ -200,18 +200,18 @@
 	<jsp:include page="/mealordering/admin/mo_footer.jsp"/>
 
 
-	<%--STEP 引入脚本--%>
-	<%--引入jQuery和Bootstrap脚本--%>
+	<!--STEP 引入脚本-->
+	<!--引入jQuery和Bootstrap脚本-->
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<script>
 		$(function() {
 			//STEP 切换侧边栏导航显示
-			$("#mo_side-menu .nav-link").removeClass("active").eq(1).addClass("active");
-		});
-		//STEP 删除前确认
-		$(".mo_btn-delete").click(function() {
-			return confirm("你确定要删除该餐品吗？");
+			$("#mo_side-menu .nav-link").eq(1).addClass("active");
+			//STEP 删除前确认
+			$(".mo_btn-delete").click(function() {
+				return confirm("你确定要删除该餐品吗？");
+			});
 		});
 	</script>
 </body>

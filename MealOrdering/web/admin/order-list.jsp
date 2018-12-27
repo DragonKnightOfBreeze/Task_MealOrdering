@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%--CITE 传入：session.onlineUser--%>
+<!--CITE 传入：session.onlineUser-->
 <%--@elvariable id="onlineUser" type="mealordering.domain.User"--%>
 <%--@elvariable id="pageGroup" type="mealordering.domain.PageGroup"--%>
 <%--@elvariable id="page" type="java.util.List<mealordering.domain.Order>"--%>
@@ -41,17 +41,17 @@
 							<h2>订单列表</h2>
 						</div>
 						<div class="col-sm-5">
-							<%--STEP 内联表单：按用户名搜索--%>
+							<!--STEP 内联表单：按用户名搜索-->
 							<form class="form-inline" id="mo_form-search" action="<c:url value="/mealordering/admin/search-order"/>"
 							      method="get">
-								<%--搜索类型--%>
+								<!--搜索类型-->
 								<input type="hidden" name="searchType" value="byUserName">
-								<%--输入用户名--%>
+								<!--输入用户名-->
 								<div class="form-group">
 									<label class="sr-only" for="mo_by-userName">用户名</label>
 									<input type="text" class="form-control" id="mo_by-userName" name="name" placeholder="按用户名搜索" required>
 								</div>
-								<%--提交表单--%>
+								<!--提交表单-->
 								<button type="submit" class="btn btn-default">
 									<span class="fa fa-search"></span>
 								</button>
@@ -76,7 +76,7 @@
 							</tr>
 							</thead>
 							<tbody class="text-center">
-							<%--NOTE 动态插入数据--%>
+							<!--NOTE 动态插入数据-->
 							<c:forEach var="order" items="${page}">
 								<tr>
 									<td>${order.id}</td>
@@ -126,18 +126,18 @@
 	<jsp:include page="/mealordering/admin/mo_footer.jsp"/>
 
 
-	<%--STEP 引入脚本--%>
-	<%--引入jQuery和Bootstrap脚本--%>
+	<!--STEP 引入脚本-->
+	<!--引入jQuery和Bootstrap脚本-->
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<script>
 		$(function() {
 			//STEP 切换侧边栏导航显示
-			$("#mo_side-menu .nav-link").removeClass("active").eq(3).addClass("active");
-		});
-		//STEP 删除前确认
-		$(".mo_btn-delete").click(function() {
-			return confirm("你确定要删除该订单吗？");
+			$("#mo_side-menu .nav-link").eq(3).addClass("active");
+			//STEP 删除前确认
+			$(".mo_btn-delete").click(function() {
+				return confirm("你确定要删除该订单吗？");
+			});
 		});
 	</script>
 </body>

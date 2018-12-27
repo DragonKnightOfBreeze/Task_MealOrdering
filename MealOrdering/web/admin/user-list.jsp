@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%--CITE 传入：session.onlineUser--%>
+<!--CITE 传入：session.onlineUser-->
 <%--@elvariable id="onlineUser" type="mealordering.domain.User"--%>
 <%--@elvariable id="pageGroup" type="mealordering.domain.PageGroup"--%>
 <%--@elvariable id="page" type="java.util.List<mealordering.domain.NormalUser>"--%>
@@ -17,8 +17,8 @@
 	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
 
-	<%--STEP 引入脚本--%>
-	<%--引入jQuery和Bootstrap脚本--%>
+	<!--STEP 引入脚本-->
+	<!--引入jQuery和Bootstrap脚本-->
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
@@ -47,16 +47,16 @@
 							<h2>用户列表</h2>
 						</div>
 						<div class="col-sm-5" id="mo_search-by-name">
-							<%--STEP 内联搜索表单--%>
+							<!--STEP 内联搜索表单-->
 							<form class="form-inline" action="<c:url value="/mealordering/admin/search-user"/>" method="get">
-								<%--搜索类型--%>
+								<!--搜索类型-->
 								<input type="hidden" name="searchType" value="byUserName">
-								<%--输入用户名--%>
+								<!--输入用户名-->
 								<div class="form-group">
 									<label class="sr-only" for="mo_by-name">名称</label>
 									<input type="text" class="form-control" id="mo_by-name" name="name" placeholder="按名字搜索" required>
 								</div>
-								<%--提交表单--%>
+								<!--提交表单-->
 								<button type="submit" class="btn btn-default">
 									<span class="fa fa-search"></span>
 								</button>
@@ -81,7 +81,7 @@
 							</tr>
 							</thead>
 							<tbody class="text-center">
-							<%--STEP 动态插入数据--%>
+							<!--STEP 动态插入数据-->
 							<c:forEach var="user" items="${page}">
 								<tr>
 									<td>${user.id}</td>
@@ -135,18 +135,18 @@
 	<jsp:include page="/mealordering/admin/mo_footer.jsp"/>
 
 
-	<%--STEP 引入脚本--%>
-	<%--引入jQuery和Bootstrap脚本--%>
+	<!--STEP 引入脚本-->
+	<!--引入jQuery和Bootstrap脚本-->
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<script>
 		$(function() {
 			//STEP 切换侧边栏导航显示
-			$("#mo_side-menu .nav-link").removeClass("active").eq(4).addClass("active");
-		});
-		//STEP 删除前确认
-		$(".mo_btn-delete").click(function() {
-			return confirm("你确定要删除该用户吗？");
+			$("#mo_side-menu .nav-link").eq(4).addClass("active");
+			//STEP 删除前确认
+			$(".mo_btn-delete").click(function() {
+				return confirm("你确定要删除该用户吗？");
+			});
 		});
 	</script>
 </body>

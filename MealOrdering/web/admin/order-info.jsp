@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%--CITE 传入：session.onlineUser--%>
+<!--CITE 传入：session.onlineUser-->
 <%--@elvariable id="onlineUser" type="mealordering.domain.User"--%>
 <%--@elvariable id="order" type="mealordering.domain.Order"--%>
 
@@ -131,18 +131,18 @@
 	<!--STEP 页面尾部-->
 	<jsp:include page="/mealordering/admin/mo_footer.jsp"/>
 
-	<%--STEP 引入脚本--%>
-	<%--引入jQuery和Bootstrap脚本--%>
+	<!--STEP 引入脚本-->
+	<!--引入jQuery和Bootstrap脚本-->
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<script>
 		$(function() {
 			//STEP 切换侧边栏导航显示
-			$("#mo_side-menu .nav-link").removeClass("active").eq(3).addClass("active");
-		});
-		//STEP 删除前确认
-		$(".mo_btn-delete").click(function() {
-			return confirm("你确定要删除该订单吗？");
+			$("#mo_side-menu .nav-link").eq(3).addClass("active");
+			//STEP 删除前确认
+			$(".mo_btn-delete").click(function() {
+				return confirm("你确定要删除该订单吗？");
+			});
 		});
 	</script>
 </body>

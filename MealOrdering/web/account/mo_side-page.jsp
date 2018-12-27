@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%--CITE 传入：session.onlineUser--%>
+<!--CITE 传入：session.onlineUser-->
 <%--@elvariable id="onlineUser" type="mealordering.domain.NormalUser"--%>
 
-<%--STEP 侧边信息栏--%>
+<!--STEP 侧边信息栏-->
 <div class="container" id="mo_side-page">
 	<div class="card m-auto">
 		<img class="card-img-top" src="${onlineUser.imgUrl}" alt="用户头像">

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%--CITE 传入：session.onlineUser,req.meal--%>
+<!--CITE 传入：session.onlineUser,req.meal-->
 <%--@elvariable id="onlineUser" type="mealordering.domain.User"--%>
 <%--@elvariable id="notice" type="mealordering.domain.Notice"--%>
 
@@ -15,8 +15,8 @@
 	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
 
-	<%--STEP 引入脚本--%>
-	<%--引入jQuery和Bootstrap脚本--%>
+	<!--STEP 引入脚本-->
+	<!--引入jQuery和Bootstrap脚本-->
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
@@ -44,7 +44,7 @@
 					<h3 class="card-title"><c:out value="${notice.title}">公告标题</c:out>
 					</h3>
 					<p class="card-text"><c:out value="${notice.details}">公告详情。</c:out></p>
-					<%--返回按钮--%>
+					<!--返回按钮-->
 					<button class="float-right btn-secondary" onclick="history.go(-1)">返回</button>
 				</div>
 			</div>

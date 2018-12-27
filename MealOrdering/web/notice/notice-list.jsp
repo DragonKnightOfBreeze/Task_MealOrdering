@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%--CITE 传入：session.onlineUser--%>
+<!--CITE 传入：session.onlineUser-->
 <%--@elvariable id="onlineUser" type="mealordering.domain.User"--%>
 <%--@elvariable id="pageGroup" type="mealordering.domain.PageGroup"--%>
 <%--@elvariable id="page" type="java.util.List<mealordering.domain.Notice>"--%>
@@ -17,8 +17,8 @@
 	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
 
-	<%--STEP 引入脚本--%>
-	<%--引入jQuery和Bootstrap脚本--%>
+	<!--STEP 引入脚本-->
+	<!--引入jQuery和Bootstrap脚本-->
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
@@ -50,7 +50,7 @@
 						<div class="media-body">
 							<h3 class="media-heading"><a class="btn btn-link" href="${infoUrl}">${notice.title}</a></h3>
 							<p>${notice.details}</p>
-								<%--详情按钮--%>
+							<!--详情按钮-->
 							<c:url var="buyUrl" value="/mealordering/meal/find">
 								<c:param name="id" value="i${notice.id}"/>
 							</c:url>

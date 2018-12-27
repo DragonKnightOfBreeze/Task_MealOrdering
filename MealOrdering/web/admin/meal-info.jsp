@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%--CITE 传入：session.onlineUser,req.meal--%>
+<!--CITE 传入：session.onlineUser,req.meal-->
 <%--@elvariable id="onlineUser" type="mealordering.domain.User"--%>
 <%--@elvariable id="meal" type="mealordering.domain.Meal"--%>
 
@@ -44,7 +44,7 @@
 					<!--STEP 内容-->
 					<div class="row m-3" id="mo_body-content-admin">
 						<!--STEP 显示和编辑餐品信息的表单-->
-						<%--NOTE 包含图片，注意设置enctype--%>
+						<!--NOTE 包含图片，注意设置enctype-->
 						<form class="m-auto" id="mo_form-info" action="<c:url value="/mealordering/admin/edit-meal"/>" method="post"
 						      enctype="multipart/form-data">
 							<!--显示餐品id-->
@@ -71,7 +71,7 @@
 								</div>
 							</div>
 							<!--显示餐品分类-->
-							<%--QUESTION 未测试通过--%>
+							<!--QUESTION 未测试通过-->
 							<div class="form-row m-1">
 								<label class="col-md-3" for="mo_category">分类</label>
 								<div class="col-md-9">
@@ -142,22 +142,22 @@
 	<jsp:include page="/mealordering/admin/mo_footer.jsp"/>
 
 
-	<%--STEP 引入脚本--%>
-	<%--引入jQuery和Bootstrap脚本--%>
+	<!--STEP 引入脚本-->
+	<!--引入jQuery和Bootstrap脚本-->
 	<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<script>
 		$(function() {
 			//STEP 切换侧边栏导航显示
-			$("#mo_side-menu .nav-link").removeClass("active").eq(1).addClass("active");
-		});
-		//STEP 删除前确认
-		$(".mo_btn-delete").click(function() {
-			return confirm("你确定要删除该餐品吗？");
-		});
-		<%--STEP 当选择新的图片式改变显示的图片--%>
-		$("#mo_imgUrl").change(function() {
-			$("#mo_img").attr("src", $(this).val());
+			$("#mo_side-menu .nav-link").eq(1).addClass("active");
+			//STEP 删除前确认
+			$(".mo_btn-delete").click(function() {
+				return confirm("你确定要删除该餐品吗？");
+			});
+			<!--STEP 当选择新的图片式改变显示的图片-->
+			$("#mo_imgUrl").change(function() {
+				$("#mo_img").attr("src", $(this).val());
+			});
 		});
 	</script>
 </body>

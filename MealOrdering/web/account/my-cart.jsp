@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%--CITE 传入：session.onlineUser--%>
+<!--CITE 传入：session.onlineUser-->
 <%--@elvariable id="onlineUser" type="mealordering.domain.User"--%>
 <%--@elvariable id="cart" type="java.util.Map<mealordering.domain.Meal,java.lang.Integer>"--%>
 
@@ -58,20 +58,20 @@
 									</div>
 									<div class="row">
 										<form class="form-inline" action="<c:url value="/mealordering/account/edit-cart"/>" method="post">
-												<%--餐品id--%>
+											<!--餐品id-->
 											<input type="hidden" name="id" value="${entry.key.id}"/>
-												<%--餐品数量--%>
+											<!--餐品数量-->
 											<div class="form-group">购买数量
 												<input type="number" class="form-control mo_count" name="count"
 												       value="${entry.value}" min="0" max="10000" required>
-													<%--餐品总计价格--%>
+												<!--餐品总计价格-->
 												<input type="hidden" value="${entry.key.price}" disabled/>
 											</div>
 											<div class="form-group">总计
 												<input type="number" class="form-control mo_totalCount"
 												       value="${entry.value}" disabled>
 											</div>
-												<%--提交表单--%>
+											<!--提交表单-->
 											<button type="submit" class="btn btn-default">更新数量</button>
 										</form>
 									</div>
@@ -80,7 +80,7 @@
 						</div>
 					</div>
 					</c:forEach>
-					<%--更新餐品总价--%>
+					<!--更新餐品总价-->
 					<script>
 						$(".mo_count").change(function() {
 							$(this).parent().parent().find(".mo_totalCount").val(parseInt($(this).val()) + parseInt($(this).nextSibling().val()));
@@ -94,8 +94,8 @@
 		<jsp:include page="/mealordering/mo_footer.jsp"/>
 
 
-		<%--STEP 引入脚本--%>
-		<%--引入jQuery和Bootstrap脚本--%>
+		<!--STEP 引入脚本-->
+		<!--引入jQuery和Bootstrap脚本-->
 		<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </body>

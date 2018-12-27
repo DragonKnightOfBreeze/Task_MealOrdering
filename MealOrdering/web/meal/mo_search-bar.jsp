@@ -46,21 +46,21 @@
 
 		<div class="col-md-5 float-right">
 			<!--STEP 内联表单：普通搜索-->
-			<%--CITE GET 传出：searchType,name--%>
+			<!--CITE GET 传出：searchType,name-->
 			<form class="form-inline" action="<c:url value="/mealordering/meal/search"/>" method="get">
-				<%--搜索类型--%>
+				<!--搜索类型-->
 				<input type="hidden" name="searchType" value="byName"/>
-				<%--输入餐品名称--%>
+				<!--输入餐品名称-->
 				<div class="form-group">
 					<label class="sr-only" for="mo_name-search">名称</label>
 					<input type="text" class="form-control" id="mo_name-search" name="name"
 					       placeholder="请输入餐品名称" required>
 				</div>
-				<%--提交表单--%>
+				<!--提交表单-->
 				<button type="submit" class="btn btn-default">
 					<span class="fa fa-search"></span>
 				</button>
-				<%--高级搜索按钮--%>
+				<!--高级搜索按钮-->
 				<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#mo_modal-adv-search">
 					<span class="fa fa-star"></span>高级搜索
 				</button>
@@ -81,9 +81,9 @@
 					<!--STEP 内联表单：高级搜索-->
 					<!--CITE GET 传出：searchType,name,minPrice,maxPrice,category-->
 					<form action="<c:url value="/mealordering/meal/search"/>" method="get">
-						<%--搜索类型--%>
+						<!--搜索类型-->
 						<input type="hidden" name="searchType" value="byConditions"/>
-						<%--输入餐品名称--%>
+						<!--输入餐品名称-->
 						<div class="form-row m-1">
 							<label class="col-md-3" for="mo_name-adv-search">餐品名称</label>
 							<div class="col-md-9">
@@ -91,7 +91,7 @@
 								       placeholder="请输入餐品名称...">
 							</div>
 						</div>
-						<%--输入最低价格和最高价格--%>
+						<!--输入最低价格和最高价格-->
 						<div class="form-row m-1">
 							<label class="col-md-3" for="mo_minPrice-adv-search">最低价格</label>
 							<div class="col-md-3">
@@ -104,7 +104,7 @@
 								       min="0" max="10000">
 							</div>
 						</div>
-						<%--限制最低价格总是小于最高价格--%>
+						<!--限制最低价格总是小于最高价格-->
 						<script>
 							$("#mo_min-num,#mo_max-num").change(function() {
 								let $min = $("#mo_minPrice-adv-search");
@@ -112,7 +112,7 @@
 								$min.val(Math.min(parseInt($min.val()), parseInt($max.val())));
 							});
 						</script>
-						<%--选择餐品分类--%>
+						<!--选择餐品分类-->
 						<div class="form-row m-1">
 							<label class="col-md-3" for="mo_category-adv-search">餐品分类</label>
 							<div class="col-md-9">
@@ -125,7 +125,7 @@
 								</select>
 							</div>
 						</div>
-						<%--提交表单--%>
+						<!--提交表单-->
 						<div class="form-row m-1">
 							<button type="submit" class="btn btn-primary mx-auto">搜索！！</button>
 						</div>

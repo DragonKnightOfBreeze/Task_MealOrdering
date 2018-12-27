@@ -190,6 +190,17 @@ public class StringExt {
 	}
 
 	/**
+	 * 将指定的字符串转化为枚举值。如果不匹配，则返回默认值。
+	 * @param str 指定的字符串
+	 * @param clazz 枚举类
+	 * @param defaultValue 默认值
+	 */
+	public static Enum toEnum(String str, Class<? extends Enum> clazz, Enum<?> defaultValue) {
+		var result = toEnum(str, clazz);
+		return result == null ? defaultValue : result;
+	}
+
+	/**
 	 * 将指定的字符串转化为枚举值。如果不匹配，则返回null。
 	 * @param str 指定的字符串
 	 * @param clazz 枚举类

@@ -1,6 +1,6 @@
 package mealordering.web.servlet;
 
-import dk_breeze.utils.UUIDUtils;
+import dkbreeze.utils.UUIDUtils;
 import mealordering.service.ServiceFactory;
 
 import javax.servlet.ServletException;

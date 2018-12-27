@@ -3,7 +3,7 @@
  */
 package mealordering.web.servlet;
 
-import dk_breeze.utils.CheckUtils;
+import dkbreeze.utils.CheckUtils;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;

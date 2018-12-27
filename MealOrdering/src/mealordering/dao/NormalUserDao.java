@@ -1,6 +1,6 @@
 package mealordering.dao;
 
-import dk_breeze.exception.NotImplementedException;
+import dkbreeze.exception.NotImplementedException;
 import mealordering.domain.NormalUser;
 import mealordering.exception.UserNotFoundException;
 import mealordering.utils.DataSourceUtils;

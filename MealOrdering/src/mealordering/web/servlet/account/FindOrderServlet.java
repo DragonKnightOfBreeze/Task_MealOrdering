@@ -18,7 +18,7 @@ import java.sql.SQLException;
 /**
  * 根据Id查询订单的Servlet
  */
-@WebServlet(name = "FindOrderServlet", urlPatterns = {"/mealordering/admin/findOrderById", "/mealordering/account/find-order"})
+@WebServlet(name = "FindOrderServlet", urlPatterns = "/mealordering/account/find-order")
 public class FindOrderServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

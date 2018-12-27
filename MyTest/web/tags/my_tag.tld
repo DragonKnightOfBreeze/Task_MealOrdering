@@ -12,7 +12,7 @@
     <!--显示格式化后的当前时间的标签-->
     <tag>
         <name>dateFormat</name>
-        <tag-class>dk_breeze.test.jtl.SimpleDateTag</tag-class>
+        <tag-class>dkbreeze.test.jtl.SimpleDateTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>format</name>
@@ -25,7 +25,7 @@
     <!--遍历列表元素的标签-->
     <tag>
         <name>forEach</name>
-        <tag-class>dk_breeze.test.jtl.SimpleForEachTag</tag-class>
+        <tag-class>dkbreeze.test.jtl.SimpleForEachTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>id</name>
@@ -48,7 +48,7 @@
     <!--多参数加法的标签-->
     <tag>
         <name>dynamicAdd</name>
-        <tag-class>dk_breeze.test.jtl.DynamicAddTag</tag-class>
+        <tag-class>dkbreeze.test.jtl.DynamicAddTag</tag-class>
         <body-content>empty</body-content>
         <dynamic-attributes>true</dynamic-attributes>
     </tag>

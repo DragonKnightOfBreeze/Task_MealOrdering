@@ -25,12 +25,12 @@
 		<c:out value="${ses}"/>
 	</p>
 
-	<jsp:useBean id="user" scope="session" type="dk_breeze.test.servlet.TestAdmin"/>
+	<jsp:useBean id="user" scope="session" type="dkbreeze.test.servlet.TestAdmin"/>
 	<p>
 		<c:out value="${user.ad}"/>
 	</p>
 
-	<jsp:useBean id="admin" scope="session" class="dk_breeze.test.servlet.TestAdmin"/>
+	<jsp:useBean id="admin" scope="session" class="dkbreeze.test.servlet.TestAdmin"/>
 	${empty admin.name}
 </body>
 </html>

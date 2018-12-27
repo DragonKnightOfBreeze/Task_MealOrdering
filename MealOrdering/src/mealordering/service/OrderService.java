@@ -1,7 +1,7 @@
 package mealordering.service;
 
-import dk_breeze.annotation.NotTested;
-import dk_breeze.utils.ext.ListExt;
+import dkbreeze.annotation.NotTested;
+import dkbreeze.utils.ext.ListExt;
 import mealordering.dao.DaoFactory;
 import mealordering.dao.MealDao;
 import mealordering.dao.OrderDao;

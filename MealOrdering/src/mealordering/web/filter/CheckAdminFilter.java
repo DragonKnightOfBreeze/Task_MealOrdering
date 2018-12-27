@@ -1,7 +1,7 @@
 package mealordering.web.filter;
 
 
-import dk_breeze.utils.ext.StringExt;
+import dkbreeze.utils.ext.StringExt;
 import mealordering.domain.User;
 import mealordering.enums.Identity;
 

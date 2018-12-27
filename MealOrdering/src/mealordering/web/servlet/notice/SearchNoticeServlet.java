@@ -3,7 +3,7 @@
  */
 package mealordering.web.servlet.notice;
 
-import dk_breeze.utils.ext.StringExt;
+import dkbreeze.utils.ext.StringExt;
 import mealordering.domain.Notice;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;

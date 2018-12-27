@@ -3,8 +3,8 @@
 // */
 //package mealordering.web.servlet.account;
 //
-//import dk_breeze.annotation.NotTested;
-//import dk_breeze.utils.ext.StringExt;
+//import dkbreeze.annotation.NotTested;
+//import dkbreeze.utils.ext.StringExt;
 //import mealordering.service.OrderService;
 //import mealordering.utils.PaymentUtils;
 //

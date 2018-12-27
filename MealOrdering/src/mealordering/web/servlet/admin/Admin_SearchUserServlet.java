@@ -1,7 +1,7 @@
 package mealordering.web.servlet.admin;
 
 
-import dk_breeze.utils.ext.StringExt;
+import dkbreeze.utils.ext.StringExt;
 import mealordering.domain.NormalUser;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;

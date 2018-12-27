@@ -5,7 +5,8 @@ package mealordering.web.servlet.settings;
 
 import com.jspsmart.upload.SmartUpload;
 import com.jspsmart.upload.SmartUploadException;
-import dk_breeze.utils.FileUtils;
+import dkbreeze.utils.FileUtils;
+import dkbreeze.utils.ext.StringExt;
 import mealordering.domain.NormalUser;
 import mealordering.service.ServiceFactory;
 
@@ -36,21 +37,19 @@ public class EditUserServlet extends HttpServlet {
 			su.setAllowedFilesList("jpg,png,gif");
 			su.upload();
 			//STEP 得到传入参数
-			int id = Integer.parseInt(req.getParameter("userId").trim());
-			String userName = req.getParameter("userName").trim();
-			String password = req.getParameter("password").trim();
-			String gender = req.getParameter("gender").trim();
-			String email = req.getParameter("email").trim();
-			String phoneNum = req.getParameter("phoneNum").trim();
-			String introduce = req.getParameter("introduce").trim();
+			int id = StringExt.toInt(req.getParameter("userId"));
+			String userName = req.getParameter("userName");
+			String password = req.getParameter("password");
+			String gender = req.getParameter("gender");
+			String email = req.getParameter("email");
+			String phoneNum = req.getParameter("phoneNum");
+			String introduce = req.getParameter("introduce");
 			String imgUrl = "";
 			//STEP 缓存上传图片（如果有的话）
 			if(su.getFiles().getCount() > 0) {
 				String fileName = su.getFiles().getFile(0).getFileName();
-				String ext = su.getFiles().getFile(0).getFileExt();
-				imgUrl = FileUtils.join(getServletContext().getRealPath("/mealordering/assets/image/user_img"),
-						FileUtils.getRandomFileName(fileName));
-				su.getFiles().getFile(0).saveAs(imgUrl);
+				imgUrl = "/mealordering/assets/image/user_img" + FileUtils.getRandomFileName(fileName);
+				su.getFiles().getFile(0).saveAs(getServletContext().getRealPath("/") + imgUrl);
 			}
 			//STEP 后台操作
 			NormalUser user = new NormalUser(userName, password, imgUrl, gender, email, phoneNum, introduce);

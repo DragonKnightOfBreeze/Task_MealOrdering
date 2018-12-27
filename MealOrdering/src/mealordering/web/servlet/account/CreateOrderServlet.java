@@ -3,7 +3,7 @@
  */
 package mealordering.web.servlet.account;
 
-import dk_breeze.utils.UUIDUtils;
+import dkbreeze.utils.UUIDUtils;
 import mealordering.domain.Meal;
 import mealordering.domain.NormalUser;
 import mealordering.domain.Order;

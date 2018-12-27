@@ -104,6 +104,10 @@
 							</tbody>
 						</table>
 					</div>
+					<%--STEP 总结--%>
+					<div class="row m-3">
+						<a class="btn btn-info" href="<c:url value="/mealordering/admin/download-sales-list"/>">打印下载销售榜单</a>
+					</div>
 					<!--STEP 分页导航-->
 					<div class="row m-3" id="mo_page-bar-admin">
 						<!--NOTE 动态生成分页导航-->

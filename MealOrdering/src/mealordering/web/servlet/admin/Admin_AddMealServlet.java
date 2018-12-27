@@ -2,9 +2,9 @@ package mealordering.web.servlet.admin;
 
 import com.jspsmart.upload.SmartUpload;
 import com.jspsmart.upload.SmartUploadException;
-import dk_breeze.utils.FileUtils;
-import dk_breeze.utils.UUIDUtils;
-import dk_breeze.utils.ext.StringExt;
+import dkbreeze.utils.FileUtils;
+import dkbreeze.utils.UUIDUtils;
+import dkbreeze.utils.ext.StringExt;
 import mealordering.domain.Meal;
 import mealordering.service.ServiceFactory;
 
@@ -47,10 +47,8 @@ public class Admin_AddMealServlet extends HttpServlet {
 			//STEP 缓存上传图片（如果有的话）
 			if(su.getFiles().getCount() > 0) {
 				String fileName = su.getFiles().getFile(0).getFileName();
-				String ext = su.getFiles().getFile(0).getFileExt();
-				imgUrl = FileUtils.join(getServletContext().getRealPath("/mealordering/assets/image/meal_img"),
-						FileUtils.getRandomFileName(fileName));
-				su.getFiles().getFile(0).saveAs(imgUrl);
+				imgUrl = "/mealordering/assets/image/meal_img" + FileUtils.getRandomFileName(fileName);
+				su.getFiles().getFile(0).saveAs(getServletContext().getRealPath("/") + imgUrl);
 			}
 			//STEP 后台操作
 			Meal meal = new Meal(name, price, category, imgUrl, description, count);

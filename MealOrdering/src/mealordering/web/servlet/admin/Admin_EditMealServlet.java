@@ -2,8 +2,8 @@ package mealordering.web.servlet.admin;
 
 import com.jspsmart.upload.SmartUpload;
 import com.jspsmart.upload.SmartUploadException;
-import dk_breeze.utils.FileUtils;
-import dk_breeze.utils.ext.StringExt;
+import dkbreeze.utils.FileUtils;
+import dkbreeze.utils.ext.StringExt;
 import mealordering.domain.Meal;
 import mealordering.service.ServiceFactory;
 
@@ -35,20 +35,18 @@ public class Admin_EditMealServlet extends HttpServlet {
 			su.setAllowedFilesList("jpg,png,gif");
 			su.upload();
 			//STEP 得到传入参数
-			String id = su.getRequest().getParameter("id").trim();
-			String name = su.getRequest().getParameter("name").trim();
+			String id = su.getRequest().getParameter("id");
+			String name = su.getRequest().getParameter("name");
 			double price = StringExt.toDouble(su.getRequest().getParameter("price"));
-			String category = su.getRequest().getParameter("category").trim();
-			String description = su.getRequest().getParameter("description").trim();
+			String category = su.getRequest().getParameter("category");
+			String description = su.getRequest().getParameter("description");
 			int count = StringExt.toInt(su.getRequest().getParameter("count"));
 			String imgUrl = "";
 			//STEP 缓存上传图片（如果有的话）
 			if(su.getFiles().getCount() > 0) {
 				String fileName = su.getFiles().getFile(0).getFileName();
-				String ext = su.getFiles().getFile(0).getFileExt();
-				imgUrl = FileUtils.join(getServletContext().getRealPath("/mealordering/assets/image/meal_img"),
-						FileUtils.getRandomFileName(fileName));
-				su.getFiles().getFile(0).saveAs(imgUrl);
+				imgUrl = "/mealordering/assets/image/meal_img" + FileUtils.getRandomFileName(fileName);
+				su.getFiles().getFile(0).saveAs(getServletContext().getRealPath("/") + imgUrl);
 			}
 			//STEP 后台操作
 			Meal meal = new Meal(name, price, category, imgUrl, description, count);

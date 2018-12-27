@@ -1,6 +1,6 @@
 package mealordering.web.servlet.settings;
 
-import dk_breeze.utils.ext.StringExt;
+import dkbreeze.utils.ext.StringExt;
 import mealordering.service.ServiceFactory;
 
 import javax.servlet.ServletException;

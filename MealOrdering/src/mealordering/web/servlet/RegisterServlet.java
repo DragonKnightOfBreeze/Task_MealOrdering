@@ -5,8 +5,8 @@ package mealordering.web.servlet;
 
 import com.jspsmart.upload.SmartUpload;
 import com.jspsmart.upload.SmartUploadException;
-import dk_breeze.utils.FileUtils;
-import dk_breeze.utils.UUIDUtils;
+import dkbreeze.utils.FileUtils;
+import dkbreeze.utils.UUIDUtils;
 import mealordering.domain.NormalUser;
 import mealordering.service.ServiceFactory;
 
@@ -49,10 +49,8 @@ public class RegisterServlet extends HttpServlet {
 			//STEP 缓存上传图片（如果有的话）
 			if(su.getFiles().getCount() > 0) {
 				String fileName = su.getFiles().getFile(0).getFileName();
-				String ext = su.getFiles().getFile(0).getFileExt();
-				imgUrl = FileUtils.join(getServletContext().getRealPath("/mealordering/assets/image/user_img"),
-						FileUtils.getRandomFileName(fileName));
-				su.getFiles().getFile(0).saveAs(imgUrl);
+				imgUrl = "/mealordering/assets/image/user_img" + FileUtils.getRandomFileName(fileName);
+				su.getFiles().getFile(0).saveAs(getServletContext().getRealPath("/") + imgUrl);
 			}
 			//STEP 后台操作
 			NormalUser user = new NormalUser(userName, password, imgUrl, gender, email, phoneNum, introduce);

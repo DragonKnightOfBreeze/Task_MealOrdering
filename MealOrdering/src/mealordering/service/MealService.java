@@ -1,6 +1,6 @@
 package mealordering.service;
 
-import dk_breeze.utils.ext.ListExt;
+import dkbreeze.utils.ext.ListExt;
 import mealordering.dao.DaoFactory;
 import mealordering.dao.MealDao;
 import mealordering.domain.Meal;

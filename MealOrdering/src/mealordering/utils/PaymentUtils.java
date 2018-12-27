@@ -1,6 +1,6 @@
 package mealordering.utils;
 
-import dk_breeze.annotation.NotTested;
+import dkbreeze.annotation.NotTested;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.UnsupportedEncodingException;

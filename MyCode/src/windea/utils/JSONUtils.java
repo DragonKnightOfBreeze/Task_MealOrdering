@@ -74,8 +74,8 @@ public class JSONUtils {
 
 
 	/**
-	 * 根据指定的路径，读取JSON文件，得到JSON对象。
-	 * <br>路径可以是绝对地址，也可以相对于项目地址并不以/或\\开头。
+	 * 根据指定的路径，读取JSON文件，得到JSON对象。<br>
+	 * 路径可以是绝对地址，也可以相对于项目地址并不以/或\\开头。
 	 */
 	@NotNull
 	@Contract("_ -> new")
@@ -87,8 +87,8 @@ public class JSONUtils {
 	}
 
 	/**
-	 * 根据指定的路径，读取JSON文件，得到JSON数组。
-	 * <br>路径可以是绝对地址，也可以相对于项目地址并不以/或\\开头。
+	 * 根据指定的路径，读取JSON文件，得到JSON数组。<br>
+	 * 路径可以是绝对地址，也可以相对于项目地址并不以/或\\开头。
 	 */
 	@NotNull
 	@Contract("_ -> new")
@@ -101,16 +101,16 @@ public class JSONUtils {
 
 
 	/**
-	 * 根据指定的JSON对象和路径，写入JSON文件。
-	 * <br>路径可以是绝对地址，也可以相对于项目地址并不以/或\\开头。
+	 * 根据指定的JSON对象和路径，写入JSON文件。<br>
+	 * 路径可以是绝对地址，也可以相对于项目地址并不以/或\\开头。
 	 */
 	public static void to(@NotNull JSONObject json, @NotNull String filePath) throws IOException {
 		to(json, filePath, 4);
 	}
 
 	/**
-	 * 根据指定的JSON对象和路径，写入JSON文件。
-	 * <br>路径可以是绝对地址，也可以相对于项目地址并不以/或\\开头。
+	 * 根据指定的JSON对象和路径，写入JSON文件。<br>
+	 * 路径可以是绝对地址，也可以相对于项目地址并不以/或\\开头。
 	 */
 	public static void to(@NotNull JSONObject json, @NotNull String filePath, int indent) throws IOException {
 		if(!filePath.endsWith(".json"))
@@ -122,16 +122,16 @@ public class JSONUtils {
 	}
 
 	/**
-	 * 根据指定的JSON对象和路径，写入JSON文件。
-	 * <br>路径可以是绝对地址，也可以相对于项目地址并不以/或\\开头。
+	 * 根据指定的JSON对象和路径，写入JSON文件。<br>
+	 * 路径可以是绝对地址，也可以相对于项目地址并不以/或\\开头。
 	 */
 	public static void to2(@NotNull JSONArray json, @NotNull String filePath) throws IOException {
 		to2(json, filePath, 4);
 	}
 
 	/**
-	 * 根据指定的JSON对象和路径，写入JSON文件。
-	 * <br>路径可以是绝对地址，也可以相对于项目地址并不以/或\\开头。
+	 * 根据指定的JSON对象和路径，写入JSON文件。<br>
+	 * 路径可以是绝对地址，也可以相对于项目地址并不以/或\\开头。
 	 */
 	public static void to2(@NotNull JSONArray json, @NotNull String filePath, int indent) throws IOException {
 		if(!filePath.endsWith(".json"))

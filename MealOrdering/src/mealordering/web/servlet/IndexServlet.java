@@ -1,7 +1,7 @@
 package mealordering.web.servlet;
 
-import dkbreeze.utils.ext.ArrayExt;
-import dkbreeze.utils.ext.StringExt;
+import windea.utils.ext.ArrayExt;
+import windea.utils.ext.StringExt;
 import mealordering.domain.Notice;
 import mealordering.domain.User;
 import mealordering.domain.WeekHotMeal;

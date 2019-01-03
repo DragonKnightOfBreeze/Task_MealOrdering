@@ -1,8 +1,8 @@
 package mealordering.domain;
 
-import dkbreeze.annotation.NotTested;
-import dkbreeze.utils.ext.ArrayExt;
-import dkbreeze.utils.ext.MathExt;
+import windea.annotation.NotTested;
+import windea.utils.ext.ArrayExt;
+import windea.utils.ext.MathExt;
 
 import java.beans.JavaBean;
 import java.io.Serializable;

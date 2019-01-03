@@ -1,6 +1,6 @@
 package mealordering.web.servlet.admin;
 
-import dkbreeze.utils.ext.StringExt;
+import windea.utils.ext.StringExt;
 import mealordering.domain.NormalUser;
 import mealordering.domain.Order;
 import mealordering.domain.PageGroup;

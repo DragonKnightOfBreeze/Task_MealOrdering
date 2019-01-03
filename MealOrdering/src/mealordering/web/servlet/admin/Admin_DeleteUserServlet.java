@@ -1,6 +1,6 @@
 package mealordering.web.servlet.admin;
 
-import dkbreeze.utils.ext.StringExt;
+import windea.utils.ext.StringExt;
 import mealordering.service.ServiceFactory;
 
 import javax.servlet.ServletException;

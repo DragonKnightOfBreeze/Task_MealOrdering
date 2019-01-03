@@ -1,6 +1,6 @@
 package mealordering.service;
 
-import dkbreeze.utils.ext.ListExt;
+import windea.utils.ext.ListExt;
 import mealordering.dao.DaoFactory;
 import mealordering.dao.NoticeDao;
 import mealordering.domain.Notice;

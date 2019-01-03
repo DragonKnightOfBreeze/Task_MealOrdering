@@ -3,7 +3,7 @@
  */
 package mealordering.web.servlet.admin;
 
-import dkbreeze.utils.ext.StringExt;
+import windea.utils.ext.StringExt;
 import mealordering.domain.User;
 import mealordering.exception.ResultEmptyException;
 import mealordering.service.ServiceFactory;

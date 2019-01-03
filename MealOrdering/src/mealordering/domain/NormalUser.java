@@ -5,7 +5,7 @@ import mealordering.enums.Identity;
 import java.beans.JavaBean;
 import java.util.Date;
 
-import static dkbreeze.utils.ext.StringExt.f;
+import static windea.utils.ext.StringExt.f;
 
 /**
  * 普通用户的实体类

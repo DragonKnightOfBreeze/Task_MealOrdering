@@ -1,6 +1,6 @@
 package mealordering.web.servlet;
 
-import dkbreeze.utils.ext.StringExt;
+import windea.utils.ext.StringExt;
 import mealordering.domain.PageGroup;
 import mealordering.exception.ResultEmptyException;
 

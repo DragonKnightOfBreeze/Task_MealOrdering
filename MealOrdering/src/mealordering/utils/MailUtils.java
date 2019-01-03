@@ -30,7 +30,7 @@ public class MailUtils {
 		Authenticator auth = new Authenticator() {
 			@Override
 			public PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("dkbreeze.qq.com", "******");
+				return new PasswordAuthentication("windea.qq.com", "******");
 			}
 		};
 		sendMail(props, auth, emailFrom, emailTo, subject, content);
@@ -57,7 +57,7 @@ public class MailUtils {
 //		//创建验证器
 //		Authenticator auth = new Authenticator() {
 //			public PasswordAuthentication getPasswordAuthentication() {
-//				return new PasswordAuthentication("dkbreeze.qq.com", "******");
+//				return new PasswordAuthentication("windea.qq.com", "******");
 //			}
 //		};
 

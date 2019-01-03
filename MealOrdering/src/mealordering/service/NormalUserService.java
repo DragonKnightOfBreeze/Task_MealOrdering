@@ -1,8 +1,8 @@
 package mealordering.service;
 
-import dkbreeze.exception.NotImplementedException;
-import dkbreeze.utils.MailUtils;
-import dkbreeze.utils.ext.ListExt;
+import windea.exception.NotImplementedException;
+import windea.utils.MailUtils;
+import windea.utils.ext.ListExt;
 import mealordering.dao.DaoFactory;
 import mealordering.dao.NormalUserDao;
 import mealordering.domain.NormalUser;
@@ -168,7 +168,7 @@ public class NormalUserService {
 	public void sendActiveEmail(@NotNull String toEmail, @NotNull String activeCode) {
 		//TODO 提取参数
 		String href = "http://localhost:8080/mealordering/active?activeCode=" + activeCode;
-		String fromEmail = "dkbreeze@qq.com";
+		String fromEmail = "windea@qq.com";
 		String subject = "用户注册";
 		String content = "<b>这是一封激活邮件</b>\n" +
 				"<p>" +
@@ -176,9 +176,9 @@ public class NormalUserService {
 				"<a href='" + href + "'>&nbsp;激活&nbsp;</a>后使用。\n" +
 				"<br>为保障您的账户安全，请在24小时内完成激活操作。" +
 				"</p>";
-//		String[] authInfo = new String[]{"dkbreeze@qq.com", "......"};
+//		String[] authInfo = new String[]{"windea@qq.com", "......"};
 
-		dkbreeze.utils.MailUtils.sendHTML(fromEmail, toEmail, subject, content, null, null);
+		windea.utils.MailUtils.sendHTML(fromEmail, toEmail, subject, content, null, null);
 	}
 
 	/**
@@ -189,7 +189,7 @@ public class NormalUserService {
 	public void sendFindPswEmail(@NotNull String toEmail, @NotNull String resetCode) {
 		String indexHref = "http://localhost:8080/mealordering/index.jsp";
 		String href = "http://localhost:8080/mealordering/reset-password.jsp?resetCode=" + resetCode;
-		String fromEmail = "dkbreeze@qq.com";
+		String fromEmail = "windea@qq.com";
 		String subject = "找回你的密码";
 		String content = "<h1>这封邮件来自<a href='" + indexHref + "'>网上订餐系统</a></h1>" +
 				"<p>" +
@@ -197,7 +197,7 @@ public class NormalUserService {
 				"<a href='" + href + "'>&nbsp;这个链接&nbsp;</a>。" +
 				"<br>若非本人操作，请忽略这份邮件。" +
 				"</p>";
-//		String[] authInfo = new String[]{"dkbreeze@qq.com", "......"};
+//		String[] authInfo = new String[]{"windea@qq.com", "......"};
 
 		MailUtils.sendHTML(fromEmail, toEmail, subject, content, null, null);
 	}

@@ -1,6 +1,6 @@
 package mealordering.web.servlet;
 
-import dkbreeze.utils.UUIDUtils;
+import windea.utils.UUIDUtils;
 import mealordering.service.ServiceFactory;
 
 import javax.servlet.ServletException;

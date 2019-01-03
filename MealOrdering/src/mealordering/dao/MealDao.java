@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static dkbreeze.utils.ext.StringExt.equalsE;
+import static windea.utils.ext.StringExt.equalsE;
 
 /**
  * 餐品的Dao类

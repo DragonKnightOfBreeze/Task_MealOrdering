@@ -8,6 +8,7 @@ import java.util.UUID;
 
 /**
  * uuid的工具类
+ * @noinspection unused, WeakerAccess
  */
 public class UUIDUtils {
 	/**

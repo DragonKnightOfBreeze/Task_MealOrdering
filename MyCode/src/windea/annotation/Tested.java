@@ -5,7 +5,7 @@
 package windea.annotation;
 
 /**
- * 有待在新版本Java中找到替代方式的代码
+ * 通过测试的代码的注解
  */
-public @interface Outlook {
+public @interface Tested {
 }

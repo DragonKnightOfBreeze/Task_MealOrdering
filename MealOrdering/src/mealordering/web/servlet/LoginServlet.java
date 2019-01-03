@@ -1,10 +1,14 @@
+/*
+ * Copyright (c) 2019.  @DragonKnightOfBreeze Windea / @微风的龙骑士 风游迩
+ * A WindKid who has tamed the proud Ancient Dragon and led the wind of stories and tales.
+ */
 package mealordering.web.servlet;
 
-import windea.utils.ext.StringExt;
 import mealordering.domain.User;
 import mealordering.exception.UserNotActiveException;
 import mealordering.exception.UserNotFoundException;
 import mealordering.service.ServiceFactory;
+import windea.ext.StringExt;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

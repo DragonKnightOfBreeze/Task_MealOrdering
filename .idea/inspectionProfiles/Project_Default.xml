@@ -397,7 +397,7 @@
     <inspection_tool class="AssignmentToForLoopParameterJS" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="AssignmentToFunctionParameterJS" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="AssignmentToLambdaParameter" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
-    <inspection_tool class="AssignmentToMethodParameter" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+    <inspection_tool class="AssignmentToMethodParameter" enabled="false" level="WEAK WARNING" enabled_by_default="false">
       <option name="ignoreTransformationOfOriginalParameter" value="false" />
     </inspection_tool>
     <inspection_tool class="AssignmentToNull" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
@@ -454,7 +454,7 @@
       <option name="ignoreBooleanMethods" value="false" />
       <option name="ignoreInAnnotationInterface" value="true" />
       <option name="onlyWarnOnBaseMethods" value="true" />
-      <option name="questionString" value="add,are,can,check,contains,could,endsWith,equals,has,is,matches,must,put,remove,shall,should,startsWith,was,were,will,would" />
+      <option name="questionString" value="add,are,can,check,contains,could,endsWith,equals,has,is,matches,must,put,remove,shall,should,startsWith,was,were,will,would,or" />
     </inspection_tool>
     <inspection_tool class="BooleanParameter" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="BooleanVariableAlwaysNegated" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -1988,7 +1988,7 @@
     <inspection_tool class="OptionalGetWithoutIsPresent" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="OptionalIsPresent" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="OptionalUsedAsFieldOrParameterType" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="OverloadedMethodsWithSameNumberOfParameters" enabled="true" level="TYPO" enabled_by_default="true">
+    <inspection_tool class="OverloadedMethodsWithSameNumberOfParameters" enabled="true" level="INFORMATION" enabled_by_default="true">
       <option name="ignoreInconvertibleTypes" value="true" />
     </inspection_tool>
     <inspection_tool class="OverloadedVarargsMethod" enabled="true" level="TYPO" enabled_by_default="true" />
@@ -3010,7 +3010,7 @@
     <inspection_tool class="WaitOrAwaitWithoutTimeout" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="WaitWhileHoldingTwoLocks" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="WaitWithoutCorrespondingNotify" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="WeakerAccess" enabled="true" level="WARNING" enabled_by_default="true">
+    <inspection_tool class="WeakerAccess" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <option name="SUGGEST_PACKAGE_LOCAL_FOR_MEMBERS" value="true" />
       <option name="SUGGEST_PACKAGE_LOCAL_FOR_TOP_CLASSES" value="true" />
       <option name="SUGGEST_PRIVATE_FOR_INNERS" value="false" />

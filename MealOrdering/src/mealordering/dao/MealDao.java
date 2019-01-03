@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019.  @DragonKnightOfBreeze Windea / @微风的龙骑士 风游迩
+ * A WindKid who has tamed the proud Ancient Dragon and led the wind of stories and tales.
+ */
 package mealordering.dao;
 
 import mealordering.domain.Meal;
@@ -16,7 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static windea.utils.ext.StringExt.equalsE;
+import static windea.ext.StringExt.equalsE;
 
 /**
  * 餐品的Dao类

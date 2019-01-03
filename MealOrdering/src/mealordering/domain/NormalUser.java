@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019.  @DragonKnightOfBreeze Windea / @微风的龙骑士 风游迩
+ * A WindKid who has tamed the proud Ancient Dragon and led the wind of stories and tales.
+ */
 package mealordering.domain;
 
 import mealordering.enums.Identity;
@@ -5,7 +9,7 @@ import mealordering.enums.Identity;
 import java.beans.JavaBean;
 import java.util.Date;
 
-import static windea.utils.ext.StringExt.f;
+import static windea.ext.StringExt.f;
 
 /**
  * 普通用户的实体类

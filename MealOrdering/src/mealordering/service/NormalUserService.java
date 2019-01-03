@@ -1,8 +1,9 @@
+/*
+ * Copyright (c) 2019.  @DragonKnightOfBreeze Windea / @微风的龙骑士 风游迩
+ * A WindKid who has tamed the proud Ancient Dragon and led the wind of stories and tales.
+ */
 package mealordering.service;
 
-import windea.exception.NotImplementedException;
-import windea.utils.MailUtils;
-import windea.utils.ext.ListExt;
 import mealordering.dao.DaoFactory;
 import mealordering.dao.NormalUserDao;
 import mealordering.domain.NormalUser;
@@ -11,6 +12,9 @@ import mealordering.exception.TimeoutException;
 import mealordering.exception.UserNotActiveException;
 import mealordering.exception.UserNotFoundException;
 import org.jetbrains.annotations.NotNull;
+import windea.exception.NotImplementedException;
+import windea.ext.ListExt;
+import windea.utils.MailUtils;
 
 import java.sql.SQLException;
 import java.util.List;

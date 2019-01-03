@@ -18,8 +18,9 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * JSON的工具类
- * <br>使用官方的json插件。
+ * JSON的工具类<br>
+ * 使用官方的json插件。
+ * @noinspection unused, WeakerAccess
  */
 public class JSONUtils {
 

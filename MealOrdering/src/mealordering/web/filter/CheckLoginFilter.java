@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) 2019.  @DragonKnightOfBreeze Windea / @微风的龙骑士 风游迩
+ * A WindKid who has tamed the proud Ancient Dragon and led the wind of stories and tales.
+ */
 package mealordering.web.filter;
 
 
-import windea.utils.ext.StringExt;
 import mealordering.domain.User;
 import mealordering.enums.Identity;
+import windea.ext.StringExt;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

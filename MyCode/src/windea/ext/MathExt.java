@@ -3,7 +3,7 @@
  * A WindKid who has tamed the proud Ancient Dragon and led the wind of stories and tales.
  */
 
-package windea.utils.ext;
+package windea.ext;
 
 import org.jetbrains.annotations.Contract;
 import windea.exception.NotImplementedException;
@@ -21,10 +21,11 @@ public class MathExt {
 		if(min > max)
 			throw new IllegalArgumentException();
 
-		if(num < min)
+		if(num < min) {
 			num = min;
-		else if(num > max)
+		} else if(num > max) {
 			num = max;
+		}
 		return num;
 	}
 
@@ -45,17 +46,21 @@ public class MathExt {
 	}
 
 
+	/**
+	 * 夹值方法（从0到1）。
+	 */
 	@Contract(pure = true)
 	public static double clamp01(double num) {
-		if(num < 0)
+		if(num < 0) {
 			num = 0;
-		else if(num > 1)
+		} else if(num > 1) {
 			num = 1;
+		}
 		return num;
 	}
 
 	/**
-	 * 夹值方法（0到1）。
+	 * 夹值方法（从0到1）。
 	 */
 	@Contract(pure = true)
 	public static float clamp01(float num) {

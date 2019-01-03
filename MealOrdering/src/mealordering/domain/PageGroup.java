@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 2019.  @DragonKnightOfBreeze Windea / @微风的龙骑士 风游迩
+ * A WindKid who has tamed the proud Ancient Dragon and led the wind of stories and tales.
+ */
 package mealordering.domain;
 
 import windea.annotation.NotTested;
-import windea.utils.ext.ArrayExt;
-import windea.utils.ext.MathExt;
+import windea.ext.ArrayExt;
+import windea.ext.MathExt;
 
 import java.beans.JavaBean;
 import java.io.Serializable;

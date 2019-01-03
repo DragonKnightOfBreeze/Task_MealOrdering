@@ -6,7 +6,7 @@
 package windea.utils;
 
 import org.jetbrains.annotations.NotNull;
-import windea.utils.ext.RandomExt;
+import windea.ext.RandomExt;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,11 +14,11 @@ import java.util.stream.IntStream;
 
 /**
  * 验证的工具类
- * @author DragonKnightOfBreeze
+ * @noinspection unused, WeakerAccess
  */
 public class CheckUtils {
-	private static int WIDTH = 60;
-	private static int HEIGHT = 20;
+	private static int width = 60;
+	private static int height = 20;
 
 //	/**
 //	 * 得到字符验证码图片，输出到servlet。默认字符长度为4。
@@ -53,9 +53,9 @@ public class CheckUtils {
 	 */
 	public static BufferedImage getCheckImg(@NotNull char[] checkCode, @NotNull Color fontColor, @NotNull Font font,
 			@NotNull Color bgColor) {
-		WIDTH = 15 * checkCode.length;
+		width = 15 * checkCode.length;
 		//创建内存图象并获得其图形上下文
-		BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		//绘制一张字符验证码图片
 		Graphics2D graphics2D = image.createGraphics();
 		drawBackground(graphics2D, bgColor);
@@ -97,7 +97,8 @@ public class CheckUtils {
 	 * @param fontColor 字符验证码的颜色
 	 * @param font 字符验证码的样式
 	 */
-	private static void drawCheckCode(Graphics2D graphics2D, char[] checkCode, Color fontColor, Font font) {
+	private static void drawCheckCode(@NotNull Graphics2D graphics2D, @NotNull char[] checkCode, Color fontColor,
+			Font font) {
 		//设置字符验证码的颜色和样式
 		graphics2D.setColor(fontColor);
 		graphics2D.setFont(font);
@@ -117,14 +118,14 @@ public class CheckUtils {
 	 * @param graphics 图片
 	 * @param bgColor 背景颜色
 	 */
-	private static void drawBackground(Graphics graphics, Color bgColor) {
+	private static void drawBackground(@NotNull Graphics graphics, Color bgColor) {
 		//绘制背景
 		graphics.setColor(bgColor);
-		graphics.fillRect(0, 0, WIDTH, HEIGHT);
+		graphics.fillRect(0, 0, width, height);
 		//随机产生干扰点
-		IntStream.range(0, WIDTH * 4).forEach(i -> {
-			int x = RandomExt.range(WIDTH);
-			int y = RandomExt.range(HEIGHT);
+		IntStream.range(0, width * 4).forEach(i -> {
+			int x = RandomExt.range(width);
+			int y = RandomExt.range(height);
 			int red = RandomExt.range(255);
 			int green = RandomExt.range(255);
 			int blue = RandomExt.range(255);

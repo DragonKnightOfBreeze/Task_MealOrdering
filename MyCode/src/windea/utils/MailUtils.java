@@ -6,7 +6,7 @@ package windea.utils;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import windea.utils.ext.ArrayExt;
+import windea.ext.ArrayExt;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -19,6 +19,7 @@ import java.util.Properties;
 
 /**
  * 发送邮件的工具类
+ * @noinspection unused, WeakerAccess
  */
 public class MailUtils {
 	/**

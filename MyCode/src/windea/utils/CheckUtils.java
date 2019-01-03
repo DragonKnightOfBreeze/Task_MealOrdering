@@ -1,12 +1,12 @@
 /*
- * Copyright (c) $today.year.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
- * A WindKid who has tamed the proud Ancient Dragon and led the wind of Wind Fairy.
+ * Copyright (c) 2019.  @DragonKnightOfBreeze Windea / @微风的龙骑士 风游迩
+ * A WindKid who has tamed the proud Ancient Dragon and led the wind of stories and tales.
  */
 
 package windea.utils;
 
-import windea.utils.ext.RandomExt;
 import org.jetbrains.annotations.NotNull;
+import windea.utils.ext.RandomExt;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -51,7 +51,8 @@ public class CheckUtils {
 	/**
 	 * 得到一张字符验证码图片。
 	 */
-	public static BufferedImage getCheckImg(@NotNull char[] checkCode, @NotNull Color fontColor, @NotNull Font font, @NotNull Color bgColor) {
+	public static BufferedImage getCheckImg(@NotNull char[] checkCode, @NotNull Color fontColor, @NotNull Font font,
+			@NotNull Color bgColor) {
 		WIDTH = 15 * checkCode.length;
 		//创建内存图象并获得其图形上下文
 		BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);

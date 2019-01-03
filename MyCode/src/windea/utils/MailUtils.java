@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 2019.  @DragonKnightOfBreeze Windea / @微风的龙骑士 风游迩
+ * A WindKid who has tamed the proud Ancient Dragon and led the wind of stories and tales.
+ */
 package windea.utils;
 
-import windea.utils.ext.ArrayExt;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import windea.utils.ext.ArrayExt;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -18,13 +22,6 @@ import java.util.Properties;
  */
 public class MailUtils {
 	/**
-	 * 邮件内容类型
-	 */
-	public enum ContentType {
-		text, html
-	}
-
-	/**
 	 * 发送文本邮件。服务器地址为localhost。
 	 * @param fromEmail 发件人邮箱
 	 * @param toEmail 收件人邮箱
@@ -33,7 +30,8 @@ public class MailUtils {
 	 * @param authInfo 验证信息，[userName,password]，默认为null
 	 * @param attachInfo 附件信息，[filePath...,fileName]，默认为null
 	 */
-	public static void send(@NotNull String fromEmail, @NotNull String toEmail, @NotNull String subject, @NotNull String content, @Nullable String[] authInfo, @Nullable String[] attachInfo) {
+	public static void send(@NotNull String fromEmail, @NotNull String toEmail, @NotNull String subject,
+			@NotNull String content, @Nullable String[] authInfo, @Nullable String[] attachInfo) {
 		send("localhost", fromEmail, toEmail, subject, content, authInfo, attachInfo);
 	}
 
@@ -47,10 +45,11 @@ public class MailUtils {
 	 * @param authInfo 验证信息，[userName,password]，默认为null
 	 * @param attachInfo 附件信息，[filePath...,fileName]，默认为null
 	 */
-	public static void send(@NotNull String host, @NotNull String fromEmail, @NotNull String toEmail, @NotNull String subject, @NotNull String content, @Nullable String[] authInfo, @Nullable String[] attachInfo) {
+	public static void send(@NotNull String host, @NotNull String fromEmail, @NotNull String toEmail,
+			@NotNull String subject, @NotNull String content, @Nullable String[] authInfo,
+			@Nullable String[] attachInfo) {
 		send(host, fromEmail, toEmail, subject, content, ContentType.text, authInfo, attachInfo);
 	}
-
 
 	/**
 	 * 发送HTML邮件。服务器地址为localhost。
@@ -61,7 +60,8 @@ public class MailUtils {
 	 * @param authInfo 验证信息，[userName,password]，默认为null
 	 * @param attachInfo 附件信息，[filePath...,fileName]，默认为null
 	 */
-	public static void sendHTML(@NotNull String fromEmail, @NotNull String toEmail, @NotNull String subject, @NotNull String content, @Nullable String[] authInfo, @Nullable String[] attachInfo) {
+	public static void sendHTML(@NotNull String fromEmail, @NotNull String toEmail, @NotNull String subject,
+			@NotNull String content, @Nullable String[] authInfo, @Nullable String[] attachInfo) {
 		sendHTML("localhost", fromEmail, toEmail, subject, content, authInfo, attachInfo);
 	}
 
@@ -75,10 +75,11 @@ public class MailUtils {
 	 * @param authInfo 验证信息，[userName,password]，默认为null
 	 * @param attachInfo 附件信息，[filePath...,fileName]，默认为null
 	 */
-	public static void sendHTML(@NotNull String host, @NotNull String fromEmail, @NotNull String toEmail, @NotNull String subject, @NotNull String content, @Nullable String[] authInfo, @Nullable String[] attachInfo) {
+	public static void sendHTML(@NotNull String host, @NotNull String fromEmail, @NotNull String toEmail,
+			@NotNull String subject, @NotNull String content, @Nullable String[] authInfo,
+			@Nullable String[] attachInfo) {
 		send(host, fromEmail, toEmail, subject, content, ContentType.html, authInfo, attachInfo);
 	}
-
 
 	/**
 	 * 发送邮件。服务器地址为localhost。
@@ -90,7 +91,9 @@ public class MailUtils {
 	 * @param authInfo 验证信息，[userName,password]，默认为null
 	 * @param attachInfo 附件信息，[filePath...,fileName]，默认为null
 	 */
-	public static void send(@NotNull String fromEmail, @NotNull String toEmail, @NotNull String subject, @NotNull String content, ContentType contentType, @Nullable String[] authInfo, @Nullable String[] attachInfo) {
+	public static void send(@NotNull String fromEmail, @NotNull String toEmail, @NotNull String subject,
+			@NotNull String content, ContentType contentType, @Nullable String[] authInfo,
+			@Nullable String[] attachInfo) {
 		send("localhost", fromEmail, toEmail, subject, content, contentType, authInfo, attachInfo);
 	}
 
@@ -105,7 +108,9 @@ public class MailUtils {
 	 * @param authInfo 验证信息，[userName,password]，默认为null
 	 * @param attachInfo 附件信息，[filePath...,fileName]，默认为null
 	 */
-	public static void send(@NotNull String host, @NotNull String fromEmail, @NotNull String toEmail, @NotNull String subject, @NotNull String content, ContentType contentType, String[] authInfo, String[] attachInfo) {
+	public static void send(@NotNull String host, @NotNull String fromEmail, @NotNull String toEmail,
+			@NotNull String subject, @NotNull String content, ContentType contentType, String[] authInfo,
+			String[] attachInfo) {
 		// 获取系统属性
 		Properties properties = System.getProperties();
 		//设置邮件传输协议为SMTP
@@ -168,6 +173,13 @@ public class MailUtils {
 		} catch(MessagingException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * 邮件内容类型
+	 */
+	public enum ContentType {
+		text, html
 	}
 
 }

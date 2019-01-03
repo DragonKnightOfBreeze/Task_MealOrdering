@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2018.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
+ * Copyright (c) 2019.  @DragonKnightOfBreeze Windea / @微风的龙骑士 风游迩
+ * A WindKid who has tamed the proud Ancient Dragon and led the wind of stories and tales.
  */
 package windea.sample;
 
@@ -13,9 +14,9 @@ public class Singleton {
 	}
 
 	public static Singleton getInstance() {
-		if (instance == null) {
-			synchronized (Singleton.class) {
-				if (instance == null) {
+		if(instance == null) {
+			synchronized(Singleton.class) {
+				if(instance == null) {
 					instance = new Singleton();
 				}
 			}
@@ -32,7 +33,7 @@ class Singleton1 {
 	private static Singleton1 instance;
 
 	public static Singleton1 getInstance() {
-		if (instance == null) {
+		if(instance == null) {
 			instance = new Singleton1();
 		}
 		return instance;
@@ -50,7 +51,7 @@ class Singleton2 {
 	}
 
 	public static Singleton2 getInstance() {
-		if (instance == null) {
+		if(instance == null) {
 			instance = new Singleton2();
 		}
 		return instance;
@@ -68,7 +69,7 @@ class Singleton3 {
 	}
 
 	public static synchronized Singleton3 getInstance() {
-		if (instance == null) {
+		if(instance == null) {
 			instance = new Singleton3();
 		}
 		return instance;
@@ -86,9 +87,9 @@ class Singleton4 {
 	}
 
 	public static Singleton4 getInstance() {
-		if (instance == null) {
-			synchronized (Singleton4.class) {
-				if (instance == null) {
+		if(instance == null) {
+			synchronized(Singleton4.class) {
+				if(instance == null) {
 					instance = new Singleton4();
 				}
 			}
@@ -102,15 +103,15 @@ class Singleton4 {
  * 使用静态内部类实现，线程安全。
  */
 class Singleton5 {
-	private static class SingletonHolder {
-		private static final Singleton5 INSTANCE = new Singleton5();
-	}
-
 	private Singleton5() {
 	}
 
 	public static Singleton5 getInstance() {
 		return SingletonHolder.INSTANCE;
+	}
+
+	private static class SingletonHolder {
+		private static final Singleton5 INSTANCE = new Singleton5();
 	}
 }
 

@@ -1,5 +1,5 @@
 <component name="CopyrightManager">
-  <settings>
+  <settings default="Copyright_dk_breeze">
     <LanguageOptions name="JAVA">
       <option name="fileTypeOverride" value="3" />
       <option name="addBlankAfter" value="false" />

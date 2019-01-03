@@ -1,6 +1,6 @@
 /*
- * Copyright (c) $today.year.  @DragonKnightOfBreeze / @微风的龙骑士 风游迩
- * A WindKid who has tamed the proud Ancient Dragon and led the wind of Wind Fairy.
+ * Copyright (c) 2019.  @DragonKnightOfBreeze Windea / @微风的龙骑士 风游迩
+ * A WindKid who has tamed the proud Ancient Dragon and led the wind of stories and tales.
  */
 
 

@@ -27,28 +27,30 @@ public class JSONUtils {
 	/**
 	 * 快速生成JSON对象。
 	 */
-	public static JSONObject of(String k1, Object v1) {
+	public static JSONObject of(@NotNull String k1, Object v1) {
 		return new JSONObject().put(k1, v1);
 	}
 
 	/**
 	 * 快速生成JSON对象。
 	 */
-	public static JSONObject of(String k1, Object v1, String k2, Object v2) {
+	public static JSONObject of(@NotNull String k1, Object v1, @NotNull String k2, Object v2) {
 		return new JSONObject().put(k1, v1).put(k2, v2);
 	}
 
 	/**
 	 * 快速生成JSON对象。
 	 */
-	public static JSONObject of(String k1, Object v1, String k2, Object v2, String k3, Object v3) {
+	public static JSONObject of(@NotNull String k1, Object v1, @NotNull String k2, Object v2, @NotNull String k3,
+			Object v3) {
 		return new JSONObject().put(k1, v1).put(k2, v2).put(k3, v3);
 	}
 
 	/**
 	 * 快速生成JSON对象。
 	 */
-	public static JSONObject of(String k1, Object v1, String k2, Object v2, String k3, Object v3, String k4,
+	public static JSONObject of(@NotNull String k1, Object v1, @NotNull String k2, Object v2, @NotNull String k3,
+			Object v3, @NotNull String k4,
 			Object v4) {
 		return new JSONObject().put(k1, v1).put(k2, v2).put(k3, v3).put(k4, v4);
 	}
@@ -64,7 +66,7 @@ public class JSONUtils {
 	/**
 	 * 快速生成JSON数组。
 	 */
-	public static JSONArray of2(Object v1, Object... other) {
+	public static JSONArray of2(Object v1, @NotNull Object... other) {
 		JSONArray json = new JSONArray().put(v1);
 		Arrays.stream(other).forEach(json::put);
 		return json;

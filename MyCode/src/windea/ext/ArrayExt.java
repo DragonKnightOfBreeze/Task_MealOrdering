@@ -50,6 +50,7 @@ public class ArrayExt {
 	/**
 	 * 将数组转化为字符串数组。
 	 */
+	@NotNull
 	public static <T> String[] toStringArray(@NotNull T[] array) {
 		String[] result = new String[array.length];
 		for(int i = 0; i < array.length; i++) {
@@ -61,6 +62,7 @@ public class ArrayExt {
 	/**
 	 * 将数组转化为字符串数组。
 	 */
+	@NotNull
 	@Contract(pure = true)
 	public static String[] toStringArray(@NotNull int[] array) {
 		String[] result = new String[array.length];

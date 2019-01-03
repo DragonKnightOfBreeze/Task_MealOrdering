@@ -5,6 +5,8 @@
 
 package windea.ext;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -13,6 +15,7 @@ import java.util.Random;
  */
 public class RandomExt {
 
+	@NotNull
 	public static Random random = new SecureRandom();
 
 	/**

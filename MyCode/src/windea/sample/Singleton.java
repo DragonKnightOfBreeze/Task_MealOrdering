@@ -4,6 +4,8 @@
  */
 package windea.sample;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * 单例模式 - 双重校验锁
  */
@@ -106,6 +108,7 @@ class Singleton5 {
 	private Singleton5() {
 	}
 
+	@NotNull
 	public static Singleton5 getInstance() {
 		return SingletonHolder.INSTANCE;
 	}

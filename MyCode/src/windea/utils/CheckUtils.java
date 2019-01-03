@@ -41,6 +41,7 @@ public class CheckUtils {
 	/**
 	 * 得到一张默认的字符验证码图片。
 	 */
+	@NotNull
 	public static BufferedImage getCheckImg(@NotNull char[] checkCode) {
 		Color fontColor = new Color(0x1932C0);
 		Font font = new Font("宋体", Font.ITALIC | Font.BOLD, 18);
@@ -51,6 +52,7 @@ public class CheckUtils {
 	/**
 	 * 得到一张字符验证码图片。
 	 */
+	@NotNull
 	public static BufferedImage getCheckImg(@NotNull char[] checkCode, @NotNull Color fontColor, @NotNull Font font,
 			@NotNull Color bgColor) {
 		width = 15 * checkCode.length;
@@ -70,6 +72,7 @@ public class CheckUtils {
 	 * 生成指定位数的随机字符验证码。
 	 * @param length 随机字符验证码的长度
 	 */
+	@NotNull
 	public static char[] getCheckCode(int length) {
 		char[] chars = "0123456789abcdefghijklmnopqrstuvwxyz".toCharArray();
 		return getCheckCode(length, chars);
@@ -80,6 +83,7 @@ public class CheckUtils {
 	 * @param length 随机字符验证码的长度
 	 * @param chars 字符范围
 	 */
+	@NotNull
 	public static char[] getCheckCode(int length, @NotNull char[] chars) {
 		char[] checkCode = new char[length];
 		IntStream.range(0, length).forEach(i -> {

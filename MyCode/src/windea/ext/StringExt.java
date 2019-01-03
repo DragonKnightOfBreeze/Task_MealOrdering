@@ -29,6 +29,7 @@ public class StringExt {
 	 */
 	@Contract(value = "null -> true; !null -> false", pure = true)
 	public static boolean orEmpty(@Nullable String str) {
+		String str1 = "";
 		return str == null || str.isEmpty();
 	}
 

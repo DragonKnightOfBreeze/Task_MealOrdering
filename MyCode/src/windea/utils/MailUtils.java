@@ -93,7 +93,7 @@ public class MailUtils {
 	 * @param attachInfo 附件信息，[filePath...,fileName]，默认为null
 	 */
 	public static void send(@NotNull String fromEmail, @NotNull String toEmail, @NotNull String subject,
-			@NotNull String content, ContentType contentType, @Nullable String[] authInfo,
+			@NotNull String content, @NotNull ContentType contentType, @Nullable String[] authInfo,
 			@Nullable String[] attachInfo) {
 		send("localhost", fromEmail, toEmail, subject, content, contentType, authInfo, attachInfo);
 	}
@@ -110,7 +110,7 @@ public class MailUtils {
 	 * @param attachInfo 附件信息，[filePath...,fileName]，默认为null
 	 */
 	public static void send(@NotNull String host, @NotNull String fromEmail, @NotNull String toEmail,
-			@NotNull String subject, @NotNull String content, ContentType contentType, String[] authInfo,
+			@NotNull String subject, @NotNull String content, @NotNull ContentType contentType, String[] authInfo,
 			String[] attachInfo) {
 		// 获取系统属性
 		Properties properties = System.getProperties();

@@ -25,6 +25,7 @@ public class FileUtils {
 	/**
 	 * 得到文件名（只有名字，没有路径）。
 	 */
+	@NotNull
 	public static String getFileName(@NotNull String filePath) {
 		int index = filePath.lastIndexOf("\\");
 		if(index == -1)
@@ -35,6 +36,7 @@ public class FileUtils {
 	/**
 	 * 切去文件的拓展名。
 	 */
+	@NotNull
 	public static String splitFileExt(@NotNull String fileName) {
 		int index = fileName.lastIndexOf(".");
 		if(index == -1)
